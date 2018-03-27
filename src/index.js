@@ -5,7 +5,10 @@ import {ConnectedRouter} from 'react-router-redux'
 import {Route, Switch} from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import {PersistGate} from 'redux-persist/es/integration/react'
-
+/**
+ * Local imports
+ */
+import 'semantic-ui-css/semantic.min.css'
 import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
