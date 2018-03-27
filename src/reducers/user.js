@@ -1,4 +1,4 @@
-import * as me from 'actions/user'
+import * as me from 'actions/me'
 
 const initialState = {}
 
@@ -6,7 +6,10 @@ export default (state = initialState, action) => {
   console.debug('echo reducer')
   switch (action.type) {
     case me.ME_SUCCESS:
-      return action.payload
+      return {
+        ...state,
+        me: action.payload
+      }
     default:
       return state
   }
