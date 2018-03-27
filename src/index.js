@@ -2,29 +2,30 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {ConnectedRouter} from 'react-router-redux'
-import {Route, Switch} from 'react-router-dom'
 import createHistory from 'history/createBrowserHistory'
 import {PersistGate} from 'redux-persist/es/integration/react'
+import {I18nextProvider} from 'react-i18next'
 /**
  * Local imports
  */
 import 'semantic-ui-css/semantic.min.css'
 import './index.css'
-import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import configureStore from 'store'
+import i18n from 'i18n'
+import App from 'App'
 
 const history = createHistory()
 const {store, persistor} = configureStore(history)
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <I18nextProvider i18n={i18n}>
       <PersistGate loading={<div/>} persistor={persistor}>
-        <Switch>
-          <Route path='/' component={App}/>
-        </Switch>
+        <ConnectedRouter history={history}>
+          <App/>
+        </ConnectedRouter>
       </PersistGate>
-    </ConnectedRouter>
+    </I18nextProvider>
   </Provider>, document.getElementById('root'))
 registerServiceWorker()
