@@ -1,21 +1,31 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import {translate} from 'react-i18next'
+import {Route, Switch} from 'react-router-dom'
+
+import MainPageContainer from 'containers/main/MainPage/MainPageContainer'
+import {LoginPageContainer, RedirectPageContainer} from 'containers/login'
+
+const NoMatch = ({ location }) => (
+  <div>
+    <h3>
+      No match for <code>{location.pathname}</code>
+    </h3>
+  </div>
+)
 
 class App extends Component {
-  render() {
+  render () {
+    console.debug('App')
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+      <Switch>
+        <Route path='/login' exact component={LoginPageContainer}/>
+        <Route path='/redirect' component={RedirectPageContainer}/>
+        <Route path='/' exact component={MainPageContainer}/>
+        <Route component={NoMatch} />
+      </Switch>
+    )
   }
 }
 
-export default App;
+export default translate('translations')(App)
