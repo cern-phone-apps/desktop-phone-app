@@ -69,6 +69,7 @@ export default (state = initialState, action) => {
       }
     case authActions.LOGIN_FAILURE:
       return {
+        ...state,
         refresh: false,
         loggedIn: false,
         loginInProgress: false,
@@ -83,6 +84,7 @@ export default (state = initialState, action) => {
       }
     case authActions.LOGOUT_SUCCESS:
       return {
+        ...state,
         refresh: false,
         loggedIn: false,
         errors: {}
