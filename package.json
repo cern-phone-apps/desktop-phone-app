@@ -2,19 +2,29 @@
   "name": "phone-webapp",
   "version": "0.1.0",
   "private": true,
+  "presets": [
+    "react",
+    "es2015",
+    "stage-1"
+  ],
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "HTTPS=true react-scripts start",
+    "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
+    "build-js": "NODE_PATH=./src react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
   "devDependencies": {
     "babel": "^6.23.0",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-babel": "^4.1.2",
@@ -24,6 +34,8 @@
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-standard": "^1.0.2",
+    "node-sass-chokidar": "^1.2.2",
+    "npm-run-all": "^4.1.2",
     "standard": "^11.0.1"
   }
 }
