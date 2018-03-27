@@ -15,7 +15,7 @@ export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE'
 
 export const login = (code) => console.debug('login action') || ({
   [RSAA]: {
-    endpoint: process.env.AUTH_LOGIN_ENDPOINT,
+    endpoint: process.env.REACT_APP_AUTH_LOGIN_ENDPOINT,
     method: 'POST',
     body: JSON.stringify({code}),
     credentials: 'include',
@@ -30,7 +30,7 @@ export const login = (code) => console.debug('login action') || ({
 
 export const logout = () => console.debug('logout action') || ({
   [RSAA]: {
-    endpoint: process.env.AUTH_LOGOUT_ENDPOINT,
+    endpoint: process.env.REACT_APP_AUTH_LOGOUT_ENDPOINT,
     method: 'DELETE',
     credentials: 'include',
     headers: withAuth({'Content-Type': 'application/json'}),
@@ -44,7 +44,7 @@ export const logout = () => console.debug('logout action') || ({
 
 export const refreshAccessToken = () => console.debug('Refreshing access token') || ({
   [RSAA]: {
-    endpoint: process.env.AUTH_REFRESH_ENDPOINT,
+    endpoint: process.env.REACT_APP_AUTH_REFRESH_ENDPOINT,
     method: 'POST',
     credentials: 'include',
     headers: withRefresh({'Content-Type': 'application/json'}),
