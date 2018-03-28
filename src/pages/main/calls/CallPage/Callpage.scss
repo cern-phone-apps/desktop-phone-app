@@ -1,0 +1,23 @@
+@import 'index.scss';
+
+.CallPage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  /* Extra space in Cross Axis */
+  overflow: auto;
+  flex: 1;
+  background: $background;
+}
+
+.CallPage__centered {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* Extra space in Cross Axis */
+  overflow: auto;
+  flex: 1;
+  background: $background;
+}

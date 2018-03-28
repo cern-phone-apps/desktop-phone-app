@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import PropTypes from 'prop-types'
 
+import './NotSelectedPage.css'
 import {RightColumn} from 'components/common'
 
 class NotSelectedPage extends Component {
@@ -13,11 +14,9 @@ class NotSelectedPage extends Component {
     const {t} = this.props
     return (
       <RightColumn>
-        <div className={`padded-item call-content-centered caller-with-bg`}>
-          <div className="Aligner-item--fixed">
-            <div className="call-inner-content">
-              <h2 className="ui center aligned header gray-text">{t('noChatSelectedText')}</h2>
-            </div>
+        <div className={'padded-item NotSelectedPage__Centered'}>
+          <div className="centered-element">
+            <h2 className="ui center aligned header gray-text">{t('noChatSelectedText')}</h2>
           </div>
         </div>
       </RightColumn>

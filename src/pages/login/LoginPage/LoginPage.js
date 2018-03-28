@@ -30,12 +30,10 @@ class LoginPage extends Component {
       <div className={'LoginPage'}>
         <div className={'padded-item LoginPage__Centered'}>
           <div className="centered-element">
-            <div className="call-inner-content">
-              <h2 className="ui center aligned header gray-text">{t('loginPageHeader')}</h2>
-              <Segment textAlign={'center'}>
-                <LoginButtonContainer/>
-              </Segment>
-            </div>
+            <h2 className="ui center aligned header gray-text">{t('loginPageHeader')}</h2>
+            <Segment textAlign={'center'}>
+              <LoginButtonContainer/>
+            </Segment>
           </div>
         </div>
       </div>

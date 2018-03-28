@@ -1,15 +1,23 @@
 import React, {Component} from 'react'
+
+import './Callpage.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'components/common'
 
 class CallPage extends Component {
   render () {
+    let callContentClass = (!this.props.searchValue || this.props.onCall || this.props.calling) ? 'CallPage__centered' : 'CallPage'
+
     return (
       <div className="parent-container">
         <LeftColumn>
           <LeftColumnHeader/>
         </LeftColumn>
         <RightColumn>
-          Call Page
+          <div className={`padded-item ${callContentClass} caller-with-bg`}>
+            <div className="Aligner-item--fixed">
+              Call Page
+            </div>
+          </div>
         </RightColumn>
       </div>
     )
