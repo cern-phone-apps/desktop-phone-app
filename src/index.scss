@@ -1,0 +1,70 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root{
+  width: 100%;
+  height: 100%;
+}
+
+.padded-item {
+  padding: 8px;
+}
+
+.parent-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.centered-element {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  max-width: 50%;
+  width: 100%;
+}
+
+.pusher {
+  height: 100%;
+  width: 100%;
+}
+
+.cern-brand-color{
+  background-color: #0053A1;
+  color: #fff;
+}
+
+.cern-brand-color.button {
+  @extend .cern-brand-color
+}
+
+
+::-webkit-scrollbar {
+  width: 2px !important;
+  //  height: 2em;
+}
+::-webkit-scrollbar-button {
+}
+::-webkit-scrollbar-track-piece {
+}
+::-webkit-scrollbar-thumb {
+
+}
+
+
+.button.flat{
+  background: none;
+}
+
+.button.flat:hover{
+  background: none;
+}
+
+.ui.icon.button.flat {
+  padding: .78571429em .0em .78571429em;
+}

@@ -6,6 +6,7 @@ import {Segment} from 'semantic-ui-react'
 import {translate} from 'react-i18next'
 import {LoadingDimmer} from 'components/login'
 import {LoginButtonContainer} from 'containers/login'
+import './LoginPage.css'
 
 class LoginPage extends Component {
   static propTypes = {
@@ -26,9 +27,9 @@ class LoginPage extends Component {
     }
 
     return (
-      <div className={'login-container'}>
-        <div className={`padded-item call-content-centered caller-with-bg`}>
-          <div className="Aligner-item--fixed">
+      <div className={'LoginPage'}>
+        <div className={'padded-item LoginPage__Centered'}>
+          <div className="centered-element">
             <div className="call-inner-content">
               <h2 className="ui center aligned header gray-text">{t('loginPageHeader')}</h2>
               <Segment textAlign={'center'}>
