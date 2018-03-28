@@ -21,6 +21,8 @@ class MainPage extends Component {
   }
 
   render () {
+    const {t} = this.props
+
     console.debug('iAuthenticated?', this.props.isAuthenticated)
 
     if (!this.props.isAuthenticated) {
@@ -35,7 +37,7 @@ class MainPage extends Component {
           width='thin'
           visible={this.props.isVisible}
           icon='labeled' vertical>
-          {routes.mainRoutes.map((route, index) => (
+          {routes.mainRoutes(t).map((route, index) => (
             // You can render a <Route> in as many places
             // as you want in your app. It will render along
             // with any other <Route>s that also match the URL.
@@ -56,7 +58,7 @@ class MainPage extends Component {
         </Sidebar>
         <Sidebar.Pusher onClick={this.hideSidebarIfVisible} dimmed={this.props.contentDimmed}>
           <Switch>
-            {routes.mainRoutes.map((route, index) => (
+            {routes.mainRoutes(t).map((route, index) => (
               // You can render a <Route> in as many places
               // as you want in your app. It will render along
               // with any other <Route>s that also match the URL.

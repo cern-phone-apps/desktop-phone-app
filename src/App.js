@@ -22,7 +22,7 @@ class App extends Component {
       <Switch>
         <Route path={routes.loginRoute.path} component={LoginPageContainer}/>
         <Route path={routes.redirectRoute.path} component={RedirectPageContainer}/>
-        <Route path='/' exact component={MainPageContainer}/>
+        <Route path='/' component={MainPageContainer}/>
         <Route component={NoMatch} />
       </Switch>
     )
