@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import queryString from 'query-string'
 
-import './RedirectPage.css'
+import * as routes from 'routes'
 
 class RedirectPage extends Component {
   static propTypes = {
@@ -28,7 +28,7 @@ class RedirectPage extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to='/'/>
     } else {
-      return <Redirect to='/login'/>
+      return <Redirect to={routes.loginRoute.path}/>
     }
   }
 }

@@ -4,6 +4,7 @@ import {Route, Switch} from 'react-router-dom'
 
 import MainPageContainer from 'containers/main/MainPage/MainPageContainer'
 import {LoginPageContainer, RedirectPageContainer} from 'containers/login'
+import * as routes from 'routes'
 
 const NoMatch = ({ location }) => (
   <div>
@@ -19,8 +20,8 @@ class App extends Component {
 
     return (
       <Switch>
-        <Route path='/login' exact component={LoginPageContainer}/>
-        <Route path='/redirect' component={RedirectPageContainer}/>
+        <Route path={routes.loginRoute.path} component={LoginPageContainer}/>
+        <Route path={routes.redirectRoute.path} component={RedirectPageContainer}/>
         <Route path='/' exact component={MainPageContainer}/>
         <Route component={NoMatch} />
       </Switch>
