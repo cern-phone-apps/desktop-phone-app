@@ -16,8 +16,6 @@ const NoMatch = ({ location }) => (
 
 class App extends Component {
   render () {
-    console.debug('App')
-
     return (
       <Switch>
         <Route path={routes.loginRoute.path} component={LoginPageContainer}/>

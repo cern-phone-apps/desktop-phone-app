@@ -6,6 +6,7 @@ import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
 
 import './MainPage.scss'
 import * as routes from 'routes'
+import {ModalSettingsContainer} from 'containers/settings'
 
 class MainPage extends Component {
   static propTypes = {
@@ -55,6 +56,7 @@ class MainPage extends Component {
               {route.sidebarText}
             </Menu.Item>
           ))}
+          <ModalSettingsContainer hideSidebarIfVisible={this.hideSidebarIfVisible}/>
         </Sidebar>
         <Sidebar.Pusher onClick={this.hideSidebarIfVisible} dimmed={this.props.contentDimmed}>
           <Switch>
