@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import './MainPage.scss'
 import {translate} from 'react-i18next'
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {LogoutButtonContainer} from 'containers/login'
-import * as routes from 'routes'
 import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
+
+import './MainPage.scss'
+import * as routes from 'routes'
 
 class MainPage extends Component {
   static propTypes = {
@@ -64,15 +64,12 @@ class MainPage extends Component {
               // that requires you to render multiple things
               // in multiple places at the same URL is nothing
               // more than multiple <Route>s.
-              <div key={index}>
-                <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  component={route.main}
-                />
-                <LogoutButtonContainer/>
-              </div>
+              <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.main}
+              />
             ))}
           </Switch>
         </Sidebar.Pusher>
