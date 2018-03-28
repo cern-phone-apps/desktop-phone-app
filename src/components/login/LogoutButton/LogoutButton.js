@@ -8,6 +8,7 @@ import {translate} from 'react-i18next'
  */
 class LogoutButton extends Component {
   static propTypes = {
+    t: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
   }
   /**
