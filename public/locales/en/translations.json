@@ -3,5 +3,7 @@
   "loadingText": "Loading...",
   "loginPageHeader": "Access into CERN",
   "loginButtonText": "Login",
-  "logoutButtonText": "Logout"
+  "logoutButtonText": "Logout",
+  "calls": "Calls",
+  "messages": "Messages"
 }
