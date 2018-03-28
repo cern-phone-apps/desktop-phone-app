@@ -1,3 +1,10 @@
+
+## Master
+[![Build Status](https://travis-ci.org/cern-dialtone/phone-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/phone-webapp)
+
+## Dev
+[![Build Status](https://travis-ci.org/cern-dialtone/phone-webapp.svg?branch=dev)](https://travis-ci.org/cern-dialtone/phone-webapp)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
