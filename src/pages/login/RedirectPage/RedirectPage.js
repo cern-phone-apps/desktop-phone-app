@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
-import queryString from 'query-string'
+import qs from 'qs'
 
 import * as routes from 'routes'
 
@@ -15,7 +15,7 @@ class RedirectPage extends Component {
 
   componentWillMount = () => {
     console.debug('Component will mount')
-    const queryParams = queryString.parse(this.props.urlQuery)
+    const queryParams = qs.parse(this.props.urlQuery.slice(1))
     if (queryParams.code) {
       console.debug('code is in params', queryParams.code)
       this.props.login(queryParams.code).then(() => {
