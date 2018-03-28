@@ -6,7 +6,7 @@ import './NotSelectedPage.css'
 import {RightColumn} from 'components/common'
 
 class NotSelectedPage extends Component {
-  propTypes = {
+  static propTypes = {
     t: PropTypes.func.isRequired
   }
 

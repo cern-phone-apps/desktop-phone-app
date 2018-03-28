@@ -36,6 +36,10 @@ body {
   width: 100%;
 }
 
+.ui.page.modals.transition.visible {
+  display: flex !important;
+}
+
 .cern-brand-color{
   background-color: #0053A1;
   color: #fff;
@@ -67,6 +71,9 @@ body {
   background: none;
 }
 
+/**
+  Fixes a bug of Semantic UI modals not appearing centered
+ */
 .ui.icon.button.flat {
   padding: .78571429em .0em .78571429em;
 }
