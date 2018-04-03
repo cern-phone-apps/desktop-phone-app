@@ -1,9 +1,9 @@
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import {bindActionCreators} from 'redux'
 
 import * as callActionCreators from 'actions/calls/call'
-import {CallPage} from 'pages/main/calls'
+import { RecentCallsList } from 'components/calls'
 
 function mapStateToProps ({calls}) {
   return {
@@ -19,4 +19,4 @@ function mapDispatchToProps (dispatch) {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(CallPage))
+)(RecentCallsList))

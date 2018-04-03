@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 import './Callpage.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'components/common'
+import {RecentCallsListContainer} from 'containers/main/calls'
 
 class CallPage extends Component {
   render () {
@@ -11,6 +12,7 @@ class CallPage extends Component {
       <div className="parent-container">
         <LeftColumn>
           <LeftColumnHeader/>
+          <RecentCallsListContainer/>
         </LeftColumn>
         <RightColumn>
           <div className={`padded-item ${callContentClass} caller-with-bg`}>
