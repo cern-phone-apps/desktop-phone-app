@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import call from './call'
+import status from './status'
 
 const callsReducer = combineReducers({
-  call
+  call,
+  status
 })
 
 export default callsReducer

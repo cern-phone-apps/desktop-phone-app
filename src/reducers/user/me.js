@@ -1,4 +1,4 @@
-import * as me from 'actions/me'
+import * as me from 'actions/user/me'
 
 const initialState = {}
 
