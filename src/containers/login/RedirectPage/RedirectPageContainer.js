@@ -4,7 +4,7 @@ import { isAuthenticated } from 'reducers/auth'
 import { bindActionCreators } from 'redux'
 
 import * as authActionCreators from 'actions/auth'
-import * as meActionCreators from 'actions/me'
+import * as meActionCreators from 'actions/user/me'
 import { RedirectPage } from 'pages/login'
 
 function mapStateToProps ({errors, auth, router}) {
