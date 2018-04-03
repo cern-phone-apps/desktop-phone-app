@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'semantic-ui-react'
 
+import './ToggleButton.css'
+
 class ToggleButton extends Component {
   static propTypes = {
     displaySidebar: PropTypes.func.isRequired,
@@ -19,7 +21,7 @@ class ToggleButton extends Component {
 
   render () {
     return (
-      <Button as={'a'} className={'flat'} icon={'sidebar'} onClick={this.toggleSidebar}/>
+      <Button as={'a'} className={'flat ToggleButton'} icon={'sidebar'} onClick={this.toggleSidebar}/>
     )
   }
 }
