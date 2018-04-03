@@ -1,7 +1,16 @@
 {
   "header": "Configuracion",
   "dangerZoneHeader": "Zona peligrosa",
-  "logoutButtonText": "Cerrar sesion"
+  "logoutButtonText": "Cerrar sesion",
+  "language": {
+    "header": "Idioma"
+  },
+  "personalInfo": {
+    "header": "Info",
+    "name": "Nombre:",
+    "username": "Usuario:",
+    "email": "Email:"
+  }
 }
 
 

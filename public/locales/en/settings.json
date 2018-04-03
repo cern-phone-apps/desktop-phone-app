@@ -1,7 +1,16 @@
 {
   "header": "Settings",
   "dangerZoneHeader": "Danger zone",
-  "logoutButtonText": "Logout"
+  "logoutButtonText": "Logout",
+  "language": {
+    "header": "Language"
+  },
+  "personalInfo": {
+    "header": "Informacion",
+    "name": "Name:",
+    "username": "Username:",
+    "email": "Email:"
+  }
 }
 
 
