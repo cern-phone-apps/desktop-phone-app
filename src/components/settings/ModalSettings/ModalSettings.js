@@ -25,7 +25,7 @@ class ModalSettings extends Component {
         marginLeft: 'auto',
         marginRight: 'auto'
       }
-    };
+    }
     return (
       <Modal
         size={'mini'}
