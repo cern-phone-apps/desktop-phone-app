@@ -12,7 +12,7 @@ class ScrollableContent extends Component {
 
   render () {
     return (
-      <div className={'ScrollableContent padded-item'}>
+      <div className={'ScrollableContent'}>
         {this.props.children}
       </div>
     )
