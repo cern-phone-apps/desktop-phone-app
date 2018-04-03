@@ -1,0 +1,59 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import './CallLoader.css'
+import { PhoneRingingIcon } from 'components/calls'
+
+class CallLoader extends Component {
+  static propTypes = {
+    recipientName: PropTypes.string.isRequired,
+    recipientNumber: PropTypes.string.isRequired,
+    hangupCall: PropTypes.func.isRequired,
+    acceptCall: PropTypes.func.isRequired,
+    calling: PropTypes.bool.isRequired
+  }
+
+  componentDidMount () {
+    setTimeout(() => { console.debug('Accept call after 5 seconds') || this.acceptCall() }, 5000)
+  }
+
+  componentWillReceiveProps (next) {
+    console.debug('NEXT', next)
+  }
+
+  acceptCall = () => {
+    console.debug('PROPS', this.props)
+    if (this.props.calling) {
+      this.props.acceptCall()
+    }
+  }
+
+  render () {
+    console.log('HERE', this.props)
+
+    return (
+      <div className="call-inner-content">
+        <div className="ui segment">
+          <div>
+            <div className="ui center aligned basic segment">
+              <PhoneRingingIcon/>
+            </div>
+            <h3 className="ui center aligned header">
+              Calling <img src={'images/avatar/patrick.png'} alt={'avatar'}
+                className="ui circular tiny image"/> {this.props.recipientName}
+            </h3>
+            <div className="ui center aligned basic segment">
+              ({this.props.recipientNumber})
+            </div>
+          </div>
+          <div className="ui center aligned basic segment">
+            <button onClick={() => this.props.hangupCall()} className="ui circular red icon button">
+              <i className="phone icon"/>
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default CallLoader

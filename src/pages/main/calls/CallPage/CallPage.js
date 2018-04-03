@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import './Callpage.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'components/common'
 import {RecentCallsListContainer} from 'containers/main/calls'
+import {CallLoaderContainer, OnCallMessageContainer} from 'containers/calls'
 
 class CallPage extends Component {
   render () {
@@ -15,9 +16,11 @@ class CallPage extends Component {
           <RecentCallsListContainer/>
         </LeftColumn>
         <RightColumn>
-          <div className={`padded-item ${callContentClass} caller-with-bg`}>
-            <div className="Aligner-item--fixed">
-              Call Page
+          {this.props.onCall && <OnCallMessageContainer/>}
+          <div className={`padded-item ${callContentClass}`}>
+            <div className="centered-element">
+              {this.props.calling && <CallLoaderContainer/>}
+
             </div>
           </div>
         </RightColumn>
