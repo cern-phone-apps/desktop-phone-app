@@ -3,6 +3,24 @@ import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import { Dropdown, Flag, Form, Header } from 'semantic-ui-react'
 
+const languageOptions = [
+  {
+    text: 'Français',
+    value: 'fr',
+    image: <Flag name='fr'/>
+  },
+  {
+    text: 'English',
+    value: 'en',
+    image: <Flag name='gb'/>
+  },
+  {
+    text: 'Español',
+    value: 'es-ES',
+    image: <Flag name='es'/>
+  }
+]
+
 class LanguageSettings extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -17,23 +35,6 @@ class LanguageSettings extends Component {
 
   render () {
     const {t} = this.props
-    const languageOptions = [
-      {
-        text: 'Français',
-        value: 'fr',
-        image: <Flag name='fr'/>
-      },
-      {
-        text: 'English',
-        value: 'en',
-        image: <Flag name='gb'/>
-      },
-      {
-        text: 'Español',
-        value: 'es-ES',
-        image: <Flag name='es'/>
-      }
-    ]
     return (
       <div>
         <Header as={'h4'}>{t('language.header')}</Header>
