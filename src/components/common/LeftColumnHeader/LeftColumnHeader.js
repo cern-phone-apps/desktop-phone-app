@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Grid} from 'semantic-ui-react'
 
 import './LeftColumnHeader.css'
+import {StatusSwitcherContainer} from 'containers/calls'
 import {ToggleButtonContainer} from 'containers/sidebar'
 
 class LeftColumnHeader extends Component {
@@ -13,7 +14,7 @@ class LeftColumnHeader extends Component {
             <ToggleButtonContainer/>
           </Grid.Column>
           <Grid.Column width={8} textAlign={'right'} className={'right-sub-column'}>
-            Right side
+            <StatusSwitcherContainer />
           </Grid.Column>
         </Grid>
       </header>
