@@ -5,4 +5,5 @@ export {default as OnCallDetailsContainer} from './OnCallDetails/OnCallDetailsCo
 export {default as CallerContainer} from './Caller/CallerContainer'
 export {default as UserSearchContainer} from './UserSearch/UserSearchContainer'
 export {default as PhoneNumberMenuItemContainer} from './PhoneNumberMenuItem/PhoneNumberMenuItemContainer'
+export {default as DialpadContainer} from './Dialpad/DialpadContainer'
 

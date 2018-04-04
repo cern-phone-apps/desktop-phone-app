@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Button, Icon, Segment } from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {Button, Icon, Segment} from 'semantic-ui-react'
 import './Caller.css'
 import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
-import {UserSearchContainer} from 'containers/calls'
+import {translate} from 'react-i18next'
+import {DialpadContainer, UserSearchContainer} from 'containers/calls'
 import {PhoneNumbersMenu} from 'components/calls'
 
 class Caller extends Component {
@@ -15,6 +15,16 @@ class Caller extends Component {
     makeCall: PropTypes.func.isRequired
   }
 
+  state = {
+    displayDialpad: false
+  }
+
+  handleDialPadDisplayButton = () => {
+    this.setState({
+      displayDialpad: !this.state.displayDialpad
+    })
+  }
+
   render () {
     const {t} = this.props
 
@@ -24,9 +34,11 @@ class Caller extends Component {
         <Segment attached className={'search-user'}>
           <UserSearchContainer/>
         </Segment>
-        {this.props.userSelected &&
-        <PhoneNumbersMenu/>
-        }
+        <Button attached='bottom' onClick={this.handleDialPadDisplayButton}>
+          <Icon name={'text telephone'}/> Dialpad
+        </Button>
+        {this.state.displayDialpad && <DialpadContainer/>}
+        {this.props.userSelected && <PhoneNumbersMenu/>}
       </div>
     )
   }
