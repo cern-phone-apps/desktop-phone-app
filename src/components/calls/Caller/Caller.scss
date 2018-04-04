@@ -1,0 +1,39 @@
+.call-content-centered, .call-content {
+  background: #f9f9f9
+}
+
+.call-content-centered {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* Extra space in Cross Axis */
+  overflow: auto;
+  flex: 1;
+}
+
+.call-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  /* Extra space in Cross Axis */
+  overflow: auto;
+  flex: 1;
+}
+
+//.caller-with-bg{
+//  background:linear-gradient(141deg, #2185d0 0%, #449bdc 51%, #2cb5e8 75%);
+//}
+
+.caller-with-bg{
+  background: #ebece7
+}
+
+.white-text{
+  color: white !important
+}
+
+.gray-text{
+  color: #636363 !important
+}

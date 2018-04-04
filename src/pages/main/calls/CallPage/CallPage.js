@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import './Callpage.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'components/common'
 import {RecentCallsListContainer} from 'containers/main/calls'
-import {CallLoaderContainer, OnCallDetailsContainer, OnCallMessageContainer} from 'containers/calls'
+import {CallerContainer, CallLoaderContainer, OnCallDetailsContainer, OnCallMessageContainer} from 'containers/calls'
 
 class CallPage extends Component {
   render () {
@@ -21,6 +21,7 @@ class CallPage extends Component {
             <div className="centered-element">
               {this.props.calling && <CallLoaderContainer/>}
               {this.props.onCall && <OnCallDetailsContainer/>}
+              {(!this.props.onCall && !this.props.calling) && <CallerContainer/>}
             </div>
           </div>
         </RightColumn>
