@@ -2,3 +2,6 @@ export {default as StatusSwitcherContainer} from './StatusSwitcher/StatusSwitche
 export {default as OnCallMessageContainer} from './OnCallMessage/OnCallMessageContainer'
 export {default as CallLoaderContainer} from './CallLoader/CallLoaderContainer'
 export {default as OnCallDetailsContainer} from './OnCallDetails/OnCallDetailsContainer'
+export {default as CallerContainer} from './Caller/CallerContainer'
+export {default as UserSearchContainer} from './UserSearch/UserSearchContainer'
+
