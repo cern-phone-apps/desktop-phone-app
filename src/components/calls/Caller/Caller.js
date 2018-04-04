@@ -4,6 +4,7 @@ import './Caller.css'
 import PropTypes from 'prop-types'
 import { translate } from 'react-i18next'
 import {UserSearchContainer} from 'containers/calls'
+import {PhoneNumbersMenu} from 'components/calls'
 
 class Caller extends Component {
   static propTypes = {
@@ -23,6 +24,9 @@ class Caller extends Component {
         <Segment attached className={'search-user'}>
           <UserSearchContainer/>
         </Segment>
+        {this.props.userSelected &&
+        <PhoneNumbersMenu/>
+        }
       </div>
     )
   }
