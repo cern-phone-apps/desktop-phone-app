@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './CallLoader.css'
 import { PhoneRingingIcon } from 'components/calls'
+import {translate} from 'react-i18next'
 
 class CallLoader extends Component {
   static propTypes = {
@@ -9,7 +10,8 @@ class CallLoader extends Component {
     recipientNumber: PropTypes.string.isRequired,
     hangupCall: PropTypes.func.isRequired,
     acceptCall: PropTypes.func.isRequired,
-    calling: PropTypes.bool.isRequired
+    calling: PropTypes.bool.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   componentDidMount () {
@@ -28,7 +30,7 @@ class CallLoader extends Component {
   }
 
   render () {
-    console.log('HERE', this.props)
+    const {t} = this.props
 
     return (
       <div className="call-inner-content">
@@ -38,7 +40,7 @@ class CallLoader extends Component {
               <PhoneRingingIcon/>
             </div>
             <h3 className="ui center aligned header">
-              Calling <img src={'images/avatar/patrick.png'} alt={'avatar'}
+              {t('callingText')} <img src={'images/avatar/patrick.png'} alt={'avatar'}
                 className="ui circular tiny image"/> {this.props.recipientName}
             </h3>
             <div className="ui center aligned basic segment">
@@ -56,4 +58,4 @@ class CallLoader extends Component {
   }
 }
 
-export default CallLoader
+export default translate('calls')(CallLoader)

@@ -25,11 +25,6 @@ class UserSearch extends Component {
     this.resetComponent()
   }
 
-  componentWillReceiveProps () {
-    console.debug('Component will receive props')
-    console.debug('results: ', this.props.results)
-  }
-
   resetComponent = () => {
     this.setState({isLoading: false, results: []})
     this.props.updateSearchValue('')

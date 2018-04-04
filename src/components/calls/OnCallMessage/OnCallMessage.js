@@ -1,25 +1,26 @@
 import React, { Component } from 'react'
-import moment from 'moment'
 
 import './OnCallMessage.css'
 import PropTypes from 'prop-types'
 import Timer from 'simple-react-timer'
 import { Link } from 'react-router-dom'
+import {translate} from 'react-i18next'
 
 class OnCallMessage extends Component {
   static propTypes = {
     recipientName: PropTypes.string.isRequired,
-    startTime: PropTypes.number.isRequired
+    startTime: PropTypes.number.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   render () {
-    console.log(moment.duration(100))
+    const {t} = this.props
     return (
       <Link to={'/'} className={'padded-item OnCallMessage'}>
-        <Timer startTime={this.props.startTime}/> - On call with {this.props.recipientName}
+        <Timer startTime={this.props.startTime}/> - {t('onCallWithText')} {this.props.recipientName}
       </Link>
     )
   }
 }
 
-export default OnCallMessage
+export default translate('calls')(OnCallMessage)
