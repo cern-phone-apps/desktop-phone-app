@@ -6,10 +6,15 @@
     "header": "Language"
   },
   "personalInfo": {
-    "header": "Informacion",
+    "header": "Info",
     "name": "Name:",
     "username": "Username:",
     "email": "Email:"
+  },
+  "devices": {
+    "header": "Devices",
+    "audioInputLabel": "Input",
+    "audioOutputLabel": "Output"
   }
 }
 

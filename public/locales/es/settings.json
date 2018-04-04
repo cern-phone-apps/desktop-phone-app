@@ -6,10 +6,13 @@
     "header": "Idioma"
   },
   "personalInfo": {
-    "header": "Info",
+    "header": "Informacion",
     "name": "Nombre:",
     "username": "Usuario:",
     "email": "Email:"
+  },
+  "devices": {
+    "header": "Dispositivos"
   }
 }
 
