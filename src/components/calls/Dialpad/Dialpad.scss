@@ -1,0 +1,75 @@
+$button: #e0e1e2;
+$active: darken($button, 5%);
+
+.ui.segment.Dialpad{
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+}
+
+.Dialpad__grid{
+  max-width: 14rem;
+}
+
+.Dialpad__grid .button{
+  height: 3em;
+  width: 3em;
+}
+
+.DialButton-alt{
+  display: block;
+  font-size: 0.8em;
+  line-height: 0.8em;
+}
+
+.Dialpad__grid .DialButton__content{
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+.Dialpad__grid i{
+  padding: 0;
+  margin: 0;
+}
+
+.Dialpad__grid.ui.grid>.row{
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.Dialpad__grid.ui.grid>.row>.column{
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+  justify-content: center;
+  display: flex;
+}
+
+.Dialpad__grid .CallButton{
+  background-color: #21ba45;
+  color: #fff;
+}
+
+.Dialpad__grid .DialButton__number{
+  background-color: $button;
+  color: rgba(0,0,0,.6);
+}
+
+.DialButton {
+  height: 40px;
+  width: 40px;
+  border-radius: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 33.3333%;
+  cursor: pointer;
+
+  &:nth-of-type(10) {
+    flex-basis: 66.67%;
+  }
+
+  &:hover {
+    background-color: $active;
+  }
+}
