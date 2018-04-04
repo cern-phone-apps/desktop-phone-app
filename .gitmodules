@@ -1,0 +1,3 @@
+[submodule "src/external/tone-webrtc-api"]
+	path = src/external/tone-webrtc-api
+	url = https://gitlab.cern.ch/tone/tone-webrtc-api.git
