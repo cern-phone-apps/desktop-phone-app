@@ -1,32 +1,38 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './OnCallDetails.css'
 import Timer from 'simple-react-timer'
-import { Link } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import {Button} from 'semantic-ui-react'
+import {translate} from 'react-i18next'
 
 class OnCallDetails extends Component {
   static propTypes = {
     hangupCall: PropTypes.func.isRequired,
-    startTime: PropTypes.number.isRequired
+    startTime: PropTypes.number.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   render () {
+    const {t} = this.props
     return (
 
       <div className="call-inner-content">
         <div className="ui segment">
           <div>
-            <h3 className="ui center aligned header">On call with</h3>
+            <h3 className="ui center aligned header">{t('onCallWithText')}</h3>
             <h2 className="ui center aligned header">
-              <img src={'images/avatar/patrick.png'} alt={'avatar'}
+              <img
+                src={'images/avatar/patrick.png'}
+                alt={'avatar'}
                 className="ui circular image"/> Patrick
             </h2>
             <div className="ui center aligned basic segment">
               <Timer startTime={this.props.startTime}/>
             </div>
             <div className="ui center aligned basic segment">
-              <button onClick={() => this.props.hangupCall()}
+              <button
+                onClick={() => this.props.hangupCall()}
                 className="ui circular red icon button">
                 <i className="phone icon"/>
               </button>
@@ -43,4 +49,4 @@ class OnCallDetails extends Component {
   }
 }
 
-export default OnCallDetails
+export default translate('calls')(OnCallDetails)

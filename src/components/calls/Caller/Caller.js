@@ -30,12 +30,12 @@ class Caller extends Component {
 
     return (
       <div className="call-inner-content">
-        <h2 className="ui center aligned header gray-text">{t('caller.header')}</h2>
+        <h2 className="ui center aligned header gray-text">{t('header')}</h2>
         <Segment attached className={'search-user'}>
           <UserSearchContainer/>
         </Segment>
         <Button attached='bottom' onClick={this.handleDialPadDisplayButton}>
-          <Icon name={'text telephone'}/> Dialpad
+          <Icon name={'text telephone'}/> {t('dialpadText')}
         </Button>
         {this.state.displayDialpad && <DialpadContainer/>}
         {this.props.userSelected && <PhoneNumbersMenu/>}
@@ -44,4 +44,4 @@ class Caller extends Component {
   }
 }
 
-export default translate('translations')(Caller)
+export default translate('calls')(Caller)
