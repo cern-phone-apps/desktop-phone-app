@@ -1,14 +1,8 @@
-export const DISPLAY_DIALPAD = '@@dialpad/DISPLAY'
-export const HIDE_DIALPAD = '@@dialpad/HIDE'
+export const TOGGLE_DIALPAD = '@@dialpad/TOGGLE'
 
-export function displayDialpad () {
+export function toggleDialpad (newStatus) {
   return {
-    type: DISPLAY_DIALPAD
-  }
-}
-
-export function hideDialpad () {
-  return {
-    type: HIDE_DIALPAD
+    newStatus,
+    type: TOGGLE_DIALPAD
   }
 }

@@ -6,15 +6,10 @@ const initialState = {
 
 const call = (state = initialState, action) => {
   switch (action.type) {
-    case dialpadActions.DISPLAY_DIALPAD:
+    case dialpadActions.TOGGLE_DIALPAD:
       return {
         ...state,
-        display: true
-      }
-    case dialpadActions.HIDE_DIALPAD:
-      return {
-        ...state,
-        display: false
+        display: action.newStatus
       }
     default:
       return state

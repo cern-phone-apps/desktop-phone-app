@@ -12,17 +12,14 @@ class Caller extends Component {
     t: PropTypes.func.isRequired,
     updateSearchValue: PropTypes.func.isRequired,
     searchValue: PropTypes.string.isRequired,
-    makeCall: PropTypes.func.isRequired
-  }
-
-  state = {
-    displayDialpad: false
+    makeCall: PropTypes.func.isRequired,
+    toggleDialpad: PropTypes.func.isRequired,
+    displayDialpad: PropTypes.bool.isRequired
   }
 
   handleDialPadDisplayButton = () => {
-    this.setState({
-      displayDialpad: !this.state.displayDialpad
-    })
+    console.debug("handle")
+    this.props.toggleDialpad(!this.props.displayDialpad)
   }
 
   render () {
@@ -37,7 +34,7 @@ class Caller extends Component {
         <Button attached='bottom' onClick={this.handleDialPadDisplayButton}>
           <Icon name={'text telephone'}/> {t('dialpadText')}
         </Button>
-        {this.state.displayDialpad && <DialpadContainer/>}
+        {this.props.displayDialpad && <DialpadContainer/>}
         {this.props.userSelected && <PhoneNumbersMenu/>}
       </div>
     )
