@@ -9,7 +9,8 @@ function mapStateToProps ({calls}) {
   return {
     userSelected: calls.search.userSelected,
     value: calls.search.value,
-    results: calls.search.searchResults
+    results: calls.search.searchResults,
+    displayDialpad: calls.dialpad.display
   }
 }
 

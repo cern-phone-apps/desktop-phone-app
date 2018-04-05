@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Search } from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {Form, Search} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
 import './UserSearch.css'
@@ -12,7 +12,8 @@ class UserSearch extends Component {
     unSelectUser: PropTypes.func.isRequired,
     updateSearchValue: PropTypes.func.isRequired,
     searchUsers: PropTypes.func.isRequired,
-    results: PropTypes.array.isRequired
+    results: PropTypes.array.isRequired,
+    displayDialpad: PropTypes.bool.isRequired
   }
 
   state = {
@@ -59,10 +60,29 @@ class UserSearch extends Component {
     })
   }
 
+  handleChange = (event) => {
+    this.props.updateSearchValue(event.target.value)
+  }
+
   render () {
     const {isLoading} = this.state
-    console.debug(this.state)
-    console.debug(this.props)
+    console.debug('PROPS', this.props)
+
+    if (this.props.displayDialpad) {
+      return (
+        <Form>
+          <Form.Field>
+            <input
+              className={'DialPadInput'}
+              type={'text'}
+              value={this.props.value}
+              onChange={this.handleChange}
+            />
+          </Form.Field>
+        </Form>
+      )
+    }
+
     return (
       <Search
         loading={isLoading}
