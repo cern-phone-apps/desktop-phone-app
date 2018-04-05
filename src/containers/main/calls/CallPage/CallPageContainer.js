@@ -8,7 +8,8 @@ import {CallPage} from 'pages/main/calls'
 function mapStateToProps ({calls}) {
   return {
     onCall: calls.call.onCall,
-    calling: calls.call.calling
+    calling: calls.call.calling,
+    displayDialpad: calls.dialpad.display
   }
 }
 
