@@ -2,14 +2,23 @@ import {applyMiddleware, createStore, compose} from 'redux'
 import {persistReducer, persistStore} from 'redux-persist'
 import {routerMiddleware} from 'react-router-redux'
 import storage from 'redux-persist/lib/storage'
+import {createBlacklistFilter} from 'redux-persist-transform-filter'
 
 import rootReducer from 'reducers'
 import apiMiddleware from 'middleware'
 
 const createCustomStore = (history) => {
+  // We don't want to persist the connection status
+  const blacklistFilter = createBlacklistFilter(
+    'calls',
+    ['connection']
+  )
+
   const persistConfig = {
     key: 'phone-webapp',
-    storage: storage
+    storage: storage,
+    blacklist: ['sidebar'],
+    transforms: [blacklistFilter]
   }
 
   const persistedReducers = persistReducer(
