@@ -7,7 +7,12 @@ import {CallerContainer, CallLoaderContainer, OnCallDetailsContainer, OnCallMess
 
 class CallPage extends Component {
   render () {
-    let callContentClass = (!this.props.searchValue || this.props.onCall || this.props.calling) ? 'CallPage__centered' : 'CallPage'
+    let callContentClass = (
+      !this.props.searchValue ||
+      this.props.onCall ||
+      this.props.calling ||
+      !this.props.displayDialpad
+    ) ? 'CallPage__centered' : 'CallPage'
 
     return (
       <div className="parent-container">
