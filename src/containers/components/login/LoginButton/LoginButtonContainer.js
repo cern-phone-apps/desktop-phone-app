@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { isAuthenticated } from 'reducers/auth'
 import * as authActionCreators from 'actions/auth'
 import * as meActionCreators from 'actions/user/me'
-import {LoginButton} from 'components/login'
+import {LoginButton} from 'components/login/index'
 
 function mapStateToProps (state) {
   return {
