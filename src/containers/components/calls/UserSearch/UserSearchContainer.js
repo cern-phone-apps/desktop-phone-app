@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux'
 
 import { connect } from 'react-redux'
 import * as searchActionCreators from 'actions/calls/search'
-import { UserSearch } from 'components/calls'
+import { UserSearch } from 'components/calls/index'
 import { withRouter } from 'react-router-dom'
 
 function mapStateToProps ({calls}) {

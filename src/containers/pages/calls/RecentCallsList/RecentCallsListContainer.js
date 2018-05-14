@@ -1,14 +1,14 @@
 import { bindActionCreators } from 'redux'
-
 import { connect } from 'react-redux'
-import * as callActionCreators from 'actions/calls/call'
-import { OnCallMessage } from 'components/calls'
 import { withRouter } from 'react-router-dom'
+
+import * as callActionCreators from 'actions/calls/call'
+import { RecentCallsList } from 'components/calls/index'
 
 function mapStateToProps ({calls}) {
   return {
-    recipientName: calls.call.recipient.name,
-    startTime: calls.call.recipient.startTime
+    onCall: calls.call.onCall,
+    calling: calls.call.calling
   }
 }
 
@@ -19,4 +19,4 @@ function mapDispatchToProps (dispatch) {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(OnCallMessage))
+)(RecentCallsList))
