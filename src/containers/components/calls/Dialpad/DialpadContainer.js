@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as searchActionCreators from 'actions/calls/search'
 import * as callActionCreators from 'actions/calls/call'
-import { Dialpad } from 'components/calls'
+import { Dialpad } from 'components/calls/index'
 
 function mapStateToProps ({calls}) {
   return {

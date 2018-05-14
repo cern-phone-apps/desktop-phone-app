@@ -2,8 +2,11 @@ import React, {Component} from 'react'
 
 import './Callpage.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'components/common'
-import {RecentCallsListContainer} from 'containers/main/calls'
-import {CallerContainer, CallLoaderContainer, OnCallDetailsContainer, OnCallMessageContainer} from 'containers/calls'
+import {RecentCallsListContainer} from 'containers/pages/calls'
+import {
+  CallerContainer, CallLoaderContainer, NotConnectedScreenContainer, OnCallDetailsContainer,
+  OnCallMessageContainer
+} from 'containers/components/calls'
 
 class CallPage extends Component {
   render () {
@@ -24,9 +27,10 @@ class CallPage extends Component {
           {this.props.onCall && <OnCallMessageContainer/>}
           <div className={`padded-item ${callContentClass}`}>
             <div className="centered-element">
-              {this.props.calling && <CallLoaderContainer/>}
-              {this.props.onCall && <OnCallDetailsContainer/>}
-              {(!this.props.onCall && !this.props.calling) && <CallerContainer/>}
+              {!this.props.connected && <NotConnectedScreenContainer/>}
+              {this.props.connected && this.props.calling && <CallLoaderContainer/>}
+              {this.props.connected && this.props.onCall && <OnCallDetailsContainer/>}
+              {(this.props.connected && (!this.props.onCall && !this.props.calling)) && <CallerContainer/>}
             </div>
           </div>
         </RightColumn>
