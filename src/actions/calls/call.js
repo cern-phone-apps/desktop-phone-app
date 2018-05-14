@@ -1,3 +1,5 @@
+import toneApi from 'external/tone-webrtc-api/src/api/dial-api'
+
 export const CALL = '@@call/CALL'
 export const IS_CALLING = '@@call/IS_CALLING'
 export const CALL_ACCEPTED = '@@call/CALL_ACCEPTED'
@@ -8,6 +10,7 @@ export const HANGUP_CALL = '@@call/HANGUP_CALL'
 
 export function makeCall (recipient) {
   console.debug('dispatching makeCall')
+  console.debug(toneApi)
   return {
     type: CALL,
     recipient
