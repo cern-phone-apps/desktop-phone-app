@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as searchActionCreators from 'actions/calls/search'
 import * as callActionCreators from 'actions/calls/call'
 import * as dialpadActionCreators from 'actions/calls/dialpad'
-import { Caller } from 'components/calls'
+import { Caller } from 'components/calls/index'
 
 function mapStateToProps ({calls}) {
   return {

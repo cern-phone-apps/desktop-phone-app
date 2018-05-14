@@ -1,15 +1,14 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import {bindActionCreators} from 'redux'
+import { bindActionCreators } from 'redux'
 
+import { CallLoader } from 'components/calls/index'
 import * as callActionCreators from 'actions/calls/call'
-import {CallPage} from 'pages/main/calls'
 
 function mapStateToProps ({calls}) {
   return {
-    onCall: calls.call.onCall,
-    calling: calls.call.calling,
-    displayDialpad: calls.dialpad.display
+    recipientName: calls.call.recipient.name,
+    recipientNumber: calls.call.recipient.number,
+    calling: calls.call.calling
   }
 }
 
@@ -17,7 +16,7 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(callActionCreators, dispatch)
 }
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CallPage))
+)(CallLoader)
