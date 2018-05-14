@@ -5,7 +5,7 @@ import {Segment} from 'semantic-ui-react'
 
 import {translate} from 'react-i18next'
 import {LoadingDimmer} from 'components/login'
-import {LoginButtonContainer} from 'containers/login'
+import {LoginButtonContainer} from 'containers/components/login'
 import './LoginPage.css'
 
 class LoginPage extends Component {
@@ -17,6 +17,7 @@ class LoginPage extends Component {
 
   render () {
     const {t} = this.props
+    console.debug('Render login page')
 
     if (this.props.isAuthenticated) {
       return <Redirect to='/'/>
