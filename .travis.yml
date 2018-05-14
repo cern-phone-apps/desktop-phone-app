@@ -6,4 +6,10 @@ cache:
     - node_modules
 script:
   - npm run build
-  - npm test
+  - npm test -- --coverage
+after_script:
+  #
+  # Code climate configuration
+  #
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/lcov.info
