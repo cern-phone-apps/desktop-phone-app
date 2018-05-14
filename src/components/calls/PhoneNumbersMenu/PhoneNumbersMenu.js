@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Menu} from 'semantic-ui-react'
-import {PhoneNumberMenuItemContainer} from 'containers/calls'
+import {PhoneNumberMenuItemContainer} from 'containers/components/calls'
 
 class PhoneNumbersMenu extends Component {
   render () {

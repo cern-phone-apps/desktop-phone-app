@@ -1,17 +1,20 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Dropdown, Icon } from 'semantic-ui-react'
+import {Button, Dropdown, Icon} from 'semantic-ui-react'
 
 const trigger = ({iconColor}) => (
   <Icon name='user' color={iconColor}/>
 )
 
-class UserStatusSwitcher extends Component {
+class StatusSwitcher extends Component {
   static propTypes = {
     status: PropTypes.string.isRequired,
     setUserAvailable: PropTypes.func.isRequired,
     setUserDoNotDisturb: PropTypes.func.isRequired,
-    setUserInvisible: PropTypes.func.isRequired
+    setUserInvisible: PropTypes.func.isRequired,
+    connected: PropTypes.bool.isRequired,
+    connecting: PropTypes.bool.isRequired,
+    phoneService: PropTypes.object.isRequired
   }
 
   state = {
@@ -48,7 +51,18 @@ class UserStatusSwitcher extends Component {
     this.handleIconChange(nextProps)
   }
 
+  connect = () => {
+    console.debug('connect')
+    this.props.phoneService.connectAgent()
+  }
+
   render () {
+    if (!this.props.connected) {
+      return (
+        <Button as={'a'} className={'flat ToggleButton'} icon={'plug'} onClick={this.connect}/>
+      )
+    }
+
     return (
       <Dropdown trigger={trigger(this.state)} floating className={'status-dropdown'}>
         <Dropdown.Menu className='left'>
@@ -66,4 +80,4 @@ class UserStatusSwitcher extends Component {
   }
 }
 
-export default UserStatusSwitcher
+export default StatusSwitcher
