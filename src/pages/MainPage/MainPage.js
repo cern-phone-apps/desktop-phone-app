@@ -23,10 +23,6 @@ class MainPage extends Component {
 
   render () {
     const {t} = this.props
-
-    console.debug('iAuthenticated?', this.props.isAuthenticated)
-    console.debug('rendering MainPage')
-
     if (!this.props.isAuthenticated) {
       console.debug('Redirecting to login', routes.loginRoute.path)
       return <Redirect to={routes.loginRoute.path}/>

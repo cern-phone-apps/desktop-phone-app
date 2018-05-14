@@ -15,6 +15,7 @@ import configureStore from 'store'
 import i18n from 'i18n'
 import App from 'App'
 // We need the PhoneProvider to be available in the whole app in order to make and receive calls
+
 import PhoneProvider from 'providers/PhoneProvider/PhoneProvider'
 
 const history = createHistory()
