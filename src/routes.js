@@ -1,6 +1,6 @@
 import React from 'react'
-import {CallPageContainer} from 'containers/main/calls'
-import {ChatPageContainer} from 'containers/main/chat'
+import {CallPageContainer} from 'containers/pages/calls'
+import {ChatPageContainer} from 'containers/pages/chat'
 
 export const loginRoute = {
   path: '/login/'

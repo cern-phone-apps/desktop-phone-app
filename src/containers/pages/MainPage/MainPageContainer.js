@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { isAuthenticated } from 'reducers/auth'
 import {withRouter} from 'react-router-dom'
 
-import MainPage from 'pages/main/MainPage/MainPage'
+import MainPage from 'pages/MainPage/MainPage'
 import * as sidebarActionCreators from 'actions/sidebar'
 import {bindActionCreators} from 'redux'
 
