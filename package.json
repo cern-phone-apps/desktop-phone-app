@@ -42,7 +42,8 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.14",
     "semantic-ui-react": "^0.79.0",
-    "simple-react-timer": "^0.1.0"
+    "simple-react-timer": "^0.1.0",
+    "sip.js": "^0.9.2"
   },
   "devDependencies": {
     "babel": "^6.23.0",
