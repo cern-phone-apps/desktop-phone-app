@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import * as sidebarActionCreators from 'actions/sidebar'
-import {ToggleButton} from 'components/sidebar'
+import {ToggleButton} from 'components/sidebar/index'
 
 function mapStateToProps ({sidebar}) {
   return {
