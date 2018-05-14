@@ -14,7 +14,7 @@
     "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
     "build-js": "NODE_PATH=./src react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "test": "NODE_PATH=./src react-scripts test --env=jsdom",
+    "test": "USE_DUMMY_API=true NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "dependencies": {

@@ -4,7 +4,7 @@ import * as connectionActionCreators from 'actions/calls/connection'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
-import {initDial} from 'external/tone-webrtc-api/src/api/dial-api'
+// import {initDial} from 'external/tone-webrtc-api/src/api/dial-api'
 import {bindActionCreators} from 'redux'
 
 export const phoneService = (ComponentToWrap) => {
@@ -27,18 +27,40 @@ export const phoneService = (ComponentToWrap) => {
 
 class PhoneProvider extends Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    requestConnection: PropTypes.func,
+    setConnectionFailure: PropTypes.func
   }
 
   state = {
-    phoneService: null
+    phoneService: this
   }
 
-  componentWillMount () {
+  componentDidMount () {
+    let dial = null
+    if (process.USE_DUMMY_API === 'true') {
+      PhoneProvider.loadDummyDialApi().then((dialParam) => {
+        dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
+      })
+    } else {
+      PhoneProvider.loadDialApi().then((dialParam) => {
+        dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
+      })
+    }
+
     this.setState({
-      dial: initDial(this.handleUAEvents, this.handleSessionEvents),
-      phoneService: this
+      dial: dial
     })
+  }
+
+  static async loadDialApi (location) {
+    const {initDial} = await import('external/tone-webrtc-api/src/api/dial-api')
+    return initDial
+  }
+
+  static async loadDummyDialApi (location) {
+    const {initDial} = await import('./DummyAPIClient')
+    return initDial
   }
 
   connectAgent = (username, password) => {
