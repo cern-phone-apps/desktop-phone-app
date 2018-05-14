@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Icon, Modal, Menu, Button, Header} from 'semantic-ui-react'
+
 import {LanguageSettings} from 'components/settings'
-import {DeviceSettingsContainer, PersonalInfoContainer} from 'containers/settings'
+import {DeviceSettingsContainer, PersonalInfoContainer} from 'containers/components/settings'
 
 class ModalSettings extends Component {
   static propTypes = {
@@ -31,6 +32,7 @@ class ModalSettings extends Component {
         size={'mini'}
         dimmer={'blurring'}
         style={inlineStyle.modal}
+        closeIcon
         trigger={
           <Menu.Item onClick={this.props.hideSidebarIfVisible} name={'settings'}>
             <Icon name={'settings'}/>
