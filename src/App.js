@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 
-import MainPageContainer from 'containers/main/MainPage/MainPageContainer'
-import {LoginPageContainer, RedirectPageContainer} from 'containers/login'
+import MainPageContainer from 'containers/pages/MainPage/MainPageContainer'
+import {LoginPageContainer, RedirectPageContainer} from 'containers/components/login'
 import * as routes from 'routes'
 
 const NoMatch = ({ location }) => (
