@@ -1,6 +1,7 @@
 class DummyAPIClient {
   constructor (uaListener, sessionListener) {
-
+    this.uaCallbackMethod = uaListener
+    this.sessionCallbackMethod = sessionListener
   }
 }
 
