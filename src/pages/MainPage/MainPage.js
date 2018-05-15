@@ -21,8 +21,52 @@ class MainPage extends Component {
     return this.props.isVisible ? this.props.hideSidebar() : ''
   }
 
-  render () {
+  renderSidebarItems = () => {
     const {t} = this.props
+    return (
+      routes.mainRoutes(t).map((route, index) => (
+        // You can render a <Route> in as many places
+        // as you want in your app. It will render along
+        // with any other <Route>s that also match the URL.
+        // So, a sidebar or breadcrumbs or anything else
+        // that requires you to render multiple things
+        // in multiple places at the same URL is nothing
+        // more than multiple <Route>s.
+        <Menu.Item
+          onClick={this.hideSidebarIfVisible}
+          name={route.sidebarId}
+          as={NavLink}
+          key={index} to={route.path}
+          exact={route.exact}>
+          <Icon name={route.sidebarIcon}/>
+          {route.sidebarText}
+        </Menu.Item>
+      ))
+    )
+  }
+
+  renderMainRoutes = () => {
+    const {t} = this.props
+    return (
+      routes.mainRoutes(t).map((route, index) => (
+        // You can render a <Route> in as many places
+        // as you want in your app. It will render along
+        // with any other <Route>s that also match the URL.
+        // So, a sidebar or breadcrumbs or anything else
+        // that requires you to render multiple things
+        // in multiple places at the same URL is nothing
+        // more than multiple <Route>s.
+        <Route
+          key={index}
+          path={route.path}
+          exact={route.exact}
+          component={route.main}
+        />
+      ))
+    )
+  }
+
+  render () {
     if (!this.props.isAuthenticated) {
       console.debug('Redirecting to login', routes.loginRoute.path)
       return <Redirect to={routes.loginRoute.path}/>
@@ -36,43 +80,12 @@ class MainPage extends Component {
           width='thin'
           visible={this.props.isVisible}
           icon='labeled' vertical>
-          {routes.mainRoutes(t).map((route, index) => (
-            // You can render a <Route> in as many places
-            // as you want in your app. It will render along
-            // with any other <Route>s that also match the URL.
-            // So, a sidebar or breadcrumbs or anything else
-            // that requires you to render multiple things
-            // in multiple places at the same URL is nothing
-            // more than multiple <Route>s.
-            <Menu.Item
-              onClick={this.hideSidebarIfVisible}
-              name={route.sidebarId}
-              as={NavLink}
-              key={index} to={route.path}
-              exact={route.exact}>
-              <Icon name={route.sidebarIcon}/>
-              {route.sidebarText}
-            </Menu.Item>
-          ))}
+          {this.renderSidebarItems()}
           <ModalSettingsContainer hideSidebarIfVisible={this.hideSidebarIfVisible}/>
         </Sidebar>
         <Sidebar.Pusher onClick={this.hideSidebarIfVisible} dimmed={this.props.contentDimmed}>
           <Switch>
-            {routes.mainRoutes(t).map((route, index) => (
-              // You can render a <Route> in as many places
-              // as you want in your app. It will render along
-              // with any other <Route>s that also match the URL.
-              // So, a sidebar or breadcrumbs or anything else
-              // that requires you to render multiple things
-              // in multiple places at the same URL is nothing
-              // more than multiple <Route>s.
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                component={route.main}
-              />
-            ))}
+            {this.renderMainRoutes()}
           </Switch>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
