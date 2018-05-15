@@ -38,15 +38,9 @@ class PhoneProvider extends Component {
 
   componentDidMount () {
     let dial = null
-    if (process.USE_DUMMY_API === 'true') {
-      PhoneProvider.loadDummyDialApi().then((dialParam) => {
-        dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
-      })
-    } else {
-      PhoneProvider.loadDialApi().then((dialParam) => {
-        dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
-      })
-    }
+    PhoneProvider.loadDialApi().then((dialParam) => {
+      dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
+    })
 
     this.setState({
       dial: dial
@@ -54,12 +48,7 @@ class PhoneProvider extends Component {
   }
 
   static async loadDialApi (location) {
-    const {initDial} = await import('external/tone-webrtc-api/src/api/dial-api')
-    return initDial
-  }
-
-  static async loadDummyDialApi (location) {
-    const {initDial} = await import('./DummyAPIClient')
+    const {initDial} = await import(process.env.REACT_APP_TONE_API_PATH)
     return initDial
   }
 
