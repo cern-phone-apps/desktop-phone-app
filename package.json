@@ -13,8 +13,8 @@
     "start-js": "HTTPS=true react-scripts start",
     "start": "NODE_PATH=./src npm-run-all -p watch-css start-js",
     "build-js": "NODE_PATH=./src react-scripts build",
-    "build": "npm-run-all build-css build-js",
-    "test": "USE_DUMMY_API=true NODE_PATH=./src react-scripts test --env=jsdom",
+    "build": "REACT_APP_TONE_API_PATH=external/DummyAPIClient npm-run-all build-css build-js",
+    "test": "REACT_APP_TONE_API_PATH=external/DummyAPIClient NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "dependencies": {
