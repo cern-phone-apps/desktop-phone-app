@@ -65,6 +65,9 @@ class PhoneProvider extends Component {
         const errors = {message: 'It seems there is a disconnection. More attempts of connection will be made'}
         this.props.setConnectionFailure(errors)
         console.error(errors.message)
+        break
+      default:
+        console.log(`Event received but not handled: ${event.name}`)
     }
   }
 
