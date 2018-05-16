@@ -15,7 +15,15 @@
     "build-js": "NODE_PATH=./src react-scripts build",
     "build": "REACT_APP_TONE_API_PATH=external/DummyAPIClient npm-run-all build-css build-js",
     "test": "REACT_APP_TONE_API_PATH=external/DummyAPIClient NODE_PATH=./src react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged",
+    "test:staged": "REACT_APP_TONE_API_PATH=external/DummyAPIClient cross-env CI=true react-scripts test --env=jsdom --findRelatedTests"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "test:staged",
+      "git add"
+    ]
   },
   "dependencies": {
     "build-url": "^1.1.0",
