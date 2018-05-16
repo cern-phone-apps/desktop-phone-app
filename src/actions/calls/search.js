@@ -30,7 +30,7 @@ export function unSelectUser () {
 }
 
 function buildSearchEndpoint (username) {
-  return `https://imac02.cern.ch:8080/api/v1/users/?username=${username}`
+  return `${process.env.REACT_APP_API_USER_SEARCH_ENDPOINT}?username=${username}`
 }
 
 export const searchUsers = (username) => console.log('Getting ldap users') || ({
