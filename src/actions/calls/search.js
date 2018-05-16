@@ -16,10 +16,9 @@ export function selectUser () {
 }
 
 export function updateSearchValue (value) {
-  console.debug('updateSearchValue')
   return {
     type: SEARCH_UPDATED,
-    value: value
+    value
   }
 }
 
@@ -29,7 +28,7 @@ export function unSelectUser () {
   }
 }
 
-function buildSearchEndpoint (username) {
+export function buildSearchEndpoint (username) {
   return `${process.env.REACT_APP_API_USER_SEARCH_ENDPOINT}?username=${username}`
 }
 
