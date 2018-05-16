@@ -1,12 +1,5 @@
 import * as callActions from 'actions/calls/call'
 
-export function makeCall (recipient) {
-  console.debug('dispatching makeCall')
-  return {
-    type: callActions.CALL,
-    recipient
-  }
-}
 
 describe('call actions', () => {
   it('should create an action to make call', () => {
