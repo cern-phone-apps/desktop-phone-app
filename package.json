@@ -58,8 +58,10 @@
     "eslint-plugin-standard": "^3.0.1",
     "eslint-standard": "^1.0.2",
     "faker": "^4.1.0",
+    "fetch-mock": "^6.4.2",
     "node-sass-chokidar": "^1.2.2",
     "npm-run-all": "^4.1.2",
+    "redux-mock-store": "^1.5.1",
     "standard": "^11.0.1"
   }
 }
