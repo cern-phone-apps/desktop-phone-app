@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 
@@ -13,6 +14,10 @@ const NoMatch = ({ location }) => (
     </h3>
   </div>
 )
+
+NoMatch.propTypes = {
+  location: PropTypes.string
+}
 
 class App extends Component {
   render () {
