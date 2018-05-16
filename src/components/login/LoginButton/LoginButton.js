@@ -23,7 +23,7 @@ class LoginButton extends Component {
   buildAuthorizeUrl = () => {
     const config = {
       client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
-      url: process.env.REACT_APP_OAUTH_AUTHORIZATION_URL,
+      url: process.env.REACT_APP_OAUTH_AUTHORIZATION_URL + process.env.REACT_APP_OAUTH_AUTHORIZATION_PATH,
       redirect_url: process.env.REACT_APP_OAUTH_REDIRECT_URL,
       response_type: 'code'
     }
