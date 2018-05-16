@@ -5,6 +5,7 @@ cache:
   directories:
     - node_modules
 script:
+  - cp .env.development.local.sample .env
   - npm run build
   - npm test -- --coverage
 after_script:
