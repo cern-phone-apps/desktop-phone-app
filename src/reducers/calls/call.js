@@ -11,75 +11,75 @@ const initialState = {
   }
 }
 
+function processCall (state, recipient) {
+  return {
+    ...state,
+    calling: true,
+    onCall: false,
+    recipient: recipient
+  }
+}
+
+function processCallRejected (state) {
+  return {
+    ...state,
+    onCall: false,
+    calling: false
+  }
+}
+
+function processCallMissed (state) {
+  return {
+    ...state,
+    onCall: false,
+    calling: false
+  }
+}
+
+function processCallReceiving (state) {
+  return {
+    ...state,
+    onCall: false,
+    receivingCall: true
+  }
+}
+
+function processCallHangup (state) {
+  return {
+    ...state,
+    onCall: false,
+    calling: false,
+    recipient: {}
+  }
+}
+
+function processCallAccepted (state) {
+  return {
+    ...state,
+    onCall: true,
+    calling: false,
+    receivingCall: false
+  }
+}
+
 const call = (state = initialState, action) => {
-  function processCall () {
-    return {
-      ...state,
-      calling: true,
-      onCall: false,
-      recipient: action.recipient
-    }
-  }
-
-  function processCallRejected () {
-    return {
-      ...state,
-      onCall: false,
-      calling: false
-    }
-  }
-
-  function processCallMissed () {
-    return {
-      ...state,
-      onCall: false,
-      calling: false
-    }
-  }
-
-  function processCallReceiving () {
-    return {
-      ...state,
-      onCall: false,
-      receivingCall: true
-    }
-  }
-
-  function processCallHangup () {
-    return {
-      ...state,
-      onCall: false,
-      calling: false,
-      recipient: {}
-    }
-  }
-
-  function processCallAccepted () {
-    return {
-      ...state,
-      onCall: true,
-      calling: false,
-      receivingCall: false
-    }
-  }
-
   switch (action.type) {
     case callActions.CALL:
-      return processCall()
+      return processCall(state, action.recipient)
     case callActions.CALL_ACCEPTED:
       if (state.calling === true) {
-        return processCallAccepted()
+        return processCallAccepted(state)
       } else {
         return state
       }
     case callActions.CALL_REJECTED:
-      return processCallRejected()
+      return processCallRejected(state)
     case callActions.CALL_MISSED:
-      return processCallMissed()
+      return processCallMissed(state)
     case callActions.IS_RECEIVING_CALL:
-      return processCallReceiving()
+      return processCallReceiving(state)
     case callActions.HANGUP_CALL:
-      return processCallHangup()
+      return processCallHangup(state)
 
     default:
       return state
