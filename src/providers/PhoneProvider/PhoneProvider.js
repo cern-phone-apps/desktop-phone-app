@@ -40,22 +40,25 @@ class PhoneProvider extends Component {
     let dial = null
     PhoneProvider.loadDialApi().then((dialParam) => {
       dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
-    })
+      console.debug(dial)
 
-    this.setState({
-      dial: dial
+      this.setState({
+        dial: dial
+      })
     })
   }
 
-  static async loadDialApi (location) {
+  static async loadDialApi () {
+    console.debug(process.env.REACT_APP_TONE_API_PATH)
     const {initDial} = await import(process.env.REACT_APP_TONE_API_PATH)
+    console.debug(initDial)
     return initDial
   }
 
-  connectAgent = (username, password) => {
+  connectAgent = (username, password, withDisconnect = false) => {
     console.debug('connect agent')
     this.props.requestConnection()
-    return this.state.dial.startAgent('88001', '88001')
+    return this.state.dial.startAgent('88001', '88001', withDisconnect)
   }
 
   handleUAEvents = (event, data) => {
@@ -65,6 +68,10 @@ class PhoneProvider extends Component {
         const errors = {message: 'It seems there is a disconnection. More attempts of connection will be made'}
         this.props.setConnectionFailure(errors)
         console.error(errors.message)
+        break
+      case 'connected':
+
+        // this.props.setConnectionFailure(errors)
         break
       default:
         console.log(`Event received but not handled: ${event.name}`)
