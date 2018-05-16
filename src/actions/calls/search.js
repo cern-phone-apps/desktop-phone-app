@@ -32,7 +32,7 @@ export function buildSearchEndpoint (username) {
   return `${process.env.REACT_APP_API_USER_SEARCH_ENDPOINT}?username=${username}`
 }
 
-export const searchUsers = (username) => console.log('Getting ldap users') || ({
+export const searchUsers = (username) => ({
   [RSAA]: {
     endpoint: buildSearchEndpoint(username),
     method: 'GET',
