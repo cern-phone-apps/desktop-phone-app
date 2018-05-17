@@ -16,8 +16,6 @@ class RecentCall extends Component {
   }
 
   makeCall = (number) => {
-    console.log(`Event target: ${number}`)
-    console.debug(this.props)
     this.props.makeCall({
       name: 'Test User',
       number: '123456 7890',
