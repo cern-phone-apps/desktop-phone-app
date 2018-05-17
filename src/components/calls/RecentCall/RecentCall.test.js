@@ -2,9 +2,10 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import RecentCall from './RecentCall'
 
-describe('async auth actions', () => {
-  const mockFn = jest.fn()
+// describe('async auth actions', () => {
   it('renders without crashing', () => {
+    const mockFn = jest.fn()
+
     const wrapper = shallow(<RecentCall
       author={'Mr.Author'}
       calling={false}
@@ -22,6 +23,8 @@ describe('async auth actions', () => {
   })
 
   it('triggers call action', () => {
+    const mockFn = jest.fn()
+
     const wrapper = shallow(<RecentCall
       author={'Mr.Author'}
       calling={false}
@@ -34,4 +37,4 @@ describe('async auth actions', () => {
     wrapper.find('Button').simulate('click')
     expect(mockFn).toHaveBeenCalled()
   })
-})
+// })

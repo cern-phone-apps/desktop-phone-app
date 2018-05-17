@@ -1,2 +1,2 @@
 export {default as CallPageContainer} from './CallPage/CallPageContainer'
-export {default as RecentCallsListContainer} from './RecentCallsList/RecentCallsListContainer'
+export {default as RecentCallListContainer} from './RecentCallList/RecentCallListContainer'

@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import faker from 'faker'
+import PropTypes from 'prop-types'
+
 import {Item} from 'semantic-ui-react'
 import {ScrollableContent} from 'components/common'
 import RecentCall from '../RecentCall/RecentCall'
-import PropTypes from 'prop-types'
-// import './RecentCallsList.css'
-// import { RecentCallContainer } from 'containers'
 
-class RecentCallsList extends Component {
+/**
+ * Displays a scrollable list of RecentCall
+ */
+class RecentCallList extends Component {
   static propTypes = {
     onCall: PropTypes.bool.isRequired,
     calling: PropTypes.bool.isRequired,
@@ -38,4 +40,4 @@ class RecentCallsList extends Component {
   }
 }
 
-export default RecentCallsList
+export default RecentCallList
