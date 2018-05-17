@@ -27,14 +27,6 @@ export const mainRoutes = function (t) {
       sidebarIcon: 'phone',
       sidebarId: 'calls',
       main: callsMain
-    },
-    {
-      path: '/chat',
-      exact: false,
-      sidebarText: t('messages'),
-      sidebarIcon: 'comment outline',
-      sidebarId: 'messages',
-      main: chatMain
     }
   ]
 }
