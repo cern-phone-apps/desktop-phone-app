@@ -21,6 +21,12 @@ class DummyAPIClient {
       }
     }, 2000)
   }
+
+  stopAgent = () => {
+    setTimeout(() => {
+        this.uaCallbackMethod(DummyAPIClient._buildEvent('disconnected', null))
+    }, 2000)
+  }
 }
 
 export default DummyAPIClient

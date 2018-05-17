@@ -56,6 +56,11 @@ class StatusSwitcher extends Component {
     this.props.phoneService.connectAgent()
   }
 
+  disconnect = () => {
+    console.debug('disconnect')
+    this.props.phoneService.disconnectAgent()
+  }
+
   render () {
     if (!this.props.connected) {
       return (
@@ -73,6 +78,9 @@ class StatusSwitcher extends Component {
           </Dropdown.Item>
           <Dropdown.Item onClick={this.props.setUserInvisible}>
             <Icon name={'circle'} color={'grey'}/> {'Invisible'}
+          </Dropdown.Item>
+          <Dropdown.Item onClick={this.disconnect}>
+            <Icon name={'circle'} color={'black'}/> {'Disconnect'}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
