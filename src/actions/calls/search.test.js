@@ -37,41 +37,27 @@ describe('search actions', () => {
     const expectedResult = `https://hostname/api/users/?username=${value}`
     expect(actions.buildSearchEndpoint(value)).toEqual(expectedResult)
   })
-
-  // it('should make a request to the users search api', async () => {
-  //   const value = 'USERNAME'
-  //   nock('https://hostname')
-  //     .get(`/api/users/?username=${value}`)
-  //     .reply(200, {payload: 'OK!'})
-  //
-  //   const expectedActions = [
-  //     { type: 'SEARCH_REQUEST', payload: undefined, meta: undefined },
-  //     { type: 'SEARCH_SUCCESS', payload: { payload: 'OK!' }, meta: undefined },
-  //     { type: 'SEARCH_FAILURE', payload: { payload: 'OK!' }, meta: undefined }
-  //   ]
-  //
-  //   const store = createMockStore({})
-  //   store.dispatch(actions.searchUsers(value))
-  //
-  //   // const expectedResult = `https://hostname/api/users/?username=${value}`
-  //   // expect(actions.searchUsers(value)).toEqual(expectedResult)
-  // })
 })
 
-describe('redux-api-middleware test', () => {
+describe('async search test', () => {
   afterEach(() => {
     fetchMock.reset()
     fetchMock.restore()
   })
 
-  it('should dispatch xxx when myActionCreator being called', () => {
+  it('should dispatch SEARCH_SUCCESS when searchUsers is called', () => {
     const value = 'USERNAME'
-    const body = [{division: 'DIVISION', cernGroup: 'GROUP', cernSection: 'SECTION', displayName: 'NAME'}]
+    const body = [{
+      division: 'DIVISION',
+      cernGroup: 'GROUP',
+      cernSection: 'SECTION',
+      displayName: 'NAME'
+    }]
     fetchMock.getOnce(`https://hostname/api/users/?username=${value}`,
-      { body: body, headers: { 'content-type': 'application/json' } })
+      {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
-      { type: actions.SEARCH_REQUEST },
-      { type: actions.SEARCH_SUCCESS, payload: body }
+      {type: actions.SEARCH_REQUEST},
+      {type: actions.SEARCH_SUCCESS, payload: body}
     ]
     const store = mockStore({})
     return store.dispatch(actions.searchUsers(value)).then(() => {
