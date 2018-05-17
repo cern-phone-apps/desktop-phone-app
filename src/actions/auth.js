@@ -13,7 +13,7 @@ export const TOKEN_REQUEST = '@@auth/TOKEN_REQUEST'
 export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED'
 export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE'
 
-export const login = (code) => console.debug('login action') || ({
+export const login = (code) => ({
   [RSAA]: {
     endpoint: process.env.REACT_APP_AUTH_LOGIN_ENDPOINT,
     method: 'POST',
@@ -28,7 +28,7 @@ export const login = (code) => console.debug('login action') || ({
   }
 })
 
-export const logout = () => console.debug('logout action') || ({
+export const logout = () => ({
   [RSAA]: {
     endpoint: process.env.REACT_APP_AUTH_LOGOUT_ENDPOINT,
     method: 'DELETE',
@@ -42,7 +42,7 @@ export const logout = () => console.debug('logout action') || ({
   }
 })
 
-export const refreshAccessToken = () => console.debug('Refreshing access token') || ({
+export const refreshAccessToken = () => ({
   [RSAA]: {
     endpoint: process.env.REACT_APP_AUTH_REFRESH_ENDPOINT,
     method: 'POST',
