@@ -29,7 +29,9 @@ class PhoneProvider extends Component {
   static propTypes = {
     children: PropTypes.node,
     requestConnection: PropTypes.func,
-    setConnectionFailure: PropTypes.func
+    setConnectionFailure: PropTypes.func,
+    setConnected: PropTypes.func,
+    requestDisconnection: PropTypes.func
   }
 
   state = {
@@ -55,23 +57,28 @@ class PhoneProvider extends Component {
     return initDial
   }
 
-  connectAgent = (username, password, withDisconnect = false) => {
+  connectAgent = (username, password) => {
     console.debug('connect agent')
     this.props.requestConnection()
-    return this.state.dial.startAgent('88001', '88001', withDisconnect)
+    return this.state.dial.startAgent('88001', '88001')
+  }
+
+  disconnectAgent = () => {
+    console.debug('disconnect agent')
+    this.props.requestDisconnection(true)
+    return this.state.dial.stopAgent()
   }
 
   handleUAEvents = (event, data) => {
     console.debug('ua', event, data)
     switch (event.name) {
       case 'disconnected':
-        const errors = {message: 'It seems there is a disconnection. More attempts of connection will be made'}
+        const errors = {message: 'You have been disconnected'}
         this.props.setConnectionFailure(errors)
         console.error(errors.message)
         break
       case 'connected':
-
-        // this.props.setConnectionFailure(errors)
+        this.props.setConnected()
         break
       default:
         console.log(`Event received but not handled: ${event.name}`)
