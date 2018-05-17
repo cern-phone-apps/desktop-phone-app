@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 import './Callpage.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'components/common'
-import {RecentCallsListContainer} from 'containers/pages/calls'
+import {RecentCallListContainer} from 'containers/pages/calls'
 import {
   CallerContainer, CallLoaderContainer, NotConnectedScreenContainer, OnCallDetailsContainer,
   OnCallMessageContainer
@@ -21,7 +21,7 @@ class CallPage extends Component {
       <div className="parent-container">
         <LeftColumn>
           <LeftColumnHeader/>
-          <RecentCallsListContainer/>
+          <RecentCallListContainer/>
         </LeftColumn>
         <RightColumn>
           {this.props.onCall && <OnCallMessageContainer/>}

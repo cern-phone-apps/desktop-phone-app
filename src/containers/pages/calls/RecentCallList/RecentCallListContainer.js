@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import * as callActionCreators from 'actions/calls/call'
-import { RecentCallsList } from 'components/calls/index'
+import { RecentCallList } from 'components/calls/index'
 
 function mapStateToProps ({calls}) {
   return {
@@ -19,4 +19,4 @@ function mapDispatchToProps (dispatch) {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(RecentCallsList))
+)(RecentCallList))

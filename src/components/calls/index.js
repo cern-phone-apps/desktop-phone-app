@@ -1,4 +1,4 @@
-export {default as RecentCallsList} from './RecentCallsList/RecentCallsList'
+export {default as RecentCallList} from './RecentCallList/RecentCallList'
 export {default as StatusSwitcher} from './StatusSwitcher/StatusSwitcher'
 export {default as OnCallMessage} from './OnCallMessage/OnCallMessage'
 export {default as CallLoader} from './CallLoader/CallLoader'
