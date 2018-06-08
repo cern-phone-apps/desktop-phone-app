@@ -1,9 +1,0 @@
-{
-  "welcome": "Bienvenido a React",
-  "loadingText": "Cargando...",
-  "loginPageHeader": "Acceso al CERN",
-  "loginButtonText": "Acceder",
-  "logoutButtonText": "Salir",
-  "calls": "Llamadas",
-  "messages": "Mensajes"
-}
