@@ -5,22 +5,20 @@ import { Dropdown, Flag, Form, Header } from 'semantic-ui-react'
 
 const languageOptions = [
   {
-    text: 'Français',
-    value: 'fr',
-    image: <Flag name='fr'/>
-  },
-  {
     text: 'English',
     value: 'en',
     image: <Flag name='gb'/>
   },
   {
-    text: 'Español',
-    value: 'es-ES',
-    image: <Flag name='es'/>
+    text: 'Français',
+    value: 'fr',
+    image: <Flag name='fr'/>
   }
 ]
 
+/**
+ * Handles the language change on the application
+ */
 class LanguageSettings extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -34,7 +32,14 @@ class LanguageSettings extends Component {
   }
 
   render () {
+    const {language} = this.props.i18n
     const {t} = this.props
+
+    let currentLanguage = language
+    if(!languageOptions.some(e => e.value === language)) {
+      currentLanguage = 'en'
+    }
+
     return (
       <div>
         <Header as={'h4'}>{t('language.header')}</Header>
@@ -42,7 +47,7 @@ class LanguageSettings extends Component {
           <Form.Field>
             <Dropdown
               selection
-              defaultValue={this.props.i18n.language}
+              defaultValue={currentLanguage}
               options={languageOptions}
               placeholder={t('language.selectLanguage')}
               onChange={(event, data) => this.changeLanguage(data.value)}
