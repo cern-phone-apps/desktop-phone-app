@@ -3,21 +3,36 @@ import PropTypes from 'prop-types'
 import { Header } from 'semantic-ui-react'
 import { translate } from 'react-i18next'
 
+/**
+ * Generates the user's full name
+ * @param firstName
+ * @param lastName
+ * @returns {string}
+ */
 const fullName = (firstName, lastName) => {
   return `${firstName} ${lastName}`
 }
-
-const PersonalInfo = props => {
-  const {t} = props
+/**
+ * Displays the user's information
+ *
+ * @param t Translate object for i18N
+ * @param firstName
+ * @param lastName
+ * @param username
+ * @param email
+ * @returns {*}
+ * @constructor
+ */
+const PersonalInfo = ({t, firstName, lastName, username, email}) => {
   return (
     <div>
       <Header as={'h4'}>{t('personalInfo.header')}</Header>
       <ul>
-        <li>{t('personalInfo.name')} {fullName(props.firstName, props.lastName)}
+        <li>{t('personalInfo.name')} {fullName(firstName, lastName)}
         </li>
-        <li>{t('personalInfo.username')} {props.username}
+        <li>{t('personalInfo.username')} {username}
         </li>
-        <li>{t('personalInfo.email')} {props.email}
+        <li>{t('personalInfo.email')} {email}
         </li>
       </ul>
     </div>

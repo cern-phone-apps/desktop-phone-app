@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Icon, Modal, Menu, Button, Header} from 'semantic-ui-react'
 
-import {LanguageSettings} from 'components/settings'
-import {DeviceSettingsContainer, PersonalInfoContainer} from 'containers/components/settings'
+import {LanguageSettings} from 'settings/components/index'
+import {DeviceSettingsContainer, PersonalInfoContainer} from 'settings/containers/components/index'
 
+/**
+ * Modal to view and manage the application settings
+ */
 class ModalSettings extends Component {
   static propTypes = {
     hideSidebarIfVisible: PropTypes.func.isRequired,
@@ -13,6 +16,9 @@ class ModalSettings extends Component {
     t: PropTypes.func.isRequired
   }
 
+  /**
+   * Logs out the user from the application
+   */
   logoutUser = () => {
     this.props.logout()
   }
@@ -29,7 +35,7 @@ class ModalSettings extends Component {
     }
     return (
       <Modal
-        size={'mini'}
+        size={'small'}
         dimmer={'blurring'}
         style={inlineStyle.modal}
         closeIcon

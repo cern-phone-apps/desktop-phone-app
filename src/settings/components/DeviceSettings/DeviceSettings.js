@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Dropdown, Form, Header } from 'semantic-ui-react'
 import { translate } from 'react-i18next'
 import DetectRTC from 'detectrtc'
-import { changeAudioDestination, changeInputDevice, getUserDevices, stopStreams } from 'utils/devices'
+import { changeAudioDestination, changeInputDevice, getUserDevices, stopStreams } from 'settings/utils/devices'
 
 class DeviceSettings extends Component {
   static propTypes = {
@@ -22,7 +22,7 @@ class DeviceSettings extends Component {
     isChrome: false
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     DetectRTC.load(() => {
       this.setState({
         hasMicrophone: DetectRTC.hasMicrophone,

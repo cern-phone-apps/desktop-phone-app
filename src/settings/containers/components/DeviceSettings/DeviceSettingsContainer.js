@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { DeviceSettings } from 'components/settings/index'
 import { bindActionCreators } from 'redux'
-import * as devicesActionCreators from 'actions/settings/devices'
+import * as devicesActionCreators from 'settings/actions/devices'
+import {DeviceSettings} from 'settings/components'
 
 function mapStateToProps ({devices}) {
   return {
