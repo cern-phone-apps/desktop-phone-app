@@ -1,5 +1,4 @@
-import React from 'react'
-import {CallPageContainer} from 'containers/pages/calls'
+import {callsRoute, callsRoutes} from 'calls/routes'
 
 export const loginRoute = {
   path: '/login/'
@@ -9,19 +8,16 @@ export const redirectRoute = {
   path: '/redirect/'
 }
 
-const callsMain = () => {
-  return <CallPageContainer/>
+export const mainRoute = {
+  path: callsRoute.path
 }
 
+
 export const mainRoutes = function (t) {
+
+  const callsScreens = callsRoutes(t)
+
   return [
-    {
-      path: '/',
-      exact: true,
-      sidebarText: t('calls'),
-      sidebarIcon: 'phone',
-      sidebarId: 'calls',
-      main: callsMain
-    }
+    ...callsScreens
   ]
 }
