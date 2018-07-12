@@ -1,4 +1,4 @@
-import * as actions from 'actions/settings/devices'
+import * as actions from 'settings/actions/devices'
 
 describe('devices actions', () => {
   it('should create an action to set the microphone', () => {
