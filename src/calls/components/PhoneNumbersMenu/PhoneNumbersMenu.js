@@ -5,6 +5,33 @@ import PropTypes from 'prop-types'
 import {PhoneNumberMenuItemContainer} from 'calls/containers/components'
 import {getUserProfile} from 'calls/api'
 
+const ProfileInfo = ({profile}) => {
+  const division = profile.division === '[]' ? '' : profile.division
+  const group = profile.cernGroup === '[]' ? '' : `-${profile.cernGroup}`
+  const section = profile.cernSection === '[]' ? '' : `-${profile.cernSection}`
+  return (
+    <Segment attached>
+      <Header as='h3'>
+        <Icon name='user'/>
+        <Header.Content>
+          {profile.displayName}
+          <Header.Subheader>{division}{group}{section}</Header.Subheader>
+        </Header.Content>
+      </Header>
+
+      <ul>
+        <li>
+          <Icon name={'mail'}/> {profile.mail}
+        </li>
+        <li>
+          <Icon name={'pin'}/> {profile.physicalDeliveryOfficeName}
+        </li>
+      </ul>
+    </Segment>
+  )
+}
+
+
 class PhoneNumbersMenu extends Component {
 
   static propTypes = {
@@ -16,8 +43,8 @@ class PhoneNumbersMenu extends Component {
   }
 
   componentDidMount () {
-    // TODO Make call to retrieve the user profile: /users/<USERNAME>
-    this.initProfile().then(()=> {})
+    this.initProfile().then(() => {
+    })
   }
 
   initProfile = async () => {
@@ -36,32 +63,9 @@ class PhoneNumbersMenu extends Component {
     }
 
     if (profile) {
-
-      const division = profile.division === '[]' ? '' : profile.division
-      const group = profile.cernGroup === '[]' ? '' : `-${profile.cernGroup}`
-      const section = profile.cernSection === '[]' ? '' : `-${profile.cernSection}`
-
       return (
         <div>
-          <Segment attached>
-            <Header as='h3'>
-              <Icon name='user'/>
-              <Header.Content>
-                {profile.displayName}
-                <Header.Subheader>{division}{group}{section}</Header.Subheader>
-              </Header.Content>
-            </Header>
-
-            <ul>
-              <li>
-                <Icon name={'mail'}/> {profile.mail}
-              </li>
-              <li>
-                <Icon name={'pin'}/> {profile.physicalDeliveryOfficeName}
-              </li>
-            </ul>
-
-          </Segment>
+          <ProfileInfo {...this.state}/>
           <Menu fluid={true} attached={'bottom'} vertical={true}>
             {profile.phones && profile.phones.map((phone, index) => (
               <PhoneNumberMenuItemContainer
