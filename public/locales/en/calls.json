@@ -5,6 +5,6 @@
   "onCallWithText": "On call with",
   "disconnected": {
     "header": "You are disconnected",
-    "text": "You won't be able to make or receive any calls until you connect again."
+    "text": "You won't be able to make or receive any calls until you connect again with one of your numbers."
   }
 }
