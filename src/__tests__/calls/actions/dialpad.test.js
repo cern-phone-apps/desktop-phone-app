@@ -1,4 +1,4 @@
-import * as actions from 'actions/calls/dialpad'
+import * as actions from 'calls/actions/dialpad'
 
 describe('dialpad actions', () => {
   it('should create an action to toggle dialpad', () => {

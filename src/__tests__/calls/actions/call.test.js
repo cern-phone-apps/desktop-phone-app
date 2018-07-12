@@ -1,4 +1,4 @@
-import * as callActions from 'actions/calls/call'
+import * as callActions from 'calls/actions/call'
 
 
 describe('call actions', () => {

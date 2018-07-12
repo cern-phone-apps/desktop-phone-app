@@ -1,4 +1,4 @@
-import * as actions from 'actions/calls/connection'
+import * as actions from 'calls/actions/connection'
 
 describe('connection actions', () => {
   it('should create an action to connect to sip', () => {

@@ -1,4 +1,4 @@
-import * as actions from 'actions/calls/status'
+import * as actions from 'calls/actions/status'
 
 describe('status actions', () => {
   it('should create an action to set user available', () => {

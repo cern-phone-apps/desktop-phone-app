@@ -1,4 +1,4 @@
-import * as actions from 'actions/sidebar'
+import * as actions from 'common/actions/sidebar'
 
 describe('sidebar actions', () => {
   it('should create an action to display sidebar', () => {
