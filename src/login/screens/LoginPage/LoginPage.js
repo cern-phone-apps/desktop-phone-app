@@ -4,9 +4,10 @@ import {Redirect} from 'react-router-dom'
 import {Segment} from 'semantic-ui-react'
 
 import {translate} from 'react-i18next'
-import {LoadingDimmer} from 'components/login'
-import {LoginButtonContainer} from 'containers/components/login'
+import {LoadingDimmer} from 'login/components/index'
+import {LoginButtonContainer} from 'login/containers/components/index'
 import './LoginPage.css'
+import * as routes from 'calls/routes'
 
 class LoginPage extends Component {
   static propTypes = {
@@ -20,7 +21,7 @@ class LoginPage extends Component {
     console.debug('Render login page')
 
     if (this.props.isAuthenticated) {
-      return <Redirect to='/'/>
+      return <Redirect exact={true} to={routes.callsRoute.path}/>
     }
 
     if (this.props.loginInProgress) {

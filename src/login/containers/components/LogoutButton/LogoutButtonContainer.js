@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
-import * as authActionCreators from 'actions/auth'
-import {LogoutButton} from 'components/login/index'
+import * as authActionCreators from 'login/actions/auth'
+import {LogoutButton} from 'login/components/index'
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({

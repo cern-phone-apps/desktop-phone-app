@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { isAuthenticated } from 'reducers/auth'
-import * as authActionCreators from 'actions/auth'
-import * as meActionCreators from 'actions/user/me'
-import {LoginButton} from 'components/login/index'
+import { isAuthenticated } from 'login/reducers/auth'
+import * as authActionCreators from 'login/actions/auth'
+import * as meActionCreators from 'login/actions/me'
+import {LoginButton} from 'login/components/index'
 
 function mapStateToProps (state) {
   return {
