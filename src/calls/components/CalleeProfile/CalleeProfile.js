@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {Header, Icon, Loader, Menu, Segment} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
-import {PhoneNumberMenuItemContainer} from 'calls/containers/components'
-import {getUserProfile} from 'calls/api'
+import {CalleeProfileNumberContainer} from 'calls/containers/components'
 
 const ProfileInfo = ({profile}) => {
   const division = profile.division === '[]' ? '' : profile.division
@@ -32,10 +31,11 @@ const ProfileInfo = ({profile}) => {
 }
 
 
-class PhoneNumbersMenu extends Component {
+class CalleeProfile extends Component {
 
   static propTypes = {
-    username: PropTypes.string.isRequired
+    username: PropTypes.string.isRequired,
+    getUserProfile: PropTypes.func.isRequired
   }
 
   state = {
@@ -43,32 +43,25 @@ class PhoneNumbersMenu extends Component {
   }
 
   componentDidMount () {
-    this.initProfile().then(() => {
-    })
-  }
-
-  initProfile = async () => {
-    this.setState(() => ({profile: null}))
-
-    const profile = await getUserProfile(this.props.username)
-    this.setState(() => ({profile}));
+    this.props.getUserProfile(this.props.username)
   }
 
   render () {
 
-    const {profile} = this.state
+    const {profile, fetching} = this.props
+    console.log(this.props)
 
-    if (profile === undefined || !profile) {
+    if (fetching) {
       return <Loader size={'large'}/>
     }
 
     if (profile) {
       return (
         <div>
-          <ProfileInfo {...this.state}/>
+          <ProfileInfo {...this.props}/>
           <Menu fluid={true} attached={'bottom'} vertical={true}>
             {profile.phones && profile.phones.map((phone, index) => (
-              <PhoneNumberMenuItemContainer
+              <CalleeProfileNumberContainer
                 key={`number-${index}`}
                 phoneNumber={phone.number}
                 recipientName={profile.displayName}
@@ -81,6 +74,6 @@ class PhoneNumbersMenu extends Component {
   }
 }
 
-PhoneNumbersMenu.propTypes = {}
+CalleeProfile.propTypes = {}
 
-export default PhoneNumbersMenu
+export default CalleeProfile

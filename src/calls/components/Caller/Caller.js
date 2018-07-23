@@ -6,7 +6,7 @@ import {translate} from 'react-i18next'
 import {DialpadContainer, UserSearchContainer} from 'calls/containers/components/index'
 
 import './Caller.css'
-import {PhoneNumbersMenuContainer} from 'calls/containers/components'
+import {CalleeProfileContainer} from 'calls/containers/components'
 
 class Caller extends Component {
   static propTypes = {
@@ -43,7 +43,7 @@ class Caller extends Component {
         </Button>
         }
         {this.props.displayDialpad && <DialpadContainer/>}
-        {this.props.userSelected && <PhoneNumbersMenuContainer/>}
+        {this.props.userSelected && <CalleeProfileContainer/>}
       </div>
     )
   }

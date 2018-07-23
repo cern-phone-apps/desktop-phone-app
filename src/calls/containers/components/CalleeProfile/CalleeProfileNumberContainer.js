@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as callActionCreators from 'calls/actions/call'
 import * as searchActionCreators from 'calls/actions/search'
-import {PhoneNumberMenuItem} from 'calls/components'
+import {CalleeProfileNumber} from 'calls/components'
 
 function mapStateToProps ({calls}) {
   return {
@@ -22,4 +22,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PhoneNumberMenuItem)
+)(CalleeProfileNumber)
