@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Icon, Menu } from 'semantic-ui-react'
 
-class PhoneNumberMenuItem extends Component {
+class CalleeProfileNumber extends Component {
   static propTypes = {
     makeCall: PropTypes.func.isRequired,
     acceptCall: PropTypes.func.isRequired,
@@ -32,4 +32,4 @@ class PhoneNumberMenuItem extends Component {
   }
 }
 
-export default PhoneNumberMenuItem
+export default CalleeProfileNumber
