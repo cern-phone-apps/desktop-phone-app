@@ -6,6 +6,7 @@ import dialpad from './dialpad'
 import connection from './connection'
 import numbers from './numbers'
 import recent from './recent'
+import profile from './profile'
 
 const callsReducer = combineReducers({
   call,
@@ -14,7 +15,8 @@ const callsReducer = combineReducers({
   dialpad,
   connection,
   numbers,
-  recent
+  recent,
+  profile
 })
 
 export default callsReducer
