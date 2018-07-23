@@ -14,6 +14,10 @@ const initialState = {
  * @returns {*} Array of dict with the users formatted.
  */
 function getUsersFormatted (usersArray) {
+  if(usersArray === undefined){
+    return []
+  }
+
   return usersArray.slice(0, 9).map(function (user, index) {
     const division = user.division === '[]' ? '' : user.division
     const group = user.cernGroup === '[]' ? '' : `-${user.cernGroup}`
@@ -56,7 +60,7 @@ const search = (state = initialState, action) => {
     case searchActions.SEARCH_SUCCESS:
       return {
         ...state,
-        searchResults: getUsersFormatted(action.payload)
+        searchResults: getUsersFormatted(action.payload.result)
       }
 
     default:

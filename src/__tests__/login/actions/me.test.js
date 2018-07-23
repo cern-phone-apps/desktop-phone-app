@@ -23,7 +23,7 @@ describe('async me actions', () => {
       email: 'EMAIL',
       username: 'USERNAME'
     }
-    fetchMock.getOnce(`https://hostname/api/users/me/`,
+    fetchMock.getOnce(`https://hostname/users/me/`,
       {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
       {type: actions.ME_REQUEST},
