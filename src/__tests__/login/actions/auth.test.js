@@ -19,7 +19,7 @@ describe('async auth actions', () => {
     const body = {
       login: true
     }
-    fetchMock.postOnce(`https://hostname/api/auth/login/`,
+    fetchMock.postOnce(`https://hostname/login/`,
       {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
       {type: actions.LOGIN_REQUEST},
@@ -36,7 +36,7 @@ describe('async auth actions', () => {
     const body = {
       logout: true
     }
-    fetchMock.deleteOnce(`https://hostname/api/auth/logout/`,
+    fetchMock.deleteOnce(`https://hostname/logout/`,
       {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
       {type: actions.LOGOUT_REQUEST},
@@ -53,7 +53,7 @@ describe('async auth actions', () => {
     const body = {
       refresh: true
     }
-    fetchMock.postOnce(`https://hostname/api/auth/refresh/`,
+    fetchMock.postOnce(`https://hostname/refresh/`,
       {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
       {type: actions.TOKEN_REQUEST},

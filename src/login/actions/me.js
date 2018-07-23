@@ -1,5 +1,6 @@
 import { RSAA } from 'redux-api-middleware'
 import { withAuth } from 'login/reducers/auth'
+import {buildAuthApiEndpoint} from 'login/actions/auth'
 
 export const ME_REQUEST = '@@user/ME_REQUEST'
 export const ME_SUCCESS = '@@user/ME_SUCCESS'
@@ -13,7 +14,7 @@ export const ME_FAILURE = '@@user/ME_FAILURE'
  */
 export const getMe = () => ({
   [RSAA]: {
-    endpoint: process.env.REACT_APP_API_ME_ENDPOINT,
+    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_API_ME_PATH),
     method: 'GET',
     credentials: 'include',
     headers: withAuth({ 'Content-Type': 'application/json' }),

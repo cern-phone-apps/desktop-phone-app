@@ -13,6 +13,10 @@ export const TOKEN_REQUEST = '@@auth/TOKEN_REQUEST'
 export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED'
 export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE'
 
+export const buildAuthApiEndpoint = (path) => {
+  return `${process.env.REACT_APP_API_ENDPOINT}${path}`
+}
+
 /**
  * Action triggered to log the user in the backend API.
  * It requires an Oauth code that will be used on the backend to authenticate the user
@@ -22,7 +26,7 @@ export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE'
  */
 export const login = (code) => ({
   [RSAA]: {
-    endpoint: process.env.REACT_APP_AUTH_LOGIN_ENDPOINT,
+    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_AUTH_LOGIN_PATH),
     method: 'POST',
     body: JSON.stringify({code, 'type': 'web'}),
     credentials: 'include',
@@ -44,7 +48,7 @@ export const login = (code) => ({
  */
 export const logout = () => ({
   [RSAA]: {
-    endpoint: process.env.REACT_APP_AUTH_LOGOUT_ENDPOINT,
+    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_AUTH_LOGOUT_PATH),
     method: 'DELETE',
     credentials: 'include',
     headers: withAuth({'Content-Type': 'application/json'}),
@@ -64,7 +68,7 @@ export const logout = () => ({
  */
 export const refreshAccessToken = () => ({
   [RSAA]: {
-    endpoint: process.env.REACT_APP_AUTH_REFRESH_ENDPOINT,
+    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_AUTH_REFRESH_PATH),
     method: 'POST',
     credentials: 'include',
     headers: withRefresh({'Content-Type': 'application/json'}),
