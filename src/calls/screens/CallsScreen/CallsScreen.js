@@ -1,15 +1,14 @@
 import React, {Component} from 'react'
 
-import './Callpage.css'
+import './CallsScreen.css'
 import {LeftColumn, LeftColumnHeader, RightColumn} from 'common/components'
-import {RecentCallListContainer} from 'calls/containers/screens'
 import {
   CallerContainer, CallLoaderContainer, NotConnectedScreenContainer, OnCallDetailsContainer,
-  OnCallMessageContainer
+  OnCallMessageContainer, RecentCallListContainer
 } from 'calls/containers/components'
 import PropTypes from 'prop-types'
 
-class CallPage extends Component {
+class CallsScreen extends Component {
 
   static propTypes = {
     calling: PropTypes.bool.isRequired,
@@ -65,4 +64,4 @@ class CallPage extends Component {
   }
 }
 
-export default CallPage
+export default CallsScreen

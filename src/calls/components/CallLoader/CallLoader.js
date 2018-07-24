@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './CallLoader.css'
-import { PhoneRingingIcon } from 'calls/components/index'
+import { PhoneRingingIcon } from 'calls/components'
 import {translate} from 'react-i18next'
 
 class CallLoader extends Component {
