@@ -7,13 +7,16 @@ import {translate} from 'react-i18next'
 /**
  * The idea of this component is to redirect the user to the Oauth authorization URL of your provider.
  */
-class LoginButton extends Component {
+export class LoginButton extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    login: PropTypes.func.isRequired,
     urlQuery: PropTypes.string.isRequired,
-    getMe: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired
+  }
+
+  state = {
+    redirected: false,
+    authorizeUrl: undefined
   }
 
   /**
@@ -40,14 +43,19 @@ class LoginButton extends Component {
    * Redirects the user to the Oauth authorization URL
    */
   loginUser = () => {
-    console.debug('Login user')
-    window.location.href = this.buildAuthorizeUrl()
+
+    const authorizeUrl = this.buildAuthorizeUrl()
+    this.state = {
+      redirected: true,
+      authorizeUrl: authorizeUrl
+    };
+    window.location.href = authorizeUrl
   }
 
   render () {
     const {t} = this.props
     return (
-      <Button color={'blue'} onClick={this.loginUser}>{t('loginButtonText')}</Button>
+      <Button className={'LoginButton'} color={'blue'} onClick={this.loginUser}>{t('loginButtonText')}</Button>
     )
   }
 }
