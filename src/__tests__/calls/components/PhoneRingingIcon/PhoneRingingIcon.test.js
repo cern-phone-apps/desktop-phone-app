@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import PhoneRingingIcon from './PhoneRingingIcon'
+import PhoneRingingIcon from 'calls/components/PhoneRingingIcon/PhoneRingingIcon'
 
 it('renders without crashing', () => {
   const icon = shallow(<PhoneRingingIcon/>);
