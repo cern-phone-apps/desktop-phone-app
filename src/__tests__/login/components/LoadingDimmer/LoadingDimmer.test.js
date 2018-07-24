@@ -15,7 +15,7 @@ it('renders without crashing', () => {
 })
 
 
-it('renders without crashing', () => {
+it('renders inner nodes', () => {
   const loader = shallow(<LoadingDimmer t={key => key}/>);
 
   expect(loader.find(Dimmer)).toHaveLength(1);
