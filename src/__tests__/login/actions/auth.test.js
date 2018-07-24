@@ -49,7 +49,7 @@ describe('async auth actions', () => {
     })
   })
 
-  it('should dispatch LOGOUT_SUCCESS when logout is called', () => {
+  it('should dispatch TOKEN_RECEIVED when logout is called', () => {
     const body = {
       refresh: true
     }

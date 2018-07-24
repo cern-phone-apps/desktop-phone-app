@@ -9,7 +9,7 @@ import {translate} from 'react-i18next'
  * @returns {*}
  * @constructor
  */
-const LoadingDimmer = ({t}) => {
+export const LoadingDimmer = ({t}) => {
   return (<Dimmer active inverted>
     <Loader size='large'>{t('loadingText')}</Loader>
   </Dimmer>)
