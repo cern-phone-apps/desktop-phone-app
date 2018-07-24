@@ -11,4 +11,5 @@ export {default as DialpadContainer} from './Dialpad/DialpadContainer'
 export {default as NotConnectedScreenContainer} from './NotConnectedScreen/NotConnectedScreenContainer'
 export {default as MakeCallButtonContainer} from './MakeCallButton/MakeCallButtonContainer'
 export {default as ConnectNumberButtonContainer} from './ConnectNumberButton/ConnectNumberButtonContainer'
+export {default as RecentCallListContainer} from './RecentCallList/RecentCallListContainer'
 

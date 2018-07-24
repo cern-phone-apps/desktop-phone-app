@@ -1,5 +1,5 @@
 import React from 'react'
-import {CallPageContainer} from 'calls/containers/screens'
+import {CallsScreenContainer} from 'calls/containers/screens'
 
 export const callsRoute = {
   path: '/',
@@ -7,7 +7,7 @@ export const callsRoute = {
 }
 
 export const callsMain = () => {
-  return <CallPageContainer/>
+  return <CallsScreenContainer/>
 }
 
 export const callsRoutes = (t) => {

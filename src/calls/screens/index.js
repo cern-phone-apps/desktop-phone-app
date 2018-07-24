@@ -1,1 +1,1 @@
-export {default as CallPage} from './CallPage/CallPage'
+export {default as CallsScreen} from './CallsScreen/CallsScreen'
