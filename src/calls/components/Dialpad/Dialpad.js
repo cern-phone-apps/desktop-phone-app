@@ -10,7 +10,16 @@ import './Dialpad.css'
  * @returns {*}
  * @constructor
  */
-class DialButton extends Component {
+export class DialButton extends Component {
+
+  static propTypes = {
+    clickHandler: PropTypes.func.isRequired,
+    longPressHandler: PropTypes.func.isRequired,
+    symbol: PropTypes.string.isRequired,
+    alt: PropTypes.string,
+    longPressTimeout: PropTypes.number.isRequired
+  }
+
   static defaultProps = {
     longPressTimeout: 300
   }
@@ -41,12 +50,12 @@ class DialButton extends Component {
   }
 
   render () {
-    return <Grid.Column
-      textAlign={'center'}
-      onMouseDown={() => this.handleDialPadButtonDown()}
-      onMouseUp={() => this.handleDialPadButtonLongPressRelease()}
-    >
-      <div className={'DialButton DialButton__number'}>
+    return <Grid.Column textAlign={'center'} >
+      <div className={'DialButton DialButton__number'}
+           // onClick={() => this.props.clickHandler(this.props.symbol)}
+           onMouseDown={() => this.handleDialPadButtonDown()}
+           onMouseUp={() => this.handleDialPadButtonLongPressRelease()}
+      >
         <div className={'DialButton__content'}>
           {this.props.symbol} {this.props.alt ? <span className={'DialButton__alt'}>+</span> : ''}
         </div>
@@ -55,24 +64,18 @@ class DialButton extends Component {
   }
 }
 
-DialButton.propTypes = {
-  clickHandler: PropTypes.func.isRequired,
-  longPressHandler: PropTypes.func.isRequired,
-  symbol: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-  longPressTimeout: PropTypes.number.isRequired
-}
+
 /**
  * Represents the Call Button on the DialPad
  * @param props
  * @returns {*}
  * @constructor
  */
-const CallButton = (props) => {
+export function CallButton ({clickHandler, text}) {
   return (
-    <div className={'DialButton CallButton'} onClick={() => props.clickHandler()}>
+    <div className={'DialButton CallButton'} onClick={() => clickHandler()}>
       <div className={'DialButton__content'}>
-        <Icon name={'phone'}/>
+        {text}
       </div>
     </div>)
 }
@@ -85,7 +88,7 @@ CallButton.propTypes = {
 /**
  * Represents the phone Dialpad
  */
-class Dialpad extends Component {
+export default class Dialpad extends Component {
   static propTypes = {
     updateSearchValue: PropTypes.func.isRequired,
     searchValue: PropTypes.string.isRequired,
@@ -145,5 +148,3 @@ class Dialpad extends Component {
     )
   }
 }
-
-export default Dialpad
