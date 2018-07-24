@@ -6,7 +6,7 @@ import {translate} from 'react-i18next'
 /**
  * Will trigger the user's logout
  */
-class LogoutButton extends Component {
+export class LogoutButton extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
@@ -21,7 +21,7 @@ class LogoutButton extends Component {
   render () {
     const {t} = this.props
     return (
-      <Button color={'blue'} onClick={this.logoutUser}>{t('logoutButtonText')}</Button>
+      <Button className={'LogoutButton'} color={'blue'} onClick={this.logoutUser}>{t('logoutButtonText')}</Button>
     )
   }
 }
