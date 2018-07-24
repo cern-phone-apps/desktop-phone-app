@@ -45,10 +45,10 @@ export class LoginButton extends Component {
   loginUser = () => {
 
     const authorizeUrl = this.buildAuthorizeUrl()
-    this.state = {
+    this.setState({
       redirected: true,
       authorizeUrl: authorizeUrl
-    };
+    });
     window.location.href = authorizeUrl
   }
 
