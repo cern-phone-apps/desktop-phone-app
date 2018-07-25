@@ -11,7 +11,6 @@ import './Dialpad.css'
  * @constructor
  */
 export class DialButton extends Component {
-
   static propTypes = {
     clickHandler: PropTypes.func.isRequired,
     longPressHandler: PropTypes.func.isRequired,
@@ -50,9 +49,8 @@ export class DialButton extends Component {
   }
 
   render () {
-    return <Grid.Column textAlign={'center'} >
+    return <Grid.Column textAlign={'center'}>
       <div className={'DialButton DialButton__number'}
-           // onClick={() => this.props.clickHandler(this.props.symbol)}
            onMouseDown={() => this.handleDialPadButtonDown()}
            onMouseUp={() => this.handleDialPadButtonLongPressRelease()}
       >
@@ -63,7 +61,6 @@ export class DialButton extends Component {
     </Grid.Column>
   }
 }
-
 
 /**
  * Represents the Call Button on the DialPad

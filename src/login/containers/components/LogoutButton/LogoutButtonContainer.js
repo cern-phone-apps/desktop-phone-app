@@ -3,15 +3,26 @@ import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 
 import * as authActionCreators from 'login/actions/auth'
-import {LogoutButton} from 'login/components/index'
+import {LogoutButton} from 'login/components'
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...authActionCreators
   }, dispatch)
 }
+//
+// const mapStateToProps = (state) => ({
+//   lastRolledNumber: state.lastRolledNumber
+// });
 
-export default withRouter(connect(
-  null,
-  mapDispatchToProps
-)(LogoutButton))
+// const mapDispatchToProps = (dispatch) => ({
+//   onRollDice: () => dispatch({ type: 'ROLL_DICE' })
+// });
+
+export const LogoutButtonContainer = connect(
+    null,
+    mapDispatchToProps
+  )(LogoutButton)
+
+
+export default withRouter(LogoutButtonContainer)
