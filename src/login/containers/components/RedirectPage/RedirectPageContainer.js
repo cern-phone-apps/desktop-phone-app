@@ -1,11 +1,11 @@
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { isAuthenticated } from 'login/reducers/auth'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import {isAuthenticated} from 'login/reducers/auth'
+import {bindActionCreators} from 'redux'
 
 import * as authActionCreators from 'login/actions/auth'
 import * as meActionCreators from 'login/actions/me'
-import { RedirectPage } from 'login/screens/index'
+import {RedirectPage} from 'login/screens/index'
 
 function mapStateToProps ({errors, auth, router}) {
   return {

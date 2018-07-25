@@ -7,7 +7,7 @@ import {ConnectNumberButtonContainer} from 'calls/containers/components'
 
 class NotConnectedScreen extends Component {
   static propTypes = {
-    errors: PropTypes.object,
+    errors: PropTypes.object
   }
 
   render () {

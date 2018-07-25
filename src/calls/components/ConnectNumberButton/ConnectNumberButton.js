@@ -4,7 +4,7 @@ import {Button, Icon, Loader} from 'semantic-ui-react'
 
 const ButtonNumbersList = (props) => {
   console.debug(props)
-  if (props.numbers === undefined || props.numbers === []){
+  if (props.numbers === undefined || props.numbers === []) {
     return ''
   }
   return (<div>
@@ -12,7 +12,7 @@ const ButtonNumbersList = (props) => {
       return (
         <Button fluid key={`number-${index}`}
                 onClick={() => props.connect(item.phoneNumber)}>
-          <Icon name='plug' />
+          <Icon name='plug'/>
           {item.phoneNumber}</Button>
       )
     })
@@ -39,9 +39,9 @@ class ConnectNumberButton extends Component {
   }
 
   render () {
-    if(!this.props.connecting || !this.props.numbers){
+    if (!this.props.connecting || !this.props.numbers) {
       return <ButtonNumbersList numbers={this.props.numbers} connect={this.connect}/>
-    }else{
+    } else {
       return <Loader active inline='centered'/>
     }
   }

@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         lastName: action.payload.lastName,
         mobile: action.payload.mobile,
         phone: action.payload.phone,
-        username: action.payload.username,
+        username: action.payload.username
       }
     default:
       return state
