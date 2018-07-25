@@ -46,7 +46,7 @@ class StatusSwitcher extends Component {
 
     return (
       <div>
-        <StatusDropdownContainer disconnect={this.disconnect} />
+        <StatusDropdownContainer disconnect={this.disconnect}/>
         <DisconnectModal {...this.props}/>
       </div>
     )

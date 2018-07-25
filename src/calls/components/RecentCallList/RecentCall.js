@@ -28,7 +28,7 @@ class RecentCall extends Component {
           name='user'
           size={'large'}
           color={'grey'}
-          className={'ui avatar'} />
+          className={'ui avatar'}/>
 
         <Item.Content>
           <Grid
@@ -36,13 +36,13 @@ class RecentCall extends Component {
             relaxed={false}
             padded={false}>
             <Grid.Column width={contentWidth}>
-              <Item.Header>{this.props.author} {this.props.phoneNumber? `(${this.props.phoneNumber})` : ''}</Item.Header>
+              <Item.Header>{this.props.author} {this.props.phoneNumber ? `(${this.props.phoneNumber})` : ''}</Item.Header>
               <Item.Description>{
                 this.props.incoming
                   ? <Icon name={'arrow down'} color={color}/>
                   : <Icon name={'arrow up'} color={color}/>
               }
-              <span className='date'>{printableDate} - {duration.humanize()}</span>
+                <span className='date'>{printableDate} - {duration.humanize()}</span>
               </Item.Description>
             </Grid.Column>
             <Grid.Column width={unreadWidth}>

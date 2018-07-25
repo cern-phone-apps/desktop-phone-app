@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
+import React, {Component} from 'react'
+import {Button} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 

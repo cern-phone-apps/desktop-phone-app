@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './CallLoader.css'
-import { PhoneRingingIcon } from 'calls/components'
+import {PhoneRingingIcon} from 'calls/components'
 import {translate} from 'react-i18next'
 
 class CallLoader extends Component {
@@ -15,7 +15,9 @@ class CallLoader extends Component {
   }
 
   componentDidMount () {
-    setTimeout(() => { console.debug('Accept call after 5 seconds') || this.acceptCall() }, 5000)
+    setTimeout(() => {
+      console.debug('Accept call after 5 seconds') || this.acceptCall()
+    }, 5000)
   }
 
   componentWillReceiveProps (next) {
@@ -41,7 +43,7 @@ class CallLoader extends Component {
             </div>
             <h3 className="ui center aligned header">
               {t('callingText')} <img src={'/images/avatar/patrick.png'} alt={'avatar'}
-                className="ui circular tiny image"/> {this.props.recipientName}
+                                      className="ui circular tiny image"/> {this.props.recipientName}
             </h3>
             <div className="ui center aligned basic segment">
               ({this.props.phoneNumber})

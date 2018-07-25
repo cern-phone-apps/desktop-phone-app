@@ -1,5 +1,5 @@
-import { RSAA } from 'redux-api-middleware'
-import { withAuth, withRefresh } from 'login/reducers/auth'
+import {RSAA} from 'redux-api-middleware'
+import {withAuth, withRefresh} from 'login/reducers/auth'
 
 export const LOGIN_REQUEST = '@@auth/LOGIN_REQUEST'
 export const LOGIN_SUCCESS = '@@auth/LOGIN_SUCCESS'

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import qs from 'qs'
 
 import * as callsRoutes from 'calls/routes'

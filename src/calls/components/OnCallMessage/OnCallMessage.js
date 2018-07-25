@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 import './OnCallMessage.css'
 import PropTypes from 'prop-types'
 import Timer from 'simple-react-timer'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {translate} from 'react-i18next'
 
 class OnCallMessage extends Component {
