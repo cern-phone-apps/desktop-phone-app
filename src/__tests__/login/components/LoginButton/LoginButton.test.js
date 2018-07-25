@@ -2,7 +2,6 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import 'i18n'
 import {LoginButton} from 'login/components/LoginButton/LoginButton'
-import {Button} from 'semantic-ui-react'
 
 
 it('renders without crashing', () => {
@@ -10,7 +9,7 @@ it('renders without crashing', () => {
   const button = shallow(
     <LoginButton
     t={key => key}
-    isAuthenticated={false}
+    loggedIn={false}
     urlQuery={''}
     />);
 
@@ -25,7 +24,7 @@ it('changes redirect state on click', () => {
   const button = shallow(
     <LoginButton
       t={key => key}
-      isAuthenticated={false}
+      loggedIn={false}
       urlQuery={''}
     />);
   const div = button.find('.LoginButton')
@@ -39,7 +38,7 @@ it('changes authorizeUrl url state on click', () => {
   const button = shallow(
     <LoginButton
       t={key => key}
-      isAuthenticated={false}
+      loggedIn={false}
       urlQuery={''}
     />);
   const div = button.find('.LoginButton')
