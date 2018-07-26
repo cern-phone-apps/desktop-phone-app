@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import RecentCallList from 'calls/components/RecentCallList/RecentCallList'
 
-import {RecentCallList} from 'calls/components'
 
 function mapStateToProps ({calls}) {
   return {

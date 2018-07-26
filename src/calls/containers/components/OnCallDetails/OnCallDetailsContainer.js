@@ -2,9 +2,9 @@ import { bindActionCreators } from 'redux'
 
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import {OnCallDetails} from 'calls/components'
 import * as callActionCreators from 'calls/actions/call'
 import * as recentActionCreators from 'calls/actions/recent'
+import OnCallDetails from 'calls/components/OnCallDetails/OnCallDetails'
 
 
 function mapStateToProps ({calls}) {
@@ -24,7 +24,9 @@ function mapDispatchToProps (dispatch) {
   }, dispatch)
 }
 
-export default withRouter(connect(
+export const OnCallDetailsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(OnCallDetails))
+)(OnCallDetails)
+
+export default withRouter(OnCallDetailsContainer)

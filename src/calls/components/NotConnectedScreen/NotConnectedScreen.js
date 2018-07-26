@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Message, Segment} from 'semantic-ui-react'
-import {ConnectNumberButtonContainer} from 'calls/containers/components'
+import ConnectNumberButtonContainer from 'calls/containers/components/ConnectNumberButton/ConnectNumberButtonContainer'
 
 
-class NotConnectedScreen extends Component {
+export class NotConnectedScreen extends Component {
   static propTypes = {
     errors: PropTypes.object
   }

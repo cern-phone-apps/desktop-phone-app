@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as callActionCreators from 'calls/actions/call'
 import { withRouter } from 'react-router-dom'
-import {OnCallMessage} from 'calls/components'
+import OnCallMessage from 'calls/components/OnCallMessage/OnCallMessage'
 
 function mapStateToProps ({calls}) {
   return {

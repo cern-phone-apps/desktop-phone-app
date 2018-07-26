@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as searchActionCreators from 'calls/actions/search'
 import { withRouter } from 'react-router-dom'
-import {UserSearch} from 'calls/components'
+import UserSearch from 'calls/components/UserSearch/UserSearch'
 
 function mapStateToProps ({calls}) {
   return {
@@ -21,7 +21,9 @@ function mapDispatchToProps (dispatch) {
   dispatch)
 }
 
-export default withRouter(connect(
+export const UserSearchContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserSearch))
+)(UserSearch)
+
+export default withRouter(UserSearchContainer)

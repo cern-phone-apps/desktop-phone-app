@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './CallLoader.css'
-import {PhoneRingingIcon} from 'calls/components'
 import {translate} from 'react-i18next'
+import PhoneRingingIcon from 'calls/components/PhoneRingingIcon/PhoneRingingIcon'
 
-class CallLoader extends Component {
+export class CallLoader extends Component {
   static propTypes = {
     recipientName: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,

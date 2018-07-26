@@ -1,12 +1,16 @@
 import React, {Component} from 'react'
 
 import './CallsScreen.css'
-import {LeftColumn, LeftColumnHeader, RightColumn} from 'common/components'
-import {
-  CallerContainer, CallLoaderContainer, NotConnectedScreenContainer, OnCallDetailsContainer,
-  OnCallMessageContainer, RecentCallListContainer
-} from 'calls/containers/components'
 import PropTypes from 'prop-types'
+import LeftColumn from 'common/components/LeftColumn/LeftColumn'
+import LeftColumnHeader from 'common/components/LeftColumnHeader/LeftColumnHeader'
+import RightColumn from 'common/components/RightColumn/RightColumn'
+import RecentCallListContainer from 'calls/containers/components/RecentCallList/RecentCallListContainer'
+import OnCallMessageContainer from 'calls/containers/components/OnCallMessage/OnCallMessageContainer'
+import NotConnectedScreenContainer from 'calls/containers/components/NotConnectedScreen/NotConnectedScreenContainer'
+import CallLoaderContainer from 'calls/containers/components/CallLoader/CallLoaderContainer'
+import OnCallDetailsContainer from 'calls/containers/components/OnCallDetails/OnCallDetailsContainer'
+import CallerContainer from 'calls/containers/components/Caller/CallerContainer'
 
 class CallsScreen extends Component {
 

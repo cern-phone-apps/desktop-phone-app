@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import {Button, Icon} from 'semantic-ui-react'
 import {translate} from 'react-i18next'
 
-class OnCallDetails extends Component {
+export class OnCallDetails extends Component {
   static propTypes = {
     hangupCall: PropTypes.func.isRequired,
     startTime: PropTypes.number.isRequired,

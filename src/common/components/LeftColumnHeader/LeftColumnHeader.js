@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import {Grid} from 'semantic-ui-react'
 
 import './LeftColumnHeader.css'
-import {StatusSwitcherContainer} from 'calls/containers/components'
-import {ToggleButtonContainer} from 'common/containers/components'
+import ToggleButtonContainer from 'common/containers/components/ToggleButton/ToggleButtonContainer'
+import StatusSwitcherContainer from 'calls/containers/components/StatusSwitcher/StatusSwitcherContainer'
+
 
 class LeftColumnHeader extends Component {
   render () {

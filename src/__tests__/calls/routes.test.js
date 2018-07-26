@@ -1,5 +1,6 @@
 import React from 'react'
-import {callsRoute, callsMain, callsRoutes} from 'calls/routes'
+import {callsMain, callsRoutes} from 'calls/routes/utils'
+import {callsRoute} from 'calls/routes'
 
 it('has expected path', () => {
   expect(callsRoute.path).toEqual("/")

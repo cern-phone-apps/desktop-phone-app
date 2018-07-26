@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import {NotConnectedScreen} from 'calls/components/index'
 import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
 import {bindActionCreators} from 'redux'
 import * as numbersActionCreators from 'calls/actions/numbers'
+import NotConnectedScreen from 'calls/components/NotConnectedScreen/NotConnectedScreen'
 
 function mapStateToProps ({calls}) {
   return {
@@ -18,7 +18,9 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(numbersActionCreators, dispatch)
 }
 
-export default phoneService(connect(
+export const NotConnectedScreenContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(NotConnectedScreen))
+)(NotConnectedScreen)
+
+export default phoneService(NotConnectedScreenContainer)

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {Redirect} from 'react-router-dom'
 import qs from 'qs'
 
-import * as callsRoutes from 'calls/routes'
 import * as routes from 'routes'
 import {LoadingDimmer} from 'login/components/index'
+import {callsRoute} from 'calls/routes'
 
 class RedirectPage extends Component {
   static propTypes = {
@@ -34,7 +34,7 @@ class RedirectPage extends Component {
     }
 
     if (this.props.isAuthenticated) {
-      return <Redirect exact={true} to={callsRoutes.callsRoute}/>
+      return <Redirect exact={true} to={callsRoute.path}/>
     } else {
       return <Redirect exact={true} to={routes.loginRoute.path}/>
     }
