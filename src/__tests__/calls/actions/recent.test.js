@@ -12,6 +12,4 @@ describe('status actions', () => {
 
     expect(actions.addRecentCall(recentCall)).toEqual(expectedAction)
   })
-
-
 })
