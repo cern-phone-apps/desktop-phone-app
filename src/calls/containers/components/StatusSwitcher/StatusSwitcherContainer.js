@@ -2,8 +2,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as callActionCreators from 'calls/actions/status'
-import { StatusSwitcher } from 'calls/components/index'
 import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
+import StatusSwitcher from 'calls/components/StatusSwitcher/StatusSwitcher'
 
 
 function mapStateToProps ({calls}) {

@@ -20,7 +20,6 @@ export function getAccessToken () {
  * @returns {boolean} (true|false)
  */
 export function isAccessTokenExpired () {
-  console.log('isAccessTokenExpired?: ', !getAccessToken())
   return !getAccessToken()
 }
 
@@ -37,7 +36,6 @@ export function getRefreshToken () {
  * @returns {boolean} (true|false)
  */
 export function isRefreshTokenExpired () {
-  console.log('isRefreshTokenExpired?: ', !getRefreshToken())
   return !getRefreshToken()
 }
 

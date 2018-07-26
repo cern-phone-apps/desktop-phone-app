@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux'
 
 import * as callActionCreators from 'calls/actions/call'
-import {CallsScreen} from 'calls/screens'
+import CallsScreen from 'calls/screens/CallsScreen/CallsScreen'
 
 function mapStateToProps ({calls}) {
   return {
@@ -19,7 +19,9 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(callActionCreators, dispatch)
 }
 
-export default withRouter(connect(
+export const CallsScreenContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CallsScreen))
+)(CallsScreen)
+
+export default withRouter(CallsScreenContainer)

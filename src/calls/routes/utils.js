@@ -1,10 +1,6 @@
 import React from 'react'
-import {CallsScreenContainer} from 'calls/containers/screens'
-
-export const callsRoute = {
-  path: '/',
-  exact: true
-}
+import CallsScreenContainer from 'calls/containers/screens/CallsScreen/CallsScreenContainer'
+import {callsRoute} from 'calls/routes'
 
 export const callsMain = () => {
   return <CallsScreenContainer/>

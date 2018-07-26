@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import {Grid, Icon, Item} from 'semantic-ui-react'
-import {MakeCallButtonContainer} from 'calls/containers/components/index'
+import MakeCallButtonContainer from 'calls/containers/components/MakeCallButton/MakeCallButtonContainer'
 
 class RecentCall extends Component {
   static propTypes = {

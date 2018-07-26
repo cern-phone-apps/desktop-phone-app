@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux'
 
 import { connect } from 'react-redux'
 import * as callActionCreators from 'calls/actions/call'
-import {MakeCallButton} from 'calls/components'
+import MakeCallButton from 'calls/components/MakeCallButton/MakeCallButton'
 
 function mapStateToProps ({calls}) {
   return {

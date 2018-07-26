@@ -6,7 +6,7 @@ import Timer from 'simple-react-timer'
 import {Link} from 'react-router-dom'
 import {translate} from 'react-i18next'
 
-class OnCallMessage extends Component {
+export class OnCallMessage extends Component {
   static propTypes = {
     recipientName: PropTypes.string.isRequired,
     startTime: PropTypes.number.isRequired,

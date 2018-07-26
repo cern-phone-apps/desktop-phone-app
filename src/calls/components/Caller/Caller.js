@@ -3,12 +3,13 @@ import {Button, Icon, Segment} from 'semantic-ui-react'
 import './Caller.css'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
-import {DialpadContainer, UserSearchContainer} from 'calls/containers/components/index'
 
 import './Caller.css'
-import {CalleeProfileContainer} from 'calls/containers/components'
+import UserSearchContainer from 'calls/containers/components/UserSearch/UserSearchContainer'
+import DialpadContainer from 'calls/containers/components/Dialpad/DialpadContainer'
+import CalleeProfileContainer from 'calls/containers/components/CalleeProfile/CalleeProfileContainer'
 
-class Caller extends Component {
+export class Caller extends Component {
   static propTypes = {
     userSelected: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,

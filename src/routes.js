@@ -1,4 +1,5 @@
-import {callsRoute, callsRoutes} from 'calls/routes'
+import {callsRoute} from 'calls/routes'
+import {callsRoutes} from 'calls/routes/utils'
 
 export const loginRoute = {
   path: '/login/'

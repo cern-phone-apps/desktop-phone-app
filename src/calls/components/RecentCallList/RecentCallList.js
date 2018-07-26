@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {Item} from 'semantic-ui-react'
 import {ScrollableContent} from 'common/components'
-import {RecentCall} from 'calls/components'
+import RecentCall from 'calls/components/RecentCallList/RecentCall'
 
 /**
  * Displays a scrollable list of RecentCall Components

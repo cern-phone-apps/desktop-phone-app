@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import * as callActionCreators from 'calls/actions/call'
-import {CallLoader} from 'calls/components'
+import CallLoader from 'calls/components/CallLoader/CallLoader'
 
 function mapStateToProps ({calls}) {
   return {
