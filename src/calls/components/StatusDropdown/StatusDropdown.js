@@ -4,11 +4,17 @@ import React from 'react'
 import {Icon, Dropdown} from 'semantic-ui-react'
 
 
-const IconModalTrigger = ({iconColor}) => (
-  <Icon name='user' color={iconColor}/>
-)
+export function IconModalTrigger({iconColor}) {
+  return <Icon name='user' color={iconColor}/>
+}
 
-class StatusDropdown extends Component {
+export const statuses = {
+  invisible: 'invisible',
+  available: 'available',
+  doNotDisturb: 'do_not_disturb'
+}
+
+export class StatusDropdown extends Component {
 
   static propTypes = {
     status: PropTypes.string.isRequired,
@@ -22,23 +28,21 @@ class StatusDropdown extends Component {
   }
 
   componentDidMount () {
-    console.debug('componentDidMount')
-
     this.handleIconChange(this.props)
   }
 
   handleIconChange (props) {
-    if (props.status === 'invisible') {
+    if (props.status === statuses.invisible) {
       this.setState({
         iconColor: 'grey'
       })
     }
-    if (props.status === 'available') {
+    if (props.status === statuses.available) {
       this.setState({
         iconColor: 'green'
       })
     }
-    if (props.status === 'do_not_disturb') {
+    if (props.status === statuses.doNotDisturb) {
       this.setState({
         iconColor: 'red'
       })
@@ -46,8 +50,6 @@ class StatusDropdown extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.debug('componentWillReceiveProps')
-
     this.handleIconChange(nextProps)
   }
 
