@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'semantic-ui-react'
 
 import './ToggleButton.css'
 
-export class ToggleButton extends Component {
+export class ToggleButton extends React.Component {
   static propTypes = {
     displaySidebar: PropTypes.func.isRequired,
     finishedDisplayingSidebar: PropTypes.func.isRequired,
@@ -12,7 +12,6 @@ export class ToggleButton extends Component {
   }
 
   toggleSidebar = () => {
-    console.debug('Calling toggle sidebar')
     this.props.displaySidebar()
     setTimeout(() => {
       this.props.finishedDisplayingSidebar()

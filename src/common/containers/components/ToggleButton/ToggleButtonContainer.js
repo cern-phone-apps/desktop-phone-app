@@ -15,7 +15,9 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(sidebarActionCreators, dispatch)
 }
 
-export default connect(
+const ToggleButtonContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ToggleButton)
+
+export default ToggleButtonContainer
