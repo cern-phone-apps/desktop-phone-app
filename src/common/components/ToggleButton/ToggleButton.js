@@ -4,7 +4,7 @@ import {Button} from 'semantic-ui-react'
 
 import './ToggleButton.css'
 
-class ToggleButton extends Component {
+export class ToggleButton extends Component {
   static propTypes = {
     displaySidebar: PropTypes.func.isRequired,
     finishedDisplayingSidebar: PropTypes.func.isRequired,
