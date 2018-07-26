@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {Header, Icon, Loader, Menu, Segment} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import CalleeProfileNumberContainer from 'calls/containers/components/CalleeProfile/CalleeProfileNumberContainer'
 
-import {CalleeProfileNumberContainer} from 'calls/containers/components'
-
-const ProfileInfo = ({profile}) => {
+export function ProfileInfo ({profile}) {
   const division = profile.division === '[]' ? '' : profile.division
   const group = profile.cernGroup === '[]' ? '' : `-${profile.cernGroup}`
   const section = profile.cernSection === '[]' ? '' : `-${profile.cernSection}`
@@ -31,49 +30,48 @@ const ProfileInfo = ({profile}) => {
 }
 
 
-class CalleeProfile extends Component {
+export class CalleeProfile extends Component {
 
   static propTypes = {
     username: PropTypes.string.isRequired,
-    getUserProfile: PropTypes.func.isRequired
+    getUserProfile: PropTypes.func.isRequired,
+    fetching: PropTypes.bool.isRequired
   }
 
-  state = {
-    profile: undefined
-  }
 
   componentDidMount () {
     this.props.getUserProfile(this.props.username)
   }
 
+  getItems = () => {
+    const {profile} = this.props
+    if (!profile) {
+      return []
+    }
+    return profile.phones && profile.phones.map((phone, index) => (
+      <CalleeProfileNumberContainer
+        key={`number-${index}`}
+        phoneNumber={phone.number}
+        recipientName={profile.displayName}
+        icon={phone.phoneType}/>
+    ))
+  }
+
   render () {
-
-    const {profile, fetching} = this.props
-    console.log(this.props)
-
+    const {fetching} = this.props
     if (fetching) {
       return <Loader size={'large'}/>
     }
 
-    if (profile) {
-      return (
+    return (
+      <div>
+        <ProfileInfo {...this.props}/>
         <div>
-          <ProfileInfo {...this.props}/>
-          <Menu fluid={true} attached={'bottom'} vertical={true}>
-            {profile.phones && profile.phones.map((phone, index) => (
-              <CalleeProfileNumberContainer
-                key={`number-${index}`}
-                phoneNumber={phone.number}
-                recipientName={profile.displayName}
-                icon={phone.phoneType}/>
-            ))}
-          </Menu>
+          <Menu fluid={true} attached={'bottom'} vertical={true} items={this.getItems()}/>
         </div>
-      )
-    }
+      </div>
+    )
   }
 }
-
-CalleeProfile.propTypes = {}
 
 export default CalleeProfile

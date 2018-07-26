@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as callActionCreators from 'calls/actions/call'
 import * as searchActionCreators from 'calls/actions/search'
-import {CalleeProfileNumber} from 'calls/components'
+import {CalleeProfileNumber} from 'calls/components/CalleeProfile/CalleeProfileNumber'
 
 function mapStateToProps ({calls}) {
   return {
