@@ -1,6 +1,5 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-// import { expect } from 'chai';
 import {default as Dialpad, CallButton as CallButton, DialButton} from 'calls/components/Dialpad/Dialpad'
 import {Icon} from 'semantic-ui-react'
 
