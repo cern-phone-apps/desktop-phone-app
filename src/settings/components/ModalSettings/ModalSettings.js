@@ -10,7 +10,7 @@ import LanguageSettings from 'settings/components/LanguageSettings/LanguageSetti
 /**
  * Modal to view and manage the application settings
  */
-class ModalSettings extends Component {
+export class ModalSettings extends Component {
   static propTypes = {
     hideSidebarIfVisible: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
