@@ -1,11 +1,48 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Dropdown, Form, Header } from 'semantic-ui-react'
-import { translate } from 'react-i18next'
+import {Dropdown, Form, Header} from 'semantic-ui-react'
+import {translate} from 'react-i18next'
 import DetectRTC from 'detectrtc'
-import { changeAudioDestination, changeInputDevice, getUserDevices, stopStreams } from 'settings/utils/devices'
+import {changeAudioDestination, changeInputDevice, getUserDevices, stopStreams} from 'settings/utils/devices'
 
-class DeviceSettings extends Component {
+
+export function SpeakersField ({t, outputDevice, selectOutputDevice, hasSpeakers, devices}) {
+  if (hasSpeakers) {
+    return (<Form.Field>
+      <label htmlFor="audioOutput">{t('devices.audioOutputLabel')}</label>
+      {devices && <Dropdown
+        id={'audioOutput'}
+        selection
+        defaultValue={outputDevice || 'default'}
+        options={devices.filter((device) => (device.kind === 'audiooutput'))}
+        onChange={(event, data) => selectOutputDevice(data.value)}
+      />
+      }
+    </Form.Field>)
+  } else {
+    return (<div/>)
+  }
+}
+
+export function InputDeviceField ({t, hasMicrophone, devices, inputDevice, selectInputDevice}) {
+  if (hasMicrophone) {
+    return <Form.Field>
+      <label htmlFor="audioSource">{t('devices.audioInputLabel')}</label>
+      {devices && <Dropdown
+        id={'audioSource'}
+        selection
+        defaultValue={inputDevice || 'default'}
+        options={devices.filter((device) => (device.kind === 'audioinput'))}
+        onChange={(event, data) => selectInputDevice(data.value)}
+      />
+      }
+    </Form.Field>
+  } else {
+    return <div/>
+  }
+}
+
+export class DeviceSettings extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     setMicrophone: PropTypes.func.isRequired,
@@ -47,59 +84,44 @@ class DeviceSettings extends Component {
   }
 
   selectInputDevice = (value) => {
-    console.debug('Selected input device: ', value)
     this.props.setMicrophone(value)
     // this.stopStreams()
     changeInputDevice(value)
   }
 
   selectOutputDevice = (value) => {
-    console.debug('Selected output device: ', value)
-    console.debug('changeAudioDestination:', value)
     let audioElement = document.querySelector('audio')
     this.props.setSpeaker(value)
     changeAudioDestination(audioElement, value)
   }
 
   render () {
-    const {t} = this.props
+    const {t, outputDevice, inputDevice} = this.props
+    const {hasSpeakers, devices, hasMicrophone} = this.state
 
     return (
       <div>
         <Header as={'h4'}>{t('devices.header')}</Header>
         <Form>
 
-          {this.state.hasMicrophone && <Form.Field>
-            <label htmlFor="audioSource">{t('devices.audioInputLabel')}</label>
-            {this.state.devices && <Dropdown
-              id={'audioSource'}
-              selection
-              defaultValue={this.props.inputDevice || 'default'}
-              options={this.state.devices.filter((device) => (device.kind === 'audioinput'))}
-              onChange={(event, data) => this.selectInputDevice(data.value)}
-            />
-            }
-          </Form.Field>
-          }
-
-          {this.state.hasSpeakers && <Form.Field>
-            <label htmlFor="audioOutput">{t('devices.audioOutputLabel')}</label>
-            {this.state.devices && <Dropdown
-              id={'audioOutput'}
-              selection
-              defaultValue={this.props.outputDevice || 'default'}
-              options={this.state.devices.filter((device) => (device.kind === 'audiooutput'))}
-              onChange={(event, data) => this.selectOutputDevice(data.value)}
-            />
-            }
-          </Form.Field>
-          }
+          <InputDeviceField
+            t={t}
+            outputDevice={inputDevice}
+            selectOutputDevice={this.selectInputDevice()}
+            hasSpeakers={hasMicrophone}
+            devices={devices}
+          />
+          <SpeakersField
+            t={t}
+            outputDevice={outputDevice}
+            selectOutputDevice={this.selectOutputDevice}
+            hasSpeakers={hasSpeakers}
+            devices={devices}
+          />
           <Form.Field>
             {/*<audio id="gum-local" controls autoPlay/>*/}
           </Form.Field>
         </Form>
-
-
       </div>
     )
   }
