@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import DetectRTC from 'detectrtc'
 import {getUserDevices, stopStreams} from 'settings/utils/devices'
 
 
-export class DeviceField extends Component {
+export class DeviceField extends React.Component {
 
   state = {
     devices: [],
