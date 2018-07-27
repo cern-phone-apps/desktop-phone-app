@@ -29,6 +29,7 @@ export class DeviceField extends Component {
   }
 
   render () {
+    return ''
   }
 }
 
