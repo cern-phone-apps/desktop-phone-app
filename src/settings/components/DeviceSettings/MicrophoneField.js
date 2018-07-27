@@ -21,6 +21,7 @@ export class MicrophoneField extends DeviceField {
   }
 
   componentDidMount = () => {
+    super.componentDidMount()
     DetectRTC.load(() => {
       this.setState({
         hasMicrophone: DetectRTC.hasMicrophone

@@ -30,6 +30,7 @@ export class SpeakersField extends DeviceField {
   }
 
   componentDidMount = () => {
+    super.componentDidMount()
     DetectRTC.load(() => {
       this.setState({
         hasSpeakers: DetectRTC.hasSpeakers
