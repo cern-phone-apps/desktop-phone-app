@@ -7,14 +7,13 @@ export class DeviceField extends Component {
 
   state = {
     devices: [],
-    isWebRTCSupported: false,
+    isWebRTCSupported: false
   }
 
-  constructor () {
-    super()
+  componentDidMount () {
     DetectRTC.load(() => {
       this.setState({
-        isWebRTCSupported: DetectRTC.isWebRTCSupported,
+        isWebRTCSupported: DetectRTC.isWebRTCSupported
       })
       if (DetectRTC.isWebRTCSupported) {
         getUserDevices().then(
@@ -27,6 +26,9 @@ export class DeviceField extends Component {
 
   componentWillUnmount () {
     stopStreams()
+  }
+
+  render () {
   }
 }
 
