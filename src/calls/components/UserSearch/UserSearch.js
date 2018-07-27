@@ -66,7 +66,6 @@ class UserSearch extends Component {
 
   render () {
     const {isLoading} = this.state
-    console.debug('PROPS', this.props)
 
     if (this.props.displayDialpad) {
       return (
