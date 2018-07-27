@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as authActionCreators from 'login/actions/auth'
-import {ModalSettings} from 'settings/components'
+import ModalSettings from 'settings/components/ModalSettings/ModalSettings'
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators(authActionCreators, dispatch)

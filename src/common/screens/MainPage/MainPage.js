@@ -6,7 +6,7 @@ import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
 
 import './MainPage.scss'
 import * as routes from 'routes'
-import {ModalSettingsContainer} from 'settings/containers/components'
+import ModalSettingsContainer from 'settings/containers/components/ModalSettings/ModalSettingsContainer'
 
 class MainPage extends Component {
   static propTypes = {

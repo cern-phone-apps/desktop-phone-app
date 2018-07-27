@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import {PersonalInfo} from 'settings/components'
+import PersonalInfo from 'settings/components/PersonalInfo/PersonalInfo'
 
 function mapStateToProps ({user}) {
   return {
