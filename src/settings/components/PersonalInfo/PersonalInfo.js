@@ -23,7 +23,7 @@ const fullName = (firstName, lastName) => {
  * @returns {*}
  * @constructor
  */
-const PersonalInfo = ({t, firstName, lastName, username, email}) => {
+export const PersonalInfo = ({t, firstName, lastName, username, email}) => {
   return (
     <div>
       <Header as={'h4'}>{t('personalInfo.header')}</Header>

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Icon, Modal, Menu, Button, Header} from 'semantic-ui-react'
 
-import {LanguageSettings} from 'settings/components/index'
-import {DeviceSettingsContainer, PersonalInfoContainer} from 'settings/containers/components/index'
+import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings'
+import PersonalInfoContainer from 'settings/containers/components/PersonalInfo/PersonalInfoContainer'
+import LanguageSettings from 'settings/components/LanguageSettings/LanguageSettings'
 
 /**
  * Modal to view and manage the application settings
@@ -52,7 +53,7 @@ class ModalSettings extends Component {
             <hr/>
             <LanguageSettings/>
             <hr/>
-            <DeviceSettingsContainer/>
+            <DeviceSettings/>
             <hr/>
             <Header as={'h4'}>{t('dangerZoneHeader')}</Header>
             <Button color={'red'} onClick={this.logoutUser}>{t('logoutButtonText')}</Button>
