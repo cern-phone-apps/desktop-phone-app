@@ -4,8 +4,8 @@ import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 
 import createHistory from 'history/createBrowserHistory'
-import {LoginButtonContainer} from 'login/containers/components'
 import {routerMiddleware} from 'react-router-redux'
+import LoginButtonContainer from 'login/containers/components/LoginButton/LoginButtonContainer'
 
 const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]

@@ -4,15 +4,15 @@ import {Redirect} from 'react-router-dom'
 import {Segment} from 'semantic-ui-react'
 
 import {translate} from 'react-i18next'
-import {LoadingDimmer} from 'login/components/index'
-import {LoginButtonContainer} from 'login/containers/components/index'
 import './LoginPage.css'
 import * as routes from 'calls/routes'
+import LoginButtonContainer from 'login/containers/components/LoginButton/LoginButtonContainer'
+import LoadingDimmer from 'login/components/LoadingDimmer/LoadingDimmer'
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    loginInProgress: PropTypes.bool.isRequired,
+    loginInProgress: PropTypes.bool,
     t: PropTypes.func.isRequired
   }
 
