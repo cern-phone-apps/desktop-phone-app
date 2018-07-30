@@ -7,7 +7,7 @@ import {callsRoute} from 'calls/routes'
 import {LoadingDimmer} from 'login/components/LoadingDimmer/LoadingDimmer'
 import * as loginRoutes from 'login/routes'
 
-export class RedirectPage extends Component {
+class RedirectPage extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     login: PropTypes.func.isRequired,
@@ -25,8 +25,6 @@ export class RedirectPage extends Component {
   }
 
   render () {
-    console.debug('Render redirect page')
-
     if (this.props.loginInProgress) {
       return <LoadingDimmer/>
     }
