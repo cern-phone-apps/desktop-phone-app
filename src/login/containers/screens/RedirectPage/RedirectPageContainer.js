@@ -10,7 +10,7 @@ import RedirectPage from 'login/screens/RedirectPage/RedirectPage'
 function mapStateToProps ({errors, auth, router}) {
   return {
     errors: errors,
-    isAuthenticated: isAuthenticated(auth),
+    isAuthenticated: isAuthenticated(),
     urlQuery: router.location.search
   }
 }
@@ -22,7 +22,10 @@ function mapDispatchToProps (dispatch) {
   }, dispatch)
 }
 
-export default withRouter(connect(
+
+export const RedirectPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RedirectPage))
+)(RedirectPage)
+
+export default withRouter(RedirectPageContainer)
