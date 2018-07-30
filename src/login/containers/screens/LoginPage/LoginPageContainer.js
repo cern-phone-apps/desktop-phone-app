@@ -11,6 +11,8 @@ function mapStateToProps ({auth}) {
   }
 }
 
-export default withRouter(connect(
+export const LoginPageContainer = connect(
   mapStateToProps
-)(LoginPage))
+)(LoginPage)
+
+export default withRouter(LoginPageContainer)
