@@ -6,7 +6,9 @@ const initialState = {
   lastName: null,
   mobile: null,
   phone: null,
-  username: null
+  username: null,
+  error: {},
+  fetching: false,
 }
 
 /**
@@ -17,8 +19,13 @@ const initialState = {
  * @returns {*} A dict with the new state
  */
 export default (state = initialState, action) => {
-  console.debug('echo reducer')
   switch (action.type) {
+    case me.ME_REQUEST:
+      return {
+        ...state,
+        fetching: true,
+        error: {}
+      }
     case me.ME_SUCCESS:
       return {
         ...state,
@@ -27,7 +34,21 @@ export default (state = initialState, action) => {
         lastName: action.payload.lastName,
         mobile: action.payload.mobile,
         phone: action.payload.phone,
-        username: action.payload.username
+        username: action.payload.username,
+        error: {},
+        fetching: false
+      }
+    case me.ME_FAILURE:
+      return {
+        ...state,
+        email: null,
+        firstName: null,
+        lastName: null,
+        mobile: null,
+        phone: null,
+        username: null,
+        error: action.payload.error,
+        fetching: false
       }
     default:
       return state
