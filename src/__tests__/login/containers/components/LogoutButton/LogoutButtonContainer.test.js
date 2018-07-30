@@ -6,8 +6,6 @@ import configureMockStore from 'redux-mock-store'
 import createHistory from 'history/createBrowserHistory'
 import {routerMiddleware} from 'react-router-redux'
 import {LogoutButtonContainer} from 'login/containers/components/LogoutButton/LogoutButtonContainer'
-import {MemoryRouter} from 'react-router-dom'
-import {LogoutButton} from 'login/components/LogoutButton/LogoutButton'
 
 const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]
@@ -38,6 +36,7 @@ describe('LogoutButton Container', () => {
     store.dispatch = jest.fn();
     wrapper = shallow(
       <LogoutButtonContainer
+        t={key => key}
         store={store}
       />);
   });

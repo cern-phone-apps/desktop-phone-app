@@ -7,6 +7,7 @@ import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
 import './MainPage.scss'
 import * as routes from 'routes'
 import ModalSettingsContainer from 'settings/containers/components/ModalSettings/ModalSettingsContainer'
+import * as loginRoutes from 'login/routes'
 
 class MainPage extends Component {
   static propTypes = {
@@ -68,8 +69,7 @@ class MainPage extends Component {
 
   render () {
     if (!this.props.isAuthenticated) {
-      console.debug('Redirecting to login', routes.loginRoute.path)
-      return <Redirect to={routes.loginRoute.path}/>
+      return <Redirect to={loginRoutes.loginRoute.path}/>
     }
 
     return (

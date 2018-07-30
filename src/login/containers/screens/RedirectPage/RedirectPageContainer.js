@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux'
 
 import * as authActionCreators from 'login/actions/auth'
 import * as meActionCreators from 'login/actions/me'
-import {RedirectPage} from 'login/screens/index'
+import RedirectPage from 'login/screens/RedirectPage/RedirectPage'
 
 function mapStateToProps ({errors, auth, router}) {
   return {

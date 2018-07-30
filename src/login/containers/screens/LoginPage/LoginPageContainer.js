@@ -1,13 +1,12 @@
 import {connect} from 'react-redux'
 import {isAuthenticated} from 'login/reducers/auth'
 import {withRouter} from 'react-router-dom'
-
-import {LoginPage} from 'login/screens/index'
+import LoginPage from 'login/screens/LoginPage/LoginPage'
 
 function mapStateToProps ({auth}) {
   return {
     errors: auth.errors,
-    isAuthenticated: isAuthenticated(auth),
+    isAuthenticated: isAuthenticated(),
     loginInProgress: auth.loginInProgress
   }
 }
