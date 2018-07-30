@@ -5,7 +5,7 @@
 
 ## Dev
 
-[![Build Status](https://travis-ci.org/cern-dialtone/phone-webapp.svg?branch=dev)](https://travis-ci.org/cern-dialtone/phone-webapp) [![Maintainability](https://api.codeclimate.com/v1/badges/42d62e996dbbaefce889/maintainability)](https://codeclimate.com/github/cern-dialtone/phone-webapp/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/42d62e996dbbaefce889/test_coverage)](https://codeclimate.com/github/cern-dialtone/phone-webapp/test_coverage)
+[![Build Status](https://travis-ci.org/cern-dialtone/phone-webapp.svg?branch=dev)](https://travis-ci.org/cern-dialtone/phone-webapp) [![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/test_coverage)](https://codeclimate.com/github/cern-dialtone/dial-webapp/test_coverage)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
