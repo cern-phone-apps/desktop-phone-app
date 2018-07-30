@@ -18,7 +18,6 @@ export class LoginPage extends Component {
 
   render () {
     const {t} = this.props
-    console.debug('Render login page')
 
     if (this.props.isAuthenticated) {
       return <Redirect exact={true} to={routes.callsRoute.path}/>
