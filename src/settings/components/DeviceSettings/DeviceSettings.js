@@ -18,8 +18,13 @@ export class DeviceSettings extends Component {
       <div>
         <Header as={'h4'}>{t('devices.header')}</Header>
         <Form>
-          <MicrophoneFieldContainer />
-          <SpeakersFieldContainer />
+          <MicrophoneFieldContainer fieldLabel={t('devices.audioInputLabel')}
+                                    fieldId={'audioSource'}
+                                    fieldType={'audioinput'}
+          />
+          <SpeakersFieldContainer fieldLabel={t('devices.audioOutputLabel')}
+                                  fieldId={'audioOutput'}
+                                  fieldType={'audiooutput'}/>
           <Form.Field>
             {/*<audio id="gum-local" controls autoPlay/>*/}
           </Form.Field>
