@@ -36,7 +36,6 @@ export class OnCallDetails extends Component {
   render () {
     const {t} = this.props
     return (
-
       <div className="call-inner-content">
         <div className="ui segment">
           <div>
