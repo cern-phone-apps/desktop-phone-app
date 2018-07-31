@@ -22,7 +22,6 @@ export class Caller extends Component {
   }
 
   handleDialPadDisplayButton = () => {
-    console.debug("handle")
     this.props.toggleDialpad(!this.props.displayDialpad)
   }
 
