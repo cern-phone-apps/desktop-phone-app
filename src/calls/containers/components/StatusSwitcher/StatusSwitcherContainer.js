@@ -5,7 +5,6 @@ import * as callActionCreators from 'calls/actions/status'
 import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
 import StatusSwitcher from 'calls/components/StatusSwitcher/StatusSwitcher'
 
-
 function mapStateToProps ({calls}) {
   return {
     status: calls.status,

@@ -13,28 +13,28 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('UserSearch Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     calls: {
       search: {
         userSelected: false,
-        value: "",
-        searchResults: [],
+        value: '',
+        searchResults: []
       },
-      dialpad:{
+      dialpad: {
         display: false
       }
     }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<UserSearchContainer
       store={store}
     />)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
@@ -46,7 +46,6 @@ describe('UserSearch Container', () => {
       searchUsers: expect.any(Function),
       results: expect.any(Array),
       displayDialpad: expect.any(Boolean)
-    }));
-  });
-
-});
+    }))
+  })
+})

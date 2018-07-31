@@ -2,29 +2,37 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Button, Icon, Loader} from 'semantic-ui-react'
 
-const ButtonNumbersList = (props) => {
-  if (props.numbers === undefined || props.numbers === []) {
+const ButtonNumbersList = ({numbers, phoneNumber, connect}) => {
+  if (numbers === undefined || numbers === []) {
     return ''
   }
   return (<div>
-    {props.numbers.map((item, index) => {
+    {numbers.map((item, index) => {
       return (
         <Button fluid key={`number-${index}`}
-                onClick={() => props.connect(item.phoneNumber)}>
+          onClick={() => connect(phoneNumber)}>
           <Icon name='plug'/>
-          {item.phoneNumber}</Button>
+          {phoneNumber}</Button>
       )
     })
     }
   </div>)
 }
 
+ButtonNumbersList.propTypes = {
+  numbers: PropTypes.array.isRequired,
+  phoneNumber: PropTypes.string.isRequired,
+  connect: PropTypes.func.isRequired
+}
+
 class ConnectNumberButton extends Component {
   static propTypes = {
     connecting: PropTypes.bool.isRequired,
     numbers: PropTypes.array.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
     getUserPhoneNumbers: PropTypes.func.isRequired,
-    setActiveNumber: PropTypes.func.isRequired
+    setActiveNumber: PropTypes.func.isRequired,
+    phoneService: PropTypes.object.isRequired
   }
 
   componentDidMount () {
@@ -37,13 +45,13 @@ class ConnectNumberButton extends Component {
   }
 
   render () {
-    if (!this.props.connecting || !this.props.numbers) {
-      return <ButtonNumbersList numbers={this.props.numbers} connect={this.connect}/>
+    const {connecting, numbers, phoneNumber} = this.props
+    if (!connecting || !numbers) {
+      return <ButtonNumbersList numbers={numbers} phoneNumber={phoneNumber} connect={this.connect}/>
     } else {
       return <Loader active inline='centered'/>
     }
   }
 }
-
 
 export default ConnectNumberButton

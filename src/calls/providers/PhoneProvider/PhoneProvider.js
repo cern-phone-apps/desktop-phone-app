@@ -71,12 +71,12 @@ class PhoneProvider extends Component {
   }
 
   handleUAEvents = (event, data) => {
-    console.debug('ua', event, data)
+    console.log('ua', event, data)
+    const disconnectedError = {message: 'You have been disconnected'}
     switch (event.name) {
       case 'disconnected':
-        const errors = {message: 'You have been disconnected'}
         this.props.setDisconnected()
-        console.error(errors.message)
+        console.log(disconnectedError)
         break
       case 'connected':
         this.props.setConnected()

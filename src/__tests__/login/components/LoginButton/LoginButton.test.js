@@ -3,15 +3,13 @@ import {shallow} from 'enzyme'
 import 'i18n'
 import {LoginButton} from 'login/components/LoginButton/LoginButton'
 
-
 it('renders without crashing', () => {
-
   const button = shallow(
     <LoginButton
-    t={key => key}
-    loggedIn={false}
-    urlQuery={''}
-    />);
+      t={key => key}
+      loggedIn={false}
+      urlQuery={''}
+    />)
 
   expect(button.text()).toEqual('<Button />')
   expect(button.html()).toContain('blue')
@@ -19,18 +17,17 @@ it('renders without crashing', () => {
   expect(button.html()).toContain('loginButtonText')
 })
 
-
 it('changes redirect state on click', () => {
   const button = shallow(
     <LoginButton
       t={key => key}
       loggedIn={false}
       urlQuery={''}
-    />);
+    />)
   const div = button.find('.LoginButton')
-  expect(button.state().redirected).toEqual(false);
+  expect(button.state().redirected).toEqual(false)
   div.simulate('click')
-  expect(button.state().redirected).toEqual(true);
+  expect(button.state().redirected).toEqual(true)
 })
 
 it('changes authorizeUrl url state on click', () => {
@@ -40,9 +37,9 @@ it('changes authorizeUrl url state on click', () => {
       t={key => key}
       loggedIn={false}
       urlQuery={''}
-    />);
+    />)
   const div = button.find('.LoginButton')
-  expect(button.state().authorizeUrl).toEqual(undefined);
+  expect(button.state().authorizeUrl).toEqual(undefined)
   div.simulate('click')
-  expect(button.state().authorizeUrl).toEqual(sampleAuthUrl);
+  expect(button.state().authorizeUrl).toEqual(sampleAuthUrl)
 })

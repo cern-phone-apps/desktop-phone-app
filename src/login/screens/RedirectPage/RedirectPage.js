@@ -12,7 +12,8 @@ class RedirectPage extends Component {
     isAuthenticated: PropTypes.bool.isRequired,
     login: PropTypes.func.isRequired,
     urlQuery: PropTypes.string.isRequired,
-    getMe: PropTypes.func.isRequired
+    getMe: PropTypes.func.isRequired,
+    loginInProgress: PropTypes.bool
   }
 
   componentDidMount = () => {

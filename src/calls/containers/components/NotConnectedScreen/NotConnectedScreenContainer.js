@@ -10,7 +10,7 @@ function mapStateToProps ({calls}) {
     connected: calls.connection.connected,
     errors: calls.connection.errors,
     numbers: calls.numbers.numbers,
-    numbersError: calls.numbers.error,
+    numbersError: calls.numbers.error
   }
 }
 

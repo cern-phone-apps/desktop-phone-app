@@ -16,6 +16,10 @@ const ModalTrigger = ({onClick}) => {
   )
 }
 
+ModalTrigger.propTypes = {
+  onClick: PropTypes.func.isRequired
+}
+
 /**
  * Modal to view and manage the application settings
  */
@@ -46,7 +50,7 @@ export class ModalSettings extends Component {
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
     return (
       <Modal size={'small'} dimmer={'blurring'} style={this.inlineStyle.modal} closeIcon
-             trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible}/>}>
+        trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible}/>}>
         <Modal.Header>{t('header')}</Modal.Header>
         <Modal.Content scrolling>
           <Modal.Description>

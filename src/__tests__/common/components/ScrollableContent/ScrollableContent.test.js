@@ -1,7 +1,6 @@
 import React from 'react'
 import ScrollableContent from 'common/components/ScrollableContent/ScrollableContent'
 
-
 it('renders without crashing', () => {
   const wrapper = shallow(<ScrollableContent />)
 

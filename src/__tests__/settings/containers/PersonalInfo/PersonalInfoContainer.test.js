@@ -11,7 +11,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('PersonalInfo Container', () => {
-  let wrapper, store;
+  let wrapper, store
   let storeContent = {
     user: {
       me: {
@@ -24,17 +24,17 @@ describe('PersonalInfo Container', () => {
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<PersonalInfoContainer store={store}/>)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
       email: 'email@cern.ch',
       username: 'example',
       firstName: 'firstName',
-      lastName: 'lastName',
-    }));
-  });
-});
+      lastName: 'lastName'
+    }))
+  })
+})

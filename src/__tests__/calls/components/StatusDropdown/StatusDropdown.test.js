@@ -1,22 +1,25 @@
 import React from 'react'
-import StatusDropdown, {statuses} from 'calls/components/StatusDropdown/StatusDropdown'
+import {StatusDropdown, statuses} from 'calls/components/StatusDropdown/StatusDropdown'
 
 it('renders without crashing', () => {
-
   const setAvailable = jest.fn()
   const setNotDisturb = jest.fn()
   const setInvisible = jest.fn()
+  const disconnect = jest.fn()
 
-  const icon = shallow(<StatusDropdown
-  status={statuses.available}
-  setUserAvailable={setAvailable}
-  setUserDoNotDisturb={setNotDisturb}
-  setUserInvisible={setInvisible}/>);
+  const wrapper = shallow(<StatusDropdown
+    status={statuses.available}
+    setUserAvailable={setAvailable}
+    setUserDoNotDisturb={setNotDisturb}
+    setUserInvisible={setInvisible}
+    disconnect={disconnect}/>)
 
-  expect(icon.text()).toEqual('<Dropdown />');
-  expect(icon.html()).toContain('StatusSwitcher');
-  expect(icon.html()).toContain('Disconnect');
-  expect(icon.html()).toContain('Do not disturb');
-  expect(icon.html()).toContain('Invisible');
-  expect(icon.html()).toContain('Available');
+
+  expect(wrapper.text()).toEqual('<Dropdown />')
+  expect(wrapper.html()).toContain('StatusSwitcher')
+  expect(wrapper.html()).toContain('Disconnect')
+  expect(wrapper.html()).toContain('Do not disturb')
+  expect(wrapper.html()).toContain('Invisible')
+  expect(wrapper.html()).toContain('Available')
+
 })

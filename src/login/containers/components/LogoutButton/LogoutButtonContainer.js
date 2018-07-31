@@ -25,5 +25,4 @@ export const LogoutButtonContainer = connect(
   mapDispatchToProps
 )(LogoutButton)
 
-
 export default withRouter(LogoutButtonContainer)

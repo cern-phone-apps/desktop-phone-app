@@ -1,5 +1,4 @@
 import React from 'react'
-import {shallow} from 'enzyme'
 import {CalleeProfileNumber} from 'calls/components/CalleeProfile/CalleeProfileNumber'
 
 it('renders CalleeProfileNumber without crashing', () => {
@@ -11,8 +10,9 @@ it('renders CalleeProfileNumber without crashing', () => {
     calling={false}
     makeCall={makeCall}
     phoneNumber={'12345'}
-    unSelectUser={unSelect}/>);
+    unSelectUser={unSelect}
+    icon={'phone'}
+    recipientName={'example name'}/>)
 
-  expect(wrapper.text()).toEqual('<MenuItem />');
-
+  expect(wrapper.text()).toEqual('<MenuItem />')
 })

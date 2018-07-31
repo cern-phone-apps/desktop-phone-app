@@ -13,7 +13,6 @@ import OnCallDetailsContainer from 'calls/containers/components/OnCallDetails/On
 import CallerContainer from 'calls/containers/components/Caller/CallerContainer'
 
 class CallsScreen extends Component {
-
   static propTypes = {
     calling: PropTypes.bool.isRequired,
     onCall: PropTypes.bool.isRequired,
@@ -30,16 +29,14 @@ class CallsScreen extends Component {
   getContentClass () {
     const {searchValue, displayDialpad, onCall, calling} = this.props
     return (
-      (!searchValue && !displayDialpad)
-      || onCall
-      || calling
+      (!searchValue && !displayDialpad) ||
+      onCall ||
+      calling
     ) ? 'CallPage__centered' : 'CallPage'
   }
 
   render () {
-
-    const {connected, calling, onCall, } = this.props
-
+    const {connected, calling, onCall} = this.props
     const connectedAndCalling = connected && calling
     const connectedAndOnCall = connected && onCall
     const onlyConnected = (connected && (!onCall && !calling))

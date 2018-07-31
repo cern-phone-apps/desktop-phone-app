@@ -68,7 +68,6 @@ describe('auth reducer', () => {
     )
   })
 
-
   it('should handle LOGIN_SUCCESS', () => {
     expect(
       reducer({}, {
@@ -109,7 +108,6 @@ describe('auth reducer', () => {
       }
     )
   })
-
 
   it('should handle TOKEN_RECEIVED', () => {
     expect(
@@ -157,11 +155,11 @@ describe('auth reducer', () => {
       reducer({}, {
         type: authActions.LOGIN_FAILURE,
         payload: {
-          response: "An error happened"
+          response: 'An error happened'
         }
       })
     ).toEqual(
-      {errors: "An error happened", loggedIn: false, loginInProgress: false}
+      {errors: 'An error happened', loggedIn: false, loginInProgress: false}
     )
 
     expect(
@@ -189,11 +187,11 @@ describe('auth reducer', () => {
       reducer({}, {
         type: authActions.TOKEN_FAILURE,
         payload: {
-          response: "An error happened"
+          response: 'An error happened'
         }
       })
     ).toEqual(
-      {errors: "An error happened", loggedIn: false, loginInProgress: false}
+      {errors: 'An error happened', loggedIn: false, loginInProgress: false}
     )
 
     expect(
@@ -215,5 +213,4 @@ describe('auth reducer', () => {
       {errors: {non_field_errors: undefined}, loggedIn: false, loginInProgress: false}
     )
   })
-
 })

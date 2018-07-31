@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('CalleeProfileNumber Container', () => {
-  let wrapper, store;
+  let wrapper, store
   const unSelect = jest.fn()
 
   let storeContent = {
@@ -23,36 +23,44 @@ describe('CalleeProfileNumber Container', () => {
     },
     router: {
       location: {
-        pathname: "/",
-        search: "",
-        hash: ""
+        pathname: '/',
+        search: '',
+        hash: ''
       }
     },
     calls: {
       search: {
         unSelectUser: unSelect
       },
+      profile: {
+        profile: {
+          recipientName: "test name"
+        },
+        fetching: false
+      },
       call: {
         calling: false
       }
-    },
+    }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<CalleeProfileNumberContainer
       store={store}
       phoneNumber={'12345'}
+      recipientName={'name example'}
+      icon={'phone'}
     />)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
-    expect(wrapper.props()).toEqual(expect.objectContaining({
-      phoneNumber: '12345',
-      calling: false,
-      acceptCall: expect.any(Function)
-    }));
-  });
-
-});
+    // expect(1).toEqual(1)
+      expect(wrapper.props()).toEqual(expect.objectContaining({
+        phoneNumber: '12345',
+        calling: false,
+        acceptCall: expect.any(Function)
+      }))
+  })
+})

@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('MainPage Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     sidebar: {
@@ -26,10 +26,10 @@ describe('MainPage Container', () => {
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<MainPageContainer store={store}/>)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
@@ -39,6 +39,6 @@ describe('MainPage Container', () => {
       displayingSidebar: expect.any(Function),
       finishedDisplayingSidebar: expect.any(Function),
       hideSidebar: expect.any(Function)
-    }));
-  });
-});
+    }))
+  })
+})

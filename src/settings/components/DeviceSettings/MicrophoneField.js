@@ -3,13 +3,11 @@ import {changeInputDevice} from 'settings/utils/devices'
 import DeviceField, {devicePropTypes} from 'settings/components/DeviceSettings/DeviceField'
 import DetectRTC from 'detectrtc'
 
-
 export class MicrophoneField extends DeviceField {
-
   static propTypes = {
     ...devicePropTypes,
     setMicrophone: PropTypes.func.isRequired,
-    inputDevice: PropTypes.string,
+    inputDevice: PropTypes.string
   }
 
   constructor () {

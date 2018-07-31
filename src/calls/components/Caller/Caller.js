@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Button, Icon, Segment} from 'semantic-ui-react'
-import './Caller.css'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 

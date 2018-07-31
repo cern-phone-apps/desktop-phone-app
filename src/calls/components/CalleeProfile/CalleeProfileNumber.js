@@ -8,7 +8,9 @@ export class CalleeProfileNumber extends Component {
     acceptCall: PropTypes.func.isRequired,
     unSelectUser: PropTypes.func.isRequired,
     calling: PropTypes.bool.isRequired,
-    phoneNumber: PropTypes.string.isRequired
+    phoneNumber: PropTypes.string.isRequired,
+    recipientName: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired
   }
 
   makeCall = () => {

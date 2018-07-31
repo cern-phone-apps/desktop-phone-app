@@ -43,12 +43,11 @@ export class LoginButton extends Component {
    * Redirects the user to the Oauth authorization URL
    */
   loginUser = () => {
-
     const authorizeUrl = this.buildAuthorizeUrl()
     this.setState({
       redirected: true,
       authorizeUrl: authorizeUrl
-    });
+    })
     window.location.href = authorizeUrl
   }
 

@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('RedirectPage Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     auth: {
@@ -21,23 +21,23 @@ describe('RedirectPage Container', () => {
     },
     router: {
       location: {
-        pathname: "/",
-        search: "",
-        hash: ""
+        pathname: '/',
+        search: '',
+        hash: ''
       }
     }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<RedirectPageContainer t={key => key} store={store}/>)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
       isAuthenticated: false,
       urlQuery: expect.any(String)
-    }));
-  });
-});
+    }))
+  })
+})

@@ -28,5 +28,4 @@ describe('sidebar actions', () => {
     }
     expect(actions.finishedDisplayingSidebar()).toEqual(expectedAction)
   })
-
 })

@@ -5,9 +5,7 @@ import './LeftColumnHeader.css'
 import ToggleButtonContainer from 'common/containers/components/ToggleButton/ToggleButtonContainer'
 import StatusSwitcherContainer from 'calls/containers/components/StatusSwitcher/StatusSwitcherContainer'
 
-
 class LeftColumnHeader extends Component {
-
   render () {
     return (
       <header className="padded-item column-header left-header">

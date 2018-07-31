@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {Dimmer, Header, Loader, Modal, Segment} from 'semantic-ui-react'
 
-function DisconnectModal({disconnecting}){
+function DisconnectModal ({disconnecting}) {
   return (<Modal size={'mini'} open={disconnecting}>
     <Modal.Content>
       <Modal.Description>
@@ -14,6 +15,10 @@ function DisconnectModal({disconnecting}){
       </Modal.Description>
     </Modal.Content>
   </Modal>)
+}
+
+DisconnectModal.propTypes = {
+  disconnecting: PropTypes.bool.isRequired
 }
 
 export default DisconnectModal

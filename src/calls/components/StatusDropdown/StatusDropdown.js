@@ -1,11 +1,13 @@
-import {Component} from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {Icon, Dropdown} from 'semantic-ui-react'
 
-
-export function IconModalTrigger({iconColor}) {
+export function IconModalTrigger ({iconColor}) {
   return <Icon name='user' color={iconColor}/>
+}
+
+IconModalTrigger.propTypes = {
+  iconColor: PropTypes.string.isRequired
 }
 
 export const statuses = {
@@ -15,12 +17,12 @@ export const statuses = {
 }
 
 export class StatusDropdown extends Component {
-
   static propTypes = {
     status: PropTypes.string.isRequired,
     setUserAvailable: PropTypes.func.isRequired,
     setUserDoNotDisturb: PropTypes.func.isRequired,
-    setUserInvisible: PropTypes.func.isRequired
+    setUserInvisible: PropTypes.func.isRequired,
+    disconnect: PropTypes.func.isRequired
   }
 
   state = {

@@ -10,7 +10,7 @@ import ScrollableContent from 'common/components/ScrollableContent/ScrollableCon
  */
 class RecentCallList extends Component {
   static propTypes = {
-    recentCalls: PropTypes.array.isRequired,
+    recentCalls: PropTypes.array.isRequired
   }
 
   render () {

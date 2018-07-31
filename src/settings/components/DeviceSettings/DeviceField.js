@@ -4,7 +4,6 @@ import {getUserDevices, stopStreams} from 'settings/utils/devices'
 import {Form, Dropdown} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
-
 export const devicePropTypes = {
   fieldLabel: PropTypes.string.isRequired,
   fieldId: PropTypes.string.isRequired,
@@ -12,7 +11,6 @@ export const devicePropTypes = {
 }
 
 export class DeviceField extends React.Component {
-
   static propTypes = {
     ...devicePropTypes
   }

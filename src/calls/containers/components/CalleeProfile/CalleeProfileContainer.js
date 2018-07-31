@@ -9,15 +9,15 @@ function mapStateToProps ({calls}) {
   return {
     username: calls.search.user.username,
     profile: calls.profile.profile,
-    fetching: calls.profile.fetching,
+    fetching: calls.profile.fetching
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-      ...callActionCreators,
-      ...profileActionCreators
-    }
+    ...callActionCreators,
+    ...profileActionCreators
+  }
     , dispatch)
 }
 

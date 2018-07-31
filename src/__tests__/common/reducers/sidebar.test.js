@@ -57,5 +57,4 @@ describe('sidebar reducer', () => {
       {contentDimmed: false, displayTime: 500, isDisplaying: false, isVisible: false}
     )
   })
-
 })

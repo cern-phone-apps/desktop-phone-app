@@ -4,10 +4,10 @@ import {translate} from 'react-i18next'
 import {Message, Segment} from 'semantic-ui-react'
 import ConnectNumberButtonContainer from 'calls/containers/components/ConnectNumberButton/ConnectNumberButtonContainer'
 
-
 export class NotConnectedScreen extends Component {
   static propTypes = {
-    errors: PropTypes.object
+    errors: PropTypes.object,
+    t: PropTypes.func.isRequired
   }
 
   render () {
@@ -24,7 +24,5 @@ export class NotConnectedScreen extends Component {
     )
   }
 }
-
-NotConnectedScreen.propTypes = {}
 
 export default translate('calls')(NotConnectedScreen)

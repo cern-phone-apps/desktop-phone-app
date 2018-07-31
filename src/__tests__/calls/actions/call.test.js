@@ -1,6 +1,5 @@
 import * as callActions from 'calls/actions/call'
 
-
 describe('call actions', () => {
   it('should create an action to make call', () => {
     const recipient = 'Finish docs'

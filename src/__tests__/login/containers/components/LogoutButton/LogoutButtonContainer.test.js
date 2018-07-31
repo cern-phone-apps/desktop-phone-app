@@ -11,10 +11,10 @@ const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
-jest.mock('react-router-dom');
+jest.mock('react-router-dom')
 
 describe('LogoutButton Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     auth: {
@@ -24,40 +24,40 @@ describe('LogoutButton Container', () => {
     },
     router: {
       location: {
-        pathname: "/",
-        search: "",
-        hash: ""
+        pathname: '/',
+        search: '',
+        hash: ''
       }
     }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(
       <LogoutButtonContainer
         t={key => key}
         store={store}
-      />);
-  });
+      />)
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
       logout: expect.any(Function)
-    }));
-  });
+    }))
+  })
 
   it('maps onIncrement to dispatch increment action', () => {
-    wrapper.props().logout();
+    wrapper.props().logout()
     const expected = {
-      "@@redux-api-middleware/RSAA": {
-        "credentials": "include",
-        "endpoint": "https://hostname/logout/",
-        "headers": expect.any(Function),
-        "method": "DELETE",
-        "types": ["@@auth/LOGOUT_REQUEST", "@@auth/LOGOUT_SUCCESS", "@@auth/LOGOUT_FAILURE"]
+      '@@redux-api-middleware/RSAA': {
+        'credentials': 'include',
+        'endpoint': 'https://hostname/logout/',
+        'headers': expect.any(Function),
+        'method': 'DELETE',
+        'types': ['@@auth/LOGOUT_REQUEST', '@@auth/LOGOUT_SUCCESS', '@@auth/LOGOUT_FAILURE']
       }
     }
     expect(store.dispatch).toHaveBeenCalledWith(expected)
-  });
-});
+  })
+})

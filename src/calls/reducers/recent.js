@@ -6,10 +6,11 @@ const initialState = {
 }
 
 const recent = (state = initialState, action) => {
+  let recentCall, lastRecentId
   switch (action.type) {
     case recentActions.ADD_RECENT_CALL:
-      const recentCall = action.recentCall
-      const lastRecentId = ++state.lastRecentId
+      recentCall = action.recentCall
+      lastRecentId = ++state.lastRecentId
       return {
         ...state,
         lastRecentId: lastRecentId,
