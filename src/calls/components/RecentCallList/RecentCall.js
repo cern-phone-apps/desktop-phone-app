@@ -42,7 +42,7 @@ class RecentCall extends Component {
                   ? <Icon name={'arrow down'} color={color}/>
                   : <Icon name={'arrow up'} color={color}/>
               }
-                <span className='date'>{printableDate} - {duration.humanize()}</span>
+              <span className='date'>{printableDate} - {duration.humanize()}</span>
               </Item.Description>
             </Grid.Column>
             <Grid.Column width={unreadWidth}>

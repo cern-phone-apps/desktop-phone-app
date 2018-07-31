@@ -8,7 +8,7 @@ const initialState = {
   phone: null,
   username: null,
   error: {},
-  fetching: false,
+  fetching: false
 }
 
 /**

@@ -29,15 +29,17 @@ export function ProfileInfo ({profile}) {
   )
 }
 
+ProfileInfo.propTypes = {
+  profile: PropTypes.object.isRequired
+}
 
 export class CalleeProfile extends Component {
-
   static propTypes = {
     username: PropTypes.string.isRequired,
     getUserProfile: PropTypes.func.isRequired,
-    fetching: PropTypes.bool.isRequired
+    fetching: PropTypes.bool.isRequired,
+    profile: PropTypes.object.isRequired
   }
-
 
   componentDidMount () {
     this.props.getUserProfile(this.props.username)

@@ -36,7 +36,7 @@ class LanguageSettings extends Component {
     const {t} = this.props
 
     let currentLanguage = language
-    if(!languageOptions.some(e => e.value === language)) {
+    if (!languageOptions.some(e => e.value === language)) {
       currentLanguage = 'en'
     }
 

@@ -10,7 +10,6 @@ export const USER_SELECTED = '@@search/USER_SELECTED'
 export const SEARCH_UPDATED = '@@search/SEARCH_UPDATED'
 export const USER_NOT_SELECTED = '@@search/USER_NOT_SELECTED'
 
-
 /**
  * Creates an endpoint URL for the user search
  *
@@ -73,4 +72,3 @@ export const searchUsers = (name) => ({
     ]
   }
 })
-

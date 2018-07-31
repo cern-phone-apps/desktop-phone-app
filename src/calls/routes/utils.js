@@ -14,6 +14,6 @@ export const callsRoutes = (t) => {
       sidebarIcon: 'phone',
       sidebarId: 'calls',
       main: callsMain
-    },
+    }
   ]
 }

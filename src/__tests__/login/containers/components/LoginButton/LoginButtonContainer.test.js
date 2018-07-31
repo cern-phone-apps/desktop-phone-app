@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('LoginButton Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     auth: {
@@ -22,29 +22,29 @@ describe('LoginButton Container', () => {
     },
     router: {
       location: {
-        pathname: "/",
-        search: "",
-        hash: ""
+        pathname: '/',
+        search: '',
+        hash: ''
       }
     }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<LoginButtonContainer t={key => key} store={store}/>)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
       loggedIn: false,
       urlQuery: expect.any(String)
-    }));
-  });
+    }))
+  })
 
   // it('maps onIncrement to dispatch increment action', () => {
   //   wrapper.props().onIncrement();
   //
   //   expect(store.dispatch).toHaveBeenCalledWith({type: 'INCREMENT'});
   // });
-});
+})

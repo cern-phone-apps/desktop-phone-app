@@ -18,5 +18,4 @@ describe('devices actions', () => {
     }
     expect(actions.setSpeaker(deviceId)).toEqual(expectedAction)
   })
-
 })

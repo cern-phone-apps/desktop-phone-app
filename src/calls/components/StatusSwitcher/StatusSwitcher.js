@@ -8,11 +8,11 @@ import {callsRoute} from 'calls/routes'
 import StatusDropdownContainer from 'calls/containers/components/StatusDropdown/StatusDropdownContainer'
 import DisconnectModal from 'calls/components/StatusSwitcher/DisconnectModal'
 
-
 export class StatusSwitcher extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
-    disconnecting: PropTypes.bool.isRequired
+    disconnecting: PropTypes.bool.isRequired,
+    phoneService: PropTypes.object.isRequired
   }
 
   disconnect = () => {

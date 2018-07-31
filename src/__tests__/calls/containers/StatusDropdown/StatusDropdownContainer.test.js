@@ -13,7 +13,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('StatusDropdown Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     calls: {
@@ -22,17 +22,18 @@ describe('StatusDropdown Container', () => {
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
+    const disconnect = jest.fn()
     wrapper = shallow(<StatusDropdownContainer
       store={store}
+      disconnect={disconnect}
     />)
-  });
-
+  })
+  //
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
-      status: statuses.available,
-    }));
-  });
-
-});
+      status: statuses.available
+    }))
+  })
+})

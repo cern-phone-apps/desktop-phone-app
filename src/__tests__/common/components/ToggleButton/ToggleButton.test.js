@@ -1,7 +1,6 @@
 import React from 'react'
 import ToggleButton from 'common/components/ToggleButton/ToggleButton'
 
-
 it('renders without crashing', () => {
   const displaySidebar = jest.fn()
   const finishedDisplaySidebar = jest.fn()

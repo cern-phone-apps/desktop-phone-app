@@ -1,7 +1,6 @@
 import React from 'react'
 import {PersonalInfo} from 'settings/components/PersonalInfo/PersonalInfo'
 
-
 it('renders without crashing', () => {
   const wrapper = shallow(<PersonalInfo
     t={key => key}

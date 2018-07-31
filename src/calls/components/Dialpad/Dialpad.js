@@ -51,8 +51,8 @@ export class DialButton extends Component {
   render () {
     return <Grid.Column textAlign={'center'}>
       <div className={'DialButton DialButton__number'}
-           onMouseDown={() => this.handleDialPadButtonDown()}
-           onMouseUp={() => this.handleDialPadButtonLongPressRelease()}
+        onMouseDown={() => this.handleDialPadButtonDown()}
+        onMouseUp={() => this.handleDialPadButtonLongPressRelease()}
       >
         <div className={'DialButton__content'}>
           {this.props.symbol} {this.props.alt ? <span className={'DialButton__alt'}>+</span> : ''}

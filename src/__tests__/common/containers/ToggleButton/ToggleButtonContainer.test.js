@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('ToggleButton Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     sidebar: {
@@ -22,10 +22,10 @@ describe('ToggleButton Container', () => {
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<ToggleButtonContainer store={store}/>)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
@@ -35,6 +35,6 @@ describe('ToggleButton Container', () => {
       finishedDisplayingSidebar: expect.any(Function),
       hideSidebar: expect.any(Function),
       displayTime: expect.any(Number)
-    }));
-  });
-});
+    }))
+  })
+})

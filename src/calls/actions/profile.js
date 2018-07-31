@@ -16,7 +16,6 @@ export function buildProfileEndpoint (name) {
   return `${buildCallsApiEndpoint(process.env.REACT_APP_API_USER_PROFILE_PATH)}?username=${name}`
 }
 
-
 export const getUserProfile = (name) => ({
   [RSAA]: {
     endpoint: buildProfileEndpoint(name),

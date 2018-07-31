@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('CalleeProfile Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     calls: {
@@ -25,26 +25,26 @@ describe('CalleeProfile Container', () => {
         calling: false
       },
       profile: {
-        profile :{},
+        profile: {},
         fetching: false
       }
-    },
+    }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<CalleeProfileContainer
       store={store}
     />)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
+    // expect(1).toEqual(1)
     expect(wrapper.props()).toEqual(expect.objectContaining({
       username: 'example',
       fetching: false,
       acceptCall: expect.any(Function)
-    }));
-  });
-
-});
+    }))
+  })
+})

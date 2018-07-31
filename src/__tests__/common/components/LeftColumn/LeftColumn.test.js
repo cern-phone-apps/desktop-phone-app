@@ -1,7 +1,6 @@
 import React from 'react'
 import LeftColumn from 'common/components/LeftColumn/LeftColumn'
 
-
 it('renders without crashing', () => {
   const wrapper = shallow(<LeftColumn />)
 

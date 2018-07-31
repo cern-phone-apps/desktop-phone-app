@@ -6,14 +6,13 @@ import * as callActionCreators from 'calls/actions/call'
 import * as recentActionCreators from 'calls/actions/recent'
 import OnCallDetails from 'calls/components/OnCallDetails/OnCallDetails'
 
-
 function mapStateToProps ({calls}) {
   return {
     calling: calls.call.calling,
     onCall: calls.call.onCall,
     startTime: calls.call.recipient.startTime,
     recipient: calls.call.recipient,
-    receivingCall: calls.call.receivingCall,
+    receivingCall: calls.call.receivingCall
   }
 }
 

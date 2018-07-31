@@ -3,17 +3,16 @@ import ConnectNumberButton from 'calls/components/ConnectNumberButton/ConnectNum
 
 describe('ConnectNumberButton Container', () => {
   it('renders without crashing', () => {
-
     const getUserPhoneNumbers = jest.fn()
     const setActiveNumber = jest.fn()
     const wrapper = shallow(<ConnectNumberButton
       connecting={false}
       getUserPhoneNumbers={getUserPhoneNumbers}
       numbers={['1', '2', '3']}
-      setActiveNumber={setActiveNumber}/>);
+      setActiveNumber={setActiveNumber} phoneNumber={'12345'} phoneService={{}}/>)
 
-    expect(wrapper.text()).toEqual('<ButtonNumbersList />');
-    expect(wrapper.html()).toContain('button');
-    expect(wrapper.html()).toContain('plug');
+    expect(wrapper.text()).toEqual('<ButtonNumbersList />')
+    expect(wrapper.html()).toContain('button')
+    expect(wrapper.html()).toContain('plug')
   })
 })

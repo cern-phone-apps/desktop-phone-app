@@ -5,10 +5,9 @@ import * as callActionCreators from 'calls/actions/status'
 import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
 import {StatusDropdown} from 'calls/components/StatusDropdown/StatusDropdown'
 
-
 function mapStateToProps ({calls}) {
   return {
-    status: calls.status,
+    status: calls.status
   }
 }
 

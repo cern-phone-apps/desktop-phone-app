@@ -14,7 +14,6 @@ import DetectRTC from 'detectrtc'
  * @constructor
  */
 export class SpeakersField extends DeviceField {
-
   static propTypes = {
     ...devicePropTypes,
     setSpeaker: PropTypes.func.isRequired,

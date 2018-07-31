@@ -14,7 +14,7 @@ const initialState = {
  * @returns {*} Array of dict with the users formatted.
  */
 function getUsersFormatted (usersArray) {
-  if(usersArray === undefined){
+  if (usersArray === undefined) {
     return []
   }
 

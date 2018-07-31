@@ -31,7 +31,7 @@ describe('auth reducer', () => {
     expect(
       reducer(
         {
-          fetching: false,
+          fetching: false
         }
         ,
         {
@@ -46,29 +46,27 @@ describe('auth reducer', () => {
     )
   })
 
-
-
   it('should handle LOGIN_SUCCESS', () => {
     expect(
       reducer({}, {
         type: actions.ME_SUCCESS,
         payload: {
-          email: "a",
-          firstName: "b",
-          lastName: "c",
-          mobile: "12345",
-          phone: "09876",
-          username: "e",
+          email: 'a',
+          firstName: 'b',
+          lastName: 'c',
+          mobile: '12345',
+          phone: '09876',
+          username: 'e'
         }
       })
     ).toEqual(
       {
-        email: "a",
-        firstName: "b",
-        lastName: "c",
-        mobile: "12345",
-        phone: "09876",
-        username: "e",
+        email: 'a',
+        firstName: 'b',
+        lastName: 'c',
+        mobile: '12345',
+        phone: '09876',
+        username: 'e',
         fetching: false,
         error: {}
       }
@@ -79,11 +77,11 @@ describe('auth reducer', () => {
       reducer({}, {
         type: actions.ME_FAILURE,
         payload: {
-          error: "An error happened"
+          error: 'An error happened'
         }
       })
     ).toEqual(
-      {error: "An error happened", fetching: false, email: null, username: null, firstName: null, lastName: null, mobile: null, phone: null}
+      {error: 'An error happened', fetching: false, email: null, username: null, firstName: null, lastName: null, mobile: null, phone: null}
     )
   })
 })

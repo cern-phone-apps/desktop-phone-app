@@ -1,5 +1,4 @@
 class DummyAPIClient {
-
   static _buildEvent (name, data) {
     return {
       'name': name,
@@ -24,7 +23,7 @@ class DummyAPIClient {
 
   stopAgent = () => {
     setTimeout(() => {
-        this.uaCallbackMethod(DummyAPIClient._buildEvent('disconnected', null))
+      this.uaCallbackMethod(DummyAPIClient._buildEvent('disconnected', null))
     }, 2000)
   }
 }

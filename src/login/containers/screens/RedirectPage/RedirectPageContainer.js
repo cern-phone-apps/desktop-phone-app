@@ -22,7 +22,6 @@ function mapDispatchToProps (dispatch) {
   }, dispatch)
 }
 
-
 export const RedirectPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps

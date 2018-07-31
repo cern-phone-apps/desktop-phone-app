@@ -12,7 +12,7 @@ const middlewares = [thunk, routerMiddleware(history)]
 const mockStore = configureMockStore(middlewares)
 
 describe('LoginPage Container', () => {
-  let wrapper, store;
+  let wrapper, store
 
   let storeContent = {
     auth: {
@@ -22,23 +22,23 @@ describe('LoginPage Container', () => {
     },
     router: {
       location: {
-        pathname: "/",
-        search: "",
-        hash: ""
+        pathname: '/',
+        search: '',
+        hash: ''
       }
     }
   }
 
   beforeEach(() => {
-    store = mockStore(storeContent);
-    store.dispatch = jest.fn();
+    store = mockStore(storeContent)
+    store.dispatch = jest.fn()
     wrapper = shallow(<LoginPageContainer t={key => key} store={store}/>)
-  });
+  })
 
   it('maps state and dispatch to props', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
       isAuthenticated: false,
       loginInProgress: false
-    }));
-  });
-});
+    }))
+  })
+})

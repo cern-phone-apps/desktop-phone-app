@@ -8,13 +8,13 @@ function mapStateToProps ({calls}) {
   return {
     onCall: calls.call.onCall,
     calling: calls.call.calling,
-    connected: calls.connection.connected,
+    connected: calls.connection.connected
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-    ...callActionCreators,
+    ...callActionCreators
   }, dispatch)
 }
 

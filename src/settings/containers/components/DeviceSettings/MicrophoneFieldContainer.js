@@ -5,7 +5,7 @@ import MicrophoneField from 'settings/components/DeviceSettings/MicrophoneField'
 
 function mapStateToProps ({devices}) {
   return {
-    inputDevice: devices.microphone,
+    inputDevice: devices.microphone
   }
 }
 
