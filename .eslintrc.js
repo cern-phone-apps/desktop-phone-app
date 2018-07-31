@@ -12,6 +12,15 @@ module.exports = {
       }
     }
   },
+  "overrides": [
+    {
+      "files": [ "bin/*.js", "lib/*.js" ],
+      "excludedFiles": ["*.test.js"],
+      "rules": {
+        "quotes": [ 2, "single" ]
+      }
+    }
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -21,7 +30,6 @@ module.exports = {
   "parserOptions": {
     "ecmaVersion": 6,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
       "jsx": true
     },
     "sourceType": "module"
