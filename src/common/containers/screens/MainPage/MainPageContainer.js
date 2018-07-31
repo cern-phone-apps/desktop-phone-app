@@ -21,7 +21,9 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(sidebarActionCreators, dispatch)
 }
 
-export default withRouter(connect(
+export const MainPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainPage))
+)(MainPage)
+
+export default withRouter(MainPageContainer)

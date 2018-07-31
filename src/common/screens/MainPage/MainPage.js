@@ -9,7 +9,7 @@ import * as routes from 'routes'
 import ModalSettingsContainer from 'settings/containers/components/ModalSettings/ModalSettingsContainer'
 import * as loginRoutes from 'login/routes'
 
-class MainPage extends Component {
+export class MainPage extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
