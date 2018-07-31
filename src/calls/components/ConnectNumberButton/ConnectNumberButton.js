@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {Button, Icon, Loader} from 'semantic-ui-react'
 
 const ButtonNumbersList = (props) => {
-  console.debug(props)
   if (props.numbers === undefined || props.numbers === []) {
     return ''
   }
@@ -33,7 +32,6 @@ class ConnectNumberButton extends Component {
   }
 
   connect = (activeNumber) => {
-    console.debug('connect')
     this.props.setActiveNumber(activeNumber)
     this.props.phoneService.connectAgent()
   }
