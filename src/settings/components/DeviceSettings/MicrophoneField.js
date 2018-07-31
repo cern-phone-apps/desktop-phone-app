@@ -1,60 +1,40 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {Dropdown, Form} from 'semantic-ui-react'
-import {translate} from 'react-i18next'
 import {changeInputDevice} from 'settings/utils/devices'
-import DeviceField from 'settings/components/DeviceSettings/DeviceField'
+import DeviceField, {devicePropTypes} from 'settings/components/DeviceSettings/DeviceField'
 import DetectRTC from 'detectrtc'
 
 
 export class MicrophoneField extends DeviceField {
 
   static propTypes = {
-    t: PropTypes.func.isRequired,
+    ...devicePropTypes,
     setMicrophone: PropTypes.func.isRequired,
-    inputDevice: PropTypes.string
+    inputDevice: PropTypes.string,
   }
 
   constructor () {
     super()
-    this.state.hasMicrophone = false
+    this.state.hasDevice = false
+    if (this.props && this.props.inputDevice) {
+      this.state.device = this.props.inputDevice
+    }
   }
 
   componentDidMount = () => {
     super.componentDidMount()
     DetectRTC.load(() => {
       this.setState({
-        hasMicrophone: DetectRTC.hasMicrophone
+        hasDevice: DetectRTC.hasMicrophone
       })
     })
-    changeInputDevice(this.props.inputDevice)
+    changeInputDevice(this.state.device)
   }
 
-  selectInputDevice = (value) => {
+  selectDevice = (value) => {
     this.props.setMicrophone(value)
     // this.stopStreams()
     changeInputDevice(value)
   }
-
-  render () {
-    const {t, inputDevice} = this.props
-    const {hasMicrophone, devices} = this.state
-    if (hasMicrophone) {
-      return <Form.Field>
-        <label htmlFor="audioSource">{t('devices.audioInputLabel')}</label>
-        {devices && <Dropdown
-          id={'audioSource'}
-          selection
-          defaultValue={inputDevice || 'default'}
-          options={devices.filter((device) => (device.kind === 'audioinput'))}
-          onChange={(event, data) => this.selectInputDevice(data.value)}
-        />
-        }
-      </Form.Field>
-    } else {
-      return <Form.Field>No input devices found</Form.Field>
-    }
-  }
 }
 
-export default translate('settings')(MicrophoneField)
+export default MicrophoneField
