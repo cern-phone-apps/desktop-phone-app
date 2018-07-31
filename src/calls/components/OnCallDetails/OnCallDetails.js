@@ -28,7 +28,6 @@ export class OnCallDetails extends Component {
   }
 
   hangup = () => {
-    console.error(this.props)
     this.props.addRecentCall(this.buildRecentCall())
     this.props.hangupCall()
   }
