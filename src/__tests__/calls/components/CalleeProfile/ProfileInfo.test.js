@@ -1,5 +1,4 @@
 import React from 'react'
-import {shallow} from 'enzyme'
 import {ProfileInfo} from 'calls/components/CalleeProfile/CalleeProfile'
 
 it('renders ProfileInfo without crashing', () => {
