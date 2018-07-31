@@ -7,6 +7,15 @@ import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings'
 import PersonalInfoContainer from 'settings/containers/components/PersonalInfo/PersonalInfoContainer'
 import LanguageSettings from 'settings/components/LanguageSettings/LanguageSettings'
 
+const ModalTrigger = ({onClick}) => {
+  return (
+    <Menu.Item onClick={onClick} name={'settings'}>
+      <Icon name={'settings'}/>
+      {'Settings'}
+    </Menu.Item>
+  )
+}
+
 /**
  * Modal to view and manage the application settings
  */
@@ -15,6 +24,14 @@ export class ModalSettings extends Component {
     hideSidebarIfVisible: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired
+  }
+
+  inlineStyle = {
+    modal: {
+      marginTop: '0px !important',
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
   }
 
   /**
@@ -27,25 +44,9 @@ export class ModalSettings extends Component {
   render () {
     const {t} = this.props
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
-    const inlineStyle = {
-      modal: {
-        marginTop: '0px !important',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-      }
-    }
     return (
-      <Modal
-        size={'small'}
-        dimmer={'blurring'}
-        style={inlineStyle.modal}
-        closeIcon
-        trigger={
-          <Menu.Item onClick={this.props.hideSidebarIfVisible} name={'settings'}>
-            <Icon name={'settings'}/>
-            {'Settings'}
-          </Menu.Item>
-        }>
+      <Modal size={'small'} dimmer={'blurring'} style={this.inlineStyle.modal} closeIcon
+             trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible}/>}>
         <Modal.Header>{t('header')}</Modal.Header>
         <Modal.Content scrolling>
           <Modal.Description>
