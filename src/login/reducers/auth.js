@@ -44,11 +44,11 @@ export function isRefreshTokenExpired () {
  * @returns {boolean} (true|false)
  */
 export function isAuthenticated (state) {
-  const refreshToken =  !isRefreshTokenExpired()
+  const refreshToken = !isRefreshTokenExpired()
   const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED
   const loggedIn = state.loggedIn
 
-  if(isOauthEnabled === 'false' && loggedIn === true){
+  if (isOauthEnabled === 'false' && loggedIn === true) {
     return true
   }
 
@@ -107,7 +107,7 @@ export default (state = initialState, action) => {
       }
     case authActions.LOGIN_SUCCESS:
     case authActions.TOKEN_RECEIVED:
-      console.log("LOOK HERE")
+      console.log('LOOK HERE')
       console.log(action)
       return {
         ...state,

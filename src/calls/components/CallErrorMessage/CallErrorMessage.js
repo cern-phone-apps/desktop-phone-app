@@ -32,7 +32,7 @@ export class CallErrorMessage extends Component {
       results.push(numbersError)
     }
 
-    if(results.length < 1){
+    if (results.length < 1) {
       return ''
     }
     return (

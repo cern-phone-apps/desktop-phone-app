@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
-import {Message, Segment} from 'semantic-ui-react'
+import {Segment} from 'semantic-ui-react'
 import ConnectNumberButtonContainer from 'calls/containers/components/ConnectNumberButton/ConnectNumberButtonContainer'
 import CallErrorMessageContainer from 'calls/containers/components/CallErrorMessage/CallErrorMessageContainer'
 

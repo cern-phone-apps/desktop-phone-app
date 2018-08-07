@@ -93,14 +93,14 @@ class PhoneProvider extends Component {
   }
 
   addListeners = () => {
-    this.notifier = this.state.dial.getNotifier();
+    this.notifier = this.state.dial.getNotifier()
     if (this.notifier) {
-      this.notifier.addEventListener('ToneEvent', this.eventHandler, false);
+      this.notifier.addEventListener('ToneEvent', this.eventHandler, false)
     }
   }
 
   eventHandler = (event) => {
-    console.log("Tone Event!")
+    console.log('Tone Event!')
     console.log(event.detail.name)
     console.log(event)
 
@@ -121,7 +121,7 @@ class PhoneProvider extends Component {
     switch (event.detail.name) {
       // SetMedia
       case 'trackAdded':
-        let playPromise = this.audioElement.play();
+        let playPromise = this.audioElement.play()
         if (playPromise !== undefined) {
           playPromise.then(_ => {
             // Automatic playback started!
@@ -129,9 +129,9 @@ class PhoneProvider extends Component {
           }).catch(error => {
             // Auto-play was prevented
             // Show paused UI.
-          });
+          })
         }
-        break;
+        break
       // Registering
       case 'registered':
         this.props.success(this.registeredNotificationOpts)
@@ -198,7 +198,7 @@ class PhoneProvider extends Component {
   }
 
   hangUpCall = () => {
-    return this.state.dial.hangUp();
+    return this.state.dial.hangUp()
   }
 
   handleHangUpCallEvent = () => {
@@ -235,7 +235,9 @@ function mapDispatchToProps (dispatch) {
     ...callActionCreators,
     ...recentActionCreators,
     ...searchActionCreators,
-    success, info, warning
+    success,
+    info,
+    warning
   }, dispatch)
 }
 

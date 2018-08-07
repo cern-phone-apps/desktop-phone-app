@@ -4,6 +4,6 @@ export const buildRecipient = (recipient) => {
     incoming: recipient.incoming,
     phoneNumber: recipient.phoneNumber,
     missed: recipient.missed,
-    startTime: recipient.startTime,
+    startTime: recipient.startTime
   }
 }

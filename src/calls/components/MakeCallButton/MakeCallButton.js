@@ -13,7 +13,7 @@ class MakeCallButton extends Component {
   }
 
   makeCall = () => {
-    console.log("Making a call")
+    console.log('Making a call')
     console.log(this.props.recipient)
     this.props.phoneService.makeCall(this.props.recipient)
   }
