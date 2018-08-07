@@ -17,8 +17,10 @@ class RedirectPage extends Component {
   }
 
   componentDidMount = () => {
+    const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED
     const queryParams = qs.parse(this.props.urlQuery.slice(1))
-    if (queryParams.code) {
+
+    if (queryParams.code || isOauthEnabled === 'false') {
       this.props.login(queryParams.code).then(() => {
         this.props.getMe()
       })

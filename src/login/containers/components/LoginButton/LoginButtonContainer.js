@@ -6,10 +6,10 @@ import * as authActionCreators from 'login/actions/auth'
 import * as meActionCreators from 'login/actions/me'
 import LoginButton from 'login/components/LoginButton/LoginButton'
 
-function mapStateToProps (state) {
+function mapStateToProps ({auth, router}) {
   return {
-    loggedIn: isAuthenticated(state),
-    urlQuery: state.router.location.search
+    loggedIn: isAuthenticated(auth),
+    urlQuery: router.location.search
   }
 }
 

@@ -19,11 +19,16 @@ const createCustomStore = (history) => {
     ['loginInProgress']
   )
 
+  const blacklistCommonFilter = createBlacklistFilter(
+    'common',
+    ['notifications']
+  )
+
   const persistConfig = {
     key: 'phone-webapp',
     storage: storage,
     blacklist: ['sidebar'],
-    transforms: [blacklistFilter, blacklistLoginFilter]
+    transforms: [blacklistFilter, blacklistLoginFilter, blacklistCommonFilter]
   }
 
   const persistedReducers = persistReducer(

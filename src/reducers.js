@@ -2,7 +2,7 @@ import {routerReducer} from 'react-router-redux/reducer'
 import {combineReducers} from 'redux'
 import auth from './login/reducers/auth'
 import userReducer from './login/reducers/index'
-import sidebar from './common/reducers/sidebar'
+import common from './common/reducers/index'
 import callsReducer from 'calls/reducers/index'
 import devices from 'settings/reducers/devices'
 
@@ -15,7 +15,7 @@ import devices from 'settings/reducers/devices'
 const rootReducer = combineReducers({
   auth,
   user: userReducer,
-  sidebar,
+  common,
   devices,
   calls: callsReducer,
   router: routerReducer

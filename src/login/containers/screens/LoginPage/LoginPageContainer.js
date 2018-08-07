@@ -6,7 +6,7 @@ import LoginPage from 'login/screens/LoginPage/LoginPage'
 function mapStateToProps ({auth}) {
   return {
     errors: auth.errors,
-    isAuthenticated: isAuthenticated(),
+    isAuthenticated: isAuthenticated(auth),
     loginInProgress: auth.loginInProgress
   }
 }
