@@ -6,14 +6,15 @@ import MainPage from 'common/screens/MainPage/MainPage'
 import * as sidebarActionCreators from 'common/actions/sidebar'
 import {bindActionCreators} from 'redux'
 
-function mapStateToProps ({auth, sidebar}) {
+function mapStateToProps ({auth, common}) {
   return {
     errors: auth.errors,
-    isAuthenticated: isAuthenticated(),
+    isAuthenticated: isAuthenticated(auth),
     loginInProgress: auth.loginInProgress,
-    isVisible: sidebar.isVisible,
-    contentDimmed: sidebar.contentDimmed,
-    hideSidebar: sidebar.hideSidebar
+    isVisible: common.sidebar.isVisible,
+    contentDimmed: common.sidebar.contentDimmed,
+    hideSidebar: common.sidebar.hideSidebar,
+    notifications: common.notifications
   }
 }
 

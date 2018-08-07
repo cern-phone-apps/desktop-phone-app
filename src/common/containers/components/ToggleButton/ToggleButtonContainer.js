@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux'
 import * as sidebarActionCreators from 'common/actions/sidebar'
 import ToggleButton from 'common/components/ToggleButton/ToggleButton'
 
-function mapStateToProps ({sidebar}) {
+function mapStateToProps ({common}) {
   return {
-    isVisible: sidebar.isVisible,
-    displayTime: sidebar.displayTime
+    isVisible: common.sidebar.isVisible,
+    displayTime: common.sidebar.displayTime
   }
 }
 

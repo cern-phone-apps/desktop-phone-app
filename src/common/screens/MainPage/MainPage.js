@@ -8,6 +8,7 @@ import './MainPage.scss'
 import * as routes from 'routes'
 import ModalSettingsContainer from 'settings/containers/components/ModalSettings/ModalSettingsContainer'
 import * as loginRoutes from 'login/routes'
+import Notifications from 'common/components/Notifications/Notifications'
 
 export class MainPage extends Component {
   static propTypes = {
@@ -15,7 +16,8 @@ export class MainPage extends Component {
     t: PropTypes.func.isRequired,
     isVisible: PropTypes.bool.isRequired,
     contentDimmed: PropTypes.bool.isRequired,
-    hideSidebar: PropTypes.func.isRequired
+    hideSidebar: PropTypes.func.isRequired,
+    notifications: PropTypes.array
   }
 
   hideSidebarIfVisible = () => {
@@ -25,7 +27,7 @@ export class MainPage extends Component {
   renderSidebarItems = () => {
     const {t} = this.props
     return (
-      routes.mainRoutes(t).map((route, index) => console.log(route.path) || (
+      routes.mainRoutes(t).map((route, index) => (
         // You can render a <Route> in as many places
         // as you want in your app. It will render along
         // with any other <Route>s that also match the URL.
@@ -68,9 +70,12 @@ export class MainPage extends Component {
   }
 
   render () {
+    const {notifications} = this.props;
+
     if (!this.props.isAuthenticated) {
       return <Redirect to={loginRoutes.loginRoute.path}/>
     }
+
 
     return (
       <Sidebar.Pushable as={Segment}>
@@ -85,6 +90,7 @@ export class MainPage extends Component {
         </Sidebar>
         <Sidebar.Pusher onClick={this.hideSidebarIfVisible} dimmed={this.props.contentDimmed}>
           {this.renderMainRoutes()}
+          <Notifications notifications={notifications}/>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     )

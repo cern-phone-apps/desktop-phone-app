@@ -43,8 +43,16 @@ export function isRefreshTokenExpired () {
  * Checks if the user is authenticated on the application. Refresh token must be present.
  * @returns {boolean} (true|false)
  */
-export function isAuthenticated () {
-  return !isRefreshTokenExpired()
+export function isAuthenticated (state) {
+  const refreshToken =  !isRefreshTokenExpired()
+  const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED
+  const loggedIn = state.loggedIn
+
+  if(isOauthEnabled === 'false' && loggedIn === true){
+    return true
+  }
+
+  return refreshToken
 }
 
 /**
@@ -99,6 +107,8 @@ export default (state = initialState, action) => {
       }
     case authActions.LOGIN_SUCCESS:
     case authActions.TOKEN_RECEIVED:
+      console.log("LOOK HERE")
+      console.log(action)
       return {
         ...state,
         loggedIn: action.payload.login,

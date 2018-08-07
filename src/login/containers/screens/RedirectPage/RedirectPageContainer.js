@@ -10,7 +10,7 @@ import RedirectPage from 'login/screens/RedirectPage/RedirectPage'
 function mapStateToProps ({errors, auth, router}) {
   return {
     errors: errors,
-    isAuthenticated: isAuthenticated(),
+    isAuthenticated: isAuthenticated(auth),
     urlQuery: router.location.search
   }
 }
