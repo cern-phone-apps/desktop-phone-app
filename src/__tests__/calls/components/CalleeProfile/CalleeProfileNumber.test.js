@@ -12,7 +12,8 @@ it('renders CalleeProfileNumber without crashing', () => {
     phoneNumber={'12345'}
     unSelectUser={unSelect}
     icon={'phone'}
-    recipientName={'example name'}/>)
+    recipientName={'example name'}
+    phoneService={{}}/>)
 
   expect(wrapper.text()).toEqual('<MenuItem />')
 })

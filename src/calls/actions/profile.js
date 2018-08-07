@@ -13,7 +13,7 @@ export const PROFILE_FAILURE = '@@search/PROFILE_FAILURE'
  * @returns {string} A URL for the request
  */
 export function buildProfileEndpoint (name) {
-  return `${buildCallsApiEndpoint(process.env.REACT_APP_API_USER_PROFILE_PATH)}?username=${name}`
+  return `${buildCallsApiEndpoint('/api/v1/users/')}?username=${name}`
 }
 
 export const getUserProfile = (name) => ({

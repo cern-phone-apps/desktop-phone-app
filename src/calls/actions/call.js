@@ -3,6 +3,7 @@ export const CALL = '@@call/CALL'
 export const IS_CALLING = '@@call/IS_CALLING'
 export const CALL_ACCEPTED = '@@call/CALL_ACCEPTED'
 export const CALL_REJECTED = '@@call/CALL_REJECTED'
+export const CALL_FAILED = '@@call/CALL_FAILED'
 export const CALL_MISSED = '@@call/CALL_MISSED'
 export const IS_RECEIVING_CALL = '@@call/IS_RECEIVING_CALL'
 export const HANGUP_CALL = '@@call/HANGUP_CALL'
@@ -57,9 +58,21 @@ export function acceptCall () {
  * Action triggered when a call is rejected
  * @returns {{type: string}} A dict
  */
-export function rejectCall () {
+export function rejectCall (errors) {
   return {
-    type: CALL_REJECTED
+    type: CALL_REJECTED,
+    errors
+  }
+}
+
+/**
+ * Action triggered when a call is rejected
+ * @returns {{type: string}} A dict
+ */
+export function callFailed (errors) {
+  return {
+    type: CALL_FAILED,
+    errors
   }
 }
 

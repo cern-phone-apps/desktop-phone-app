@@ -59,8 +59,8 @@ describe('CalleeProfileNumber Container', () => {
     // expect(1).toEqual(1)
       expect(wrapper.props()).toEqual(expect.objectContaining({
         phoneNumber: '12345',
-        calling: false,
-        acceptCall: expect.any(Function)
+        icon: 'phone',
+        recipientName: 'name example'
       }))
   })
 })

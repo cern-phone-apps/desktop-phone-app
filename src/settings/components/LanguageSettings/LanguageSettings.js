@@ -26,7 +26,6 @@ class LanguageSettings extends Component {
   }
 
   changeLanguage = (lng) => {
-    console.debug(lng)
     const {i18n} = this.props
     i18n.changeLanguage(lng)
   }

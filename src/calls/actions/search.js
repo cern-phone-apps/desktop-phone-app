@@ -17,7 +17,7 @@ export const USER_NOT_SELECTED = '@@search/USER_NOT_SELECTED'
  * @returns {string} A URL for the request
  */
 export function buildSearchEndpoint (name) {
-  return `${buildCallsApiEndpoint(process.env.REACT_APP_API_USER_SEARCH_PATH)}?username=${name}`
+  return `${buildCallsApiEndpoint('/api/v1/users/search/')}?username=${name}`
 }
 
 /**

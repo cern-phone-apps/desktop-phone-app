@@ -14,7 +14,7 @@ export const ME_FAILURE = '@@user/ME_FAILURE'
  */
 export const getMe = () => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_API_ME_PATH),
+    endpoint: buildAuthApiEndpoint('/api/v1/users/me/'),
     method: 'GET',
     credentials: 'include',
     headers: withAuth({'Content-Type': 'application/json'}),

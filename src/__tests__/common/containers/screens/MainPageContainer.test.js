@@ -15,9 +15,11 @@ describe('MainPage Container', () => {
   let wrapper, store
 
   let storeContent = {
-    sidebar: {
-      isVisible: false,
-      contentDimmed: false
+    common: {
+      sidebar: {
+        isVisible: false,
+        contentDimmed: false
+      }
     },
     auth: {
       errors: {},

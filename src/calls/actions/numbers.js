@@ -18,7 +18,7 @@ export const buildCallsApiEndpoint = (path) => {
  */
 export const getUserPhoneNumbers = () => ({
   [RSAA]: {
-    endpoint: buildCallsApiEndpoint(process.env.REACT_APP_API_PHONES_API_PATH),
+    endpoint: buildCallsApiEndpoint('/api/v1/numbers/'),
     method: 'GET',
     credentials: 'include',
     headers: withAuth({'Content-Type': 'application/json'}),

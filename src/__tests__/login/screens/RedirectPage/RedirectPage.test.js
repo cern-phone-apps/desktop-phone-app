@@ -2,7 +2,9 @@ import React from 'react'
 import RedirectPage from 'login/screens/RedirectPage/RedirectPage'
 
 it('renders without crashing', () => {
-  const login = jest.fn()
+  const login = async (code) => {
+    return {loggedIn: true}
+  }
   const getMe = jest.fn()
   const loader = shallow(<RedirectPage
     login={login}
