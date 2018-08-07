@@ -19,8 +19,10 @@ class Notifications extends React.Component {
     return this.notify
   }
 
-  componentWillReceiveProps (nextProps) {
-    const {notifications} = nextProps
+  componentDidUpdate (nextProps) {
+    console.log("Component updated")
+    const {notifications} = this.props
+    console.log(notifications)
 
     each(notifications, notification => {
       this.system().addNotification({
@@ -32,9 +34,9 @@ class Notifications extends React.Component {
     })
   }
 
-  shouldComponentUpdate (nextProps) {
-    return this.props !== nextProps
-  }
+  // shouldComponentUpdate (nextProps) {
+  //   return this.props !== nextProps
+  // }
 
   render () {
     let notifyRef = el => (this.notify = el)
