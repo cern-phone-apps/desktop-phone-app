@@ -44,7 +44,10 @@ class PhoneProvider extends Component {
     success: PropTypes.func,
     info: PropTypes.func,
     warning: PropTypes.func,
-    unSelectUser: PropTypes.func.isRequired
+    unSelectUser: PropTypes.func.isRequired,
+    addRecentCall: PropTypes.func.isRequired,
+    acceptCall: PropTypes.func.isRequired,
+    hangupCall: PropTypes.func.isRequired
   }
 
   state = {
@@ -118,15 +121,23 @@ class PhoneProvider extends Component {
       description: 'NOT IMPLEMENTED (FAILED)'
     }
 
+    let playPromise
     switch (event.detail.name) {
       // SetMedia
       case 'trackAdded':
-        let playPromise = this.audioElement.play()
+        playPromise = this.audioElement.play()
         if (playPromise !== undefined) {
           playPromise.then(_ => {
+            this.setState({
+              trackAdded: true
+            })
             // Automatic playback started!
             // Show playing UI.
           }).catch(error => {
+            this.setState({
+              trackAdded: false,
+              error: error
+            })
             // Auto-play was prevented
             // Show paused UI.
           })
