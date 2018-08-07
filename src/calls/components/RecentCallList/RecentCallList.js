@@ -21,7 +21,7 @@ class RecentCallList extends Component {
             return (
               <RecentCall
                 key={`recent-${index}`}
-                author={item.author}
+                name={item.name}
                 phoneNumber={item.phoneNumber}
                 incoming={item.incoming}
                 missed={item.missed}

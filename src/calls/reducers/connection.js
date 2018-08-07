@@ -5,7 +5,7 @@ const initialState = {
   activeNumber: '',
   connecting: false,
   disconnecting: false,
-  errors: {}
+  error: {}
 }
 
 export default (state = initialState, action) => {
@@ -14,14 +14,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         connected: false,
-        connecting: true
+        connecting: true,
+        error: {}
       }
     case connectionActions.CONNECT_SUCCESS:
       return {
         ...state,
         connected: true,
         connecting: false,
-        errors: {}
+        error: {}
       }
     case connectionActions.DISCONNECT_REQUEST:
       return {
@@ -33,14 +34,20 @@ export default (state = initialState, action) => {
         ...state,
         connected: false,
         disconnecting: false,
-        errors: {}
+        error: {}
       }
     case connectionActions.CONNECT_FAILURE:
+      return {
+        ...state,
+        connected: false,
+        connecting: false,
+        error: {statusCode: action.errors.code.status_code, message: action.errors.description}
+      }
     case connectionActions.DISCONNECT_FAILURE:
       return {
         ...state,
         connected: false,
-        errors: action.errors
+        error: action.error
       }
 
     default:

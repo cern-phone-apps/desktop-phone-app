@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './OnCallDetails.css'
 import Timer from 'simple-react-timer'
-import {Link} from 'react-router-dom'
-import {Button, Icon} from 'semantic-ui-react'
+import {Icon} from 'semantic-ui-react'
 import {translate} from 'react-i18next'
 
 export class OnCallDetails extends Component {
@@ -13,23 +12,12 @@ export class OnCallDetails extends Component {
     addRecentCall: PropTypes.func.isRequired,
     recipient: PropTypes.object.isRequired,
     receivingCall: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired
-  }
-
-  buildRecentCall = () => {
-    return {
-      author: this.props.recipient.name,
-      incoming: this.props.receivingCall,
-      phoneNumber: this.props.recipient.number,
-      missed: false,
-      startTime: this.props.startTime,
-      endTime: Date.now()
-    }
+    t: PropTypes.func.isRequired,
+    phoneService: PropTypes.object.isRequired
   }
 
   hangup = () => {
-    this.props.addRecentCall(this.buildRecentCall())
-    this.props.hangupCall()
+    this.props.phoneService.hangUpCall()
   }
 
   render () {
@@ -54,7 +42,6 @@ export class OnCallDetails extends Component {
               <button className="ui circular icon button">
                 <i className="mute icon"/>
               </button>
-              <Button as={Link} to={'/chat'} circular icon={'comment'}/>
             </div>
           </div>
         </div>

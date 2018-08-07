@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import * as callActionCreators from 'calls/actions/call'
 import * as recentActionCreators from 'calls/actions/recent'
 import OnCallDetails from 'calls/components/OnCallDetails/OnCallDetails'
+import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
 
 function mapStateToProps ({calls}) {
   return {
@@ -28,4 +29,4 @@ export const OnCallDetailsContainer = connect(
   mapDispatchToProps
 )(OnCallDetails)
 
-export default withRouter(OnCallDetailsContainer)
+export default withRouter(phoneService(OnCallDetailsContainer))

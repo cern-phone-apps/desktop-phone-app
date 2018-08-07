@@ -8,23 +8,29 @@ export class CallLoader extends Component {
   static propTypes = {
     recipientName: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
-    hangupCall: PropTypes.func.isRequired,
-    acceptCall: PropTypes.func.isRequired,
+    // hangupCall: PropTypes.func.isRequired,
+    // acceptCall: PropTypes.func.isRequired,
     calling: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    phoneService: PropTypes.object.isRequired
   }
 
   componentDidMount () {
-    setTimeout(() => {
-      console.debug('Accept call after 5 seconds') || this.acceptCall()
-    }, 5000)
+    // TODO Move this to the Dummy API client
+    // setTimeout(() => {
+    //   console.debug('Accept call after 5 seconds') || this.acceptCall()
+    // }, 5000)
   }
 
-  acceptCall = () => {
-    console.debug('PROPS', this.props)
-    if (this.props.calling) {
-      this.props.acceptCall()
-    }
+  // acceptCall = () => {
+  //   console.debug('PROPS', this.props)
+  //   if (this.props.calling) {
+  //     this.props.acceptCall()
+  //   }
+  // }
+
+  hangUpCall = () => {
+    this.props.phoneService.hangUpCall()
   }
 
   render () {
@@ -39,14 +45,14 @@ export class CallLoader extends Component {
             </div>
             <h3 className="ui center aligned header">
               {t('callingText')} <img src={'/images/avatar/patrick.png'} alt={'avatar'}
-                className="ui circular tiny image"/> {this.props.recipientName}
+                                      className="ui circular tiny image"/> {this.props.recipientName}
             </h3>
             <div className="ui center aligned basic segment">
               ({this.props.phoneNumber})
             </div>
           </div>
           <div className="ui center aligned basic segment">
-            <button onClick={() => this.props.hangupCall()} className="ui circular red icon button">
+            <button onClick={this.hangUpCall} className="ui circular red icon button">
               <i className="phone icon"/>
             </button>
           </div>
@@ -56,8 +62,4 @@ export class CallLoader extends Component {
   }
 }
 
-export default translate(
-  'calls'
-)(
-  CallLoader
-)
+export default translate('calls')(CallLoader)

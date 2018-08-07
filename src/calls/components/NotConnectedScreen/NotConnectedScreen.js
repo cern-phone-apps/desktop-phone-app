@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Message, Segment} from 'semantic-ui-react'
 import ConnectNumberButtonContainer from 'calls/containers/components/ConnectNumberButton/ConnectNumberButtonContainer'
+import CallErrorMessageContainer from 'calls/containers/components/CallErrorMessage/CallErrorMessageContainer'
 
 export class NotConnectedScreen extends Component {
   static propTypes = {
-    errors: PropTypes.object,
     t: PropTypes.func.isRequired
   }
 
@@ -16,7 +16,7 @@ export class NotConnectedScreen extends Component {
       <div className="call-inner-content">
         <h2 className="ui center aligned header gray-text">{t('disconnected.header')}</h2>
         <Segment textAlign={'center'} basic>
-          {this.props.errors.message ? <Message color='red'>{this.props.errors.message}</Message> : ''}
+          <CallErrorMessageContainer/>
           <p>{t('disconnected.text')}</p>
           <ConnectNumberButtonContainer/>
         </Segment>
