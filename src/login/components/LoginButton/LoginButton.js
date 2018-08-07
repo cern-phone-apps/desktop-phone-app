@@ -9,8 +9,6 @@ import {translate} from 'react-i18next'
  */
 export class LoginButton extends Component {
   static propTypes = {
-    loggedIn: PropTypes.bool.isRequired,
-    urlQuery: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired
   }
 

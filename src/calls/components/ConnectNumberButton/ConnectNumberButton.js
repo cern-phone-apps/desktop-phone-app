@@ -47,7 +47,7 @@ class ConnectNumberButton extends Component {
   }
 
   render () {
-    const {connecting, numbers, phoneNumber, error} = this.props
+    const {connecting, numbers, phoneNumber} = this.props
 
     if (connecting) {
       return <Loader active inline='centered'/>

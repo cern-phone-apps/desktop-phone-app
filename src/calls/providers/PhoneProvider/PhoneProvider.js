@@ -9,12 +9,6 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 import {bindActionCreators} from 'redux'
-import {buildRecipient} from 'calls/utils'
-
-const pStyle = {
-  height: '100%',
-  width: '100%'
-};
 
 export const phoneService = (ComponentToWrap) => {
   return class ThemeComponent extends Component {
@@ -50,7 +44,7 @@ class PhoneProvider extends Component {
     success: PropTypes.func,
     info: PropTypes.func,
     warning: PropTypes.func,
-    unSelectUser: PropTypes.func.isRequired,
+    unSelectUser: PropTypes.func.isRequired
   }
 
   state = {
@@ -133,9 +127,9 @@ class PhoneProvider extends Component {
             // Automatic playback started!
             // Show playing UI.
           }).catch(error => {
-              // Auto-play was prevented
-              // Show paused UI.
-            });
+            // Auto-play was prevented
+            // Show paused UI.
+          });
         }
         break;
       // Registering
@@ -231,7 +225,7 @@ PhoneProvider.childContextTypes = {
 
 function mapStateToProps ({calls}) {
   return {
-    recipient: (calls.call)? calls.call.recipient: undefined,
+    recipient: (calls.call) ? calls.call.recipient : undefined
   }
 }
 
@@ -240,7 +234,7 @@ function mapDispatchToProps (dispatch) {
     ...connectionActionCreators,
     ...callActionCreators,
     ...recentActionCreators,
-    ... searchActionCreators,
+    ...searchActionCreators,
     success, info, warning
   }, dispatch)
 }
