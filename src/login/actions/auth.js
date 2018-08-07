@@ -26,7 +26,7 @@ export const buildAuthApiEndpoint = (path) => {
  */
 export const login = (code) => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_AUTH_LOGIN_PATH),
+    endpoint: buildAuthApiEndpoint('/auth/v1/login/'),
     method: 'POST',
     body: JSON.stringify({code, 'type': 'web'}),
     credentials: 'include',
@@ -48,7 +48,7 @@ export const login = (code) => ({
  */
 export const logout = () => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_AUTH_LOGOUT_PATH),
+    endpoint: buildAuthApiEndpoint('/api/v1/logout/'),
     method: 'DELETE',
     credentials: 'include',
     headers: withAuth({'Content-Type': 'application/json'}),
@@ -68,7 +68,7 @@ export const logout = () => ({
  */
 export const refreshAccessToken = () => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint(process.env.REACT_APP_AUTH_REFRESH_PATH),
+    endpoint: buildAuthApiEndpoint('/auth/v1/refresh/'),
     method: 'POST',
     credentials: 'include',
     headers: withRefresh({'Content-Type': 'application/json'}),

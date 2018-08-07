@@ -34,7 +34,7 @@ describe('search actions', () => {
 
   it('should create and endpoint for the search api', () => {
     const value = 'USERNAME'
-    const expectedResult = `https://hostname/users/search/?username=${value}`
+    const expectedResult = `https://hostname/api/v1/users/search/?username=${value}`
     expect(actions.buildSearchEndpoint(value)).toEqual(expectedResult)
   })
 })
@@ -53,7 +53,7 @@ describe('async search test', () => {
       cernSection: 'SECTION',
       displayName: 'NAME'
     }]
-    fetchMock.getOnce(`https://hostname/users/search/?username=${value}`,
+    fetchMock.getOnce(`https://hostname/api/v1/users/search/?username=${value}`,
       {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
       {type: actions.SEARCH_REQUEST},

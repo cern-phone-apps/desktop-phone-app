@@ -4,11 +4,12 @@ import RecentCall from 'calls/components/RecentCallList/RecentCall'
 describe('RecentCall component', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(<RecentCall author={'author name'}
-      endTime={1533029231856 + 6000}
-      incoming={false}
-      missed={false}
-      phoneNumber={'12345'}
-      startTime={1533029231856}/>)
+                                        endTime={1533029231856 + 6000}
+                                        incoming={false}
+                                        missed={false}
+                                        phoneNumber={'12345'}
+                                        startTime={1533029231856}
+                                        name={'test'}/>)
 
     expect(wrapper.text()).toEqual('<Item />')
     expect(wrapper.debug()).toContain('ItemContent')

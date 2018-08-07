@@ -15,9 +15,11 @@ describe('ToggleButton Container', () => {
   let wrapper, store
 
   let storeContent = {
-    sidebar: {
-      isVisible: false,
-      displayTime: 500
+    common: {
+      sidebar: {
+        isVisible: false,
+        displayTime: 500
+      }
     }
   }
 
