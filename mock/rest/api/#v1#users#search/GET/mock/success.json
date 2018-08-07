@@ -1,0 +1,73 @@
+{
+  "result": [
+    {
+      "displayName": "Test 1",
+      "phones": [{
+        "number": "88001",
+        "phoneType": "phone"
+      }],
+      "mail": "test1@cern.ch",
+      "cernSection": "TEST_SEC",
+      "cernGroup": "TEST_GROUP",
+      "division": "TEST_DIVISION",
+      "physicalDeliveryOfficeName": "No office",
+      "username": "test80001",
+      "personId": "test80001"
+    },
+    {
+      "displayName": "Test 2",
+      "phones": [{
+        "number": "88002",
+        "phoneType": "phone"
+      }],
+      "mail": "test2@cern.ch",
+      "cernSection": "TEST_SEC",
+      "cernGroup": "TEST_GROUP",
+      "division": "TEST_DIVISION",
+      "physicalDeliveryOfficeName": "No office",
+      "username": "test80002",
+      "personId": "test80002"
+    },
+    {
+      "displayName": "Test 3",
+      "phones": [{
+        "number": "88003",
+        "phoneType": "phone"
+      }],
+      "mail": "test3@cern.ch",
+      "cernSection": "TEST_SEC",
+      "cernGroup": "TEST_GROUP",
+      "division": "TEST_DIVISION",
+      "physicalDeliveryOfficeName": "No office",
+      "username": "test80003",
+      "personId": "test80003"
+    },
+    {
+      "displayName": "Test 4",
+      "phones": [{
+        "number": "88004",
+        "phoneType": "phone"
+      }],
+      "mail": "test4@cern.ch",
+      "cernSection": "TEST_SEC",
+      "cernGroup": "TEST_GROUP",
+      "division": "TEST_DIVISION",
+      "physicalDeliveryOfficeName": "No office",
+      "username": "test80004",
+      "personId": "test80004"
+    },
+    {
+    "displayName": "Test 5",
+    "phones": [{
+      "number": "88005",
+      "phoneType": "phone"
+    }],
+    "mail": "test5@cern.ch",
+    "cernSection": "TEST_SEC",
+    "cernGroup": "TEST_GROUP",
+    "division": "TEST_DIVISION",
+    "physicalDeliveryOfficeName": "No office",
+    "username": "test80005",
+    "personId": "test80005"
+  }]
+}

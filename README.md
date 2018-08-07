@@ -1,11 +1,65 @@
 
-## Master
+# Dial Webapp
+
+## Status
+
+### Master
 
 [![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/phone-webapp)
 
-## Dev
+### Dev
 
 [![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=dev)](https://travis-ci.org/cern-dialtone/phone-webapp) [![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/test_coverage)](https://codeclimate.com/github/cern-dialtone/dial-webapp/test_coverage)
+
+
+## Development
+
+### Requirements
+
+- node v8.11.2
+- npm 6.2.0
+
+### Install the dependencies
+
+```bash
+npm install
+```
+
+### Creating the .env configuration files
+
+This project gets the configuration from the `.env` files located on the root of the project.
+There is a `.env.development.local.sample` file that can be used as example.
+
+You must create the `env.development.local` (you must customize this one) and `.env.test.local` (you can use
+the sample configuration for this one) files.
+
+### Setting up the mock server
+
+The mock server simulates all the responses from the backend server
+
+1. First, you must create a `config.js` file inside the `/mock` dir. You can take `config.sample.js` as an example.
+2. You must generate the certificates in order to run ser server using `ssl`. Run the following command inside `mock` folder:
+    ```bash
+    openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
+    ```
+3. Configure the app settings `.env` file:
+    `REACT_APP_OAUTH_ENABLED` must be set to `false`
+
+Then run the server:
+
+```bash
+node mock
+```
+
+More info about this server: https://github.com/smollweide/node-mock-server#readme
+
+### Run the application
+
+```bash
+npm start
+```
+
+## React Docs
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

@@ -1,0 +1,10 @@
+{
+  "validation": {
+    "empty": {
+      "counter": 0
+    },
+    "success": {
+      "counter": 0
+    }
+  }
+}

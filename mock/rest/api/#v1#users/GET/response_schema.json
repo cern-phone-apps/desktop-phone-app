@@ -1,0 +1,16 @@
+{
+  "result": {
+    "displayName": "string",
+    "phones": [{
+      "number": "string",
+      "phoneType": "string"
+    }],
+    "mail": "string",
+    "cernSection": "string",
+    "cernGroup": "string",
+    "division": "string",
+    "physicalDeliveryOfficeName": "string",
+    "username": "string",
+    "personId": "string"
+  }
+}
