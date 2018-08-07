@@ -23,3 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 *.css
 src/external/tone-webrtc-api
+
+mock/rest/*/*/*/mock/response.txt
+/mock/cert.pem
+/mock/key.pem
+/mock/config.js

@@ -1,0 +1,19 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+This project adheres to [Dial Backend](https://gitlab.cern.ch/dialtone/webapp-backend/edit).
+
+## [unreleased]
+### Added
+- XXX
+### Fixed
+- XXX
+### Improved
+- XXX
+
+## w0.1.1 - 2018-08-07
+### Added
+- Add mockups for the backend using node mockup server
+
+## w0.1.0 - 2018-08-03
+### Added
+- Test numbers (800X) can be fetch from API if DEBUG=True
