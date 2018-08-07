@@ -1,4 +1,4 @@
-class DummyAPIClient {
+export class Dial {
   static _buildEvent (name, data) {
     return {
       'name': name,
@@ -6,31 +6,69 @@ class DummyAPIClient {
     }
   }
 
-  constructor (uaListener, sessionListener) {
-    this.uaCallbackMethod = uaListener
-    this.sessionCallbackMethod = sessionListener
+  constructor (media) {
+    this.media = media
+    this.dialNotifier = new EventTarget()
   }
 
-  startAgent = (user, password, disconnect) => {
+  static buildEvent (name, data, errorCode = 0, errorMsg = undefined) {
+    let event = {
+      'name': name,
+      'data': data
+    }
+    if (errorCode) {
+      event.error = {
+        'code': errorCode,
+        'description': errorMsg
+      };
+    }
+    return event;
+  }
+
+  sendEvent (event) {
+    const customEvent = new CustomEvent("ToneEvent", {detail: event});
+    this.dialNotifier.dispatchEvent(customEvent);
+  }
+
+  getNotifier () {
+    return this.dialNotifier;
+  }
+
+  authenticate (user, password) {
+    if (user && password) {
+      this.startAgent(user, password);
+    }
+    else throw "Cannot authenticate. Password or User not set.";
+  }
+
+  startAgent = (user, password) => {
     setTimeout(() => {
-      if (disconnect) {
-        this.uaCallbackMethod(DummyAPIClient._buildEvent('disconnected', null))
-      } else {
-        this.uaCallbackMethod(DummyAPIClient._buildEvent('connected', null))
-      }
+      const event = Dial.buildEvent('registered', {});
+      this.sendEvent(event);
     }, 2000)
+  }
+
+  call (callee) {
+    if (!this.media) {
+      throw "Cannot launch call. Media element not set.";
+    }
+    setTimeout(() => {
+      const event = Dial.buildEvent('accepted', {});
+      this.sendEvent(event);
+    }, 2000)
+  }
+
+  hangUp () {
+    const event = Dial.buildEvent('terminated', {});
+    this.sendEvent(event);
   }
 
   stopAgent = () => {
     setTimeout(() => {
-      this.uaCallbackMethod(DummyAPIClient._buildEvent('disconnected', null))
+      const response = {}
+      const cause = {}
+      const event = Dial.buildEvent('unregistered', {}, cause, response);
+      this.sendEvent(event);
     }, 2000)
   }
-}
-
-export default DummyAPIClient
-
-export function initDial (uaListener, sessionListener) {
-  console.debug('Creating a new DummyAPIClient')
-  return new DummyAPIClient(uaListener, sessionListener)
 }
