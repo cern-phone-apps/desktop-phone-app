@@ -36,39 +36,36 @@ export class Dial {
 
   authenticate (user, password) {
     if (user && password) {
-      this.startAgent(user, password);
+      setTimeout(() => {
+        const event = Dial.buildEvent('registered', {})
+        this.sendEvent(event);
+      }, 2000)
     }
-    else throw "Cannot authenticate. Password or User not set.";
+    else throw Error("Cannot authenticate. Password or User not set.")
   }
 
-  startAgent = (user, password) => {
-    setTimeout(() => {
-      const event = Dial.buildEvent('registered', {});
-      this.sendEvent(event);
-    }, 2000)
-  }
 
   call (callee) {
     if (!this.media) {
-      throw "Cannot launch call. Media element not set.";
+      throw "Cannot launch call. Media element not set."
     }
     setTimeout(() => {
-      const event = Dial.buildEvent('accepted', {});
-      this.sendEvent(event);
+      const event = Dial.buildEvent('accepted', {})
+      this.sendEvent(event)
     }, 2000)
   }
 
   hangUp () {
-    const event = Dial.buildEvent('terminated', {});
-    this.sendEvent(event);
+    const event = Dial.buildEvent('terminated', {})
+    this.sendEvent(event)
   }
 
   stopAgent = () => {
     setTimeout(() => {
       const response = {}
       const cause = {}
-      const event = Dial.buildEvent('unregistered', {}, cause, response);
-      this.sendEvent(event);
+      const event = Dial.buildEvent('unregistered', {}, cause, response)
+      this.sendEvent(event)
     }, 2000)
   }
 }

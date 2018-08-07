@@ -17,7 +17,7 @@ export class CallErrorMessage extends Component {
   }
 
   render () {
-    const {t, callError, connectionError, numbersError} = this.props
+    const {callError, connectionError, numbersError} = this.props
 
     let results = []
 

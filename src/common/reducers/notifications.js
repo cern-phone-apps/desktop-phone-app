@@ -15,6 +15,7 @@ export default function Notifications(state = [], action) {
       return filter(state, notification => {
         return notification.uid !== action.uid;
       });
+    default:
+      return state
   }
-  return state;
 }
