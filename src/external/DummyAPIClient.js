@@ -20,34 +20,32 @@ export class Dial {
       event.error = {
         'code': errorCode,
         'description': errorMsg
-      };
+      }
     }
-    return event;
+    return event
   }
 
   sendEvent (event) {
-    const customEvent = new CustomEvent("ToneEvent", {detail: event});
-    this.dialNotifier.dispatchEvent(customEvent);
+    const customEvent = new CustomEvent('ToneEvent', {detail: event})
+    this.dialNotifier.dispatchEvent(customEvent)
   }
 
   getNotifier () {
-    return this.dialNotifier;
+    return this.dialNotifier
   }
 
   authenticate (user, password) {
     if (user && password) {
       setTimeout(() => {
         const event = Dial.buildEvent('registered', {})
-        this.sendEvent(event);
+        this.sendEvent(event)
       }, 2000)
-    }
-    else throw Error("Cannot authenticate. Password or User not set.")
+    } else throw Error('Cannot authenticate. Password or User not set.')
   }
-
 
   call (callee) {
     if (!this.media) {
-      throw "Cannot launch call. Media element not set."
+      throw Error('Cannot launch call. Media element not set.')
     }
     setTimeout(() => {
       const event = Dial.buildEvent('accepted', {})

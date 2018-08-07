@@ -10,7 +10,7 @@ const ButtonNumbersList = ({numbers, phoneNumber, connect}) => {
     {numbers.map((item, index) => {
       return (
         <Button fluid key={`number-${index}`}
-                onClick={() => connect(item.phoneNumber)}>
+          onClick={() => connect(item.phoneNumber)}>
           <Icon name='plug'/>
           {item.phoneNumber}</Button>
       )

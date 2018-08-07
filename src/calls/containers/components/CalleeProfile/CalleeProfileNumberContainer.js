@@ -20,7 +20,7 @@ function mapDispatchToProps (dispatch) {
   }, dispatch)
 }
 
-export const CalleProfileNumberContainer =  connect(
+export const CalleProfileNumberContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(CalleeProfileNumber)

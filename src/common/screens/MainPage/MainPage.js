@@ -70,12 +70,11 @@ export class MainPage extends Component {
   }
 
   render () {
-    const {notifications} = this.props;
+    const {notifications} = this.props
 
     if (!this.props.isAuthenticated) {
       return <Redirect to={loginRoutes.loginRoute.path}/>
     }
-
 
     return (
       <Sidebar.Pushable as={Segment}>

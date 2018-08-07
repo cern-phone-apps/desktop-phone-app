@@ -45,7 +45,7 @@ export class CallLoader extends Component {
             </div>
             <h3 className="ui center aligned header">
               {t('callingText')} <img src={'/images/avatar/patrick.png'} alt={'avatar'}
-                                      className="ui circular tiny image"/> {this.props.recipientName}
+                className="ui circular tiny image"/> {this.props.recipientName}
             </h3>
             <div className="ui center aligned basic segment">
               ({this.props.phoneNumber})
