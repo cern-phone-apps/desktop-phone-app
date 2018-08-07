@@ -6,9 +6,12 @@ const initialState = {
   receivingCall: false,
   recipient: {
     name: '',
-    number: '',
-    startTime: null
-  }
+    phoneNumber: '',
+    startTime: null,
+    incoming: false,
+    missed: false
+  },
+  error: {}
 }
 
 function processCall (state, recipient) {
@@ -20,11 +23,21 @@ function processCall (state, recipient) {
   }
 }
 
-function processCallRejected (state) {
+function processCallRejected (state, errors) {
   return {
     ...state,
     onCall: false,
-    calling: false
+    calling: false,
+    error: {statusCode: errors.code.status_code, message: errors.description}
+  }
+}
+
+function processCallFailed (state, errors) {
+  return {
+    ...state,
+    onCall: false,
+    calling: false,
+    error: {statusCode: errors.code.status_code, message: errors.description}
   }
 }
 
@@ -73,7 +86,9 @@ const call = (state = initialState, action) => {
         return state
       }
     case callActions.CALL_REJECTED:
-      return processCallRejected(state)
+      return processCallRejected(state, action.errors)
+    case callActions.CALL_FAILED:
+      return processCallFailed(state, action.errors)
     case callActions.CALL_MISSED:
       return processCallMissed(state)
     case callActions.IS_RECEIVING_CALL:

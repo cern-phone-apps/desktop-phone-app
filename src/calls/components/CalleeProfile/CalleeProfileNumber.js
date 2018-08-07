@@ -1,25 +1,29 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Icon, Menu} from 'semantic-ui-react'
+import {buildRecipient} from 'calls/utils'
 
 export class CalleeProfileNumber extends Component {
   static propTypes = {
-    makeCall: PropTypes.func.isRequired,
     acceptCall: PropTypes.func.isRequired,
     unSelectUser: PropTypes.func.isRequired,
     calling: PropTypes.bool.isRequired,
     phoneNumber: PropTypes.string.isRequired,
     recipientName: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired
+    icon: PropTypes.string.isRequired,
+    phoneService: PropTypes.object.isRequired
   }
 
   makeCall = () => {
-    this.props.unSelectUser()
-    this.props.makeCall({
+    const recipient = {
       name: this.props.recipientName,
-      number: this.props.phoneNumber,
-      startTime: Date.now()
-    })
+      phoneNumber: this.props.phoneNumber,
+      incoming: false,
+      missed: false
+    }
+
+    this.props.unSelectUser()
+    this.props.phoneService.makeCall(buildRecipient(recipient))
   }
 
   render () {
@@ -27,7 +31,8 @@ export class CalleeProfileNumber extends Component {
       <Menu.Item
         onClick={() => {
           this.makeCall()
-        }}>
+        }}
+      >
         <Icon name={this.props.icon}/> {this.props.phoneNumber}
       </Menu.Item>
     )

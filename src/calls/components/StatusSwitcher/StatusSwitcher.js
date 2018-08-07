@@ -16,8 +16,7 @@ export class StatusSwitcher extends Component {
   }
 
   disconnect = () => {
-    console.debug('disconnect')
-    this.props.phoneService.disconnectAgent()
+    this.props.phoneService.unAuthenticateUser()
   }
 
   render () {

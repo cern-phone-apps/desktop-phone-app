@@ -47,10 +47,10 @@ export class CalleeProfile extends Component {
 
   getItems = () => {
     const {profile} = this.props
-    if (!profile) {
+    if (!profile || !profile.phones) {
       return []
     }
-    return profile.phones && profile.phones.map((phone, index) => (
+    return profile.phones.map((phone, index) => (
       <CalleeProfileNumberContainer
         key={`number-${index}`}
         phoneNumber={phone.number}

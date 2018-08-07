@@ -24,6 +24,7 @@ function getUsersFormatted (usersArray) {
     const section = user.cernSection === '[]' ? '' : `-${user.cernSection}`
     const displayName = user.displayName
     return {
+      index: index,
       title: displayName,
       description: `${division}${group}${section}`,
       username: user.username

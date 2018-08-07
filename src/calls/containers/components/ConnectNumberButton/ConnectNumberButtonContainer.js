@@ -7,7 +7,8 @@ import ConnectNumberButton from 'calls/components/ConnectNumberButton/ConnectNum
 function mapStateToProps ({calls}) {
   return {
     connecting: calls.connection.connecting,
-    numbers: calls.numbers.numbers
+    numbers: calls.numbers.numbers,
+    error: calls.connection.error
   }
 }
 

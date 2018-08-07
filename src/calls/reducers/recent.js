@@ -18,10 +18,10 @@ const recent = (state = initialState, action) => {
           ...state.recentCalls,
           {
             id: lastRecentId,
-            author: recentCall.author,
+            name: recentCall.name,
             phoneNumber: recentCall.phoneNumber,
             startTime: recentCall.startTime,
-            endTime: recentCall.endTime,
+            endTime: Date.now(),
             incoming: recentCall.incoming,
             missed: recentCall.missed
           }

@@ -4,20 +4,18 @@ import {Button} from 'semantic-ui-react'
 
 class MakeCallButton extends Component {
   static propTypes = {
-    author: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired,
     onCall: PropTypes.bool.isRequired,
     calling: PropTypes.bool.isRequired,
-    makeCall: PropTypes.func.isRequired,
-    connected: PropTypes.bool.isRequired
+    connected: PropTypes.bool.isRequired,
+    phoneService: PropTypes.object.isRequired,
+    recipient: PropTypes.object.isRequired
   }
 
   makeCall = () => {
-    this.props.makeCall({
-      name: this.props.author,
-      number: this.props.phoneNumber,
-      startTime: Date.now()
-    })
+    console.log("Making a call")
+    console.log(this.props.recipient)
+    this.props.phoneService.makeCall(this.props.recipient)
   }
 
   render () {

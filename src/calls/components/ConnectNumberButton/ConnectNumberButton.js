@@ -10,9 +10,9 @@ const ButtonNumbersList = ({numbers, phoneNumber, connect}) => {
     {numbers.map((item, index) => {
       return (
         <Button fluid key={`number-${index}`}
-          onClick={() => connect(phoneNumber)}>
+                onClick={() => connect(item.phoneNumber)}>
           <Icon name='plug'/>
-          {phoneNumber}</Button>
+          {item.phoneNumber}</Button>
       )
     })
     }
@@ -20,16 +20,17 @@ const ButtonNumbersList = ({numbers, phoneNumber, connect}) => {
 }
 
 ButtonNumbersList.propTypes = {
-  numbers: PropTypes.array.isRequired,
-  phoneNumber: PropTypes.string.isRequired,
+  numbers: PropTypes.array,
+  phoneNumber: PropTypes.string,
   connect: PropTypes.func.isRequired
 }
 
 class ConnectNumberButton extends Component {
   static propTypes = {
     connecting: PropTypes.bool.isRequired,
-    numbers: PropTypes.array.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
+    numbers: PropTypes.array,
+    error: PropTypes.object,
+    phoneNumber: PropTypes.string,
     getUserPhoneNumbers: PropTypes.func.isRequired,
     setActiveNumber: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired
@@ -41,16 +42,18 @@ class ConnectNumberButton extends Component {
 
   connect = (activeNumber) => {
     this.props.setActiveNumber(activeNumber)
-    this.props.phoneService.connectAgent()
+    const result = this.props.phoneService.authenticateUser(activeNumber, activeNumber)
+    console.log(result)
   }
 
   render () {
-    const {connecting, numbers, phoneNumber} = this.props
-    if (!connecting || !numbers) {
-      return <ButtonNumbersList numbers={numbers} phoneNumber={phoneNumber} connect={this.connect}/>
-    } else {
+    const {connecting, numbers, phoneNumber, error} = this.props
+
+    if (connecting) {
       return <Loader active inline='centered'/>
     }
+
+    return <ButtonNumbersList numbers={numbers} phoneNumber={phoneNumber} connect={this.connect}/>
   }
 }
 

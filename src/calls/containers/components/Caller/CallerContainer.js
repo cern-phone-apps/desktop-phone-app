@@ -13,7 +13,8 @@ function mapStateToProps ({calls}) {
     calling: calls.call.calling,
     onCall: calls.call.onCall,
     displayDialpad: calls.dialpad.display,
-    activeNumber: calls.numbers.activeNumber
+    activeNumber: calls.numbers.activeNumber,
+    error: calls.call.error
   }
 }
 

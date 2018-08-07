@@ -1,11 +1,20 @@
 import React, {Children, Component} from 'react'
 import * as connectionActionCreators from 'calls/actions/connection'
+import * as callActionCreators from 'calls/actions/call'
+import * as recentActionCreators from 'calls/actions/recent'
+import * as searchActionCreators from 'calls/actions/search'
+import {success, info, warning} from 'common/actions/notifications'
 
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
-// import {initDial} from 'external/tone-webrtc-api/src/api/dial-api'
 import {bindActionCreators} from 'redux'
+import {buildRecipient} from 'calls/utils'
+
+const pStyle = {
+  height: '100%',
+  width: '100%'
+};
 
 export const phoneService = (ComponentToWrap) => {
   return class ThemeComponent extends Component {
@@ -17,7 +26,7 @@ export const phoneService = (ComponentToWrap) => {
     render () {
       const {phoneService} = this.context
       // what we do is basically rendering `ComponentToWrap`
-      // with an added `theme` prop, like a hook
+      // with an added `phoneService` prop, like a hook
       return (
         <ComponentToWrap {...this.props} phoneService={phoneService}/>
       )
@@ -32,62 +41,177 @@ class PhoneProvider extends Component {
     setConnectionFailure: PropTypes.func,
     setConnected: PropTypes.func,
     requestDisconnection: PropTypes.func,
-    setDisconnected: PropTypes.func
+    setDisconnected: PropTypes.func,
+    makeCall: PropTypes.func,
+    rejectCall: PropTypes.func,
+    isCalling: PropTypes.func,
+    callFailed: PropTypes.func,
+    recipient: PropTypes.object,
+    success: PropTypes.func,
+    info: PropTypes.func,
+    warning: PropTypes.func,
+    unSelectUser: PropTypes.func.isRequired,
   }
 
   state = {
     phoneService: this
   }
 
-  componentDidMount () {
-    let dial = null
-    PhoneProvider.loadDialApi().then((dialParam) => {
-      dial = dialParam(this.handleUAEvents, this.handleSessionEvents)
-      console.debug(dial)
+  registeredNotificationOpts = {
+    // uid: 'once-please', // you can specify your own uid if required
+    title: 'You are connected now',
+    position: 'tr',
+    autoDismiss: 2
+  }
 
-      this.setState({
-        dial: dial
-      })
-    })
+  unRegisteredNotificationOpts = {
+    // uid: 'once-please', // you can specify your own uid if required
+    title: 'You have been disconnected',
+    message: `You won't be able to make or receive any calls until you connect again`,
+    position: 'tr',
+    autoDismiss: 4
+  }
+
+  callTerminatedNotificationOpts = {
+    // uid: 'once-please', // you can specify your own uid if required
+    title: 'The call was terminated',
+    position: 'tr',
+    autoDismiss: 2
   }
 
   static async loadDialApi () {
     console.debug(process.env.REACT_APP_TONE_API_PATH)
-    const {initDial} = await import(process.env.REACT_APP_TONE_API_PATH)
-    console.debug(initDial)
-    return initDial
+    const {Dial} = await import(process.env.REACT_APP_TONE_API_PATH)
+    return Dial
   }
 
-  connectAgent = (username, password) => {
-    console.debug('connect agent')
+  componentDidMount () {
+    let dial = null
+    PhoneProvider.loadDialApi().then((Dial) => {
+      this.audioElement = document.getElementById('callsAudioInput')
+      dial = new Dial(this.audioElement)
+      this.setState({
+        dial: dial
+      }, () => {
+        this.addListeners()
+      })
+    })
+  }
+
+  addListeners = () => {
+    this.notifier = this.state.dial.getNotifier();
+    if (this.notifier) {
+      this.notifier.addEventListener('ToneEvent', this.eventHandler, false);
+    }
+  }
+
+  eventHandler = (event) => {
+    console.log("Tone Event!")
+    console.log(event.detail.name)
+    console.log(event)
+
+    const tempRejectedMessage = {
+      code: {
+        status_code: 'NI'
+      },
+      description: 'NOT IMPLEMENTED (REJECTED)'
+    }
+
+    const tempFailedMessage = {
+      code: {
+        status_code: 'NI'
+      },
+      description: 'NOT IMPLEMENTED (FAILED)'
+    }
+
+    switch (event.detail.name) {
+      // SetMedia
+      case 'trackAdded':
+        let playPromise = this.audioElement.play();
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            // Automatic playback started!
+            // Show playing UI.
+          }).catch(error => {
+              // Auto-play was prevented
+              // Show paused UI.
+            });
+        }
+        break;
+      // Registering
+      case 'registered':
+        this.props.success(this.registeredNotificationOpts)
+        this.props.setConnected()
+        break
+      case 'unregistered':
+        this.props.warning(this.unRegisteredNotificationOpts)
+        this.props.setDisconnected()
+        break
+      case 'registrationFailed':
+        this.props.setConnectionFailure(event.detail.error)
+        break
+      // Calls
+      case 'progress':
+        // TODO
+        this.props.isCalling()
+        break
+      case 'accepted':
+        // TODO
+        this.props.acceptCall()
+        break
+      case 'terminated':
+        // TODO
+        this.props.success(this.callTerminatedNotificationOpts)
+        this.handleHangUpCallEvent()
+        break
+      case 'rejected':
+        // TODO: Detail doesn't include error field nor error code
+        // this.props.setConnectionFailure(event.detail.error)
+        this.props.rejectCall(tempRejectedMessage)
+        break
+      case 'failed':
+        // TODO
+        this.props.callFailed(tempFailedMessage)
+        break
+
+      default:
+        console.error(`Unhandled event: ${event.detail.name}`)
+    }
+  }
+
+  authenticateUser = (username, password) => {
+    console.debug(`Authenticating user: ${username}/*****`)
     this.props.requestConnection()
-    return this.state.dial.startAgent('88001', '88001')
+    return this.state.dial.authenticate(username, password)
   }
 
-  disconnectAgent = () => {
-    console.debug('disconnect agent')
+  unAuthenticateUser = () => {
+    console.debug('UnAuthenticating user')
     this.props.requestDisconnection(true)
     return this.state.dial.stopAgent()
   }
 
-  handleUAEvents = (event, data) => {
-    console.log('ua', event, data)
-    const disconnectedError = {message: 'You have been disconnected'}
-    switch (event.name) {
-      case 'disconnected':
-        this.props.setDisconnected()
-        console.log(disconnectedError)
-        break
-      case 'connected':
-        this.props.setConnected()
-        break
-      default:
-        console.log(`Event received but not handled: ${event.name}`)
-    }
+  makeCall = (recipient) => {
+    console.debug(`Calling user ${recipient.name} with number ${recipient.number}`)
+    this.props.makeCall({
+      name: recipient.name,
+      phoneNumber: recipient.phoneNumber,
+      incoming: recipient.incoming,
+      missed: recipient.missed,
+      startTime: Date.now()
+    })
+    return this.state.dial.call(recipient.number)
   }
 
-  handleSessionEvents = (event, data) => {
-    console.debug('session', event, data)
+  hangUpCall = () => {
+    return this.state.dial.hangUp();
+  }
+
+  handleHangUpCallEvent = () => {
+    let {recipient} = this.props
+    this.props.addRecentCall(recipient)
+    this.props.hangupCall()
+    this.props.unSelectUser()
   }
 
   getChildContext () {
@@ -105,13 +229,23 @@ PhoneProvider.childContextTypes = {
   phoneService: PropTypes.object.isRequired
 }
 
+function mapStateToProps ({calls}) {
+  return {
+    recipient: (calls.call)? calls.call.recipient: undefined,
+  }
+}
+
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-    ...connectionActionCreators
+    ...connectionActionCreators,
+    ...callActionCreators,
+    ...recentActionCreators,
+    ... searchActionCreators,
+    success, info, warning
   }, dispatch)
 }
 
 export default phoneService(connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PhoneProvider))
