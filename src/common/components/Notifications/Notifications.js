@@ -10,8 +10,13 @@ class Notifications extends React.Component {
     notifications: PropTypes.array
   }
 
+  constructor () {
+    super()
+    this.notify = React.createRef()
+  }
+
   system () {
-    return this.refs.notify
+    return this.notify
   }
 
   componentWillReceiveProps (nextProps) {
@@ -32,8 +37,9 @@ class Notifications extends React.Component {
   }
 
   render () {
+    let notifyRef = el => (this.notify = el)
     return (
-      <NotifySystem ref="notify" />
+      <NotifySystem ref={notifyRef}/>
     )
   }
 }
