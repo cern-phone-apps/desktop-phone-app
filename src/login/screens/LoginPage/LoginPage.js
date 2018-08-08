@@ -12,7 +12,7 @@ import LoginButton from 'login/components/LoginButton/LoginButton'
 export class LoginPage extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    loginInProgress: PropTypes.bool,
+    loginInProgress: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired
   }
 

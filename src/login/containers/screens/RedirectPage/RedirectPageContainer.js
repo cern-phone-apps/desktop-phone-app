@@ -11,7 +11,8 @@ function mapStateToProps ({errors, auth, router}) {
   return {
     errors: errors,
     isAuthenticated: isAuthenticated(auth),
-    urlQuery: router.location.search
+    urlQuery: router.location.search,
+    loginInProgress: auth.loginInProgress
   }
 }
 

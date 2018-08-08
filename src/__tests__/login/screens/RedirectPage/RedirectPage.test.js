@@ -6,11 +6,13 @@ it('renders without crashing', () => {
     return {loggedIn: true}
   }
   const getMe = jest.fn()
-  const loader = shallow(<RedirectPage
+  const wrapper = shallow(<RedirectPage
     login={login}
     isAuthenticated={false}
     urlQuery={''}
-    getMe={getMe}/>)
+    getMe={getMe}
+    loginInProgress={false}
+  />)
 
-  expect(loader.text()).toEqual('<Redirect />')
+  expect(wrapper.text()).toEqual('<Redirect />')
 })

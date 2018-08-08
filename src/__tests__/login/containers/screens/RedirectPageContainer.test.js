@@ -17,6 +17,7 @@ describe('RedirectPage Container', () => {
   let storeContent = {
     auth: {
       isAuthenticated: false,
+      loginInProgress: true,
       errors: {}
     },
     router: {
@@ -31,7 +32,7 @@ describe('RedirectPage Container', () => {
   beforeEach(() => {
     store = mockStore(storeContent)
     store.dispatch = jest.fn()
-    wrapper = shallow(<RedirectPageContainer t={key => key} store={store}/>)
+    wrapper = shallow(<RedirectPageContainer store={store}/>)
   })
 
   it('maps state and dispatch to props', () => {
