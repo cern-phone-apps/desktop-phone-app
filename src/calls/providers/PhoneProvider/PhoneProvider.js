@@ -54,6 +54,9 @@ class PhoneProvider extends Component {
     phoneService: this
   }
 
+  ringBackToneId = 'ringbackTone'
+  callInputId = 'callsAudioInput'
+
   registeredNotificationOpts = {
     // uid: 'once-please', // you can specify your own uid if required
     title: 'You are connected now',
@@ -85,7 +88,7 @@ class PhoneProvider extends Component {
   componentDidMount () {
     let dial = null
     PhoneProvider.loadDialApi().then((Dial) => {
-      this.audioElement = document.getElementById('callsAudioInput')
+      this.audioElement = document.getElementById(this.callInputId)
       dial = new Dial(this.audioElement)
       this.setState({
         dial: dial
@@ -100,6 +103,14 @@ class PhoneProvider extends Component {
     if (this.notifier) {
       this.notifier.addEventListener('ToneEvent', this.eventHandler, false)
     }
+  }
+
+  playRingbacktone = () => {
+    document.getElementById(this.ringBackToneId).play();
+  }
+
+  stopRingbacktone = () => {
+    document.getElementById(this.ringBackToneId).pause();
   }
 
   eventHandler = (event) => {
@@ -159,20 +170,24 @@ class PhoneProvider extends Component {
       case 'progress':
         // TODO
         this.props.isCalling()
+        this.playRingbacktone()
         break
       case 'accepted':
         // TODO
         this.props.acceptCall()
+        this.stopRingbacktone()
         break
       case 'terminated':
         // TODO
         this.props.success(this.callTerminatedNotificationOpts)
         this.handleHangUpCallEvent()
+        this.stopRingbacktone()
         break
       case 'rejected':
         // TODO: Detail doesn't include error field nor error code
         // this.props.setConnectionFailure(event.detail.error)
         this.props.rejectCall(tempRejectedMessage)
+        this.stopRingbacktone()
         break
       case 'failed':
         // TODO
@@ -197,7 +212,7 @@ class PhoneProvider extends Component {
   }
 
   makeCall = (recipient) => {
-    console.debug(`Calling user ${recipient.name} with number ${recipient.number}`)
+    console.debug(`Calling user ${recipient.name} with number ${recipient.phoneNumber}`)
     this.props.makeCall({
       name: recipient.name,
       phoneNumber: recipient.phoneNumber,
@@ -205,7 +220,7 @@ class PhoneProvider extends Component {
       missed: recipient.missed,
       startTime: Date.now()
     })
-    return this.state.dial.call(recipient.number)
+    return this.state.dial.call(recipient.phoneNumber)
   }
 
   hangUpCall = () => {
