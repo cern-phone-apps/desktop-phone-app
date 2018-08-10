@@ -13,7 +13,7 @@ const initialState = {
  * @param usersArray Array of dict
  * @returns {*} Array of dict with the users formatted.
  */
-function getUsersFormatted (usersArray) {
+export function getUsersFormattedForSearch (usersArray) {
   if (usersArray === undefined) {
     return []
   }
@@ -61,7 +61,7 @@ const search = (state = initialState, action) => {
     case searchActions.SEARCH_SUCCESS:
       return {
         ...state,
-        searchResults: getUsersFormatted(action.payload.result)
+        searchResults: getUsersFormattedForSearch(action.payload.result)
       }
 
     default:

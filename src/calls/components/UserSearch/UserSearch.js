@@ -6,14 +6,14 @@ import './UserSearch.css'
 
 class UserSearch extends Component {
   static propTypes = {
+    results: PropTypes.array.isRequired,
+    displayDialpad: PropTypes.bool.isRequired,
     userSelected: PropTypes.bool.isRequired,
     value: PropTypes.string,
     selectUser: PropTypes.func.isRequired,
     unSelectUser: PropTypes.func.isRequired,
     updateSearchValue: PropTypes.func.isRequired,
     searchUsers: PropTypes.func.isRequired,
-    results: PropTypes.array.isRequired,
-    displayDialpad: PropTypes.bool.isRequired
   }
 
   state = {
@@ -38,26 +38,35 @@ class UserSearch extends Component {
     this.props.updateSearchValue(result.title)
   }
   handleSearchChange = (e, {value}) => {
+    console.log('Handle search change')
     this.setState({isLoading: true})
     this.props.updateSearchValue(value)
 
-    if (this.state.timeout) clearTimeout(this.state.timeout)
+    if (this.state.timeout) {
+      console.log('Clearing timeout')
+      clearTimeout(this.state.timeout)
+    }
     this.setState({
       timeout: setTimeout(() => {
-        if (!this.props.value || this.props.value.length < 1) {
-          this.props.unSelectUser()
-          return this.resetComponent()
-        }
-        if (this.props.value && this.props.value.length > 3) {
-          this.props.searchUsers(value).then(() => {
-            this.setState({
-              isLoading: false
-            })
-            this.props.unSelectUser()
-          })
-        }
+        this._handleSearchTimeout(value)
       }, 300)
     })
+  }
+
+  _handleSearchTimeout (value) {
+    console.log('Calling set timeout')
+    if (!this.props.value || this.props.value.length < 1) {
+      this.props.unSelectUser()
+      this.resetComponent()
+    }
+    if (this.props.value && this.props.value.length > 3) {
+      this.props.searchUsers(value).then(() => {
+        this.setState({
+          isLoading: false
+        })
+        this.props.unSelectUser()
+      })
+    }
   }
 
   handleChange = (event) => {
@@ -84,6 +93,7 @@ class UserSearch extends Component {
 
     return (
       <Search
+        className={'UserSearch'}
         loading={isLoading}
         onResultSelect={this.handleResultSelect}
         onSearchChange={this.handleSearchChange}
