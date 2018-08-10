@@ -4,7 +4,6 @@ import {Button} from 'semantic-ui-react'
 
 class MakeCallButton extends Component {
   static propTypes = {
-    phoneNumber: PropTypes.string.isRequired,
     onCall: PropTypes.bool.isRequired,
     calling: PropTypes.bool.isRequired,
     connected: PropTypes.bool.isRequired,
@@ -13,15 +12,13 @@ class MakeCallButton extends Component {
   }
 
   makeCall = () => {
-    console.log('Making a call')
-    console.log(this.props.recipient)
     this.props.phoneService.makeCall(this.props.recipient)
   }
 
   render () {
     return (
       <Button
-        className={'flat'}
+        className={'flat MakeCallButton'}
         icon={'phone'}
         disabled={(this.props.onCall || this.props.calling || !this.props.connected)}
         onClick={this.makeCall}/>
