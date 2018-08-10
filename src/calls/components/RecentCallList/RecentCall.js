@@ -7,33 +7,35 @@ import {buildRecipient} from 'calls/utils'
 
 class RecentCall extends Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
-    startTime: PropTypes.number.isRequired,
-    endTime: PropTypes.number.isRequired,
-    incoming: PropTypes.bool.isRequired,
-    missed: PropTypes.bool.isRequired
+    recentCall: PropTypes.object.isRequired,
+    // phoneNumber: PropTypes.string.isRequired,
+    // startTime: PropTypes.number.isRequired,
+    // endTime: PropTypes.number.isRequired,
+    // incoming: PropTypes.bool.isRequired,
+    // missed: PropTypes.bool.isRequired
   }
 
   setRecipient = () => {
+    const {name, phoneNumber, startTime} = this.props.recentCall
     const recipient = {
-      name: this.props.name,
-      phoneNumber: this.props.phoneNumber,
-      startTime: this.props.startTime,
+      name: name,
+      phoneNumber: phoneNumber,
+      startTime: startTime,
       incoming: false,
       missed: false
     }
-
     return buildRecipient(recipient)
   }
 
   render () {
     let contentWidth = 13
     let unreadWidth = 3
-    const color = this.props.missed ? 'red' : 'green'
+    const {name, phoneNumber, startTime, endTime, missed, incoming} = this.props.recentCall
 
-    const printableDate = moment(this.props.startTime).calendar()
-    const duration = moment.duration(moment(this.props.endTime).diff(moment(this.props.startTime)))
+    const color = missed ? 'red' : 'green'
+
+    const printableDate = moment(startTime).calendar()
+    const duration = moment.duration(moment(endTime).diff(moment(startTime)))
 
     return (
       <Item className={'padded-item'}>
@@ -49,9 +51,9 @@ class RecentCall extends Component {
             relaxed={false}
             padded={false}>
             <Grid.Column width={contentWidth}>
-              <Item.Header>{this.props.name} {this.props.phoneNumber ? `(${this.props.phoneNumber})` : ''}</Item.Header>
+              <Item.Header>{name} {phoneNumber ? `(${phoneNumber})` : ''}</Item.Header>
               <Item.Description>{
-                this.props.incoming
+                incoming
                   ? <Icon name={'arrow down'} color={color}/>
                   : <Icon name={'arrow up'} color={color}/>
               }
@@ -59,7 +61,7 @@ class RecentCall extends Component {
               </Item.Description>
             </Grid.Column>
             <Grid.Column width={unreadWidth}>
-              <MakeCallButtonContainer recipient={this.setRecipient()} name={this.props.name} phoneNumber={this.props.phoneNumber}/>
+              <MakeCallButtonContainer recipient={this.setRecipient()} name={name} phoneNumber={phoneNumber}/>
             </Grid.Column>
           </Grid>
         </Item.Content>
