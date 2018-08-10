@@ -3,14 +3,10 @@ import MakeCallButton from 'calls/components/MakeCallButton/MakeCallButton'
 
 describe('MakeCallButton component', () => {
   it('renders without crashing', () => {
-    const makeCall = jest.fn()
     const wrapper = shallow(<MakeCallButton
-      author={'author name'}
       calling={false}
       connected={true}
-      makeCall={makeCall}
       onCall={false}
-      phoneNumber={'12345'}
       phoneService={{}}
       recipient={{}}/>)
 
@@ -19,4 +15,21 @@ describe('MakeCallButton component', () => {
     expect(wrapper.debug()).toContain('phone')
     expect(wrapper.debug()).toContain('icon')
   })
+
+  it('simulates click without crashing', () => {
+    const makeCall = jest.fn()
+    const wrapper = shallow(<MakeCallButton
+      calling={false}
+      connected={true}
+      onCall={false}
+      phoneService={{
+        makeCall: makeCall
+      }}
+      recipient={{}}/>)
+
+    const div = wrapper.find('.MakeCallButton')
+    div.simulate('click')
+    expect(makeCall).toHaveBeenCalled()
+  })
+
 })
