@@ -125,6 +125,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loggedIn: false,
+        loginInProgress: false,
         errors: {}
       }
     default:

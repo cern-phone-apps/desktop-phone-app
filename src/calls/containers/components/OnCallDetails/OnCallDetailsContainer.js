@@ -9,9 +9,7 @@ import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
 
 function mapStateToProps ({calls}) {
   return {
-    calling: calls.call.calling,
     onCall: calls.call.onCall,
-    startTime: calls.call.recipient.startTime,
     recipient: calls.call.recipient,
     receivingCall: calls.call.receivingCall
   }

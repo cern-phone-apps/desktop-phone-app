@@ -7,13 +7,10 @@ import {translate} from 'react-i18next'
 
 export class OnCallDetails extends Component {
   static propTypes = {
-    hangupCall: PropTypes.func.isRequired,
-    startTime: PropTypes.number.isRequired,
-    addRecentCall: PropTypes.func.isRequired,
+    phoneService: PropTypes.object.isRequired,
     recipient: PropTypes.object.isRequired,
     receivingCall: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    phoneService: PropTypes.object.isRequired
   }
 
   hangup = () => {
@@ -31,12 +28,12 @@ export class OnCallDetails extends Component {
               <Icon name={'user'}/> {this.props.recipient.name}
             </h2>
             <div className="ui center aligned basic segment">
-              <Timer startTime={this.props.startTime}/>
+              <Timer startTime={this.props.recipient.startTime}/>
             </div>
             <div className="ui center aligned basic segment">
               <button
                 onClick={() => this.hangup()}
-                className="ui circular red icon button">
+                className={'ui circular red icon button OnCallDetails__HangupButton'}>
                 <i className="phone icon"/>
               </button>
               <button className="ui circular icon button">
