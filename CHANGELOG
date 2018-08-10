@@ -10,10 +10,7 @@ This project adheres to [Dial Backend](https://gitlab.cern.ch/dialtone/webapp-ba
 ### Improved
 - XXX
 
-## w0.1.1 - 2018-08-07
+## w0.1.0 - 2018-08-21
 ### Added
 - Add mockups for the backend using node mockup server
-
-## w0.1.0 - 2018-08-03
-### Added
-- Test numbers (800X) can be fetch from API if DEBUG=True
+- Ringing on outgoing call

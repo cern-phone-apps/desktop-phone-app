@@ -114,10 +114,6 @@ class PhoneProvider extends Component {
   }
 
   eventHandler = (event) => {
-    console.log('Tone Event!')
-    console.log(event.detail.name)
-    console.log(event)
-
     const tempRejectedMessage = {
       code: {
         status_code: 'NI'
@@ -185,7 +181,6 @@ class PhoneProvider extends Component {
         break
       case 'rejected':
         // TODO: Detail doesn't include error field nor error code
-        // this.props.setConnectionFailure(event.detail.error)
         this.props.rejectCall(tempRejectedMessage)
         this.stopRingbacktone()
         break
