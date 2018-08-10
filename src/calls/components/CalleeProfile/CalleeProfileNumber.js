@@ -5,9 +5,7 @@ import {buildRecipient} from 'calls/utils'
 
 export class CalleeProfileNumber extends Component {
   static propTypes = {
-    acceptCall: PropTypes.func.isRequired,
     unSelectUser: PropTypes.func.isRequired,
-    calling: PropTypes.bool.isRequired,
     phoneNumber: PropTypes.string.isRequired,
     recipientName: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
@@ -29,6 +27,7 @@ export class CalleeProfileNumber extends Component {
   render () {
     return (
       <Menu.Item
+        className={'CalleeProfileNumber'}
         onClick={() => {
           this.makeCall()
         }}
