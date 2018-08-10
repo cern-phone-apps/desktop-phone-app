@@ -5,11 +5,14 @@
 
 ### Master
 
-[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/dial-webapp)
+[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/dial-webapp) 
+[![Dependency Status](https://david-dm.org/cern-dialtone/dial-webapp.svg)](https://david-dm.org/cern-dialtone/dial-webapp)
 
 ### Dev
 
-[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=dev)](https://travis-ci.org/cern-dialtone/dial-webapp) [![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/test_coverage)](https://codeclimate.com/github/cern-dialtone/dial-webapp/test_coverage)
+[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=dev)](https://travis-ci.org/cern-dialtone/dial-webapp) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability) 
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/test_coverage)](https://codeclimate.com/github/cern-dialtone/dial-webapp/test_coverage)
 
 
 ## Development
