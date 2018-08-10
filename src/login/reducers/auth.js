@@ -107,8 +107,6 @@ export default (state = initialState, action) => {
       }
     case authActions.LOGIN_SUCCESS:
     case authActions.TOKEN_RECEIVED:
-      console.log('LOOK HERE')
-      console.log(action)
       return {
         ...state,
         loggedIn: action.payload.login,
