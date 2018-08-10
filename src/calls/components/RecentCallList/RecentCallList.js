@@ -19,15 +19,7 @@ class RecentCallList extends Component {
         <Item.Group>
           {this.props.recentCalls.map((item, index) => {
             return (
-              <RecentCall
-                key={`recent-${index}`}
-                name={item.name}
-                phoneNumber={item.phoneNumber}
-                incoming={item.incoming}
-                missed={item.missed}
-                startTime={item.startTime}
-                endTime={item.endTime}
-              />
+              <RecentCall key={`recent-${index}`} recentCall={item} />
             )
           })
           }
