@@ -7,8 +7,7 @@ import OnCallMessage from 'calls/components/OnCallMessage/OnCallMessage'
 
 function mapStateToProps ({calls}) {
   return {
-    recipientName: calls.call.recipient.name,
-    startTime: calls.call.recipient.startTime
+    recipient: calls.call.recipient,
   }
 }
 
