@@ -1,19 +1,39 @@
 import React from 'react'
 import {CalleeProfileNumber} from 'calls/components/CalleeProfile/CalleeProfileNumber'
 
-it('renders CalleeProfileNumber without crashing', () => {
-  const makeCall = jest.fn()
-  const acceptCall = jest.fn()
-  const unSelect = jest.fn()
-  const wrapper = shallow(<CalleeProfileNumber
-    acceptCall={acceptCall}
-    calling={false}
-    makeCall={makeCall}
-    phoneNumber={'12345'}
-    unSelectUser={unSelect}
-    icon={'phone'}
-    recipientName={'example name'}
-    phoneService={{}}/>)
+describe('CalleeProfileNumber Component tests', () => {
+  it('renders without crashing', () => {
+    const unSelect = jest.fn()
+    const wrapper = shallow(<CalleeProfileNumber
+      phoneNumber={'12345'}
+      unSelectUser={unSelect}
+      icon={'phone'}
+      recipientName={'example name'}
+      phoneService={{}}/>)
 
-  expect(wrapper.text()).toEqual('<MenuItem />')
+    expect(wrapper.text()).toEqual('<MenuItem />')
+  })
+
+  it('makeCall works', () => {
+    const unSelect = jest.fn()
+    const makeCall = jest.fn()
+
+    const wrapper = shallow(<CalleeProfileNumber
+      phoneNumber={'12345'}
+      unSelectUser={unSelect}
+      icon={'phone'}
+      recipientName={'example name'}
+      phoneService={{
+        makeCall: makeCall
+      }}/>)
+
+    expect(wrapper.text()).toEqual('<MenuItem />')
+
+    const div = wrapper.find('.CalleeProfileNumber')
+    div.simulate('click')
+    expect(makeCall).toHaveBeenCalled()
+    expect(unSelect).toHaveBeenCalled()
+
+  })
+
 })
