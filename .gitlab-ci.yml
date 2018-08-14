@@ -1,0 +1,23 @@
+image: node:8.11 # can be upgraded, depending on your node version used
+
+stages:
+  - test_dev
+  - build_dev
+
+test_dev:
+  stage: test_dev
+  script:
+    - npm test -- --coverage
+
+build:
+  stage: build_dev
+  script:
+    - npm install
+    - npm run build
+    - rm -rf public
+    - mv build public
+  artifacts:
+    paths:
+    - build # mandatory, other folder won't work
+  only:
+  - dev # or dev, the branch you want to publish
