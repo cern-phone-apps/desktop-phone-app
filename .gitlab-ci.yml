@@ -1,24 +1,24 @@
 image: node:8.11 # can be upgraded, depending on your node version used
 
 stages:
-  - test
-  - build
+- test
+- build
 
-test_dev:
-  stage: test_dev
+test:
+  stage: test
   script:
-    - npm install
-    - npm test -- --coverage
+  - npm install
+  - npm test -- --coverage
   only:
-    - dev # or dev, the branch you want to publish
+  - dev # or dev, the branch you want to publish
 
 build:
   stage: build
   script:
-    - npm install
-    - npm run build
-    - rm -rf public
-    - mv build public
+  - npm install
+  - npm run build
+  - rm -rf public
+  - mv build public
   artifacts:
     paths:
     - public # mandatory, other folder won't work
