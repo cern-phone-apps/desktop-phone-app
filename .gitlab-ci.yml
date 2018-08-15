@@ -1,27 +1,62 @@
-image: node:8.11 # can be upgraded, depending on your node version used
-
 stages:
 - test
 - build
+- generate_docker_image
+
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+
+before_script:
+- npm install
 
 test:
+  image: node:8.11
   stage: test
+  variables:
+    REACT_APP_API_ENDPOINT: "https://hostname"
+    REACT_APP_OAUTH_ENABLED: "false"
+    REACT_APP_OAUTH_CLIENT_ID: "test"
+    REACT_APP_OAUTH_AUTHORIZATION_URL: "https://oauth/OAuth/Authorize"
+    REACT_APP_OAUTH_REDIRECT_URL: "https://hostname"
+    REACT_APP_TONE_API_PATH: "external/DummyAPIClient"
   script:
-  - npm install
   - npm run build
   - npm test -- --coverage
+
+build:
+  image: node:8.11
+  stage: build
+  environment:
+    name: next
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    REACT_APP_API_ENDPOINT: ${API_ENDPOINT}
+    REACT_APP_OAUTH_ENABLED: ${OAUTH_ENABLED}
+    REACT_APP_OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+    REACT_APP_OAUTH_AUTHORIZATION_URL: ${OAUTH_AUTHORIZATION_URL}
+    REACT_APP_OAUTH_REDIRECT_URL: ${OAUTH_REDIRECT_URL}
+    REACT_APP_TONE_API_PATH: ${TONE_API_PATH}
+  before_script:
+  - git submodule update --init --recursive --remote
+  script:
+  - npm run build
+  artifacts:
+    paths:
+    - build
   only:
   - dev # or dev, the branch you want to publish
 
-build:
-  stage: build
-  script:
-  - npm install
-  - npm run build
-  - rm -rf public
-  - mv build public
-  artifacts:
-    paths:
-    - public # mandatory, other folder won't work
+generate_docker_image:
+  stage: generate_docker_image
+  tags:
+  - docker-image-build
+  script: "echo building $CI_REGISTRY_IMAGE" # No empty scripts are allowed
+  dependencies:
+  - build # we'll need the products-core.jar artifact to build the image
+  variables:
+    TO: $CI_REGISTRY_IMAGE # Where to push resulting image
   only:
   - dev # or dev, the branch you want to publish

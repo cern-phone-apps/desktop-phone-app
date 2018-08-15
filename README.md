@@ -56,6 +56,13 @@ node mock
 
 More info about this server: https://github.com/smollweide/node-mock-server#readme
 
+### Adding your own API Client
+
+This application uses an API to connect to the telephony backend (Called TONE) but it can be
+customize with your own library. To add it, you can use the `src/third-party` folder and
+then reference it using the environment variable `REACT_APP_TONE_API_PATH` to set
+a path to the file.
+
 ### Run the application
 
 ```bash
