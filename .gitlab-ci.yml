@@ -77,8 +77,8 @@ redeploy_next:
     OPENSHIFT_NAMESPACE: dial-next # this is the name of your Openshift project (i.e. the site name)
     OPENSHIFT_APP_NAME: dial-webapp  # this is the name of the ImageStream/DeploymentConfig objects created by oc new-app. Typically, this will be the name of the GitLab project.
   script:
-  - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/OPENSHIFT_$APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/$OPENSHIFT_APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
   # wait a bit for redeployment to happen then monitor the deployment status
-  - "sleep 30s && oc rollout status dc/OPENSHIFT_$APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
   only:
   - dev
