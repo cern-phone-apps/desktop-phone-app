@@ -2,15 +2,8 @@ stages:
 - test
 - build
 - generate_docker_image
+- redeploy
 
-# Cache modules in between jobs
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-  - node_modules/
-
-before_script:
-- npm install
 
 test:
   image: node:8.11
@@ -22,15 +15,20 @@ test:
     REACT_APP_OAUTH_AUTHORIZATION_URL: "https://oauth/OAuth/Authorize"
     REACT_APP_OAUTH_REDIRECT_URL: "https://hostname"
     REACT_APP_TONE_API_PATH: "external/DummyAPIClient"
+  # Cache modules in between jobs
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
+  before_script:
+  - npm install
   script:
   - npm run build
   - npm test -- --coverage
 
-build:
+build_next:
   image: node:8.11
   stage: build
-  environment:
-    name: next
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
     REACT_APP_API_ENDPOINT: ${API_ENDPOINT}
@@ -39,24 +37,48 @@ build:
     REACT_APP_OAUTH_AUTHORIZATION_URL: ${OAUTH_AUTHORIZATION_URL}
     REACT_APP_OAUTH_REDIRECT_URL: ${OAUTH_REDIRECT_URL}
     REACT_APP_TONE_API_PATH: ${TONE_API_PATH}
+  # Cache modules in between jobs
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
   before_script:
   - git submodule update --init --recursive --remote
+  - npm install
   script:
   - npm run build
   artifacts:
     paths:
-    - build
+    - build # The application is built for production
   only:
   - dev # or dev, the branch you want to publish
 
-generate_docker_image:
+generate_docker_image_next:
   stage: generate_docker_image
   tags:
   - docker-image-build
-  script: "echo building $CI_REGISTRY_IMAGE" # No empty scripts are allowed
+  script: "echo building $CI_REGISTRY_IMAGE/next" # No empty scripts are allowed
   dependencies:
-  - build # we'll need the products-core.jar artifact to build the image
+  - build_next # we'll need the built artifact to build the image
   variables:
-    TO: $CI_REGISTRY_IMAGE # Where to push resulting image
+    TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
   only:
   - dev # or dev, the branch you want to publish
+
+
+redeploy_next:
+  stage: redeploy
+  image: gitlab-registry.cern.ch/paas-tools/openshift-client:latest
+  environment:
+    name: next
+  variables:
+    GITLAB_NAMESPACE: dialtone
+    OPENSHIFT_SERVER: https://openshift.cern.ch # use https://openshift-dev.cern.ch for a Test site
+    OPENSHIFT_NAMESPACE: dial-next # this is the name of your Openshift project (i.e. the site name)
+    OPENSHIFT_APP_NAME: dial-webapp  # this is the name of the ImageStream/DeploymentConfig objects created by oc new-app. Typically, this will be the name of the GitLab project.
+  script:
+  - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/OPENSHIFT_$APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  # wait a bit for redeployment to happen then monitor the deployment status
+  - "sleep 30s && oc rollout status dc/OPENSHIFT_$APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  only:
+  - dev
