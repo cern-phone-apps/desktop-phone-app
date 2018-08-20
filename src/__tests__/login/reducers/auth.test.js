@@ -159,7 +159,7 @@ describe('auth reducer', () => {
         }
       })
     ).toEqual(
-      {errors: 'An error happened', loggedIn: false, loginInProgress: false}
+      {error: {message: "Unknown error", statusCode: 999}, loggedIn: false, loginInProgress: false}
     )
 
     expect(
@@ -178,7 +178,7 @@ describe('auth reducer', () => {
         }
       )
     ).toEqual(
-      {errors: {non_field_errors: undefined}, loggedIn: false, loginInProgress: false}
+      {error: {message: "Unknown error", statusCode: 999}, errors: {}, loggedIn: false, loginInProgress: false}
     )
   })
 
@@ -191,7 +191,7 @@ describe('auth reducer', () => {
         }
       })
     ).toEqual(
-      {errors: 'An error happened', loggedIn: false, loginInProgress: false}
+      {error: {message: "Unknown error", statusCode: 999}, loggedIn: false, loginInProgress: false}
     )
 
     expect(
@@ -199,7 +199,7 @@ describe('auth reducer', () => {
         {
           loggedIn: false,
           loginInProgress: false,
-          errors: {}
+          error: {}
         }
         ,
         {
@@ -210,7 +210,7 @@ describe('auth reducer', () => {
         }
       )
     ).toEqual(
-      {errors: {non_field_errors: undefined}, loggedIn: false, loginInProgress: false}
+      {error: {message: "Unknown error", statusCode: 999}, loggedIn: false, loginInProgress: false}
     )
   })
 })

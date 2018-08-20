@@ -90,17 +90,56 @@ export function withRefresh (headers = {}) {
   })
 }
 
+const clearCookies = () => {
+  Cookies.remove('csrf_refresh_token')
+  Cookies.remove('csrf_access_token')
+}
+
+function handleErrorWithToken (state, action) {
+  console.log(action)
+  let message
+  let statusCode
+  if(action.payload.message){
+    if(action.payload.name === "RequestError") {
+      message = "Dial backend is not currently available."
+      statusCode = 31
+
+    }else if(action.payload.name === "ApiError"){
+      message = action.payload.message
+      statusCode = (action.payload.status? action.payload.status : -1)
+    }else{
+      message = action.payload.message
+      statusCode = -1
+    }
+  }else{
+    message = "Unknown error"
+    statusCode = 999
+  }
+
+  clearCookies()
+
+  return {
+    ...state,
+    loggedIn: false,
+    loginInProgress: false,
+    error: {message: message, statusCode: statusCode}
+  }
+}
+
 /**
  * Reducer function for the authentication actions
  *
  * @param state Authentication state
  * @param action
- * @returns {{refresh: boolean, loggedIn: boolean, loginInProgress: boolean, errors: {}}}
+ * @returns {{loggedIn, loginInProgress, error}}
  */
 export default (state = initialState, action) => {
   switch (action.type) {
     case authActions.LOGIN_REQUEST:
     case authActions.TOKEN_REQUEST:
+      if(action.error){
+        return handleErrorWithToken (state, action)
+      }
       return {
         ...state,
         loginInProgress: true
@@ -115,13 +154,9 @@ export default (state = initialState, action) => {
       }
     case authActions.LOGIN_FAILURE:
     case authActions.TOKEN_FAILURE:
-      return {
-        ...state,
-        loggedIn: false,
-        loginInProgress: false,
-        errors: action.payload.response || {'non_field_errors': action.payload.statusText}
-      }
+      return handleErrorWithToken(state, action)
     case authActions.LOGOUT_SUCCESS:
+      clearCookies()
       return {
         ...state,
         loggedIn: false,
