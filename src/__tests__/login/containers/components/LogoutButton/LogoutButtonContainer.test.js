@@ -52,7 +52,7 @@ describe('LogoutButton Container', () => {
     const expected = {
       '@@redux-api-middleware/RSAA': {
         'credentials': 'include',
-        'endpoint': 'https://hostname/api/v1/logout/',
+        'endpoint': 'https://hostname/auth/v1/logout/',
         'headers': expect.any(Function),
         'method': 'DELETE',
         'types': ['@@auth/LOGOUT_REQUEST', '@@auth/LOGOUT_SUCCESS', '@@auth/LOGOUT_FAILURE']
