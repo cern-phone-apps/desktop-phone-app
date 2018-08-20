@@ -6,7 +6,7 @@
     "header": "Language"
   },
   "personalInfo": {
-    "header": "Info",
+    "header": "Your profile",
     "name": "Name:",
     "username": "Username:",
     "email": "Email:"
@@ -15,6 +15,10 @@
     "header": "Devices",
     "audioInputLabel": "Input",
     "audioOutputLabel": "Output"
+  },
+  "appInfo": {
+    "header": "App Info",
+    "version": "Version:"
   }
 }
 
