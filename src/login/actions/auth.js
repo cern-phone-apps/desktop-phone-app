@@ -48,7 +48,7 @@ export const login = (code) => ({
  */
 export const logout = () => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint('/api/v1/logout/'),
+    endpoint: buildAuthApiEndpoint('/auth/v1/logout/'),
     method: 'DELETE',
     credentials: 'include',
     headers: withAuth({'Content-Type': 'application/json'}),
