@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Message, Segment} from 'semantic-ui-react'
 
-export class CallErrorMessage extends Component {
+export class ErrorMessage extends Component {
   static propTypes = {
-    connectionError: PropTypes.object,
-    callError: PropTypes.object,
-    numbersError: PropTypes.object,
+    errors: PropTypes.array,
     t: PropTypes.func.isRequired
   }
 
@@ -17,20 +15,13 @@ export class CallErrorMessage extends Component {
   }
 
   render () {
-    const {callError, connectionError, numbersError} = this.props
+    const {errors} = this.props
 
-    let results = []
-
-    if (callError && callError.statusCode) {
-      results.push(callError)
-    }
-    if (connectionError && connectionError.statusCode) {
-      results.push(connectionError)
-    }
-
-    if (numbersError && numbersError.statusCode) {
-      results.push(numbersError)
-    }
+    let results = errors.filter((error) => {
+      if (error && error.statusCode) {
+        return error
+      }
+    });
 
     if (results.length < 1) {
       return ''
@@ -45,4 +36,4 @@ export class CallErrorMessage extends Component {
   }
 }
 
-export default translate('calls')(CallErrorMessage)
+export default translate('calls')(ErrorMessage)

@@ -7,7 +7,7 @@ import './Caller.css'
 import UserSearchContainer from 'calls/containers/components/UserSearch/UserSearchContainer'
 import DialpadContainer from 'calls/containers/components/Dialpad/DialpadContainer'
 import CalleeProfileContainer from 'calls/containers/components/CalleeProfile/CalleeProfileContainer'
-import CallErrorMessageContainer from 'calls/containers/components/CallErrorMessage/CallErrorMessageContainer'
+import ErrorMessageContainer from 'common/containers/components/ErrorMessage/ErrorMessageContainer'
 
 export class Caller extends Component {
   static propTypes = {
@@ -32,7 +32,7 @@ export class Caller extends Component {
       <div className="call-inner-content">
         <h2 className="ui center aligned header gray-text">{t('header')}</h2>
         <Segment basic className="ui center aligned Caller__ConnectedParagraph">
-          <CallErrorMessageContainer/>
+          <ErrorMessageContainer/>
           <p>You are connected with number <strong>{this.props.activeNumber}</strong></p>
         </Segment>
         <Segment attached={!this.props.userSelected} className={'search-user'}>
