@@ -17,11 +17,7 @@ export class ErrorMessage extends Component {
   render () {
     const {errors} = this.props
 
-    let results = errors.filter((error) => {
-      if (error && error.statusCode) {
-        return error
-      }
-    });
+    let results = errors.filter((error) => (error && error.statusCode))
 
     if (results.length < 1) {
       return ''
