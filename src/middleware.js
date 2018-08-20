@@ -1,6 +1,7 @@
-import {apiMiddleware, isRSAA} from 'redux-api-middleware'
+import {apiMiddleware, isRSAA, RSAA} from 'redux-api-middleware'
 
-import {refreshAccessToken, TOKEN_RECEIVED} from './login/actions/auth'
+
+import {LOGOUT_REQUEST, refreshAccessToken, TOKEN_RECEIVED} from './login/actions/auth'
 import {getRefreshToken, isAccessTokenExpired} from './login/reducers/auth'
 
 function checkNextAction (next, postponedRSAAs, rsaaMiddleware) {
@@ -28,6 +29,10 @@ function processNextAction (postponedRSAAs, rsaaMiddleware) {
       const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED
 
       if (isOauthEnabled === 'false') {
+        return rsaaMiddleware(next)(action)
+      }
+      // If it is a LOGOUT_REQUEST we don't try to refresh the token
+      if(action[RSAA].types.indexOf(LOGOUT_REQUEST) > -1){
         return rsaaMiddleware(next)(action)
       }
 
