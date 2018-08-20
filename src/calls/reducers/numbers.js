@@ -6,12 +6,30 @@ const initialState = {
   activeNumber: false
 }
 
+function handleNumbersFailure (state, action) {
+  console.log(action)
+  let error
+  if(action.payload && action.payload.response.result && action.payload.response.result.error){
+    error = {message: action.payload.response.result.error.message,
+      statusCode: action.payload.response.result.error.code}
+  }else{
+    error = {message: 'undefined error', statusCode: 401}
+  }
+
+  return {
+    ...state,
+    fetching: false,
+    numbers: [],
+    error: error
+  }
+}
+
 /**
  * Reducer used to handle the phone numbers of the current logged in user.
  *
  * @param state Current state of the application
  * @param action
- * @returns {string} The state with all the user's phone numbers
+ * @returns {{fetching, numbers, error}} The state with all the user's phone numbers
  */
 const numbersReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -23,6 +41,11 @@ const numbersReducer = (state = initialState, action) => {
         error: undefined
       }
     case numbersActions.NUMBERS_SUCCESS:
+
+      if(action.payload.result.error){
+        return handleNumbersFailure (state, action)
+      }
+
       return {
         ...state,
         fetching: false,
@@ -30,12 +53,7 @@ const numbersReducer = (state = initialState, action) => {
         error: undefined
       }
     case numbersActions.NUMBERS_FAILURE:
-      return {
-        ...state,
-        fetching: false,
-        numbers: [],
-        error: action.payload.error
-      }
+      return handleNumbersFailure(state, action)
     case numbersActions.NUMBERS_SET_ACTIVE:
       return {
         ...state,
