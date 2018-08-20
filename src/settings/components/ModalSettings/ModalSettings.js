@@ -6,6 +6,7 @@ import {Icon, Modal, Menu, Button, Header} from 'semantic-ui-react'
 import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings'
 import PersonalInfoContainer from 'settings/containers/components/PersonalInfo/PersonalInfoContainer'
 import LanguageSettings from 'settings/components/LanguageSettings/LanguageSettings'
+import AppInfo from 'settings/components/AppInfo/AppInfo'
 
 const ModalTrigger = ({onClick}) => {
   return (
@@ -62,6 +63,8 @@ export class ModalSettings extends Component {
             <hr/>
             <Header as={'h4'}>{t('dangerZoneHeader')}</Header>
             <Button color={'red'} onClick={this.logoutUser}>{t('logoutButtonText')}</Button>
+            <hr/>
+            <AppInfo/>
           </Modal.Description>
         </Modal.Content>
       </Modal>
