@@ -36,7 +36,7 @@ describe('async auth actions', () => {
     const body = {
       logout: true
     }
-    fetchMock.deleteOnce(`https://hostname/api/v1/logout/`,
+    fetchMock.deleteOnce(`https://hostname/auth/v1/logout/`,
       {body: body, headers: {'content-type': 'application/json'}})
     const expectedActions = [
       {type: actions.LOGOUT_REQUEST},
