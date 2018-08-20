@@ -16,7 +16,7 @@ const createCustomStore = (history) => {
 
   const blacklistLoginFilter = createBlacklistFilter(
     'auth',
-    ['loginInProgress']
+    ['loginInProgress', 'error']
   )
 
   const blacklistCommonFilter = createBlacklistFilter(
