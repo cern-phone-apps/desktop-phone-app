@@ -10,7 +10,7 @@ it('renders without crashing', () => {
     email={'email@cern.ch'}
   />)
 
-  expect(wrapper.text()).toContain('Header')
+  expect(wrapper.text()).toContain('<ErrorBoundary />')
   expect(wrapper.html()).toContain('personalInfo.name')
   expect(wrapper.html()).toContain('firstName lastName')
   expect(wrapper.html()).toContain('personalInfo.username')

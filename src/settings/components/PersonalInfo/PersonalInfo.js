@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Header } from 'semantic-ui-react'
-import { translate } from 'react-i18next'
+import {Header} from 'semantic-ui-react'
+import {translate} from 'react-i18next'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
 
 /**
  * Generates the user's full name
@@ -26,15 +27,17 @@ const fullName = (firstName, lastName) => {
 export const PersonalInfo = ({t, firstName, lastName, username, email}) => {
   return (
     <div>
-      <Header as={'h4'}>{t('personalInfo.header')}</Header>
-      <ul>
-        <li>{t('personalInfo.name')} {fullName(firstName, lastName)}
-        </li>
-        <li>{t('personalInfo.username')} {username}
-        </li>
-        <li>{t('personalInfo.email')} {email}
-        </li>
-      </ul>
+      <ErrorBoundary>
+        <Header as={'h4'}>{t('personalInfo.header')}</Header>
+        <ul>
+          <li>{t('personalInfo.name')} {fullName(firstName, lastName)}
+          </li>
+          <li>{t('personalInfo.username')} {username}
+          </li>
+          <li>{t('personalInfo.email')} {email}
+          </li>
+        </ul>
+      </ErrorBoundary>
     </div>
   )
 }
