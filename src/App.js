@@ -9,6 +9,15 @@ import LoginPageContainer from 'login/containers/screens/LoginPage/LoginPageCont
 import * as routes from 'routes'
 import * as loginRoutes from 'login/routes'
 
+import Raven from 'raven-js'
+Raven
+  .config(process.env.SENTRY_DSN)
+  .install()
+
+
+// Capture exceptions, messages or manual events
+Raven.captureMessage('Hello 2, world!');
+
 const NoMatch = ({ location }) => (
   <div>
     <h3>
