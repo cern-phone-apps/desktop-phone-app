@@ -11,6 +11,7 @@ import NotConnectedScreenContainer from 'calls/containers/components/NotConnecte
 import CallLoaderContainer from 'calls/containers/components/CallLoader/CallLoaderContainer'
 import OnCallDetailsContainer from 'calls/containers/components/OnCallDetails/OnCallDetailsContainer'
 import CallerContainer from 'calls/containers/components/Caller/CallerContainer'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
 
 class CallsScreen extends Component {
   static propTypes = {
@@ -46,19 +47,23 @@ class CallsScreen extends Component {
     return (
       <div className="parent-container">
         <LeftColumn>
-          <LeftColumnHeader/>
-          <RecentCallListContainer/>
+          <ErrorBoundary>
+            <LeftColumnHeader/>
+            <RecentCallListContainer/>
+          </ErrorBoundary>
         </LeftColumn>
         <RightColumn>
-          {onCall && <OnCallMessageContainer/>}
-          <div className={`padded-item ${callContentClass}`}>
-            <div className="centered-element">
-              {!connected && <NotConnectedScreenContainer/>}
-              {connectedAndCalling && <CallLoaderContainer/>}
-              {connectedAndOnCall && <OnCallDetailsContainer/>}
-              {onlyConnected && <CallerContainer/>}
+          <ErrorBoundary>
+            {onCall && <OnCallMessageContainer/>}
+            <div className={`padded-item ${callContentClass}`}>
+              <div className="centered-element">
+                {!connected && <NotConnectedScreenContainer/>}
+                {connectedAndCalling && <CallLoaderContainer/>}
+                {connectedAndOnCall && <OnCallDetailsContainer/>}
+                {onlyConnected && <CallerContainer/>}
+              </div>
             </div>
-          </div>
+          </ErrorBoundary>
         </RightColumn>
       </div>
     )
