@@ -114,6 +114,8 @@ class PhoneProvider extends Component {
   }
 
   eventHandler = (event) => {
+    console.log('Event Received!')
+    console.log(event)
     const tempRejectedMessage = {
       code: {
         status_code: 'NI'
@@ -164,9 +166,7 @@ class PhoneProvider extends Component {
         break
       // Calls
       case 'progress':
-        // TODO
-        this.props.isCalling()
-        this.playRingbacktone()
+        console.log('onACall')
         break
       case 'accepted':
         // TODO
@@ -215,6 +215,8 @@ class PhoneProvider extends Component {
       missed: recipient.missed,
       startTime: Date.now()
     })
+    this.playRingbacktone()
+    this.props.isCalling()
     return this.state.dial.call(recipient.phoneNumber)
   }
 
