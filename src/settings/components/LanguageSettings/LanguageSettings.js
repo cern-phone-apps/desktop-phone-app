@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
-import { Dropdown, Flag, Form, Header } from 'semantic-ui-react'
+import {translate} from 'react-i18next'
+import {Dropdown, Flag, Form, Header} from 'semantic-ui-react'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
 
 const languageOptions = [
   {
@@ -41,18 +42,20 @@ class LanguageSettings extends Component {
 
     return (
       <div>
-        <Header as={'h4'}>{t('language.header')}</Header>
-        <Form>
-          <Form.Field>
-            <Dropdown
-              selection
-              defaultValue={currentLanguage}
-              options={languageOptions}
-              placeholder={t('language.selectLanguage')}
-              onChange={(event, data) => this.changeLanguage(data.value)}
-            />
-          </Form.Field>
-        </Form>
+        <ErrorBoundary>
+          <Header as={'h4'}>{t('language.header')}</Header>
+          <Form>
+            <Form.Field>
+              <Dropdown
+                selection
+                defaultValue={currentLanguage}
+                options={languageOptions}
+                placeholder={t('language.selectLanguage')}
+                onChange={(event, data) => this.changeLanguage(data.value)}
+              />
+            </Form.Field>
+          </Form>
+        </ErrorBoundary>
       </div>
     )
   }
