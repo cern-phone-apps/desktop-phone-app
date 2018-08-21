@@ -8,11 +8,12 @@ import './LoginPage.css'
 import * as routes from 'calls/routes'
 import LoadingDimmer from 'login/components/LoadingDimmer/LoadingDimmer'
 import LoginButton from 'login/components/LoginButton/LoginButton'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
 
 export class LoginPage extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    loginInProgress: PropTypes.bool.isRequired,
+    loginInProgress: PropTypes.bool,
     t: PropTypes.func.isRequired
   }
 
@@ -32,9 +33,11 @@ export class LoginPage extends Component {
         <div className={'padded-item LoginPage__Centered'}>
           <div className="centered-element">
             <h2 className="ui center aligned header gray-text">{t('loginPageHeader')}</h2>
-            <Segment textAlign={'center'}>
-              <LoginButton/>
-            </Segment>
+            <ErrorBoundary>
+              <Segment textAlign={'center'}>
+                <LoginButton/>
+              </Segment>
+            </ErrorBoundary>
           </div>
         </div>
       </div>

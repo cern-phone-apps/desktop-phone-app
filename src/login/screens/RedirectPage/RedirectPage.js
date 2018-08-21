@@ -13,7 +13,7 @@ class RedirectPage extends Component {
     login: PropTypes.func.isRequired,
     urlQuery: PropTypes.string.isRequired,
     getMe: PropTypes.func.isRequired,
-    loginInProgress: PropTypes.bool.isRequired
+    loginInProgress: PropTypes.bool
   }
 
   componentDidMount = () => {
