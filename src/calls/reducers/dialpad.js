@@ -4,7 +4,7 @@ const initialState = {
   display: false
 }
 
-const call = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case dialpadActions.TOGGLE_DIALPAD:
       return {
@@ -16,4 +16,3 @@ const call = (state = initialState, action) => {
   }
 }
 
-export default call
