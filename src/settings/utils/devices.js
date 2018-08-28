@@ -1,3 +1,4 @@
+import {log} from 'common/utils'
 /**
  * Generates the constraints that will be passed to getUserMedia WebRTC method
  * @param sourceId Identifier of the device that will be set
@@ -72,7 +73,7 @@ export function changeAudioDestination (element, sinkId = null) {
   if (typeof element.sinkId !== 'undefined') {
     element.setSinkId(sinkId)
       .then(function () {
-        console.log('Success, audio output device attached: ' + sinkId)
+        log('Success, audio output device attached: ' + sinkId)
       })
       .catch(function (error) {
         var errorMessage = error

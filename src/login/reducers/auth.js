@@ -1,5 +1,6 @@
 import * as authActions from 'login/actions/auth'
 import Cookies from 'js-cookie'
+import {log} from 'common/utils'
 
 const initialState = {
   loggedIn: false,
@@ -96,7 +97,7 @@ const clearCookies = () => {
 }
 
 function handleErrorWithToken (state, action) {
-  console.log(action)
+  log(action)
   let message
   let statusCode
   if(action.payload.message){

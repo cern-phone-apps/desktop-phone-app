@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 import {bindActionCreators} from 'redux'
+import {log} from 'common/utils'
 
 export const phoneService = (ComponentToWrap) => {
   return class ThemeComponent extends Component {
@@ -101,7 +102,9 @@ class PhoneProvider extends Component {
   addListeners = () => {
     this.notifier = this.state.dial.getNotifier()
     if (this.notifier) {
-      this.notifier.addEventListener('ToneEvent', this.eventHandler, false)
+      this.notifier.on('ToneEvent', (event) => {
+        this.eventHandler(event)
+      })
     }
   }
 
@@ -114,8 +117,8 @@ class PhoneProvider extends Component {
   }
 
   eventHandler = (event) => {
-    console.log('Event Received!')
-    console.log(event)
+    log('Event Received!')
+    log(event)
     const tempRejectedMessage = {
       code: {
         status_code: 'NI'
@@ -131,7 +134,7 @@ class PhoneProvider extends Component {
     }
 
     let playPromise
-    switch (event.detail.name) {
+    switch (event.name) {
       // SetMedia
       case 'trackAdded':
         playPromise = this.audioElement.play()
@@ -166,7 +169,7 @@ class PhoneProvider extends Component {
         break
       // Calls
       case 'progress':
-        console.log('onACall')
+        log('onACall')
         break
       case 'accepted':
         // TODO
@@ -187,10 +190,13 @@ class PhoneProvider extends Component {
       case 'failed':
         // TODO
         this.props.callFailed(tempFailedMessage)
-        break
+        break;
 
+      case 'Invite received':
+        log(event.data)
+        break;
       default:
-        console.error(`Unhandled event: ${event.detail.name}`)
+        console.error(`Unhandled event: ${event.name}`)
     }
   }
 
