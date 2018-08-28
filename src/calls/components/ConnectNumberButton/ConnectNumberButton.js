@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Button, Icon, Loader} from 'semantic-ui-react'
+import {log} from 'common/utils'
 
 const ButtonNumbersList = ({numbers, phoneNumber, connect}) => {
   if (numbers === undefined || numbers === []) {
@@ -43,7 +44,7 @@ class ConnectNumberButton extends Component {
   connect = (activeNumber) => {
     this.props.setActiveNumber(activeNumber)
     const result = this.props.phoneService.authenticateUser(activeNumber, activeNumber)
-    console.log(result)
+    log(result)
   }
 
   render () {
