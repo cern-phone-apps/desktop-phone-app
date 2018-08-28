@@ -37,17 +37,12 @@ export default (state = initialState, action) => {
         error: {}
       }
     case connectionActions.CONNECT_FAILURE:
+    case connectionActions.DISCONNECT_FAILURE:
       return {
         ...state,
         connected: false,
         connecting: false,
         error: {statusCode: action.errors.code.status_code, message: action.errors.description}
-      }
-    case connectionActions.DISCONNECT_FAILURE:
-      return {
-        ...state,
-        connected: false,
-        error: action.error
       }
 
     default:
