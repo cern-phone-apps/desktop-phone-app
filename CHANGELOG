@@ -1,6 +1,6 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-This project adheres to [Dial Backend](https://gitlab.cern.ch/dialtone/webapp-backend/edit).
+This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-webapp).
 
 ## [unreleased]
 ### Added
@@ -9,6 +9,13 @@ This project adheres to [Dial Backend](https://gitlab.cern.ch/dialtone/webapp-ba
 - XXX
 ### Improved
 - XXX
+
+## w0.1.1 - 2018-08-29
+### Added
+- Integrate Sentry and error boundaries
+- Display version number on settings
+### Improved
+- Added more tests. Improve test coverage
 
 ## w0.1.0 - 2018-08-21
 ### Added
