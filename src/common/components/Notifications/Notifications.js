@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {hide} from 'common/actions/notifications'
 import NotifySystem from 'react-notification-system'
-import {log} from 'common/utils'
+import {logMessage} from 'common/utils'
 
 class Notifications extends React.Component {
   static propTypes = {
@@ -21,9 +21,9 @@ class Notifications extends React.Component {
   }
 
   componentDidUpdate (nextProps) {
-    log("Component updated")
+    logMessage("Component updated")
     const {notifications} = this.props
-    log(notifications)
+    logMessage(notifications)
 
     each(notifications, notification => {
       this.system().addNotification({

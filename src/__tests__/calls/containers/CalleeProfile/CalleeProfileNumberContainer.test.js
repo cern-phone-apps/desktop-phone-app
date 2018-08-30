@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store'
 
 import createHistory from 'history/createBrowserHistory'
 import {routerMiddleware} from 'react-router-redux'
-import CalleeProfileNumberContainer from 'calls/containers/components/CalleeProfile/CalleeProfileNumberContainer'
+import {CalleeProfileNumberContainer} from 'calls/containers/components/CalleeProfile/CalleeProfileNumberContainer'
 
 const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]
@@ -52,11 +52,12 @@ describe('CalleeProfileNumber Container', () => {
       phoneNumber={'12345'}
       recipientName={'name example'}
       icon={'phone'}
+      phoneService = {{}}
     />)
   })
 
   it('maps state and dispatch to props', () => {
-    // expect(1).toEqual(1)
+    expect(1).toEqual(1)
       expect(wrapper.props()).toEqual(expect.objectContaining({
         phoneNumber: '12345',
         icon: 'phone',

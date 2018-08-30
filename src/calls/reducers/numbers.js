@@ -1,5 +1,5 @@
 import * as numbersActions from 'calls/actions/numbers'
-import {log} from 'common/utils'
+import {logMessage} from 'common/utils'
 
 const initialState = {
   fetching: false,
@@ -8,7 +8,7 @@ const initialState = {
 }
 
 function handleNumbersFailure (state, action) {
-  log(action)
+  logMessage(action)
   let error
   if(action.payload && action.payload.response.result && action.payload.response.result.error){
     error = {message: action.payload.response.result.error.message,

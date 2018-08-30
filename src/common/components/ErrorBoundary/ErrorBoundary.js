@@ -1,5 +1,6 @@
 import React from 'react'
 import Raven from 'raven-js'
+import {logMessage} from 'common/utils'
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     // Catch errors in any components below and re-render with error message
+    logMessage(`Component Did Catch error on '${process.env.NODE_ENV}': ${error}`)
     this.setState({
       error: error,
       errorInfo: errorInfo

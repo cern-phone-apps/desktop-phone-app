@@ -1,7 +1,7 @@
 import React from 'react'
 import {Header} from 'semantic-ui-react'
 import {translate} from 'react-i18next'
-import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 
 const APP_VERSION = 'v0.1.0'
