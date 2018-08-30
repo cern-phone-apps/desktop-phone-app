@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
+import Raven from 'raven-js'
 
 import MainPageContainer from 'common/containers/screens/MainPage/MainPageContainer'
 import RedirectPageContainer from 'login/containers/screens/RedirectPage/RedirectPageContainer'
@@ -9,10 +10,8 @@ import LoginPageContainer from 'login/containers/screens/LoginPage/LoginPageCont
 import * as routes from 'routes'
 import * as loginRoutes from 'login/routes'
 
-import Raven from 'raven-js'
-
 Raven
-  .config(process.env.SENTRY_DSN)
+  .config(process.env.REACT_APP_SENTRY_DSN)
   .install()
 
 const NoMatch = ({ location }) => (
