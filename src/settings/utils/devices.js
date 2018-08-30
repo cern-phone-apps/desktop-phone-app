@@ -1,4 +1,4 @@
-import {log} from 'common/utils'
+import {errorMessage, logMessage} from 'common/utils'
 /**
  * Generates the constraints that will be passed to getUserMedia WebRTC method
  * @param sourceId Identifier of the device that will be set
@@ -41,7 +41,7 @@ export function changeInputDevice (inputSourceId = null) {
 }
 
 function handleError (error) {
-  console.error('navigator.getUserMedia error: ', error)
+  errorMessage('navigator.getUserMedia error: ', error)
 }
 
 export function stopStreams () {
@@ -73,15 +73,15 @@ export function changeAudioDestination (element, sinkId = null) {
   if (typeof element.sinkId !== 'undefined') {
     element.setSinkId(sinkId)
       .then(function () {
-        log('Success, audio output device attached: ' + sinkId)
+        logMessage('Success, audio output device attached: ' + sinkId)
       })
       .catch(function (error) {
-        var errorMessage = error
+        let errorMessage = error
         if (error.name === 'SecurityError') {
           errorMessage = 'You need to use HTTPS for selecting audio output ' +
             'device: ' + error
         }
-        console.error(errorMessage)
+        errorMessage(errorMessage)
         // Jump back to first output device in the list as it's the default.
         // audioOutputSelect.selectedIndex = 0
       })

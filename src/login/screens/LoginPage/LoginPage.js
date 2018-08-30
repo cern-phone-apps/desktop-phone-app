@@ -8,7 +8,7 @@ import './LoginPage.css'
 import * as routes from 'calls/routes'
 import LoadingDimmer from 'login/components/LoadingDimmer/LoadingDimmer'
 import LoginButton from 'login/components/LoginButton/LoginButton'
-import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 export class LoginPage extends Component {
   static propTypes = {

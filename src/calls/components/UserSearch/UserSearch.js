@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Form, Search} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
-import {log} from 'common/utils'
+import {logMessage} from 'common/utils'
 
 import './UserSearch.css'
 
@@ -39,12 +39,12 @@ class UserSearch extends Component {
     this.props.updateSearchValue(result.title)
   }
   handleSearchChange = (e, {value}) => {
-    log('Handle search change')
+    logMessage('Handle search change')
     this.setState({isLoading: true})
     this.props.updateSearchValue(value)
 
     if (this.state.timeout) {
-      console.log('Clearing timeout')
+      logMessage('Clearing timeout')
       clearTimeout(this.state.timeout)
     }
     this.setState({
@@ -55,7 +55,7 @@ class UserSearch extends Component {
   }
 
   _handleSearchTimeout (value) {
-    log('Calling set timeout')
+    logMessage('Calling set timeout')
     if (!this.props.value || this.props.value.length < 1) {
       this.props.unSelectUser()
       this.resetComponent()

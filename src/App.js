@@ -9,6 +9,7 @@ import RedirectPageContainer from 'login/containers/screens/RedirectPage/Redirec
 import LoginPageContainer from 'login/containers/screens/LoginPage/LoginPageContainer'
 import * as routes from 'routes'
 import * as loginRoutes from 'login/routes'
+import {infoMessage} from 'common/utils'
 
 Raven
   .config(process.env.REACT_APP_SENTRY_DSN)
@@ -28,6 +29,7 @@ NoMatch.propTypes = {
 
 class App extends Component {
   render () {
+    infoMessage('Application loaded')
     return (
       <Switch>
         <Route exact={true} path={routes.mainRoute.path} component={MainPageContainer}/>

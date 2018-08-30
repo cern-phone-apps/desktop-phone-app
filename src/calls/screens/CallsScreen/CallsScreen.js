@@ -11,7 +11,7 @@ import NotConnectedScreenContainer from 'calls/containers/components/NotConnecte
 import CallLoaderContainer from 'calls/containers/components/CallLoader/CallLoaderContainer'
 import OnCallDetailsContainer from 'calls/containers/components/OnCallDetails/OnCallDetailsContainer'
 import CallerContainer from 'calls/containers/components/Caller/CallerContainer'
-import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 class CallsScreen extends Component {
   static propTypes = {

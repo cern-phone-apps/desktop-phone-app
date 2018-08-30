@@ -9,7 +9,8 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 import {bindActionCreators} from 'redux'
-import {log} from 'common/utils'
+import {errorMessage, logMessage} from 'common/utils'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 export const phoneService = (ComponentToWrap) => {
   return class ThemeComponent extends Component {
@@ -23,7 +24,9 @@ export const phoneService = (ComponentToWrap) => {
       // what we do is basically rendering `ComponentToWrap`
       // with an added `phoneService` prop, like a hook
       return (
-        <ComponentToWrap {...this.props} phoneService={phoneService}/>
+        <ErrorBoundary>
+          <ComponentToWrap {...this.props} phoneService={phoneService}/>
+        </ErrorBoundary>
       )
     }
   }
@@ -117,8 +120,8 @@ class PhoneProvider extends Component {
   }
 
   eventHandler = (event) => {
-    log('Event Received!')
-    log(event)
+    logMessage('Event Received!')
+    logMessage(event)
     const tempRejectedMessage = {
       code: {
         status_code: 'NI'
@@ -169,7 +172,7 @@ class PhoneProvider extends Component {
         break
       // Calls
       case 'progress':
-        log('onACall')
+        logMessage('onACall')
         break
       case 'accepted':
         // TODO
@@ -193,10 +196,10 @@ class PhoneProvider extends Component {
         break;
 
       case 'Invite received':
-        log(event.data)
+        logMessage(event.data)
         break;
       default:
-        console.error(`Unhandled event: ${event.name}`)
+        errorMessage(`Unhandled event: ${event.name}`)
     }
   }
 

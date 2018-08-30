@@ -4,7 +4,7 @@ import {Form, Header} from 'semantic-ui-react'
 import {translate} from 'react-i18next'
 import SpeakersFieldContainer from 'settings/containers/components/DeviceSettings/SpeakersFieldContainer'
 import MicrophoneFieldContainer from 'settings/containers/components/DeviceSettings/MicrophoneFieldContainer'
-import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 export class DeviceSettings extends Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Dropdown, Flag, Form, Header} from 'semantic-ui-react'
-import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoudary'
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 const languageOptions = [
   {
