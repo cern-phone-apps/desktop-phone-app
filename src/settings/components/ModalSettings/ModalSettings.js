@@ -7,6 +7,7 @@ import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings'
 import PersonalInfoContainer from 'settings/containers/components/PersonalInfo/PersonalInfoContainer'
 import LanguageSettings from 'settings/components/LanguageSettings/LanguageSettings'
 import AppInfo from 'settings/components/AppInfo/AppInfo'
+import NotificationsSettings from 'settings/components/NotificationsSettings/NotificationsSettings'
 
 const ModalTrigger = ({onClick}) => {
   return (
@@ -50,7 +51,7 @@ export class ModalSettings extends Component {
     const {t} = this.props
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
     return (
-      <Modal size={'small'} dimmer={'blurring'} style={this.inlineStyle.modal} closeIcon
+      <Modal size={'fullscreen'} dimmer={'blurring'} style={this.inlineStyle.modal} closeIcon
         trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible}/>}>
         <Modal.Header>{t('header')}</Modal.Header>
         <Modal.Content scrolling>
@@ -60,6 +61,8 @@ export class ModalSettings extends Component {
             <LanguageSettings/>
             <hr/>
             <DeviceSettings/>
+            <hr/>
+            <NotificationsSettings/>
             <hr/>
             <Header as={'h4'}>{t('dangerZoneHeader')}</Header>
             <Button color={'red'} onClick={this.logoutUser}>{t('logoutButtonText')}</Button>
