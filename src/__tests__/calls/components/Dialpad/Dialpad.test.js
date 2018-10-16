@@ -5,8 +5,8 @@ import {Icon} from 'semantic-ui-react'
 
 it('renders Dialpad without crashing', () => {
   const dialpad = shallow(<Dialpad
-    updateSearchValue={() => {}}
-    searchValue={''}
+    updateDialpadValue={() => {}}
+    dialpadValue={''}
     makeCall={() => {}}
   />)
 
@@ -15,8 +15,8 @@ it('renders Dialpad without crashing', () => {
 
 it('Dialpad contains 10 numbers', () => {
   const dialpad = shallow(<Dialpad
-    updateSearchValue={() => {}}
-    searchValue={''}
+    updateDialpadValue={() => {}}
+    dialpadValue={''}
     makeCall={() => {}}
   />)
 
