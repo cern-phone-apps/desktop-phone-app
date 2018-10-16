@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import {Grid, Responsive, Segment} from 'semantic-ui-react'
+
 
 import './CallsScreen.css'
-import PropTypes from 'prop-types'
+
+
 import LeftColumn from 'common/components/LeftColumn/LeftColumn'
 import LeftColumnHeader from 'common/components/LeftColumnHeader/LeftColumnHeader'
 import RightColumn from 'common/components/RightColumn/RightColumn'
@@ -12,60 +16,73 @@ import CallLoaderContainer from 'calls/containers/components/CallLoader/CallLoad
 import OnCallDetailsContainer from 'calls/containers/components/OnCallDetails/OnCallDetailsContainer'
 import CallerContainer from 'calls/containers/components/Caller/CallerContainer'
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
+import RightColumnHeader from 'common/components/RightColumnHeader/RightColumnHeader'
+import CallingModalContainer from 'calls/containers/components/CallingModal/CallingModalContainer'
+import CalleeProfileContainer from 'calls/containers/components/CalleeProfile/CalleeProfileContainer'
+import {getWindowTitle} from 'calls/utils'
+import DialpadContainer from 'calls/containers/components/Dialpad/DialpadContainer'
+
 
 class CallsScreen extends Component {
   static propTypes = {
     calling: PropTypes.bool.isRequired,
     onCall: PropTypes.bool.isRequired,
     connected: PropTypes.bool.isRequired,
-    searchValue: PropTypes.string.isRequired,
-    displayDialpad: PropTypes.bool.isRequired
+    displayDialpad: PropTypes.bool.isRequired,
+    userSelected: PropTypes.bool.isRequired
+
   }
 
-  /**
-   * Gets a css class depending on the state of the application
-   *
-   * @returns {string}
-   */
-  getContentClass () {
-    const {searchValue, displayDialpad, onCall, calling} = this.props
-    return (
-      (!searchValue && !displayDialpad) ||
-      onCall ||
-      calling
-    ) ? 'CallPage__centered' : 'CallPage'
-  }
+  styles = {height: '100%'}
+  dividedStyles = {paddingTop: '0', paddingBottom: 0}
 
   render () {
-    const {connected, calling, onCall} = this.props
+    const {connected, calling, onCall, userSelected} = this.props
     const connectedAndCalling = connected && calling
     const connectedAndOnCall = connected && onCall
     const onlyConnected = (connected && (!onCall && !calling))
 
-    const callContentClass = this.getContentClass()
+    let title = getWindowTitle(this.props)
 
     return (
-      <div className="parent-container">
-        <LeftColumn>
-          <ErrorBoundary>
-            <LeftColumnHeader/>
-            <RecentCallListContainer/>
-          </ErrorBoundary>
-        </LeftColumn>
-        <RightColumn>
-          <ErrorBoundary>
-            {onCall && <OnCallMessageContainer/>}
-            <div className={`padded-item ${callContentClass}`}>
-              <div className="centered-element">
-                {!connected && <NotConnectedScreenContainer/>}
-                {connectedAndCalling && <CallLoaderContainer/>}
-                {connectedAndOnCall && <OnCallDetailsContainer/>}
-                {onlyConnected && <CallerContainer/>}
-              </div>
-            </div>
-          </ErrorBoundary>
-        </RightColumn>
-      </div>
+      <Grid stackable className={'CallsScreen__Grid'}>
+        <Responsive as={Grid.Column} width={4} className={'CallsScreen__LeftColumn'} {...Responsive.onlyComputer}>
+          <LeftColumn>
+            <ErrorBoundary>
+              <LeftColumnHeader/>
+              <RecentCallListContainer/>
+            </ErrorBoundary>
+          </LeftColumn>
+        </Responsive>
+        <Grid.Column width={12} className={'CallsScreen__RightColumn'}>
+          <RightColumn>
+            <Responsive as={RightColumnHeader} title={title} {...Responsive.onlyComputer}/>
+            <Responsive as={LeftColumnHeader} title={title} {...Responsive.onlyMobile}/>
+            <Responsive as={LeftColumnHeader} title={title} {...Responsive.onlyTablet}/>
+            <ErrorBoundary>
+              {onCall && <OnCallMessageContainer/>}
+              <CallingModalContainer/>
+              <Grid padded style={this.styles} className={'CallPage'}>
+                <Grid.Row columns={2} divided style={this.dividedStyles}>
+                  <Grid.Column>
+                    {onCall && <Segment basic><Grid.Column><DialpadContainer/></Grid.Column></Segment>}
+                    {!connected && <NotConnectedScreenContainer/>}
+                    {onlyConnected && <CallerContainer/>}
+                  </Grid.Column>
+                  <Grid.Column>
+                    {userSelected &&
+                    <Grid.Column>
+                      <CalleeProfileContainer/>
+                    </Grid.Column>}
+                    {connectedAndCalling && <CallLoaderContainer/>}
+                    {connectedAndOnCall && <OnCallDetailsContainer/>}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </ErrorBoundary>
+          </RightColumn>
+        </Grid.Column>
+      </Grid>
     )
   }
 }

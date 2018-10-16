@@ -1,23 +1,57 @@
 @import 'index.scss';
 
 .CallPage {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  /* Extra space in Cross Axis */
-  overflow: auto;
-  flex: 1;
+  //display: flex;
+  //flex-direction: row;
+  //align-items: flex-start;
+  //justify-content: center;
+  ///* Extra space in Cross Axis */
+  //overflow: auto;
+  //flex: 1;
   background: $background;
+  //height: 100%;
+  //width: 100%;
 }
 
-.CallPage__centered {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  /* Extra space in Cross Axis */
+//.CallPage__centered {
+//  display: flex;
+//  flex-direction: row;
+//  align-items: center;
+//  justify-content: center;
+//  /* Extra space in Cross Axis */
+//  overflow: auto;
+//  flex: 1;
+//  background: $background;
+//}
+
+.grid.CallsScreen__Grid{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.ui.grid>.CallsScreen__LeftColumn:not(.row){
+  padding: 0;
+  @media only screen and (max-width: 767px){
+    max-height: 50%;
+    border-bottom: 1px solid #d4d4d4;
+  }
+}
+
+.ui.grid>.CallsScreen__RightColumn:not(.row){
+  padding: 0;
+}
+
+.CallsRightColumnContainer{
+  height: 100%;
+  width: 100%;
   overflow: auto;
-  flex: 1;
-  background: $background;
+  background: #ebece7;
+}
+
+.ui.stackable.grid>.column:not(.row){
+  @media only screen and (max-width: 767px){
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
