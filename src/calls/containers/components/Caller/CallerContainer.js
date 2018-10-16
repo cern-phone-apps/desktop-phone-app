@@ -9,7 +9,6 @@ import Caller from 'calls/components/Caller/Caller'
 function mapStateToProps ({calls}) {
   return {
     userSelected: calls.search.userSelected,
-    searchValue: calls.search.value,
     calling: calls.call.calling,
     onCall: calls.call.onCall,
     displayDialpad: calls.dialpad.display,

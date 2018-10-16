@@ -13,6 +13,6 @@ describe('CalleeProfile Component tests', () => {
       hangupCall={hangUpCall}
       phoneNumber={'12345'}
      phoneService={{}}/>)
-    expect(wrapper.text()).toEqual('<PhoneRingingIcon />callingText  example(12345)')
+    expect(wrapper.text()).toEqual('<Segment />')
   })
 })
