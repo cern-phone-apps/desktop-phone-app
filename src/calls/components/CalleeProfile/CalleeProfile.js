@@ -64,7 +64,7 @@ export class CalleeProfile extends Component {
     return (
       <Segment basic>
         <ProfileInfo {...this.props}/>
-        {this.getItems().map((phone, index) => (
+        {profile.phones.map((phone, index) => (
         <CalleeProfileNumberContainer
           key={`number-${index}`}
           phoneNumber={phone.number}

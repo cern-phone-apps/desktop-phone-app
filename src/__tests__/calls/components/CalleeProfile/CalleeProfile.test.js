@@ -10,7 +10,7 @@ describe('CalleeProfile Component tests', () => {
       fetching={false}
       getUserProfile={getProfile}
       username={'example'}
-      profile={{}}
+      profile={{phones: []}}
       recipientName={'test name'}
       unSelectUser={unSelectUser}/>)
     expect(wrapper.text()).toEqual('<Segment />')
