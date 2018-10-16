@@ -5,6 +5,10 @@ import {ConnectedRouter} from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import {PersistGate} from 'redux-persist/es/integration/react'
 import {I18nextProvider} from 'react-i18next'
+import ReactPiwik from 'react-piwik'
+
+
+
 /**
  * Local imports
  */
@@ -18,6 +22,19 @@ import App from 'App'
 
 import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider'
 
+/**
+ * Set up Sentry and Piwik analytics
+ */
+
+const piwik = new ReactPiwik({
+  url: process.env.REACT_APP_PIWIK_URL,
+  siteId: process.env.REACT_APP_PIWIK_SITE_ID,
+  trackErrors: true,
+});
+
+/**
+ * Set up the store and the history
+ */
 const history = createHistory()
 const {store, persistor} = configureStore(history)
 
@@ -27,7 +44,7 @@ ReactDOM.render(
       <PersistGate loading={<div/>} persistor={persistor}>
         {/* Need to be here, before ConnectedRouter */}
         <PhoneProvider>
-          <ConnectedRouter history={history}>
+          <ConnectedRouter history={piwik.connectToHistory(history)}>
             <App/>
           </ConnectedRouter>
         </PhoneProvider>
