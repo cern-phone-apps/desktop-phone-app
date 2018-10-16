@@ -9,7 +9,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 import {bindActionCreators} from 'redux'
-import {errorMessage, logMessage} from 'common/utils'
+import {errorMessage, logEvent, logMessage} from 'common/utils'
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
 
 export const phoneService = (ComponentToWrap) => {
@@ -51,7 +51,9 @@ class PhoneProvider extends Component {
     unSelectUser: PropTypes.func.isRequired,
     addRecentCall: PropTypes.func.isRequired,
     acceptCall: PropTypes.func.isRequired,
-    hangupCall: PropTypes.func.isRequired
+    hangupCall: PropTypes.func.isRequired,
+    endSearch: PropTypes.func.isRequired,
+    onCall: PropTypes.bool.isRequired
   }
 
   state = {
@@ -204,12 +206,21 @@ class PhoneProvider extends Component {
   }
 
   authenticateUser = (username, password) => {
+    logEvent('calls', `authenticate`, `user: ${username}.`)
     console.debug(`Authenticating user: ${username}/*****`)
+    this.setState({'username': username})
     this.props.requestConnection()
     return this.state.dial.authenticate(username, password)
   }
 
   unAuthenticateUser = () => {
+    logEvent('calls', `unAuthenticate`, `user: ${this.state.username}.`)
+    this.setState({'username': undefined})
+
+    if(this.props.onCall){
+      this.hangUpCall()
+    }
+
     console.debug('UnAuthenticating user')
     this.props.requestDisconnection(true)
     return this.state.dial.stopAgent()
@@ -217,6 +228,7 @@ class PhoneProvider extends Component {
 
   makeCall = (recipient) => {
     console.debug(`Calling user ${recipient.name} with number ${recipient.phoneNumber}`)
+    logEvent('calls', `make`, `caller: ${this.state.username}. callee: ${recipient.name}. number: ${recipient.phoneNumber}`)
     this.props.makeCall({
       name: recipient.name,
       phoneNumber: recipient.phoneNumber,
@@ -226,11 +238,28 @@ class PhoneProvider extends Component {
     })
     this.playRingbacktone()
     this.props.isCalling()
+    this.props.endSearch()
     return this.state.dial.call(recipient.phoneNumber)
   }
 
   hangUpCall = () => {
+    logEvent('calls', `hangUp`, `caller: ${this.state.username}.`)
     return this.state.dial.hangUp()
+  }
+
+  acceptCall = () => {
+    logMessage('Accepting call')
+    this.props.acceptCall()
+    // TODO We need to stablish a connection between the clients
+  }
+
+  rejectCall = () => {
+    logMessage('Rejecting call')
+
+    let {recipient} = this.props
+
+    this.props.addRecentCall(recipient)
+    this.props.unSelectUser()
   }
 
   handleHangUpCallEvent = () => {
@@ -257,7 +286,8 @@ PhoneProvider.childContextTypes = {
 
 function mapStateToProps ({calls}) {
   return {
-    recipient: (calls.call) ? calls.call.recipient : undefined
+    recipient: (calls.call) ? calls.call.recipient : undefined,
+    onCall: (calls.call) ? calls.call.onCall : undefined,
   }
 }
 
