@@ -42,7 +42,7 @@ class RecentCall extends Component {
         <Icon
           name='user'
           size={'large'}
-          color={'grey'}
+          color={'blue'}
           className={'ui avatar'}/>
 
         <Item.Content>
