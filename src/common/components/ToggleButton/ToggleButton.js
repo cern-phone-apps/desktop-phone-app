@@ -20,7 +20,7 @@ export class ToggleButton extends React.Component {
 
   render () {
     return (
-      <Button as={'a'} className={'flat ToggleButton'} icon={'sidebar'} onClick={this.toggleSidebar}/>
+      <Button as={'a'} className={'flat'} icon={'sidebar'} onClick={this.toggleSidebar}/>
     )
   }
 }

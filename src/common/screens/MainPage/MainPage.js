@@ -4,7 +4,7 @@ import {NavLink, Redirect, Route} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
 
-import './MainPage.scss'
+import './MainPage.css'
 import * as routes from 'routes'
 import ModalSettingsContainer from 'settings/containers/components/ModalSettings/ModalSettingsContainer'
 import * as loginRoutes from 'login/routes'
@@ -87,7 +87,7 @@ export class MainPage extends Component {
           {this.renderSidebarItems()}
           <ModalSettingsContainer hideSidebarIfVisible={this.hideSidebarIfVisible}/>
         </Sidebar>
-        <Sidebar.Pusher onClick={this.hideSidebarIfVisible} dimmed={this.props.contentDimmed}>
+        <Sidebar.Pusher onClick={this.hideSidebarIfVisible} dimmed={this.props.contentDimmed} className={'MainPusher'}>
           {this.renderMainRoutes()}
           <Notifications notifications={notifications}/>
         </Sidebar.Pusher>
