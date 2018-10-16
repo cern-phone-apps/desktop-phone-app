@@ -78,7 +78,7 @@ export class CallingModal extends Component {
 
 
   render () {
-    const {t, connected} = this.props
+    const {connected} = this.props
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
 
     if (connected) {
