@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Button, Icon, Loader} from 'semantic-ui-react'
+import {Button, Icon, Loader, Segment} from 'semantic-ui-react'
 import {logMessage} from 'common/utils'
 
 const ButtonNumbersList = ({numbers, phoneNumber, connect}) => {
@@ -51,7 +51,11 @@ class ConnectNumberButton extends Component {
     const {connecting, numbers, phoneNumber} = this.props
 
     if (connecting) {
-      return <Loader active inline='centered'/>
+      return (
+        <Segment basic textAlign={'center'}>
+          <Loader active inline='centered' content='Connecting...'/>
+        </Segment>
+      )
     }
 
     return <ButtonNumbersList numbers={numbers} phoneNumber={phoneNumber} connect={this.connect}/>
