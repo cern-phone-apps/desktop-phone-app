@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 
 import * as callActionCreators from 'calls/actions/status'
 import {phoneService} from 'calls/providers/PhoneProvider/PhoneProvider'
-import {StatusDropdown} from 'calls/components/StatusDropdown/StatusDropdown'
+import DisconnectNumberButton from 'calls/components/DisconnectNumberButton/DisconnectNumberButton'
 
 function mapStateToProps ({calls}) {
   return {
-    status: calls.status
+    connected: calls.connection.connected,
+    connecting: calls.connection.connecting,
+    disconnecting: calls.connection.disconnecting
   }
 }
 
@@ -15,9 +17,9 @@ function mapDispatchToProps (dispatch) {
   return bindActionCreators(callActionCreators, dispatch)
 }
 
-export const StatusDropdownContainer = connect(
+export const DisconnectNumberButtonContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(StatusDropdown)
+)(DisconnectNumberButton)
 
-export default phoneService(StatusDropdownContainer)
+export default phoneService(DisconnectNumberButtonContainer)

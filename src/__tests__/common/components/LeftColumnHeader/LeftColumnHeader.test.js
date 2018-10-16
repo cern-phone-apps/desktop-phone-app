@@ -3,7 +3,7 @@ import LeftColumnHeader from 'common/components/LeftColumnHeader/LeftColumnHeade
 
 it('renders without crashing', () => {
   const wrapper = shallow(<LeftColumnHeader />)
-  expect(wrapper.text()).toEqual('<Grid />')
-  expect(wrapper.debug()).toContain('LeftColumnHeader')
-  expect(wrapper.debug()).toContain('header')
+  expect(wrapper.text()).toEqual('<ColumnHeader />')
+  expect(wrapper.debug()).toContain('ToggleButton')
+  expect(wrapper.debug()).toContain('Header')
 })
