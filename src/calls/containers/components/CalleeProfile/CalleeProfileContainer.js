@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import * as callActionCreators from 'calls/actions/call'
 import * as profileActionCreators from 'calls/actions/profile'
+import * as searchActionCreators from 'calls/actions/search'
 import {CalleeProfile} from 'calls/components/CalleeProfile/CalleeProfile'
 
 function mapStateToProps ({calls}) {
@@ -15,9 +16,10 @@ function mapStateToProps ({calls}) {
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-    ...callActionCreators,
-    ...profileActionCreators
-  }
+      ...callActionCreators,
+      ...profileActionCreators,
+      ...searchActionCreators
+    }
     , dispatch)
 }
 
