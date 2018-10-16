@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import './OnCallDetails.css'
 import Timer from 'simple-react-timer'
-import {Icon} from 'semantic-ui-react'
+import {Icon, Segment} from 'semantic-ui-react'
 import {translate} from 'react-i18next'
 
 export class OnCallDetails extends Component {
@@ -10,7 +10,7 @@ export class OnCallDetails extends Component {
     phoneService: PropTypes.object.isRequired,
     recipient: PropTypes.object.isRequired,
     receivingCall: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
   }
 
   hangup = () => {
@@ -20,8 +20,8 @@ export class OnCallDetails extends Component {
   render () {
     const {t} = this.props
     return (
-      <div className="call-inner-content">
-        <div className="ui segment">
+      <Segment basic>
+        <Segment textAlign={'center'}>
           <div>
             <h3 className="ui center aligned header">{t('onCallWithText')}</h3>
             <h2 className="ui center aligned header">
@@ -41,8 +41,8 @@ export class OnCallDetails extends Component {
               </button>
             </div>
           </div>
-        </div>
-      </div>
+        </Segment>
+      </Segment>
 
     )
   }
