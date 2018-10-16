@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Grid, Header, Responsive} from 'semantic-ui-react'
+import {Grid, Header, Responsive} from 'semantic-ui-react'
 
 import './LeftColumnHeader.css'
 import ToggleButtonContainer from 'common/containers/components/ToggleButton/ToggleButtonContainer'

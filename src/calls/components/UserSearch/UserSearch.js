@@ -173,7 +173,7 @@ class UserSearch extends Component {
   }
 
   render () {
-    const {isLoading, searchValue} = this.state
+    const {searchValue} = this.state
     const {dialpadValue, onCall, calling, displayDialpad} = this.props
     const shouldEnableSearch = this.shouldEnableSearch()
 

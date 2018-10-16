@@ -16,7 +16,7 @@ class RecentCallList extends Component {
   render () {
     return (
       <ScrollableContent>
-        <Item.Group>
+        <Item.Group link>
           {this.props.recentCalls.map((item, index) => {
             return (
               <RecentCall key={`recent-${index}`} recentCall={item} />
