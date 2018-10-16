@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Icon, Menu} from 'semantic-ui-react'
+import {Button, Icon} from 'semantic-ui-react'
 import {buildRecipient} from 'calls/utils'
 
 export class CalleeProfileNumber extends Component {
@@ -26,14 +26,12 @@ export class CalleeProfileNumber extends Component {
 
   render () {
     return (
-      <Menu.Item
+      <Button fluid
         className={'CalleeProfileNumber'}
-        onClick={() => {
-          this.makeCall()
-        }}
+        onClick={this.makeCall}
       >
         <Icon name={this.props.icon}/> {this.props.phoneNumber}
-      </Menu.Item>
+      </Button>
     )
   }
 }

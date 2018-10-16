@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Header, Icon, Loader, Menu, Segment} from 'semantic-ui-react'
+import {Header, Icon, Loader, Segment} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import CalleeProfileNumberContainer from 'calls/containers/components/CalleeProfile/CalleeProfileNumberContainer'
 
@@ -10,7 +10,7 @@ export function ProfileInfo ({profile}) {
   return (
     <Segment attached>
       <Header as='h3'>
-        <Icon name='user'/>
+        <Icon name='user' color={'blue'}/>
         <Header.Content>
           {profile.displayName}
           <Header.Subheader>{division}{group}{section}</Header.Subheader>
@@ -36,13 +36,9 @@ ProfileInfo.propTypes = {
 export class CalleeProfile extends Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
-    getUserProfile: PropTypes.func.isRequired,
     fetching: PropTypes.bool.isRequired,
-    profile: PropTypes.object.isRequired
-  }
-
-  componentDidMount () {
-    this.props.getUserProfile(this.props.username)
+    profile: PropTypes.object.isRequired,
+    unSelectUser: PropTypes.func.isRequired
   }
 
   getItems = () => {
@@ -60,18 +56,22 @@ export class CalleeProfile extends Component {
   }
 
   render () {
-    const {fetching} = this.props
+    const {fetching, profile} = this.props
     if (fetching) {
       return <Loader size={'large'}/>
     }
 
     return (
-      <div>
+      <Segment basic>
         <ProfileInfo {...this.props}/>
-        <div>
-          <Menu fluid={true} attached={'bottom'} vertical={true} items={this.getItems()}/>
-        </div>
-      </div>
+        {this.getItems().map((phone, index) => (
+        <CalleeProfileNumberContainer
+          key={`number-${index}`}
+          phoneNumber={phone.number}
+          recipientName={profile.displayName}
+          icon={phone.phoneType}/>
+        ))}
+      </Segment>
     )
   }
 }

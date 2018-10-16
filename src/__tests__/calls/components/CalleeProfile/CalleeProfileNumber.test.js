@@ -11,7 +11,7 @@ describe('CalleeProfileNumber Component tests', () => {
       recipientName={'example name'}
       phoneService={{}}/>)
 
-    expect(wrapper.text()).toEqual('<MenuItem />')
+    expect(wrapper.text()).toEqual('<Button />')
   })
 
   it('makeCall works', () => {
@@ -27,7 +27,7 @@ describe('CalleeProfileNumber Component tests', () => {
         makeCall: makeCall
       }}/>)
 
-    expect(wrapper.text()).toEqual('<MenuItem />')
+    expect(wrapper.text()).toEqual('<Button />')
 
     const div = wrapper.find('.CalleeProfileNumber')
     div.simulate('click')
