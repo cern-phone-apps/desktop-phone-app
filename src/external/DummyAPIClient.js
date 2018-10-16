@@ -1,3 +1,6 @@
+const EventEmitter = require('events');
+export class DialNotifier extends EventEmitter {}
+
 export class Dial {
   static _buildEvent (name, data) {
     return {
@@ -8,7 +11,7 @@ export class Dial {
 
   constructor (media) {
     this.media = media
-    this.dialNotifier = new EventTarget()
+    this.dialNotifier = new DialNotifier();
   }
 
   static buildEvent (name, data, errorCode = 0, errorMsg = undefined) {
@@ -26,8 +29,7 @@ export class Dial {
   }
 
   sendEvent (event) {
-    const customEvent = new CustomEvent('ToneEvent', {detail: event})
-    this.dialNotifier.dispatchEvent(customEvent)
+    this.dialNotifier.emit('ToneEvent',event);
   }
 
   getNotifier () {
