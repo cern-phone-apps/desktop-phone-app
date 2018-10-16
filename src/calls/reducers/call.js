@@ -28,6 +28,7 @@ function processCallRejected (state, errors) {
     ...state,
     onCall: false,
     calling: false,
+    receivingCall: false,
     error: {statusCode: errors.code.status_code, message: errors.description}
   }
 }
@@ -53,7 +54,14 @@ function processCallReceiving (state) {
   return {
     ...state,
     onCall: false,
-    receivingCall: true
+    receivingCall: true,
+    recipient: {
+      name: "Receiving User",
+      phoneNumber: "123 123 123",
+      startTime: Date.now(),
+      incoming: true,
+      missed: false
+    }
   }
 }
 
@@ -80,7 +88,7 @@ const call = (state = initialState, action) => {
     case callActions.CALL:
       return processCall(state, action.recipient)
     case callActions.CALL_ACCEPTED:
-      if (state.calling === true) {
+      if (state.calling === true || state.receivingCall === true) {
         return processCallAccepted(state)
       } else {
         return state
