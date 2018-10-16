@@ -8,7 +8,7 @@ describe('UserSearch component', () => {
     const searchUsers = jest.fn()
     const selectUser = jest.fn()
     const unSelectUser = jest.fn()
-    const updateSearchValue = jest.fn()
+    const updateDialpadValue = jest.fn()
 
     const wrapper = shallow(<UserSearch
       displayDialpad={false}
@@ -16,42 +16,20 @@ describe('UserSearch component', () => {
       searchUsers={searchUsers}
       selectUser={selectUser}
       unSelectUser={unSelectUser}
-      updateSearchValue={updateSearchValue}
-      userSelected={false}/>)
-    expect(wrapper.text()).toEqual('<Search />')
-    expect(wrapper.html()).toContain('search')
-    expect(wrapper.html()).toContain('input')
-    expect(wrapper.html()).toContain('results')
-    expect(wrapper.html()).toContain('No results found')
-  })
+      updateDialpadValue={updateDialpadValue}
+      userSelected={false}
+      onCall={false}
+      calling={false}/>)
 
-  it('mounts without crashing', () => {
-    const searchUsers = jest.fn()
-    const selectUser = jest.fn()
-    const unSelectUser = jest.fn()
-    const updateSearchValue = jest.fn()
-
-    const wrapper = mount(<UserSearch
-      displayDialpad={false}
-      results={[]}
-      searchUsers={searchUsers}
-      selectUser={selectUser}
-      unSelectUser={unSelectUser}
-      updateSearchValue={updateSearchValue}
-      userSelected={false}/>)
-
-    expect(wrapper.text()).toEqual('No results found.')
-    expect(wrapper.html()).toContain('search')
-    expect(wrapper.html()).toContain('input')
-    expect(wrapper.html()).toContain('results')
-    expect(wrapper.html()).toContain('No results found')
+    expect(wrapper.text()).toEqual('<UserSearchForm />')
+    expect(wrapper.debug()).toContain('UserSearchForm')
   })
 
   it('handles interaction', () => {
     const searchUsers = jest.fn()
     const selectUser = jest.fn()
     const unSelectUser = jest.fn()
-    const updateSearchValue = jest.fn()
+    const updateDialpadValue = jest.fn()
 
     const results = [
       {
@@ -76,25 +54,13 @@ describe('UserSearch component', () => {
       searchUsers={searchUsers}
       selectUser={selectUser}
       unSelectUser={unSelectUser}
-      updateSearchValue={updateSearchValue}
-      userSelected={false}/>)
+      updateDialpadValue={updateDialpadValue}
+      userSelected={false}
+      onCall={false}
+      calling={false}/>)
 
     const div = wrapper.find('.UserSearch')
-    // div.simulate('change', {target: {value: 'Test1'}});
-    // div.simulate('keydown', { which: 'Test1' })
-    wrapper.setProps({ value: 'Test1' });
-
-    wrapper.instance().handleSearchChange({target: {value: 'Test2'}}, formatedResults[0])
-    expect(updateSearchValue).toHaveBeenCalled()
-    expect(wrapper.state().isLoading).toBe(true)
-
-    wrapper.setProps({ value: undefined });
-    wrapper.instance()._handleSearchTimeout('Test2')
-    expect(unSelectUser).toHaveBeenCalled()
-
-    wrapper.instance().handleResultSelect({}, {result: formatedResults[0]})
-    expect(selectUser).toHaveBeenCalled()
-
+    wrapper.setProps({value: 'Test1'});
 
   })
 

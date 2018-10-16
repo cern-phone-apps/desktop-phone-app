@@ -2,8 +2,9 @@ import * as searchActions from 'calls/actions/search'
 
 const initialState = {
   userSelected: false,
-  value: '',
-  searchResults: []
+  searchResults: [],
+  searching: false,
+  searchEnable: false
 }
 
 /**
@@ -48,20 +49,40 @@ const search = (state = initialState, action) => {
         user: action.user,
         userSelected: true
       }
-    case searchActions.SEARCH_UPDATED:
-      return {
-        ...state,
-        value: action.value
-      }
     case searchActions.USER_NOT_SELECTED:
       return {
         ...state,
         userSelected: false
       }
+    case searchActions.SEARCH_REQUEST:
+      return {
+        ...state,
+        searching: true,
+        searchEnable: true,
+        searchResults: []
+      }
+    case searchActions.SEARCH_END:
+      return {
+        ...state,
+        searching: false,
+        searchResults: [],
+        searchEnable: false
+      }
+    case searchActions.SEARCH_CLEAR:
+      return {
+        ...state,
+        searchResults: []
+      }
     case searchActions.SEARCH_SUCCESS:
       return {
         ...state,
-        searchResults: getUsersFormattedForSearch(action.payload.result)
+        searchResults: getUsersFormattedForSearch(action.payload.result),
+        searching: false
+      }
+    case searchActions.SEARCH_FAILURE:
+      return {
+        ...state,
+        searching: false
       }
 
     default:
