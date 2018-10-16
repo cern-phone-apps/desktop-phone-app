@@ -6,8 +6,8 @@ describe('NotConnectedScreen component', () => {
     const wrapper = shallow(<NotConnectedScreen
       t={key=>key}/>)
 
-    expect(wrapper.text()).toEqual('disconnected.header<Segment />')
-    expect(wrapper.debug()).toContain('disconnected.header')
-    expect(wrapper.debug()).toContain('disconnected.text')
+    expect(wrapper.text()).toEqual('<Segment />')
+    expect(wrapper.debug()).toContain('basic')
+    expect(wrapper.debug()).toContain('center')
   })
 })
