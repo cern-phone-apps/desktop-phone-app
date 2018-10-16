@@ -49,6 +49,7 @@
     "react-i18next": "^7.5.1",
     "react-notification-system": "^0.2.17",
     "react-notifications": "^1.4.3",
+    "react-piwik": "^1.6.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
