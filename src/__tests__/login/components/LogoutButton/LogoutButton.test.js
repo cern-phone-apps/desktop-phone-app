@@ -9,11 +9,12 @@ it('renders without crashing', () => {
   const button = shallow(
     <LogoutButton
       t={key => key}
+      color={'red'}
       logout={logoutFunc}
     />)
 
   expect(button.text()).toEqual('<Button />')
-  expect(button.html()).toContain('blue')
+  expect(button.html()).toContain('red')
   expect(button.html()).toContain('LogoutButton')
   expect(button.html()).toContain('logoutButtonText')
 })
