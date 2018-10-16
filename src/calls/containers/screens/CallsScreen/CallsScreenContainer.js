@@ -11,7 +11,7 @@ function mapStateToProps ({calls}) {
     calling: calls.call.calling,
     displayDialpad: calls.dialpad.display,
     connected: calls.connection.connected,
-    searchValue: calls.search.value
+    userSelected: calls.search.userSelected,
   }
 }
 

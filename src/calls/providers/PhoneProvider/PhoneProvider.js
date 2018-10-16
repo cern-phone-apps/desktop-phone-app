@@ -287,7 +287,7 @@ PhoneProvider.childContextTypes = {
 function mapStateToProps ({calls}) {
   return {
     recipient: (calls.call) ? calls.call.recipient : undefined,
-    onCall: (calls.call) ? calls.call.onCall : undefined,
+    onCall: (calls.call) ? calls.call.onCall : false,
   }
 }
 

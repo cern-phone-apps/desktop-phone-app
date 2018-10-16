@@ -53,7 +53,7 @@ class UserSearchResultsList extends Component {
       <div style={this.styles}>
         {results.map((item, index) => {
           return (
-            <UserSearchResult key={`item-${index}`} onClick={(item) => this.handleResultSelect(item)} item={item}/>
+            <UserSearchResult key={`item-${index}`} onClick={() => this.handleResultSelect(item)} item={item}/>
           )
         })
         }
