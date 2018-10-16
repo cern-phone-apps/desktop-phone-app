@@ -12,7 +12,7 @@ describe('NotConnectedScreen component', () => {
       receivingCall={false}
       recipient={{}}/>)
 
-    expect(wrapper.text()).toEqual('onCallWithText<Icon /> <Timer />')
+    expect(wrapper.text()).toEqual('<Segment />')
     expect(wrapper.debug()).toContain('onCallWithText')
   })
 
