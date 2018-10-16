@@ -15,7 +15,6 @@ const recent = (state = initialState, action) => {
         ...state,
         lastRecentId: lastRecentId,
         recentCalls: [
-          ...state.recentCalls,
           {
             id: lastRecentId,
             name: recentCall.name,
@@ -24,7 +23,8 @@ const recent = (state = initialState, action) => {
             endTime: Date.now(),
             incoming: recentCall.incoming,
             missed: recentCall.missed
-          }
+          },
+          ...state.recentCalls
         ]
       }
 
