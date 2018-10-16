@@ -1,22 +1,27 @@
 import { bindActionCreators } from 'redux'
 
 import { connect } from 'react-redux'
-import * as searchActionCreators from 'calls/actions/search'
 import * as callActionCreators from 'calls/actions/call'
-import Dialpad from 'calls/components/Dialpad/Dialpad'
+import * as dialpadActionCreators from 'calls/actions/dialpad'
+import Dialpad, {CallerDialpad} from 'calls/components/Dialpad/Dialpad'
 
 function mapStateToProps ({calls}) {
   return {
-    searchValue: calls.search.value
+    dialpadValue: calls.dialpad.value
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     ...callActionCreators,
-    ...searchActionCreators
+    ...dialpadActionCreators
   }, dispatch)
 }
+
+export const CallerDialpadContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CallerDialpad)
 
 export default connect(
   mapStateToProps,
