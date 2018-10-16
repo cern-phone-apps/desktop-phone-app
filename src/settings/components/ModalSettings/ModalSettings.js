@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
-import {Icon, Modal, Menu, Button, Header} from 'semantic-ui-react'
+import {Icon, Modal, Menu, Header} from 'semantic-ui-react'
 
 import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings'
 import PersonalInfoContainer from 'settings/containers/components/PersonalInfo/PersonalInfoContainer'
 import LanguageSettings from 'settings/components/LanguageSettings/LanguageSettings'
 import AppInfo from 'settings/components/AppInfo/AppInfo'
 import NotificationsSettings from 'settings/components/NotificationsSettings/NotificationsSettings'
+import LogoutButtonContainer from 'login/containers/components/LogoutButton/LogoutButtonContainer'
+import CallsSettings from 'settings/components/CallsSettings/CallsSettings'
 
 const ModalTrigger = ({onClick}) => {
   return (
@@ -40,12 +42,6 @@ export class ModalSettings extends Component {
     }
   }
 
-  /**
-   * Logs out the user from the application
-   */
-  logoutUser = () => {
-    this.props.logout()
-  }
 
   render () {
     const {t} = this.props
@@ -58,6 +54,8 @@ export class ModalSettings extends Component {
           <Modal.Description>
             <PersonalInfoContainer/>
             <hr/>
+            <CallsSettings/>
+            <hr/>
             <LanguageSettings/>
             <hr/>
             <DeviceSettings/>
@@ -65,7 +63,7 @@ export class ModalSettings extends Component {
             <NotificationsSettings/>
             <hr/>
             <Header as={'h4'}>{t('dangerZoneHeader')}</Header>
-            <Button color={'red'} onClick={this.logoutUser}>{t('logoutButtonText')}</Button>
+            <LogoutButtonContainer color={'red'} />
             <hr/>
             <AppInfo/>
           </Modal.Description>
