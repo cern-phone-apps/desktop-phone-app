@@ -10,6 +10,6 @@ it('renders without crashing', () => {
     displayTime={500}/>)
 
   expect(wrapper.text()).toEqual('<Button />')
-  expect(wrapper.html()).toContain('ToggleButton')
+  expect(wrapper.html()).toContain('button')
   expect(wrapper.html()).toContain('sidebar')
 })

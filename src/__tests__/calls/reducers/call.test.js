@@ -40,7 +40,7 @@ describe('calls reducer', () => {
           type: actions.CALL,
           recipient: {
             name: "michael",
-            phoneNumber: "123456",
+            phoneNumber: "123456"
           }
         }
       )
@@ -50,7 +50,7 @@ describe('calls reducer', () => {
         onCall: false,
         recipient: {
           name: "michael",
-          phoneNumber: "123456",
+          phoneNumber: "123456"
         }
       }
     )
@@ -77,8 +77,7 @@ describe('calls reducer', () => {
         }
       )
     ).toEqual(
-      {
-      }
+      {}
     )
   })
 
@@ -94,11 +93,7 @@ describe('calls reducer', () => {
         }
       })
     ).toEqual(
-      {
-        onCall: false,
-        calling: false,
-        error: {statusCode: 1, message: "bla bla bla"}
-      }
+      {calling: false, error: {message: "bla bla bla", statusCode: 1}, onCall: false, receivingCall: false}
     )
   })
 
@@ -144,7 +139,14 @@ describe('calls reducer', () => {
     ).toEqual(
       {
         onCall: false,
-        receivingCall: true
+        receivingCall: true,
+        recipient: {
+          incoming: true,
+          missed: false,
+          name: "Receiving User",
+          phoneNumber: "123 123 123",
+          startTime: expect.any(Number)
+        }
       }
     )
   })

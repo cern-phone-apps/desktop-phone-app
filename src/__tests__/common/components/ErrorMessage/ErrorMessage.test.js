@@ -17,8 +17,10 @@ describe('ErrorMessage Component tests', () => {
       errors={[connectionError]}
       t={key => key}
     />)
-    expect(wrapper.text()).toEqual('<Segment />')
-    expect(wrapper.html()).toContain('Connection error message (123)')
+    expect(wrapper.text()).toEqual('<Modal />')
+    expect(wrapper.html()).toContain('warning')
+    expect(wrapper.html()).toContain('red')
+    expect(wrapper.html()).toContain('icon')
   })
 
 })
