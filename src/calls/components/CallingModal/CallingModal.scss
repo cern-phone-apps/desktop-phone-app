@@ -1,0 +1,17 @@
+
+.CallingMessage {
+  background: #db2828;
+  min-height: 30px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+  cursor: pointer;
+  color: #fff
+}
+
+a.CallingMessage:hover{
+  text-decoration: none;
+  color: #fff;
+}
