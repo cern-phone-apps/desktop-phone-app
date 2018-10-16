@@ -5,9 +5,10 @@ import {buildCallsApiEndpoint} from 'calls/actions/numbers'
 export const SEARCH_REQUEST = '@@search/SEARCH_REQUEST'
 export const SEARCH_SUCCESS = '@@search/SEARCH_SUCCESS'
 export const SEARCH_FAILURE = '@@search/SEARCH_FAILURE'
+export const SEARCH_END = '@@search/SEARCH_END'
+export const SEARCH_CLEAR = '@@search/SEARCH_CLEAR'
 
 export const USER_SELECTED = '@@search/USER_SELECTED'
-export const SEARCH_UPDATED = '@@search/SEARCH_UPDATED'
 export const USER_NOT_SELECTED = '@@search/USER_NOT_SELECTED'
 
 /**
@@ -32,17 +33,17 @@ export function selectUser (user) {
   }
 }
 
-/**
- * Action triggered when the input on the user name's field changes
- * @param value
- * @returns {{type: string, value: *}} A dict
- */
-export function updateSearchValue (value) {
-  return {
-    type: SEARCH_UPDATED,
-    value
-  }
-}
+// /**
+//  * Action triggered when the input on the user name's field changes
+//  * @param value
+//  * @returns {{type: string, value: *}} A dict
+//  */
+// export function updateSearchValue (value) {
+//   return {
+//     type: SEARCH_UPDATED,
+//     value
+//   }
+// }
 
 /**
  * Action triggered when a user is not sa valid elected user on the dropdown
@@ -51,6 +52,19 @@ export function updateSearchValue (value) {
 export function unSelectUser () {
   return {
     type: USER_NOT_SELECTED
+  }
+}
+
+
+export function endSearch () {
+  return {
+    type: SEARCH_END
+  }
+}
+
+export function clearSearchResults () {
+  return {
+    type: SEARCH_CLEAR
   }
 }
 

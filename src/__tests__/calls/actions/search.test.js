@@ -23,15 +23,6 @@ describe('search actions', () => {
     expect(actions.unSelectUser()).toEqual(expectedAction)
   })
 
-  it('should create an action to update search value', () => {
-    const value = {value: 'USERNAME'}
-    const expectedAction = {
-      type: actions.SEARCH_UPDATED,
-      value
-    }
-    expect(actions.updateSearchValue(value)).toEqual(expectedAction)
-  })
-
   it('should create and endpoint for the search api', () => {
     const value = 'USERNAME'
     const expectedResult = `https://hostname/api/v1/users/search/?username=${value}`
