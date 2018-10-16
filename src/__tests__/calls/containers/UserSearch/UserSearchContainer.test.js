@@ -7,6 +7,7 @@ import createHistory from 'history/createBrowserHistory'
 import {routerMiddleware} from 'react-router-redux'
 import {UserSearchContainer} from 'calls/containers/components/UserSearch/UserSearchContainer'
 import PropTypes from 'prop-types'
+import {logMessage} from 'common/utils'
 
 const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]
@@ -17,13 +18,19 @@ describe('UserSearch Container', () => {
 
   let storeContent = {
     calls: {
+      call:{
+        onCall: false,
+        calling: false
+      },
       search: {
         userSelected: false,
-        value: '',
-        searchResults: []
+        searchResults: [],
+        searching: false,
+        searchEnable: false,
       },
       dialpad: {
-        display: false
+        display: false,
+        value: ''
       }
     }
   }
@@ -37,13 +44,13 @@ describe('UserSearch Container', () => {
   })
 
   it('maps state and dispatch to props', () => {
+    logMessage(wrapper)
     expect(wrapper.props()).toEqual(expect.objectContaining({
       userSelected: expect.any(Boolean),
-      value: expect.any(String),
       selectUser: expect.any(Function),
       unSelectUser: expect.any(Function),
-      updateSearchValue: expect.any(Function),
-      searchUsers: expect.any(Function),
+      calling: expect.any(Boolean),
+      onCall: expect.any(Boolean),
       results: expect.any(Array),
       displayDialpad: expect.any(Boolean)
     }))
