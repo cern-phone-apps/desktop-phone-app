@@ -54,11 +54,11 @@ export function acceptCall () {
   }
 }
 
-/**
+/**å
  * Action triggered when a call is rejected
  * @returns {{type: string}} A dict
  */
-export function rejectCall (errors) {
+export function rejectCall (errors = {code :{ status_code : 0}}) {
   return {
     type: CALL_REJECTED,
     errors

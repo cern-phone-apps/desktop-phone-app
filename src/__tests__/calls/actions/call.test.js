@@ -33,7 +33,7 @@ describe('call actions', () => {
 
   it('should create an action to reject call', () => {
     const expectedAction = {
-      type: callActions.CALL_REJECTED
+      errors: {code: {status_code: 0}}, type: "@@call/CALL_REJECTED"
     }
     expect(callActions.rejectCall()).toEqual(expectedAction)
   })
