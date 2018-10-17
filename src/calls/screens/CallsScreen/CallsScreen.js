@@ -54,7 +54,7 @@ class CallsScreen extends Component {
             </ErrorBoundary>
           </LeftColumn>
         </Responsive>
-        <Grid.Column width={12} className={'CallsScreen__RightColumn'}>
+        <Grid.Column stackable computer={12} mobile={16} tablet={16} className={'CallsScreen__RightColumn'}>
           <RightColumn>
             <Responsive as={RightColumnHeader} title={title} {...Responsive.onlyComputer}/>
             <Responsive as={LeftColumnHeader} title={title} {...Responsive.onlyMobile}/>
