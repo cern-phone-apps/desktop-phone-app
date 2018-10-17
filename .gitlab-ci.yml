@@ -16,6 +16,8 @@ test:
     REACT_APP_OAUTH_REDIRECT_URL: "https://hostname"
     REACT_APP_SENTRY_DSN: "https://ID@HOSTNAME/PROJECT"
     REACT_APP_TONE_API_PATH: "external/DummyAPIClient"
+    REACT_APP_PIWIK_URL: "https://"
+    REACT_APP_PIWIK_SITE_ID: "1"
   # Cache modules in between jobs
   cache:
     key: ${CI_COMMIT_REF_SLUG}
@@ -39,6 +41,8 @@ build_next:
     REACT_APP_OAUTH_REDIRECT_URL: ${OAUTH_REDIRECT_URL}
     REACT_APP_SENTRY_DSN: ${SENTRY_DSN_NEXT}
     REACT_APP_TONE_API_PATH: ${TONE_API_PATH}
+    REACT_APP_PIWIK_URL: ${PIWIK_URL}
+    REACT_APP_PIWIK_SITE_ID: ${PIWIK_SITE_ID}
   # Cache modules in between jobs
   cache:
     key: ${CI_COMMIT_REF_SLUG}
