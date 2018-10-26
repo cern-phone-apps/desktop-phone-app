@@ -3,12 +3,12 @@ import {CallLoader} from 'calls/components/CallLoader/CallLoader'
 
 describe('CalleeProfile Component tests', () => {
   it('renders CalleeProfile without crashing', () => {
-    const acceptCall = jest.fn()
+    const acceptOutgoingCall = jest.fn()
     const hangUpCall = jest.fn()
     const wrapper = shallow(<CallLoader
       t={key => key}
       recipientName={'example'}
-      acceptCall={acceptCall}
+      acceptOutgoingCall={acceptOutgoingCall}
       calling
       hangupCall={hangUpCall}
       phoneNumber={'12345'}
