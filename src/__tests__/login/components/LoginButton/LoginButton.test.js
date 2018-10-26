@@ -1,15 +1,11 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import { shallow } from 'enzyme'
 import 'i18n'
-import {LoginButton} from 'login/components/LoginButton/LoginButton'
-
+import { LoginButton } from 'login/components/LoginButton/LoginButton'
 it('renders without crashing', () => {
   const button = shallow(
-    <LoginButton
-      t={key => key}
-      loggedIn={false}
-      urlQuery={''}
-    />)
+    <LoginButton t={key => key} loggedIn={false} urlQuery={''} />
+  )
 
   expect(button.text()).toEqual('<Button />')
   expect(button.html()).toContain('blue')
@@ -18,12 +14,17 @@ it('renders without crashing', () => {
 })
 
 it('changes redirect state on click', () => {
+  const mockWindow = { location: { href: null } }
   const button = shallow(
     <LoginButton
       t={key => key}
       loggedIn={false}
       urlQuery={''}
-    />)
+      window={mockWindow}
+    />
+  )
+
+  // fn({ window: mockWindow });
   const div = button.find('.LoginButton')
   expect(button.state().redirected).toEqual(false)
   div.simulate('click')
@@ -31,13 +32,17 @@ it('changes redirect state on click', () => {
 })
 
 it('changes authorizeUrl url state on click', () => {
-  const sampleAuthUrl = 'https://oauth/OAuth/Authorize?client_id=test&response_type=code&redirect_uri=https://hostname'
+  const mockWindow = { location: { href: null } }
+  const sampleAuthUrl =
+    'https://oauth/OAuth/Authorize?client_id=test&response_type=code&redirect_uri=https%3A%2F%2Fhostname'
   const button = shallow(
     <LoginButton
       t={key => key}
       loggedIn={false}
       urlQuery={''}
-    />)
+      window={mockWindow}
+    />
+  )
   const div = button.find('.LoginButton')
   expect(button.state().authorizeUrl).toEqual(undefined)
   div.simulate('click')
