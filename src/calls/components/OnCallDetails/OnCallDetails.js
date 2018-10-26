@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import './OnCallDetails.css'
-import Timer from 'simple-react-timer'
-import {Icon, Segment} from 'semantic-ui-react'
-import {translate} from 'react-i18next'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import "./OnCallDetails.css";
+import Timer from "simple-react-timer";
+import { Icon, Segment } from "semantic-ui-react";
+import { translate } from "react-i18next";
 
 export class OnCallDetails extends Component {
   static propTypes = {
@@ -11,41 +11,43 @@ export class OnCallDetails extends Component {
     recipient: PropTypes.object.isRequired,
     receivingCall: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired
-  }
+  };
 
   hangup = () => {
-    this.props.phoneService.hangUpCall()
-  }
+    this.props.phoneService.hangUpCurrentCall();
+  };
 
-  render () {
-    const {t} = this.props
+  render() {
+    const { t } = this.props;
     return (
       <Segment basic>
-        <Segment textAlign={'center'}>
+        <Segment textAlign={"center"}>
           <div>
-            <h3 className="ui center aligned header">{t('onCallWithText')}</h3>
+            <h3 className="ui center aligned header">{t("onCallWithText")}</h3>
             <h2 className="ui center aligned header">
-              <Icon name={'user'}/> {this.props.recipient.name}
+              <Icon name={"user"} /> {this.props.recipient.name}
             </h2>
             <div className="ui center aligned basic segment">
-              <Timer startTime={this.props.recipient.startTime}/>
+              <Timer startTime={this.props.recipient.startTime} />
             </div>
             <div className="ui center aligned basic segment">
               <button
                 onClick={() => this.hangup()}
-                className={'ui circular red icon button OnCallDetails__HangupButton'}>
-                <i className="phone icon"/>
+                className={
+                  "ui circular red icon button OnCallDetails__HangupButton"
+                }
+              >
+                <i className="phone icon" />
               </button>
               <button className="ui circular icon button">
-                <i className="mute icon"/>
+                <i className="mute icon" />
               </button>
             </div>
           </div>
         </Segment>
       </Segment>
-
-    )
+    );
   }
 }
 
-export default translate('calls')(OnCallDetails)
+export default translate("calls")(OnCallDetails);
