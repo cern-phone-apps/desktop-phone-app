@@ -1,12 +1,13 @@
-
 export const CALL = '@@call/CALL'
 export const IS_CALLING = '@@call/IS_CALLING'
-export const CALL_ACCEPTED = '@@call/CALL_ACCEPTED'
-export const CALL_REJECTED = '@@call/CALL_REJECTED'
+export const OUTGOING_CALL_ACCEPTED = '@@call/OUTGOING_CALL_ACCEPTED'
+export const OUTGOING_CALL_REJECTED = '@@call/OUTGOING_CALL_REJECTED'
 export const CALL_FAILED = '@@call/CALL_FAILED'
 export const CALL_MISSED = '@@call/CALL_MISSED'
 export const IS_RECEIVING_CALL = '@@call/IS_RECEIVING_CALL'
 export const HANGUP_CALL = '@@call/HANGUP_CALL'
+export const INCOMING_CALL_ACCEPTED = '@@call/INCOMING_CALL_ACCEPTED'
+export const INCOMING_CALL_REJECTED = '@@call/INCOMING_CALL_REJECTED'
 
 /**
  * Action that triggers a call to a selected recipient
@@ -37,9 +38,11 @@ export function isCalling () {
  *
  * @returns {{type: string}} A dict
  */
-export function isReceivingCall () {
+export function isReceivingCall (callerNumber, callerName) {
   return {
-    type: IS_RECEIVING_CALL
+    type: IS_RECEIVING_CALL,
+    callerNumber,
+    callerName
   }
 }
 
@@ -48,19 +51,36 @@ export function isReceivingCall () {
  *
  * @returns {{type: string}} A dict
  */
-export function acceptCall () {
+export function acceptOutgoingCall () {
   return {
-    type: CALL_ACCEPTED
+    type: OUTGOING_CALL_ACCEPTED
   }
 }
 
-/**å
+/**
+ * Action triggered when a call is accepted
+ *
+ * @returns {{type: string}} A dict
+ */
+export function acceptIncomingCall () {
+  return {
+    type: INCOMING_CALL_ACCEPTED
+  }
+}
+
+export function rejectIncomingCall () {
+  return {
+    type: INCOMING_CALL_REJECTED
+  }
+}
+
+/**
  * Action triggered when a call is rejected
  * @returns {{type: string}} A dict
  */
-export function rejectCall (errors = {code :{ status_code : 0}}) {
+export function rejectOutgoingCall (errors = { code: { status_code: 0 } }) {
   return {
-    type: CALL_REJECTED,
+    type: OUTGOING_CALL_REJECTED,
     errors
   }
 }
