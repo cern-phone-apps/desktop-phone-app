@@ -44,7 +44,7 @@ describe('CalleeProfile Container', () => {
     expect(wrapper.props()).toEqual(expect.objectContaining({
       username: 'example',
       fetching: false,
-      acceptCall: expect.any(Function)
+      acceptOutgoingCall: expect.any(Function)
     }))
   })
 })
