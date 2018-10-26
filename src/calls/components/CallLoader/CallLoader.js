@@ -30,8 +30,8 @@ export class CallLoader extends Component {
   //   }
   // }
 
-  hangUpCall = () => {
-    this.props.phoneService.hangUpCall()
+  hangUpCurrentCall = () => {
+    this.props.phoneService.hangUpCurrentCall()
   }
 
   render () {
@@ -61,7 +61,7 @@ export class CallLoader extends Component {
               </div>
               <div className="ui center aligned basic segment">
                 <button
-                  onClick={this.hangUpCall}
+                  onClick={this.hangUpCurrentCall}
                   className="ui circular red icon button"
                 >
                   <i className="phone icon" />
