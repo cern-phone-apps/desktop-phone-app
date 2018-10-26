@@ -26,16 +26,17 @@ describe('call actions', () => {
 
   it('should create an action to is accept call', () => {
     const expectedAction = {
-      type: callActions.CALL_ACCEPTED
+      type: callActions.OUTGOING_CALL_ACCEPTED
     }
-    expect(callActions.acceptCall()).toEqual(expectedAction)
+    expect(callActions.acceptOutgoingCall()).toEqual(expectedAction)
   })
 
   it('should create an action to reject call', () => {
     const expectedAction = {
-      errors: {code: {status_code: 0}}, type: "@@call/CALL_REJECTED"
+      errors: { code: { status_code: 0 } },
+      type: '@@call/OUTGOING_CALL_REJECTED'
     }
-    expect(callActions.rejectCall()).toEqual(expectedAction)
+    expect(callActions.rejectOutgoingCall()).toEqual(expectedAction)
   })
 
   it('should create an action to miss call', () => {
