@@ -1,26 +1,24 @@
-import React, {Component} from 'react'
-import {Button} from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Button } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import buildUrl from 'build-url'
-import {translate} from 'react-i18next'
-import {logEvent} from 'common/utils'
-
+import { translate } from 'react-i18next'
+import { logEvent } from 'common/utils'
 /**
  * The idea of this component is to redirect the user to the Oauth authorization URL of your provider.
  */
 export class LoginButton extends Component {
   static propTypes = {
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    window: PropTypes.object
   }
-
   state = {
     redirected: false,
     authorizeUrl: undefined
   }
-
   /**
    * Builds the authorization url with the given parameters
-   * @returns {*}å
+   * @returns {*}
    */
   buildAuthorizeUrl = () => {
     const config = {
@@ -42,19 +40,29 @@ export class LoginButton extends Component {
    * Redirects the user to the Oauth authorization URL
    */
   loginUser = () => {
-    logEvent('auth',`login`)
+    logEvent('auth', `login`)
     const authorizeUrl = this.buildAuthorizeUrl()
+    let win
+    if (!this.props.window) {
+      win = window
+    } else {
+      win = this.props.window
+    }
+
     this.setState({
       redirected: true,
+
       authorizeUrl: authorizeUrl
     })
-    window.location.href = authorizeUrl
+    win.location.href = authorizeUrl
   }
 
   render () {
-    const {t} = this.props
+    const { t } = this.props
     return (
-      <Button className={'LoginButton'} color={'blue'} onClick={this.loginUser}>{t('loginButtonText')}</Button>
+      <Button className={'LoginButton'} color={'blue'} onClick={this.loginUser}>
+        {t('loginButtonText')}
+      </Button>
     )
   }
 }
