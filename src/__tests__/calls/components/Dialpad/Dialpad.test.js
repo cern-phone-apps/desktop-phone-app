@@ -1,7 +1,9 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import {default as Dialpad, CallButton, DialButton} from 'calls/components/Dialpad/Dialpad'
+import {default as Dialpad} from 'calls/components/Dialpad/Dialpad'
 import {Icon} from 'semantic-ui-react'
+import { CallButton } from "calls/components/Dialpad/CallerDialpad";
+import { DialButton } from "calls/components/Dialpad/DialButton";
 
 it('renders Dialpad without crashing', () => {
   const dialpad = shallow(<Dialpad
