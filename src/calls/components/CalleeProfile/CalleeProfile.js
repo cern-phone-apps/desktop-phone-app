@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Header, Icon, Loader, Segment} from "semantic-ui-react";
 import PropTypes from "prop-types";
-import CalleeProfileNumberContainer from "calls/containers/components/CalleeProfile/CalleeProfileNumberContainer";
+import CalleeProfileNumberContainer from "calls/components/CalleeProfile/CalleeProfileNumberContainer";
 
 export function ProfileInfo({ profile }) {
   const division = profile.division === "[]" ? "" : profile.division;
@@ -41,8 +41,7 @@ export class CalleeProfile extends Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     fetching: PropTypes.bool.isRequired,
-    profile: PropTypes.object.isRequired,
-    unSelectUser: PropTypes.func.isRequired
+    profile: PropTypes.object.isRequired
   };
 
   getItems = () => {
@@ -68,7 +67,7 @@ export class CalleeProfile extends Component {
 
     return (
       <Segment basic>
-        <ProfileInfo {...this.props} />
+        <ProfileInfo profile={profile} />
         {profile.phones.map((phone, index) => (
           <CalleeProfileNumberContainer
             key={`number-${index}`}

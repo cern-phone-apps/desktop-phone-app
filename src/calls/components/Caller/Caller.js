@@ -1,39 +1,39 @@
-import React, {Component} from 'react'
-import {Segment} from 'semantic-ui-react'
-import PropTypes from 'prop-types'
-import {translate} from 'react-i18next'
+import React, { Component } from "react";
+import { Segment } from "semantic-ui-react";
+import PropTypes from "prop-types";
+import { translate } from "react-i18next";
 
-import './Caller.css'
-import UserSearchContainer from 'calls/containers/components/UserSearch/UserSearchContainer'
+import "./Caller.css";
+import UserSearchContainer from "calls/containers/components/UserSearch/UserSearchContainer";
 
+/**
+ * Caller Screen. On this screen is where the user makes calls and searches
+ * for other users
+ */
 export class Caller extends Component {
   static propTypes = {
-    userSelected: PropTypes.bool.isRequired,
-    onCall: PropTypes.bool.isRequired,
-    calling: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired,
-    activeNumber: PropTypes.string,
-    makeCall: PropTypes.func.isRequired,
-    toggleDialpad: PropTypes.func.isRequired,
-    displayDialpad: PropTypes.bool.isRequired
-  }
+    t: PropTypes.func.isRequired, // Translate
+    displayDialpad: PropTypes.bool.isRequired,
+    toggleDialpad: PropTypes.func.isRequired
+  };
 
   handleDialPadDisplayButton = () => {
-    this.props.toggleDialpad(!this.props.displayDialpad)
-  }
+    const { toggleDialpad, displayDialpad } = this.props;
+    toggleDialpad(!displayDialpad);
+  };
 
-
-  render () {
-
+  render() {
     const segmentStyles = {
-      height: '100%'
-    }
+      height: "100%"
+    };
     return (
       <Segment basic style={segmentStyles}>
-        <UserSearchContainer displayDialpadAction={this.handleDialPadDisplayButton}/>
+        <UserSearchContainer
+          displayDialpadAction={this.handleDialPadDisplayButton}
+        />
       </Segment>
-    )
+    );
   }
 }
 
-export default translate('calls')(Caller)
+export default translate("calls")(Caller);

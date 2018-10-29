@@ -12,10 +12,10 @@ import OnCallMessageContainer from "calls/containers/components/OnCallMessage/On
 import NotConnectedScreenContainer from "calls/containers/components/NotConnectedScreen/NotConnectedScreenContainer";
 import CallLoaderContainer from "calls/containers/components/CallLoader/CallLoaderContainer";
 import OnCallDetailsContainer from "calls/containers/components/OnCallDetails/OnCallDetailsContainer";
-import CallerContainer from "calls/containers/components/Caller/CallerContainer";
+import CallerContainer from "calls/components/Caller/CallerContainer";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import RightColumnHeader from "common/components/RightColumnHeader/RightColumnHeader";
-import CalleeProfileContainer from "calls/containers/components/CalleeProfile/CalleeProfileContainer";
+import CalleeProfileContainer from "calls/components/CalleeProfile/CalleeProfileContainer";
 import { getWindowTitle } from "calls/utils";
 import DialpadContainer from "calls/containers/components/Dialpad/DialpadContainer";
 import CallingModalContainer from "calls/components/CallingModal/CallingModalContainer";
