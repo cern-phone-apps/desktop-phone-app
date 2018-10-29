@@ -7,28 +7,28 @@ import { translate } from "react-i18next";
 
 export class OnCallDetails extends Component {
   static propTypes = {
+    t: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired,
-    recipient: PropTypes.object.isRequired,
-    receivingCall: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired
+    recipient: PropTypes.object.isRequired
   };
 
   hangup = () => {
-    this.props.phoneService.hangUpCurrentCall();
+    const { phoneService } = this.props;
+    phoneService.hangUpCurrentCall();
   };
 
   render() {
-    const { t } = this.props;
+    const { t, recipient } = this.props;
     return (
       <Segment basic>
         <Segment textAlign={"center"}>
           <div>
             <h3 className="ui center aligned header">{t("onCallWithText")}</h3>
             <h2 className="ui center aligned header">
-              <Icon name={"user"} /> {this.props.recipient.name}
+              <Icon name={"user"} /> {recipient.name}
             </h2>
             <div className="ui center aligned basic segment">
-              <Timer startTime={this.props.recipient.startTime} />
+              <Timer startTime={recipient.startTime} />
             </div>
             <div className="ui center aligned basic segment">
               <button
