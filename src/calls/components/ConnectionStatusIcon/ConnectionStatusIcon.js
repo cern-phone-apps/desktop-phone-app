@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon, Modal } from "semantic-ui-react";
 import DisconnectNumberButtonContainer
-  from "calls/containers/components/DisconnectNumberButton/DisconnectNumberButtonContainer";
+  from "calls/components/DisconnectNumberButton/DisconnectNumberButtonContainer";
 
 /**
  * Button that displays the connection status

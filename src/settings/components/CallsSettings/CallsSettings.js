@@ -2,7 +2,7 @@ import React from 'react'
 import { Header } from 'semantic-ui-react'
 import { translate } from 'react-i18next'
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
-import DisconnectNumberButtonContainer from 'calls/containers/components/DisconnectNumberButton/DisconnectNumberButtonContainer'
+import DisconnectNumberButtonContainer from 'calls/components/DisconnectNumberButton/DisconnectNumberButtonContainer'
 
 export const CallsSettings = () => {
   return (
