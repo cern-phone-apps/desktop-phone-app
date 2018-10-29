@@ -1,62 +1,52 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import './CallLoader.css'
-import { translate } from 'react-i18next'
-import PhoneRingingIcon from 'calls/components/PhoneRingingIcon/PhoneRingingIcon'
-import { Grid, Segment } from 'semantic-ui-react'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import "./CallLoader.css";
+import { translate } from "react-i18next";
+import PhoneRingingIcon from "calls/components/PhoneRingingIcon/PhoneRingingIcon";
+import { Grid, Segment } from "semantic-ui-react";
 
+/**
+ * Displays the screen when making a call
+ */
 export class CallLoader extends Component {
   static propTypes = {
+    t: PropTypes.func.isRequired, // Translate service
+    phoneService: PropTypes.object.isRequired, // Phone service
     recipientName: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
-    // hangupCall: PropTypes.func.isRequired,
-    // acceptOutgoingCall: PropTypes.func.isRequired,
-    calling: PropTypes.bool.isRequired,
-    t: PropTypes.func.isRequired,
-    phoneService: PropTypes.object.isRequired
-  }
+    phoneNumber: PropTypes.string.isRequired
+  };
 
-  componentDidMount () {
-    // TODO Move this to the Dummy API client
-    // setTimeout(() => {
-    //   console.debug('Accept call after 5 seconds') || this.acceptOutgoingCall()
-    // }, 5000)
-  }
-
-  // acceptOutgoingCall = () => {
-  //   console.debug('PROPS', this.props)
-  //   if (this.props.calling) {
-  //     this.props.acceptOutgoingCall()
-  //   }
-  // }
-
+  /**
+   * Hangups the current call using the Phone Service
+   */
   hangUpCurrentCall = () => {
-    this.props.phoneService.hangUpCurrentCall()
-  }
+    const { phoneService } = this.props;
+    phoneService.hangUpCurrentCall();
+  };
 
-  render () {
-    const { t } = this.props
+  render() {
+    const { t, recipientName, phoneNumber } = this.props;
 
     return (
-      <Segment textAlign={'center'} basic>
+      <Segment textAlign={"center"} basic>
         <Grid columns={1}>
           <Grid.Column>
-            <Segment textAlign={'center'}>
+            <Segment textAlign={"center"}>
               <div>
                 <div className="ui center aligned basic segment">
                   <PhoneRingingIcon />
                 </div>
                 <h3 className="ui center aligned header">
-                  {t('callingText')}{' '}
+                  {t("callingText")}{" "}
                   <img
-                    src={'/images/avatar/patrick.png'}
-                    alt={'avatar'}
+                    src={"/images/avatar/patrick.png"}
+                    alt={"avatar"}
                     className="ui circular tiny image"
-                  />{' '}
-                  {this.props.recipientName}
+                  />{" "}
+                  {recipientName}
                 </h3>
                 <div className="ui center aligned basic segment">
-                  ({this.props.phoneNumber})
+                  ({phoneNumber})
                 </div>
               </div>
               <div className="ui center aligned basic segment">
@@ -71,8 +61,8 @@ export class CallLoader extends Component {
           </Grid.Column>
         </Grid>
       </Segment>
-    )
+    );
   }
 }
 
-export default translate('calls')(CallLoader)
+export default translate("calls")(CallLoader);
