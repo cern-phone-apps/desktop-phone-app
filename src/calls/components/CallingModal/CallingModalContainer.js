@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import * as callActionCreators from "calls/actions/call";
 import CallingModal from "calls/components/CallingModal/CallingModal";
+import {isReceivingCall, rejectIncomingCall} from "calls/actions/call";
 
 /**
  * Mapping the props to the container
@@ -24,7 +24,10 @@ function mapStateToProps({ calls }) {
  * @returns {{CALL?: string, IS_CALLING?: string, OUTGOING_CALL_ACCEPTED?: string, OUTGOING_CALL_REJECTED?: string, CALL_FAILED?: string, CALL_MISSED?: string, IS_RECEIVING_CALL?: string, HANGUP_CALL?: string, INCOMING_CALL_ACCEPTED?: string, INCOMING_CALL_REJECTED?: string, makeCall?, isCalling?, isReceivingCall?, acceptOutgoingCall?, acceptIncomingCall?, rejectIncomingCall?, rejectOutgoingCall?, callFailed?, missCall?, hangupCall?}}
  */
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(callActionCreators, dispatch);
+  return bindActionCreators({
+    isReceivingCall,
+    rejectIncomingCall
+  }, dispatch);
 }
 
 /**

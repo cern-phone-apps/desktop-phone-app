@@ -102,13 +102,13 @@ CallingModalContent.propTypes = {
 export class CallingModal extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
-    isReceivingCall: PropTypes.func.isRequired, // TODO Rename this function
-    rejectOutgoingCall: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired,
     connected: PropTypes.bool.isRequired,
     receivingCall: PropTypes.bool.isRequired,
     callerName: PropTypes.string,
-    callerNumber: PropTypes.string
+    callerNumber: PropTypes.string,
+    isReceivingCall: PropTypes.func.isRequired, // TODO Rename this function
+    rejectOutgoingCall: PropTypes.func.isRequired,
   };
 
   state = { modalOpen: false, modalHidden: false };
