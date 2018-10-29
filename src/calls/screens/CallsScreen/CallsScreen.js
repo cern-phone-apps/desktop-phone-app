@@ -10,7 +10,7 @@ import RightColumn from "common/components/RightColumn/RightColumn";
 import RecentCallListContainer from "calls/containers/components/RecentCallList/RecentCallListContainer";
 import OnCallMessageContainer from "calls/containers/components/OnCallMessage/OnCallMessageContainer";
 import NotConnectedScreenContainer from "calls/containers/components/NotConnectedScreen/NotConnectedScreenContainer";
-import CallLoaderContainer from "calls/containers/components/CallLoader/CallLoaderContainer";
+import CallLoaderContainer from "calls/components/CallLoader/CallLoaderContainer";
 import OnCallDetailsContainer from "calls/containers/components/OnCallDetails/OnCallDetailsContainer";
 import CallerContainer from "calls/components/Caller/CallerContainer";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
