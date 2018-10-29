@@ -58,7 +58,7 @@ export function acceptOutgoingCall () {
 }
 
 /**
- * Action triggered when a call is accepted
+ * Action triggered when an incoming call is accepted
  *
  * @returns {{type: string}} A dict
  */
@@ -68,6 +68,10 @@ export function acceptIncomingCall () {
   }
 }
 
+/**
+ * Action triggered when an incoming call is rejected
+ * @returns {{type: string}}
+ */
 export function rejectIncomingCall () {
   return {
     type: INCOMING_CALL_REJECTED
