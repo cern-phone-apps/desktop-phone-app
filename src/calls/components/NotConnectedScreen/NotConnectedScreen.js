@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Segment} from 'semantic-ui-react'
-import ConnectNumberButtonContainer from 'calls/containers/components/ConnectNumberButton/ConnectNumberButtonContainer'
+import ConnectNumberButtonContainer from 'calls/components/ConnectNumberButton/ConnectNumberButtonContainer'
 export class NotConnectedScreen extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired
