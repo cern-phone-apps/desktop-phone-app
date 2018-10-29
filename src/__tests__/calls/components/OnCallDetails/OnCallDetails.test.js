@@ -1,33 +1,37 @@
-import React from 'react'
-import {OnCallDetails} from 'calls/components/OnCallDetails/OnCallDetails'
+import React from "react";
+import { OnCallDetails } from "calls/components/OnCallDetails/OnCallDetails";
 
-describe('NotConnectedScreen component', () => {
-  it('renders without crashing', () => {
+describe("NotConnectedScreen component", () => {
+  it("renders without crashing", () => {
+    const hangup = jest.fn();
 
-    const hangup = jest.fn()
+    const wrapper = shallow(
+      <OnCallDetails
+        t={key => key}
+        phoneService={{}}
+        receivingCall={false}
+        recipient={{}}
+      />
+    );
 
-    const wrapper = shallow(<OnCallDetails
-      t={key => key}
-      phoneService={{}}
-      receivingCall={false}
-      recipient={{}}/>)
+    expect(wrapper.text()).toEqual("<Segment />");
+    expect(wrapper.debug()).toContain("onCallWithText");
+  });
 
-    expect(wrapper.text()).toEqual('<Segment />')
-    expect(wrapper.debug()).toContain('onCallWithText')
-  })
+  it("renders without crashing", () => {
+    const hangup = jest.fn();
 
-  it('renders without crashing', () => {
+    const wrapper = shallow(
+      <OnCallDetails
+        t={key => key}
+        phoneService={{ hangUpCurrentCall: hangup }}
+        receivingCall={false}
+        recipient={{}}
+      />
+    );
 
-    const hangup = jest.fn()
-
-    const wrapper = shallow(<OnCallDetails
-      t={key => key}
-      phoneService={{hangUpCurrentCall: hangup}}
-      receivingCall={false}
-      recipient={{}}/>)
-
-    const div = wrapper.find('.OnCallDetails__HangupButton')
-    div.simulate('click')
-    expect(hangup).toHaveBeenCalled()
-  })
-})
+    const div = wrapper.find(".OnCallDetails__HangupButton");
+    div.simulate("click");
+    expect(hangup).toHaveBeenCalled();
+  });
+});
