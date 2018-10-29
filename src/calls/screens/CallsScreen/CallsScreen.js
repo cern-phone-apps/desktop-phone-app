@@ -9,7 +9,6 @@ import LeftColumnHeader from "common/components/LeftColumnHeader/LeftColumnHeade
 import RightColumn from "common/components/RightColumn/RightColumn";
 import RecentCallListContainer from "calls/containers/components/RecentCallList/RecentCallListContainer";
 import OnCallMessageContainer from "calls/containers/components/OnCallMessage/OnCallMessageContainer";
-import NotConnectedScreenContainer from "calls/containers/components/NotConnectedScreen/NotConnectedScreenContainer";
 import CallLoaderContainer from "calls/components/CallLoader/CallLoaderContainer";
 import OnCallDetailsContainer from "calls/containers/components/OnCallDetails/OnCallDetailsContainer";
 import CallerContainer from "calls/components/Caller/CallerContainer";
@@ -19,6 +18,7 @@ import CalleeProfileContainer from "calls/components/CalleeProfile/CalleeProfile
 import { getWindowTitle } from "calls/utils";
 import DialpadContainer from "calls/components/Dialpad/DialpadContainer";
 import CallingModalContainer from "calls/components/CallingModal/CallingModalContainer";
+import NotConnectedScreen from "calls/components/NotConnectedScreen/NotConnectedScreen";
 
 class CallsScreen extends Component {
   static propTypes = {
@@ -90,7 +90,7 @@ class CallsScreen extends Component {
                         </Grid.Column>
                       </Segment>
                     )}
-                    {!connected && <NotConnectedScreenContainer />}
+                    {!connected && <NotConnectedScreen />}
                     {onlyConnected && <CallerContainer />}
                   </Grid.Column>
                   <Grid.Column>
