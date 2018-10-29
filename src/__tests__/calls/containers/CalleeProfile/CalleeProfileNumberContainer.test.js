@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store'
 
 import createHistory from 'history/createBrowserHistory'
 import {routerMiddleware} from 'react-router-redux'
-import {CalleeProfileNumberContainer} from 'calls/containers/components/CalleeProfile/CalleeProfileNumberContainer'
+import {CalleeProfileNumberContainer} from 'calls/components/CalleeProfile/CalleeProfileNumberContainer'
 
 const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]
