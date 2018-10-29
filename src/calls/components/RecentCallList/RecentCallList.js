@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import {Item} from 'semantic-ui-react'
-import RecentCall from 'calls/components/RecentCallList/RecentCall'
-import ScrollableContent from 'common/components/ScrollableContent/ScrollableContent'
+import { Item } from "semantic-ui-react";
+import RecentCall from "calls/components/RecentCallList/RecentCall";
+import ScrollableContent from "common/components/ScrollableContent/ScrollableContent";
 
 /**
  * Displays a scrollable list of RecentCall Components
@@ -11,22 +11,21 @@ import ScrollableContent from 'common/components/ScrollableContent/ScrollableCon
 class RecentCallList extends Component {
   static propTypes = {
     recentCalls: PropTypes.array.isRequired
-  }
+  };
 
-  render () {
+  render() {
+    const {recentCalls} = this.props;
+
     return (
       <ScrollableContent>
         <Item.Group link>
-          {this.props.recentCalls.map((item, index) => {
-            return (
-              <RecentCall key={`recent-${index}`} recentCall={item} />
-            )
-          })
-          }
+          {recentCalls.map((item, index) => {
+            return <RecentCall key={`recent-${index}`} recentCall={item} />;
+          })}
         </Item.Group>
       </ScrollableContent>
-    )
+    );
   }
 }
 
-export default RecentCallList
+export default RecentCallList;
