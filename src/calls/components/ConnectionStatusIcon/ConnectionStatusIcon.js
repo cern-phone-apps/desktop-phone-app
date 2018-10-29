@@ -4,6 +4,14 @@ import { Button, Icon, Modal } from "semantic-ui-react";
 import DisconnectNumberButtonContainer
   from "calls/containers/components/DisconnectNumberButton/DisconnectNumberButtonContainer";
 
+/**
+ * Button that displays the connection status
+ * @param color (string) Color of the button
+ * @param message
+ * @param onClick
+ * @returns {*}
+ * @constructor
+ */
 const ConnectionIcon = ({ color, message, onClick }) => {
   return (
     <Button onClick={onClick} as={"a"} className={"flat"} title={message}>
