@@ -1,10 +1,8 @@
-import React from 'react'
-import './PhoneRingingIcon.css'
+import React from "react";
+import "./PhoneRingingIcon.css";
 
 const PhoneRingingIcon = () => {
-  return (
-    <i className="Phone is-animating"/>
-  )
-}
+  return <i className="Phone is-animating" />;
+};
 
-export default PhoneRingingIcon
+export default PhoneRingingIcon;

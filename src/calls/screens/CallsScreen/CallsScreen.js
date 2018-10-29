@@ -7,7 +7,7 @@ import "./CallsScreen.css";
 import LeftColumn from "common/components/LeftColumn/LeftColumn";
 import LeftColumnHeader from "common/components/LeftColumnHeader/LeftColumnHeader";
 import RightColumn from "common/components/RightColumn/RightColumn";
-import RecentCallListContainer from "calls/containers/components/RecentCallList/RecentCallListContainer";
+import RecentCallListContainer from "calls/components/RecentCallList/RecentCallListContainer";
 import OnCallMessageContainer from "calls/components/OnCallMessage/OnCallMessageContainer";
 import CallLoaderContainer from "calls/components/CallLoader/CallLoaderContainer";
 import OnCallDetailsContainer from "calls/components/OnCallDetails/OnCallDetailsContainer";
