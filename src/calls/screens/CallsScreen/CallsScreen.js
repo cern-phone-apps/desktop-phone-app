@@ -17,7 +17,7 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import RightColumnHeader from "common/components/RightColumnHeader/RightColumnHeader";
 import CalleeProfileContainer from "calls/components/CalleeProfile/CalleeProfileContainer";
 import { getWindowTitle } from "calls/utils";
-import DialpadContainer from "calls/containers/components/Dialpad/DialpadContainer";
+import DialpadContainer from "calls/components/Dialpad/DialpadContainer";
 import CallingModalContainer from "calls/components/CallingModal/CallingModalContainer";
 
 class CallsScreen extends Component {
