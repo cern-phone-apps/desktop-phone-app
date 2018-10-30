@@ -9,7 +9,7 @@ import * as routes from "routes";
 import * as loginRoutes from "login/routes";
 import Notifications from "common/components/Notifications/Notifications";
 import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer";
-import SettingsModalContainer from "settings/components/SettingsModal/SettingsModalContainer";
+import SettingsModal from "settings/components/SettingsModal/SettingsModal";
 
 export class MainPage extends Component {
   static propTypes = {
@@ -89,7 +89,7 @@ export class MainPage extends Component {
           vertical
         >
           {this.renderSidebarItems()}
-          <SettingsModalContainer
+          <SettingsModal
             hideSidebarIfVisible={this.hideSidebarIfVisible}
           />
           <ModalDebugContainer
