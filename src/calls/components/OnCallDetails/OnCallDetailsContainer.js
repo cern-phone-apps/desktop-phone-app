@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import OnCallDetails from "calls/components/OnCallDetails/OnCallDetails";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 

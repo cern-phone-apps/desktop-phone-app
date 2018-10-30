@@ -1,7 +1,4 @@
-import { bindActionCreators } from 'redux'
-
 import { connect } from 'react-redux'
-import {toggleDialpad} from "calls/actions/dialpad";
 import Caller from 'calls/components/Caller/Caller'
 
 function mapStateToProps ({calls}) {
@@ -10,11 +7,6 @@ function mapStateToProps ({calls}) {
   }
 }
 
-// function mapDispatchToProps (dispatch) {
-//   return bindActionCreators({
-//     toggleDialpad
-//   }, dispatch)
-// }
 
 export default connect(
   mapStateToProps,
