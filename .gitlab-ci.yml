@@ -57,7 +57,7 @@ build_next:
     paths:
     - build # The application is built for production
   only:
-  - dev # or dev, the branch you want to publish
+  - master # or master, the branch you want to publish
 
 generate_docker_image_next:
   stage: generate_docker_image
@@ -69,7 +69,7 @@ generate_docker_image_next:
   variables:
     TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
   only:
-  - dev # or dev, the branch you want to publish
+  - master # or dev, the branch you want to publish
 
 
 redeploy_next:
@@ -87,4 +87,4 @@ redeploy_next:
   # wait a bit for redeployment to happen then monitor the deployment status
   - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
   only:
-  - dev
+  - master
