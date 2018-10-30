@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
-import "./OnCallMessage.css";
+import "./OnCallBanner.css";
 import PropTypes from "prop-types";
 import Timer from "simple-react-timer";
 import { Link } from "react-router-dom";
 import { translate } from "react-i18next";
 
-export class OnCallMessage extends Component {
+export class OnCallBanner extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     recipient: PropTypes.object.isRequired
@@ -23,4 +23,4 @@ export class OnCallMessage extends Component {
   }
 }
 
-export default translate("calls")(OnCallMessage);
+export default translate("calls")(OnCallBanner);

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import OnCallMessage from 'calls/components/OnCallMessage/OnCallMessage'
+import OnCallBanner from "calls/components/OnCallBanner/OnCallBanner";
 
 function mapStateToProps ({calls}) {
   return {
@@ -11,4 +11,4 @@ function mapStateToProps ({calls}) {
 export default withRouter(connect(
   mapStateToProps,
   null
-)(OnCallMessage))
+)(OnCallBanner))

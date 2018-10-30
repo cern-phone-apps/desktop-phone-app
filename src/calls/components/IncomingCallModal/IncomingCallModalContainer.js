@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import CallingModal from "calls/components/CallingModal/CallingModal";
+import IncomingCallModal from "calls/components/IncomingCallModal/IncomingCallModal";
 import {isReceivingCall, rejectIncomingCall} from "calls/actions/call";
 
 /**
@@ -33,12 +33,12 @@ function mapDispatchToProps(dispatch) {
 /**
  * Redux connected Container for CallingModal
  */
-export const CallingModalContainer = connect(
+export const IncomingCallModalContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CallingModal);
+)(IncomingCallModal);
 
 /**
  * Default export is binds phoneService
  */
-export default phoneService(CallingModalContainer);
+export default phoneService(IncomingCallModalContainer);
