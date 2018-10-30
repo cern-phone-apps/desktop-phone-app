@@ -6,10 +6,10 @@ import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
 
 import "./MainPage.css";
 import * as routes from "routes";
-import ModalSettingsContainer from "settings/containers/components/ModalSettings/ModalSettingsContainer";
 import * as loginRoutes from "login/routes";
 import Notifications from "common/components/Notifications/Notifications";
 import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer";
+import SettingsModalContainer from "settings/components/SettingsModal/SettingsModalContainer";
 
 export class MainPage extends Component {
   static propTypes = {
@@ -89,7 +89,7 @@ export class MainPage extends Component {
           vertical
         >
           {this.renderSidebarItems()}
-          <ModalSettingsContainer
+          <SettingsModalContainer
             hideSidebarIfVisible={this.hideSidebarIfVisible}
           />
           <ModalDebugContainer
