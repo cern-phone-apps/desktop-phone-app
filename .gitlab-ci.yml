@@ -1,9 +1,8 @@
 stages:
-- test
-- build
-- generate_docker_image
-- redeploy
-
+  - test
+  - build
+  - generate_docker_image
+  - redeploy
 
 test:
   image: node:8.11
@@ -22,12 +21,12 @@ test:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-    - node_modules/
+      - node_modules/
   before_script:
-  - npm install
+    - npm install
   script:
-  - npm run build
-  - npm test -- --coverage
+    - npm run build
+    - npm test -- --coverage
 
 build_next:
   image: node:8.11
@@ -47,30 +46,29 @@ build_next:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-    - node_modules/
+      - node_modules/
   before_script:
-  - git submodule update --init --recursive --remote
-  - npm install
+    - git submodule update --init --recursive --remote
+    - npm install
   script:
-  - npm run build
+    - npm run build
   artifacts:
     paths:
-    - build # The application is built for production
+      - build # The application is built for production
   only:
-  - master # or master, the branch you want to publish
+    - master # or master, the branch you want to publish
 
 generate_docker_image_next:
   stage: generate_docker_image
   tags:
-  - docker-image-build
+    - docker-image-build
   script: "echo building $CI_REGISTRY_IMAGE/next" # No empty scripts are allowed
   dependencies:
-  - build_next # we'll need the built artifact to build the image
+    - build_next # we'll need the built artifact to build the image
   variables:
     TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
   only:
-  - master # or dev, the branch you want to publish
-
+    - master # or dev, the branch you want to publish
 
 redeploy_next:
   stage: redeploy
@@ -81,10 +79,10 @@ redeploy_next:
     GITLAB_NAMESPACE: dialtone
     OPENSHIFT_SERVER: https://openshift.cern.ch # use https://openshift-dev.cern.ch for a Test site
     OPENSHIFT_NAMESPACE: dial-next # this is the name of your Openshift project (i.e. the site name)
-    OPENSHIFT_APP_NAME: dial-webapp  # this is the name of the ImageStream/DeploymentConfig objects created by oc new-app. Typically, this will be the name of the GitLab project.
+    OPENSHIFT_APP_NAME: dial-webapp # this is the name of the ImageStream/DeploymentConfig objects created by oc new-app. Typically, this will be the name of the GitLab project.
   script:
-  - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/$OPENSHIFT_APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
-  # wait a bit for redeployment to happen then monitor the deployment status
-  - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
+    - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/$OPENSHIFT_APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
+    # wait a bit for redeployment to happen then monitor the deployment status
+    - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
   only:
-  - master
+    - master

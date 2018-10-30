@@ -19,8 +19,7 @@ export const buildRecipient = recipient => {
  * @param props
  * @returns {*}
  */
-export const getWindowTitle = props => {
-  const { connected, onCall, calling } = props;
+export const getWindowTitle = (connected, onCall, calling) => {
 
   let title;
   if (!connected) {
