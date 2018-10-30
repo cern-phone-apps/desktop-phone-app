@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {Grid, Header, Responsive} from 'semantic-ui-react'
 
 import './LeftColumnHeader.css'
-import ToggleButtonContainer from 'common/containers/components/ToggleButton/ToggleButtonContainer'
+import ToggleButtonContainer from 'common/components/ToggleButton/ToggleButtonContainer'
 import ColumnHeader from 'common/components/ColumnHeader/ColumnHeader'
 import ConnectionStatusIconContainer from 'calls/components/ConnectionStatusIcon/ConnectionStatusIconContainer'
-import ErrorMessageContainer from 'common/containers/components/ErrorMessage/ErrorMessageContainer'
+import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer'
 
 class LeftColumnHeader extends Component {
   render () {

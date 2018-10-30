@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 
-import MainPageContainer from 'common/containers/screens/MainPage/MainPageContainer'
+import MainPageContainer from 'common/screens/MainPage/MainPageContainer'
 import RedirectPageContainer from 'login/containers/screens/RedirectPage/RedirectPageContainer'
 import LoginPageContainer from 'login/containers/screens/LoginPage/LoginPageContainer'
 import * as routes from 'routes'

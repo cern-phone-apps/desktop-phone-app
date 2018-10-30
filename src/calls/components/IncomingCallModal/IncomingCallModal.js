@@ -108,7 +108,6 @@ export class IncomingCallModal extends Component {
     callerName: PropTypes.string,
     callerNumber: PropTypes.string,
     isReceivingCall: PropTypes.func.isRequired, // TODO Rename this function
-    rejectOutgoingCall: PropTypes.func.isRequired,
   };
 
   state = { modalOpen: false, modalHidden: false };

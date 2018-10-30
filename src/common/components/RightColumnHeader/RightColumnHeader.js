@@ -3,7 +3,7 @@ import {Button, Grid, Header} from 'semantic-ui-react'
 
 import './RightColumnHeader.css'
 import ColumnHeader from 'common/components/ColumnHeader/ColumnHeader'
-import ErrorMessageContainer from 'common/containers/components/ErrorMessage/ErrorMessageContainer'
+import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer'
 
 class RightColumnHeader extends Component {
 
