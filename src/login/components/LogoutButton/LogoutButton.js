@@ -10,15 +10,16 @@ import { logEvent } from "common/utils";
 export class LogoutButton extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired,
-    color: PropTypes.string
+    color: PropTypes.string,
+    logout: PropTypes.func.isRequired
   };
   /**
    * Fires the logout action
    */
   logoutUser = () => {
+    const {logout} = this.props;
     logEvent("trackEvent", "auth", `logout`);
-    this.props.logout();
+    logout();
   };
 
   render() {

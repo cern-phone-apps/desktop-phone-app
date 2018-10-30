@@ -1,21 +1,21 @@
-import {RSAA} from 'redux-api-middleware'
-import {withAuth, withRefresh} from 'login/reducers/auth'
+import { RSAA } from "redux-api-middleware";
+import { withAuth, withRefresh } from "login/reducers/auth";
 
-export const LOGIN_REQUEST = '@@auth/LOGIN_REQUEST'
-export const LOGIN_SUCCESS = '@@auth/LOGIN_SUCCESS'
-export const LOGIN_FAILURE = '@@auth/LOGIN_FAILURE'
+export const LOGIN_REQUEST = "@@auth/LOGIN_REQUEST";
+export const LOGIN_SUCCESS = "@@auth/LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "@@auth/LOGIN_FAILURE";
 
-export const LOGOUT_REQUEST = '@@auth/LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = '@@auth/LOGOUT_SUCCESS'
-export const LOGOUT_FAILURE = '@@auth/LOGOUT_FAILURE'
+export const LOGOUT_REQUEST = "@@auth/LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS = "@@auth/LOGOUT_SUCCESS";
+export const LOGOUT_FAILURE = "@@auth/LOGOUT_FAILURE";
 
-export const TOKEN_REQUEST = '@@auth/TOKEN_REQUEST'
-export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED'
-export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE'
+export const TOKEN_REQUEST = "@@auth/TOKEN_REQUEST";
+export const TOKEN_RECEIVED = "@@auth/TOKEN_RECEIVED";
+export const TOKEN_FAILURE = "@@auth/TOKEN_FAILURE";
 
-export const buildAuthApiEndpoint = (path) => {
-  return `${process.env.REACT_APP_API_ENDPOINT}${path}`
-}
+export const buildAuthApiEndpoint = path => {
+  return `${process.env.REACT_APP_API_ENDPOINT}${path}`;
+};
 
 /**
  * Action triggered to log the user in the backend API.
@@ -24,20 +24,16 @@ export const buildAuthApiEndpoint = (path) => {
  * @param code A string returned by Oauth to be sent to the backend
  * @returns {{}} A RSAA request with REQUEST, SUCCESS and FAILURE statuses.
  */
-export const login = (code) => ({
+export const login = code => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint('/auth/v1/login/'),
-    method: 'POST',
-    body: JSON.stringify({code, 'type': 'web'}),
-    credentials: 'include',
-    headers: {'Content-Type': 'application/json'},
-    types: [
-      LOGIN_REQUEST,
-      LOGIN_SUCCESS,
-      LOGIN_FAILURE
-    ]
+    endpoint: buildAuthApiEndpoint("/auth/v1/login/"),
+    method: "POST",
+    body: JSON.stringify({ code, type: "web" }),
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
   }
-})
+});
 
 /**
  * Action triggered to logout the user. It makes a DELETE request to the backend API
@@ -48,17 +44,13 @@ export const login = (code) => ({
  */
 export const logout = () => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint('/auth/v1/logout/'),
-    method: 'DELETE',
-    credentials: 'include',
-    headers: withAuth({'Content-Type': 'application/json'}),
-    types: [
-      LOGOUT_REQUEST,
-      LOGOUT_SUCCESS,
-      LOGOUT_FAILURE
-    ]
+    endpoint: buildAuthApiEndpoint("/auth/v1/logout/"),
+    method: "DELETE",
+    credentials: "include",
+    headers: withAuth({ "Content-Type": "application/json" }),
+    types: [LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE]
   }
-})
+});
 
 /**
  * Action triggered to refresh the access token when it has expired.
@@ -68,14 +60,10 @@ export const logout = () => ({
  */
 export const refreshAccessToken = () => ({
   [RSAA]: {
-    endpoint: buildAuthApiEndpoint('/auth/v1/refresh/'),
-    method: 'POST',
-    credentials: 'include',
-    headers: withRefresh({'Content-Type': 'application/json'}),
-    types: [
-      TOKEN_REQUEST,
-      TOKEN_RECEIVED,
-      TOKEN_FAILURE
-    ]
+    endpoint: buildAuthApiEndpoint("/auth/v1/refresh/"),
+    method: "POST",
+    credentials: "include",
+    headers: withRefresh({ "Content-Type": "application/json" }),
+    types: [TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE]
   }
-})
+});

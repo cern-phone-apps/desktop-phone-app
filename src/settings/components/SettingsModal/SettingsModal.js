@@ -8,7 +8,7 @@ import PersonalInfoContainer from "settings/components/PersonalInfo/PersonalInfo
 import LanguageSettings from "settings/components/LanguageSettings/LanguageSettings";
 import AppInfo from "settings/components/AppInfo/AppInfo";
 import NotificationsSettings from "settings/components/NotificationsSettings/NotificationsSettings";
-import LogoutButtonContainer from "login/containers/components/LogoutButton/LogoutButtonContainer";
+import LogoutButtonContainer from "login/components/LogoutButton/LogoutButtonContainer";
 import CallsSettings from "settings/components/CallsSettings/CallsSettings";
 
 const ModalTrigger = ({ onClick }) => {
