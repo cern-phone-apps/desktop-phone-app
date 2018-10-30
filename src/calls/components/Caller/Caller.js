@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 
 import "./Caller.css";
-import UserSearchContainer from "calls/containers/components/UserSearch/UserSearchContainer";
+import UserSearchContainer from "calls/components/UserSearch/UserSearchContainer";
 
 /**
  * Caller Screen. On this screen is where the user makes calls and searches
@@ -14,12 +14,6 @@ export class Caller extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired, // Translate
     displayDialpad: PropTypes.bool.isRequired,
-    toggleDialpad: PropTypes.func.isRequired
-  };
-
-  handleDialPadDisplayButton = () => {
-    const { toggleDialpad, displayDialpad } = this.props;
-    toggleDialpad(!displayDialpad);
   };
 
   render() {
@@ -28,9 +22,7 @@ export class Caller extends Component {
     };
     return (
       <Segment basic style={segmentStyles}>
-        <UserSearchContainer
-          displayDialpadAction={this.handleDialPadDisplayButton}
-        />
+        <UserSearchContainer />
       </Segment>
     );
   }

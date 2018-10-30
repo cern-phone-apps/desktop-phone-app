@@ -10,13 +10,13 @@ function mapStateToProps ({calls}) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    toggleDialpad
-  }, dispatch)
-}
+// function mapDispatchToProps (dispatch) {
+//   return bindActionCreators({
+//     toggleDialpad
+//   }, dispatch)
+// }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Caller)
