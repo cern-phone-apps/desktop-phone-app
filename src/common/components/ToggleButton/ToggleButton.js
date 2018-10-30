@@ -1,28 +1,33 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Button} from 'semantic-ui-react'
+import React from "react";
+import PropTypes from "prop-types";
+import { Button } from "semantic-ui-react";
 
-import './ToggleButton.css'
+import "./ToggleButton.css";
 
 export class ToggleButton extends React.Component {
   static propTypes = {
+    displayTime: PropTypes.number.isRequired,
     displaySidebar: PropTypes.func.isRequired,
-    finishedDisplayingSidebar: PropTypes.func.isRequired,
-    displayTime: PropTypes.number.isRequired
-  }
+    finishedDisplayingSidebar: PropTypes.func.isRequired
+  };
 
   toggleSidebar = () => {
-    this.props.displaySidebar()
+    this.props.displaySidebar();
     setTimeout(() => {
-      this.props.finishedDisplayingSidebar()
-    }, this.props.displayTime)
-  }
+      this.props.finishedDisplayingSidebar();
+    }, this.props.displayTime);
+  };
 
-  render () {
+  render() {
     return (
-      <Button as={'a'} className={'flat'} icon={'sidebar'} onClick={this.toggleSidebar}/>
-    )
+      <Button
+        as={"a"}
+        className={"flat"}
+        icon={"sidebar"}
+        onClick={this.toggleSidebar}
+      />
+    );
   }
 }
 
-export default ToggleButton
+export default ToggleButton;

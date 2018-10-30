@@ -13,12 +13,12 @@ import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer
 
 export class MainPage extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool.isRequired,
     contentDimmed: PropTypes.bool.isRequired,
+    notifications: PropTypes.array,
     hideSidebar: PropTypes.func.isRequired,
-    notifications: PropTypes.array
   };
 
   hideSidebarIfVisible = () => {

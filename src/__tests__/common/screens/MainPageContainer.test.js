@@ -5,7 +5,7 @@ import configureMockStore from "redux-mock-store";
 
 import createHistory from "history/createBrowserHistory";
 import { routerMiddleware } from "react-router-redux";
-import { MainPageContainer } from "common/containers/screens/MainPage/MainPageContainer";
+import { MainPageContainer } from "common/screens/MainPage/MainPageContainer";
 
 const history = createHistory();
 const middlewares = [thunk, routerMiddleware(history)];
@@ -38,9 +38,6 @@ describe("MainPage Container", () => {
       expect.objectContaining({
         isVisible: false,
         contentDimmed: false,
-        displaySidebar: expect.any(Function),
-        displayingSidebar: expect.any(Function),
-        finishedDisplayingSidebar: expect.any(Function),
         hideSidebar: expect.any(Function)
       })
     );
