@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import "./CallLoader.css";
+import "./OutgoingCallLoader.css";
 import { translate } from "react-i18next";
 import PhoneRingingIcon from "calls/components/PhoneRingingIcon/PhoneRingingIcon";
 import { Grid, Segment } from "semantic-ui-react";
@@ -8,7 +8,7 @@ import { Grid, Segment } from "semantic-ui-react";
 /**
  * Displays the screen when making a call
  */
-export class CallLoader extends Component {
+export class OutgoingCallLoader extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired, // Translate service
     phoneService: PropTypes.object.isRequired, // Phone service
@@ -65,4 +65,4 @@ export class CallLoader extends Component {
   }
 }
 
-export default translate("calls")(CallLoader);
+export default translate("calls")(OutgoingCallLoader);

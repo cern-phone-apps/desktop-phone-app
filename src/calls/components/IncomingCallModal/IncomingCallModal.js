@@ -5,7 +5,7 @@ import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import PhoneRingingIcon from "calls/components/PhoneRingingIcon/PhoneRingingIcon";
 import { logMessage } from "common/utils";
 
-import styles from "./CallingModal.css";
+import styles from "./IncomingCallModal.css";
 
 /**
  * Displays the incoming call button banner. It is displayed when the
@@ -99,7 +99,7 @@ CallingModalContent.propTypes = {
 /**
  * Modal displayed when there is an incoming call
  */
-export class CallingModal extends Component {
+export class IncomingCallModal extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired,
@@ -190,4 +190,4 @@ export class CallingModal extends Component {
   }
 }
 
-export default translate("settings")(CallingModal);
+export default translate("settings")(IncomingCallModal);

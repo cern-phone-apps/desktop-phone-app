@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
-import {Grid} from 'semantic-ui-react'
+import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 
-import './ColumnHeader.css'
+import "./ColumnHeader.css";
 
 class ColumnHeader extends Component {
-  render () {
+  render() {
     return (
       <header className="padded-item column-header">
-        <Grid>
-          {this.props.children}
-        </Grid>
+        <Grid>{this.props.children}</Grid>
       </header>
-    )
+    );
   }
 }
 
-export default ColumnHeader
+export default ColumnHeader;

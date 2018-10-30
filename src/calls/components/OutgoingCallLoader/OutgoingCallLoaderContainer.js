@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import CallLoader from "calls/components/CallLoader/CallLoader";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import OutgoingCallLoader  from "calls/components/OutgoingCallLoader/OutgoingCallLoader";
 
 function mapStateToProps({ calls }) {
   return {
@@ -9,9 +9,9 @@ function mapStateToProps({ calls }) {
   };
 }
 
-export const CallLoaderContainer = connect(
+export const OutgoingCallLoaderContainer = connect(
   mapStateToProps,
   null
-)(CallLoader);
+)(OutgoingCallLoader);
 
-export default phoneService(CallLoaderContainer);
+export default phoneService(OutgoingCallLoaderContainer);

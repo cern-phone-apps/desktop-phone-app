@@ -8,8 +8,6 @@ import LeftColumn from "common/components/LeftColumn/LeftColumn";
 import LeftColumnHeader from "common/components/LeftColumnHeader/LeftColumnHeader";
 import RightColumn from "common/components/RightColumn/RightColumn";
 import RecentCallListContainer from "calls/components/RecentCallList/RecentCallListContainer";
-import OnCallMessageContainer from "calls/components/OnCallMessage/OnCallMessageContainer";
-import CallLoaderContainer from "calls/components/CallLoader/CallLoaderContainer";
 import OnCallDetailsContainer from "calls/components/OnCallDetails/OnCallDetailsContainer";
 import CallerContainer from "calls/components/Caller/CallerContainer";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
@@ -17,8 +15,10 @@ import RightColumnHeader from "common/components/RightColumnHeader/RightColumnHe
 import CalleeProfileContainer from "calls/components/CalleeProfile/CalleeProfileContainer";
 import { getWindowTitle } from "calls/utils";
 import DialpadContainer from "calls/components/Dialpad/DialpadContainer";
-import CallingModalContainer from "calls/components/CallingModal/CallingModalContainer";
 import NotConnectedScreen from "calls/components/NotConnectedScreen/NotConnectedScreen";
+import IncomingCallModalContainer from "calls/components/IncomingCallModal/IncomingCallModalContainer";
+import OutgoingCallLoaderContainer from "calls/components/OutgoingCallLoader/OutgoingCallLoaderContainer";
+import OnCallBannerContainer from "calls/components/OnCallBanner/OnCallBannerContainer";
 
 class CallsScreen extends Component {
   static propTypes = {
@@ -78,8 +78,8 @@ class CallsScreen extends Component {
               {...Responsive.onlyTablet}
             />
             <ErrorBoundary>
-              {onCall && <OnCallMessageContainer />}
-              <CallingModalContainer />
+              {onCall && <OnCallBannerContainer />}
+              <IncomingCallModalContainer />
               <Grid padded style={this.styles} className={"CallPage"}>
                 <Grid.Row columns={2} divided style={this.dividedStyles}>
                   <Grid.Column>
@@ -99,7 +99,7 @@ class CallsScreen extends Component {
                         <CalleeProfileContainer />
                       </Grid.Column>
                     )}
-                    {connectedAndCalling && <CallLoaderContainer />}
+                    {connectedAndCalling && <OutgoingCallLoaderContainer />}
                     {connectedAndOnCall && <OnCallDetailsContainer />}
                   </Grid.Column>
                 </Grid.Row>
