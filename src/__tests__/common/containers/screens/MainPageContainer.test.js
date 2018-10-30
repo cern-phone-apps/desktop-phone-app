@@ -1,18 +1,18 @@
-import {shallow} from 'enzyme'
-import React from 'react'
-import thunk from 'redux-thunk'
-import configureMockStore from 'redux-mock-store'
+import { shallow } from "enzyme";
+import React from "react";
+import thunk from "redux-thunk";
+import configureMockStore from "redux-mock-store";
 
-import createHistory from 'history/createBrowserHistory'
-import {routerMiddleware} from 'react-router-redux'
-import {MainPageContainer} from 'common/containers/screens/MainPage/MainPageContainer'
+import createHistory from "history/createBrowserHistory";
+import { routerMiddleware } from "react-router-redux";
+import { MainPageContainer } from "common/containers/screens/MainPage/MainPageContainer";
 
-const history = createHistory()
-const middlewares = [thunk, routerMiddleware(history)]
-const mockStore = configureMockStore(middlewares)
+const history = createHistory();
+const middlewares = [thunk, routerMiddleware(history)];
+const mockStore = configureMockStore(middlewares);
 
-describe('MainPage Container', () => {
-  let wrapper, store
+describe("MainPage Container", () => {
+  let wrapper, store;
 
   let storeContent = {
     common: {
@@ -25,22 +25,24 @@ describe('MainPage Container', () => {
       errors: {},
       loginInProgress: false
     }
-  }
+  };
 
   beforeEach(() => {
-    store = mockStore(storeContent)
-    store.dispatch = jest.fn()
-    wrapper = shallow(<MainPageContainer store={store}/>)
-  })
+    store = mockStore(storeContent);
+    store.dispatch = jest.fn();
+    wrapper = shallow(<MainPageContainer store={store} />);
+  });
 
-  it('maps state and dispatch to props', () => {
-    expect(wrapper.props()).toEqual(expect.objectContaining({
-      isVisible: false,
-      contentDimmed: false,
-      displaySidebar: expect.any(Function),
-      displayingSidebar: expect.any(Function),
-      finishedDisplayingSidebar: expect.any(Function),
-      hideSidebar: expect.any(Function)
-    }))
-  })
-})
+  it("maps state and dispatch to props", () => {
+    expect(wrapper.props()).toEqual(
+      expect.objectContaining({
+        isVisible: false,
+        contentDimmed: false,
+        displaySidebar: expect.any(Function),
+        displayingSidebar: expect.any(Function),
+        finishedDisplayingSidebar: expect.any(Function),
+        hideSidebar: expect.any(Function)
+      })
+    );
+  });
+});

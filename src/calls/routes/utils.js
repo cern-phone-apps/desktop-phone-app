@@ -1,5 +1,5 @@
 import React from "react";
-import CallsScreenContainer from "calls/containers/screens/CallsScreen/CallsScreenContainer";
+import CallsScreenContainer from "calls/screens/CallsScreen/CallsScreenContainer";
 import { callsRoute } from "calls/routes";
 
 export const callsMain = () => {
