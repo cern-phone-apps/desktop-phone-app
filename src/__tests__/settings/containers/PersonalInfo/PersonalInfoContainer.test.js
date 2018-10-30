@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store'
 
 import createHistory from 'history/createBrowserHistory'
 import {routerMiddleware} from 'react-router-redux'
-import PersonalInfoContainer from 'settings/containers/components/PersonalInfo/PersonalInfoContainer'
+import PersonalInfoContainer from 'settings/components/PersonalInfo/PersonalInfoContainer'
 
 const history = createHistory()
 const middlewares = [thunk, routerMiddleware(history)]

@@ -4,7 +4,7 @@ import { translate } from "react-i18next";
 import { Icon, Modal, Menu, Header } from "semantic-ui-react";
 
 import DeviceSettings from "settings/components/DeviceSettings/DeviceSettings";
-import PersonalInfoContainer from "settings/containers/components/PersonalInfo/PersonalInfoContainer";
+import PersonalInfoContainer from "settings/components/PersonalInfo/PersonalInfoContainer";
 import LanguageSettings from "settings/components/LanguageSettings/LanguageSettings";
 import AppInfo from "settings/components/AppInfo/AppInfo";
 import NotificationsSettings from "settings/components/NotificationsSettings/NotificationsSettings";
@@ -29,9 +29,8 @@ ModalTrigger.propTypes = {
  */
 export class SettingsModal extends Component {
   static propTypes = {
-    hideSidebarIfVisible: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    hideSidebarIfVisible: PropTypes.func.isRequired
   };
 
   render() {

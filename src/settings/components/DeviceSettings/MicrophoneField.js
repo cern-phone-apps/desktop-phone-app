@@ -1,38 +1,40 @@
-import PropTypes from 'prop-types'
-import {changeInputDevice} from 'settings/utils/devices'
-import DeviceField, {devicePropTypes} from 'settings/components/DeviceSettings/DeviceField'
-import DetectRTC from 'detectrtc'
+import PropTypes from "prop-types";
+import { changeInputDevice } from "settings/utils/devices";
+import DeviceField, {
+  devicePropTypes
+} from "settings/components/DeviceSettings/DeviceField";
+import DetectRTC from "detectrtc";
 
 export class MicrophoneField extends DeviceField {
   static propTypes = {
     ...devicePropTypes,
+    inputDevice: PropTypes.string,
     setMicrophone: PropTypes.func.isRequired,
-    inputDevice: PropTypes.string
-  }
+  };
 
-  constructor () {
-    super()
-    this.state.hasDevice = false
+  constructor() {
+    super();
+    this.state.hasDevice = false;
     if (this.props && this.props.inputDevice) {
-      this.state.device = this.props.inputDevice
+      this.state.device = this.props.inputDevice;
     }
   }
 
   componentDidMount = () => {
-    super.componentDidMount()
+    super.componentDidMount();
     DetectRTC.load(() => {
       this.setState({
         hasDevice: DetectRTC.hasMicrophone
-      })
-    })
-    changeInputDevice(this.state.device)
-  }
+      });
+    });
+    changeInputDevice(this.state.device);
+  };
 
-  selectDevice = (value) => {
-    this.props.setMicrophone(value)
+  selectDevice = value => {
+    this.props.setMicrophone(value);
     // this.stopStreams()
-    changeInputDevice(value)
-  }
+    changeInputDevice(value);
+  };
 }
 
-export default MicrophoneField
+export default MicrophoneField;

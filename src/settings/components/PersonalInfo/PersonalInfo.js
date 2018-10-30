@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Header} from 'semantic-ui-react'
-import {translate} from 'react-i18next'
-import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
+import React from "react";
+import PropTypes from "prop-types";
+import { Header } from "semantic-ui-react";
+import { translate } from "react-i18next";
+import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 
 /**
  * Generates the user's full name
@@ -11,8 +11,8 @@ import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary'
  * @returns {string}
  */
 const fullName = (firstName, lastName) => {
-  return `${firstName} ${lastName}`
-}
+  return `${firstName} ${lastName}`;
+};
 /**
  * Displays the user's information
  *
@@ -24,23 +24,26 @@ const fullName = (firstName, lastName) => {
  * @returns {*}
  * @constructor
  */
-export const PersonalInfo = ({t, firstName, lastName, username, email}) => {
+export const PersonalInfo = ({ t, firstName, lastName, username, email }) => {
   return (
     <div>
       <ErrorBoundary>
-        <Header as={'h4'}>{t('personalInfo.header')}</Header>
+        <Header as={"h4"}>{t("personalInfo.header")}</Header>
         <ul>
-          <li>{t('personalInfo.name')} {fullName(firstName, lastName)}
+          <li>
+            {t("personalInfo.name")} {fullName(firstName, lastName)}
           </li>
-          <li>{t('personalInfo.username')} {username}
+          <li>
+            {t("personalInfo.username")} {username}
           </li>
-          <li>{t('personalInfo.email')} {email}
+          <li>
+            {t("personalInfo.email")} {email}
           </li>
         </ul>
       </ErrorBoundary>
     </div>
-  )
-}
+  );
+};
 
 PersonalInfo.propTypes = {
   t: PropTypes.func.isRequired,
@@ -48,6 +51,6 @@ PersonalInfo.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired
-}
+};
 
-export default translate('settings')(PersonalInfo)
+export default translate("settings")(PersonalInfo);
