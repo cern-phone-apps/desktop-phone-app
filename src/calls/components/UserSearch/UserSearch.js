@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { logMessage } from "common/utils";
 
 import "./UserSearch.css";
-import { DialpadForm } from "calls/components/Dialpad/DialpadForm";
 import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
+import { DialpadForm } from "calls/components/dialpads/DialpadForm";
+import { Grid, Icon, Menu } from "semantic-ui-react";
+import UserSearchResultsListContainer from "calls/components/UserSearch/UserSearchResultsListContainer";
 
 class UserSearch extends Component {
   static propTypes = {
@@ -23,7 +25,7 @@ class UserSearch extends Component {
 
   state = {
     timeout: 0,
-    activeItem: "inbox",
+    activeItem: "search",
     searchValue: ""
   };
 
@@ -61,7 +63,7 @@ class UserSearch extends Component {
   };
 
   handleSubmit = () => {
-    const { searchUsers, unSelectUser } = this.props;
+    const { searchUsers } = this.props;
 
     const { searchValue } = this.state;
     logMessage(`Starting the search: ${searchValue}`);
@@ -70,7 +72,6 @@ class UserSearch extends Component {
       this.setState({
         isLoading: false
       });
-      unSelectUser();
     });
   };
 
@@ -98,37 +99,55 @@ class UserSearch extends Component {
     updateDialpadValue(event.target.value);
   };
 
-  toggleDialpadValue = () => {
-    logMessage(`Toggle the dialpad value...`);
-    const { toggleDialpad, displayDialpad } = this.props;
-    toggleDialpad(!displayDialpad);
-  };
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { searchValue } = this.state;
-    const { dialpadValue, onCall, calling, displayDialpad } = this.props;
+    const { searchValue, activeItem } = this.state;
+    const { dialpadValue } = this.props;
     const shouldEnableSearch = this.shouldEnableSearch();
+    const gridStyle = {
+      display: "flex",
+      height: "100%",
+      flexDirection: "column"
+    };
 
-    if (displayDialpad) {
-      return (
-        <DialpadForm
-          value={dialpadValue}
-          onChange={this.handleDialpadChange}
-          toggleDialpadVisibility={this.toggleDialpadValue}
-          shouldDisplayDialpad={displayDialpad}
-        />
-      );
-    }
     return (
-      <UserSearchForm
-        enableSearch={shouldEnableSearch}
-        onSubmit={this.handleSubmit}
-        value={searchValue}
-        onChange={this.handleSearchChange}
-        toggleDialpadVisibility={this.toggleDialpadValue}
-        onCall={onCall}
-        calling={calling}
-      />
+      <Grid padded style={gridStyle}>
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <Menu widths={2} size={"mini"}>
+              <Menu.Item
+                name="search"
+                active={activeItem === "search"}
+                onClick={this.handleItemClick}
+              >
+                <Icon name="search" /> Search
+              </Menu.Item>
+              <Menu.Item
+                name="dialpad"
+                active={activeItem === "dialpad"}
+                onClick={this.handleItemClick}
+              >
+                <Icon name="text telephone" /> Dialpad
+              </Menu.Item>
+            </Menu>
+          </Grid.Column>
+        </Grid.Row>
+        {activeItem === "search" && (
+          <UserSearchForm
+            enableSearch={shouldEnableSearch}
+            onSubmit={this.handleSubmit}
+            value={searchValue}
+            onChange={this.handleSearchChange}
+          />
+        )}
+        {activeItem === "dialpad" && (
+          <DialpadForm
+            value={dialpadValue}
+            onChange={this.handleDialpadChange}
+          />
+        )}
+      </Grid>
     );
   }
 }
