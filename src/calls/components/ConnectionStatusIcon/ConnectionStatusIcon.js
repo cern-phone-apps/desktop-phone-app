@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon, Modal } from "semantic-ui-react";
-import DisconnectNumberButtonContainer
-  from "calls/components/DisconnectNumberButton/DisconnectNumberButtonContainer";
+import DisconnectAndLogoutButton from "calls/components/DisconnectAndLogoutButton";
 
 /**
  * Button that displays the connection status
@@ -65,12 +64,12 @@ export class ConnectionStatusIcon extends Component {
             {connected ? (
               <p>
                 If you want to disconnect from TONE, you can use the following
-                button
+                button to logout and login again.
               </p>
             ) : (
               ""
             )}
-            <DisconnectNumberButtonContainer displayMessage={false} />
+            <DisconnectAndLogoutButton color={'red'}/>
           </Modal.Description>
         </Modal.Content>
       </Modal>

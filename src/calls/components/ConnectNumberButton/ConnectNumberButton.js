@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Icon, Loader, Segment } from "semantic-ui-react";
+import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
 import { logMessage } from "common/utils";
 
 const ButtonNumbersList = ({ numbers, connect }) => {
-  if (numbers === undefined || numbers === []) {
-    return "";
-  }
   return (
     <div>
       {numbers.map((item, index) => {
@@ -36,32 +33,45 @@ class ConnectNumberButton extends Component {
     connecting: PropTypes.bool.isRequired,
     numbers: PropTypes.array,
     getUserPhoneNumbers: PropTypes.func.isRequired,
-    setActiveNumber: PropTypes.func.isRequired,
+    setActiveNumber: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    const {getUserPhoneNumbers} = this.props;
+    const { getUserPhoneNumbers } = this.props;
     getUserPhoneNumbers();
   }
 
   connect = activeNumber => {
-    const {phoneService, setActiveNumber} = this.props;
+    const { phoneService, setActiveNumber } = this.props;
 
     setActiveNumber(activeNumber);
-    const result = phoneService.authenticateUser(
-      activeNumber,
-      activeNumber
-    );
+    const result = phoneService.authenticateUser(activeNumber, activeNumber);
     logMessage(result);
   };
 
   render() {
-    const { connecting, numbers } = this.props;
+    let { connecting, numbers } = this.props;
+
+    if (numbers === undefined || numbers.length === 0) {
+      return (
+        <Segment padded basic textAlign={"center"}>
+          <Dimmer active inverted>
+            <Loader
+              active
+              inline="centered"
+              content="Loading phone numbers..."
+            />
+          </Dimmer>
+        </Segment>
+      );
+    }
 
     if (connecting) {
       return (
-        <Segment basic textAlign={"center"}>
-          <Loader active inline="centered" content="Connecting..." />
+        <Segment padded basic textAlign={"center"}>
+          <Dimmer active inverted>
+            <Loader active inline="centered" content="Connecting..." />
+          </Dimmer>
         </Segment>
       );
     }
@@ -70,6 +80,7 @@ class ConnectNumberButton extends Component {
       <ButtonNumbersList
         numbers={numbers}
         connect={this.connect}
+        connecting={connecting}
       />
     );
   }

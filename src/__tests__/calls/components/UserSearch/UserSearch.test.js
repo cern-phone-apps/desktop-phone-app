@@ -24,7 +24,7 @@ describe("UserSearch component", () => {
        toggleDialpad={toggleDialpad}/>
     );
 
-    expect(wrapper.text()).toEqual("<UserSearchForm />");
+    expect(wrapper.text()).toEqual("<Grid />");
     expect(wrapper.debug()).toContain("UserSearchForm");
   });
 
