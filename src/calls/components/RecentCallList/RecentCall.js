@@ -4,6 +4,8 @@ import moment from "moment";
 import { Icon, Item } from "semantic-ui-react";
 import { buildRecipient } from "calls/utils";
 
+import styles from "./RecentCall.module.css";
+
 class RecentCall extends Component {
   static propTypes = {
     recentCall: PropTypes.object.isRequired
@@ -46,19 +48,19 @@ class RecentCall extends Component {
         />
 
         <Item.Content>
-          <Item.Header as={"h4"}>
-            {name} {phoneNumber ? `(${phoneNumber})` : ""}
-          </Item.Header>
-          <Item.Description>
+          <Item.Header className={styles.ItemHeader}>{name}</Item.Header>
+          <Item.Description className={styles.Content}>
             {incoming ? (
               <Icon name={"arrow down"} color={color} />
             ) : (
               <Icon name={"arrow up"} color={color} />
-            )}
+            )} {phoneNumber ? `(${phoneNumber})` : ""}
+          </Item.Description>
+          <Item.Extra className={styles.ExtraContent}>
             <span className="date">
               {printableDate} - {duration.humanize()}
             </span>
-          </Item.Description>
+          </Item.Extra>
         </Item.Content>
       </Item>
     );
