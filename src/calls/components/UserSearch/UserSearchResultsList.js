@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Header, Icon, Loader, Segment, Grid } from "semantic-ui-react";
+import { Header, Icon, Loader, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import "./UserSearch.css";
 import { logMessage } from "common/utils";
-import ScrollableContent from "common/components/ScrollableContent/ScrollableContent";
 
 const UserSearchResult = ({ onClick, item }) => {
   const styles = {

@@ -5,13 +5,13 @@ import configureMockStore from "redux-mock-store";
 
 import createHistory from "history/createBrowserHistory";
 import { routerMiddleware } from "react-router-redux";
-import CalleeProfileContainer from "calls/components/CalleeProfile/CalleeProfileContainer";
+import UserProfile from "calls/components/UserProfile/UserProfileContainer";
 
 const history = createHistory();
 const middlewares = [thunk, routerMiddleware(history)];
 const mockStore = configureMockStore(middlewares);
 
-describe("CalleeProfile Container", () => {
+describe("UserProfile Container", () => {
   let wrapper, store;
 
   let storeContent = {
@@ -34,7 +34,7 @@ describe("CalleeProfile Container", () => {
   beforeEach(() => {
     store = mockStore(storeContent);
     store.dispatch = jest.fn();
-    wrapper = shallow(<CalleeProfileContainer store={store} />);
+    wrapper = shallow(<UserProfile store={store} />);
   });
 
   it("maps state and dispatch to props", () => {

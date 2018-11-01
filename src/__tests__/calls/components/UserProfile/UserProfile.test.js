@@ -1,12 +1,12 @@
 import React from "react";
-import { CalleeProfile } from "calls/components/CalleeProfile/CalleeProfile";
+import {UserProfile} from "calls/components/UserProfile/UserProfile";
 
 describe("CalleeProfile Component tests", () => {
   it("renders CalleeProfile without crashing", () => {
     const unSelectUser = jest.fn();
     const getProfile = jest.fn();
     const wrapper = shallow(
-      <CalleeProfile
+      <UserProfile
         t={key => key}
         fetching={false}
         getUserProfile={getProfile}
