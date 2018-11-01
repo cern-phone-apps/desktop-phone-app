@@ -19,7 +19,7 @@ class CallsScreen extends Component {
       <Grid stackable className={"CallsScreen__Grid"}>
         <RecentCallListContainer />
         {connected && onCall && <OnCallScreen />}
-        {connected && <ConnectedScreen />}
+        {connected && !onCall && <ConnectedScreen />}
         {!connected && <NotConnectedScreen />}
       </Grid>
     );
