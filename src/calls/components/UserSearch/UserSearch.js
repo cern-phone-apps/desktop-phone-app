@@ -6,7 +6,6 @@ import "./UserSearch.css";
 import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
 import { DialpadForm } from "calls/components/dialpads/DialpadForm";
 import { Grid, Icon, Menu } from "semantic-ui-react";
-import UserSearchResultsListContainer from "calls/components/UserSearch/UserSearchResultsListContainer";
 
 class UserSearch extends Component {
   static propTypes = {

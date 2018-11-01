@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import CallModalContainer from "calls/components/call_modals/OutgoingCallModal/index";
@@ -8,7 +8,6 @@ import IncomingCallModalContainer from "calls/components/call_modals/IncomingCal
 import MainHeaderContainer from "calls/components/MainHeader";
 import UserProfileContainer from "calls/components/UserProfile/UserProfileContainer";
 import UserSearchContainer from "calls/components/UserSearch/UserSearchContainer";
-import DialpadContainer from "calls/components/dialpads/DialpadContainer";
 
 export class ConnectedScreen extends Component {
   static propTypes = {
@@ -17,7 +16,6 @@ export class ConnectedScreen extends Component {
   };
 
   styles = { height: "100%" };
-  segmentStyles = { display: "flex", flexDirection: "column" };
   dividedStyles = { paddingTop: "0", paddingBottom: 0 };
 
   render() {
