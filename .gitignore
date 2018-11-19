@@ -28,3 +28,5 @@ mock/rest/*/*/*/mock/response.txt
 /mock/key.pem
 /mock/config.js
 /src/third-party/*
+/cypress/videos/
+/cypress/screenshots/
