@@ -53,7 +53,7 @@ export function stopStreams () {
 }
 
 function gotStream (stream) {
-  console.debug('Got stream ', stream)
+  logMessage('Got stream ', stream)
   let audio = document.querySelector('audio')
   window.stream = stream // make stream available to console
   if (audio) {
@@ -68,7 +68,7 @@ export function changeAudioDestination (element, sinkId = null) {
     console.warn('Audio element does not exist.')
     return
   }
-  console.debug('sinkId:', sinkId)
+  logMessage('sinkId:', sinkId)
 
   if (typeof element.sinkId !== 'undefined') {
     element.setSinkId(sinkId)

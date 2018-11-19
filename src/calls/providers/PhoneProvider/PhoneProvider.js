@@ -91,7 +91,7 @@ class PhoneProvider extends Component {
   };
 
   static async loadDialApi() {
-    console.debug(process.env.REACT_APP_TONE_API_PATH);
+    logMessage(process.env.REACT_APP_TONE_API_PATH);
     const { Dial } = await import(process.env.REACT_APP_TONE_API_PATH);
     return Dial;
   }
@@ -243,7 +243,7 @@ class PhoneProvider extends Component {
    */
   authenticateUser = (username, password) => {
     logEvent("calls", `authenticate`, `user: ${username}.`);
-    console.debug(`Authenticating user: ${username}/*****`);
+    logMessage(`Authenticating user: ${username}/*****`);
     this.setState({ username: username });
     this.props.requestConnection();
     return this.state.dial.authenticate(username, password);
@@ -260,7 +260,7 @@ class PhoneProvider extends Component {
       this.hangUpCurrentCall();
     }
 
-    console.debug("UnAuthenticating user");
+    logMessage("UnAuthenticating user");
     this.props.requestDisconnection(true);
     return this.state.dial.stopAgent();
     // TODO Maybe stopAgent() is not the right method to call

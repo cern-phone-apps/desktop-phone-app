@@ -6,13 +6,14 @@ import {
   TOKEN_RECEIVED
 } from "./login/actions/auth";
 import { getRefreshToken, isAccessTokenExpired } from "./login/reducers/auth";
+import { logMessage } from "common/utils";
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
     // Run postponed actions after token refresh
     if (nextAction.type === TOKEN_RECEIVED) {
-      console.debug("nextCheckPostponed");
-      console.debug(nextAction.type);
+      logMessage("nextCheckPostponed");
+      logMessage(nextAction.type);
       next(nextAction);
       postponedRSAAs.forEach(postponed => {
         rsaaMiddleware(next)(postponed);
@@ -44,9 +45,9 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
       }
 
       if (refreshToken && isAccessTokenExpired()) {
-        console.debug("Access token is expired but we have refresh token");
+        logMessage("Access token is expired but we have refresh token");
         postponedRSAAs.push(action);
-        console.debug("postponed RSAAs: ", postponedRSAAs);
+        logMessage("postponed RSAAs: ", postponedRSAAs);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(refreshAccessToken());
         } else {
