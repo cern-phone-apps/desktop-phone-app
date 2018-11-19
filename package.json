@@ -12,7 +12,12 @@
     "test": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient NODE_PATH=./src react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "test:staged": "cross-env CI=true NODE_PATH=./src REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests"
+    "test:staged": "cross-env CI=true NODE_PATH=./src REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests",
+    "cypress:open": "cypress open",
+    "cypress:verify": "cypress verify",
+    "cypress:version": "cypress version",
+    "cypress:run": "cypress run",
+    "cypress:run:record": "cypress run --record"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -64,6 +69,7 @@
     "babel": "^6.23.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "cross-env": "^5.1.5",
+    "cypress": "^3.1.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.6.0",
