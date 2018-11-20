@@ -30,8 +30,9 @@ install:
   - npm ci
   - npm run cypress:verify
 
-# all jobs that actually run tests can use the same definition
-.job_template: &job
+# actual job definitions
+# all steps are the same, they come from the template above
+integration_test:
   image: cypress/base:10
   stage: test
   script:
@@ -40,22 +41,10 @@ install:
   # start the server in the background
   - npm start -- --silent &
   # run Cypress test in load balancing mode, pass id to tie jobs together
-  - npm run cypress:run:record -- --parallel --ci-build-id $CI_PIPELINE_ID --group electrons
+  - npm run cypress:run:record
 
-# actual job definitions
-# all steps are the same, they come from the template above
-electrons-1:
-  <<: *job
-electrons-2:
-  <<: *job
-electrons-3:
-  <<: *job
-electrons-4:
-  <<: *job
-electrons-5:
-  <<: *job
 
-test:
+unit_test:
   image: node:10
   stage: unit_test
   variables:
