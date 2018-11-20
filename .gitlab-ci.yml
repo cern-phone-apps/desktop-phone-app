@@ -33,7 +33,7 @@ cache:
 
 # this job installs NPM dependencies and Cypress
 install:
-  image: node:10
+  image: cypress:10
   stage: install
   script:
   - npm ci
