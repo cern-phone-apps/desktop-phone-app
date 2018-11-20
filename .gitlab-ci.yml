@@ -8,11 +8,10 @@ stages:
 # to cache both npm modules and Cypress binary we use environment variables
 # to point at the folders we can list as paths in "cache" job settings
 variables:
+  # Integration test variables
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
-  #
   # Testing variables
-  #
   REACT_APP_API_ENDPOINT: "https://hostname"
   REACT_APP_OAUTH_ENABLED: "false"
   REACT_APP_OAUTH_CLIENT_ID: "test"
@@ -38,7 +37,6 @@ install:
   stage: install
   script:
   - npm ci
-  - npm run build
   - npm run cypress:verify
 
 # actual job definitions
@@ -59,6 +57,7 @@ unit_test:
   image: node:10
   stage: test
   script:
+  - npm run build
   - npm test -- --coverage
 
 #
