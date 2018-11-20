@@ -38,9 +38,9 @@ install:
   # print CI environment variables for reference
   #- $(npm bin)/print-env CI
   # start the server in the background
-  - npm run start:ci &
+  - npm start -- --silent &
   # run Cypress test in load balancing mode, pass id to tie jobs together
-  - npm run cypress:record -- --parallel --ci-build-id $CI_PIPELINE_ID --group electrons
+  - npm run cypress:run:record -- --parallel --ci-build-id $CI_PIPELINE_ID --group electrons
 
 # actual job definitions
 # all steps are the same, they come from the template above
