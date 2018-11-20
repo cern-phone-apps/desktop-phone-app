@@ -28,7 +28,7 @@ install:
 
   script:
   - npm ci
-  - npm run cy:verify
+  - npm run cypress:verify
 
 # all jobs that actually run tests can use the same definition
 .job_template: &job
@@ -40,7 +40,7 @@ install:
   # start the server in the background
   - npm run start:ci &
   # run Cypress test in load balancing mode, pass id to tie jobs together
-  - npm run e2e:record -- --parallel --ci-build-id $CI_PIPELINE_ID --group electrons
+  - npm run cypress:record -- --parallel --ci-build-id $CI_PIPELINE_ID --group electrons
 
 # actual job definitions
 # all steps are the same, they come from the template above
