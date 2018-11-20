@@ -1,7 +1,7 @@
 stages:
 - install
-- unit_test
 - test
+- unit_test
 - build
 - generate_docker_image
 - redeploy
@@ -56,7 +56,7 @@ electrons-5:
   <<: *job
 
 test:
-  image: node:8.11
+  image: node:10
   stage: unit_test
   variables:
     REACT_APP_API_ENDPOINT: "https://hostname"
@@ -80,7 +80,7 @@ test:
   - npm test -- --coverage
 
 build_next:
-  image: node:8.11
+  image: node:10
   stage: build
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
