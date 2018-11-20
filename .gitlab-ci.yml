@@ -1,12 +1,63 @@
 stages:
-  - test
-  - build
-  - generate_docker_image
-  - redeploy
+- install
+- unit_test
+- test
+- build
+- generate_docker_image
+- redeploy
+
+# to cache both npm modules and Cypress binary we use environment variables
+# to point at the folders we can list as paths in "cache" job settings
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+# cache using branch name
+# https://gitlab.com/help/ci/caching/index.md
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - .npm
+  - cache/Cypress
+  - node_modules
+
+# this job installs NPM dependencies and Cypress
+install:
+  image: cypress/base:10
+  stage: install
+
+  script:
+  - npm ci
+  - npm run cy:verify
+
+# all jobs that actually run tests can use the same definition
+.job_template: &job
+  image: cypress/base:10
+  stage: test
+  script:
+  # print CI environment variables for reference
+  #- $(npm bin)/print-env CI
+  # start the server in the background
+  - npm run start:ci &
+  # run Cypress test in load balancing mode, pass id to tie jobs together
+  - npm run e2e:record -- --parallel --ci-build-id $CI_PIPELINE_ID --group electrons
+
+# actual job definitions
+# all steps are the same, they come from the template above
+electrons-1:
+  <<: *job
+electrons-2:
+  <<: *job
+electrons-3:
+  <<: *job
+electrons-4:
+  <<: *job
+electrons-5:
+  <<: *job
 
 test:
   image: node:8.11
-  stage: test
+  stage: unit_test
   variables:
     REACT_APP_API_ENDPOINT: "https://hostname"
     REACT_APP_OAUTH_ENABLED: "false"
@@ -21,12 +72,12 @@ test:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-      - node_modules/
+    - node_modules/
   before_script:
-    - npm install
+  - npm install
   script:
-    - npm run build
-    - npm test -- --coverage
+  - npm run build
+  - npm test -- --coverage
 
 build_next:
   image: node:8.11
@@ -46,29 +97,29 @@ build_next:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-      - node_modules/
+    - node_modules/
   before_script:
-    - git submodule update --init --recursive --remote
-    - npm install
+  - git submodule update --init --recursive --remote
+  - npm install
   script:
-    - npm run build
+  - npm run build
   artifacts:
     paths:
-      - build # The application is built for production
+    - build # The application is built for production
   only:
-    - master # or master, the branch you want to publish
+  - master # or master, the branch you want to publish
 
 generate_docker_image_next:
   stage: generate_docker_image
   tags:
-    - docker-image-build
+  - docker-image-build
   script: "echo building $CI_REGISTRY_IMAGE/next" # No empty scripts are allowed
   dependencies:
-    - build_next # we'll need the built artifact to build the image
+  - build_next # we'll need the built artifact to build the image
   variables:
     TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
   only:
-    - master # or dev, the branch you want to publish
+  - master # or dev, the branch you want to publish
 
 redeploy_next:
   stage: redeploy
@@ -81,8 +132,8 @@ redeploy_next:
     OPENSHIFT_NAMESPACE: dial-next # this is the name of your Openshift project (i.e. the site name)
     OPENSHIFT_APP_NAME: dial-webapp # this is the name of the ImageStream/DeploymentConfig objects created by oc new-app. Typically, this will be the name of the GitLab project.
   script:
-    - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/$OPENSHIFT_APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
-    # wait a bit for redeployment to happen then monitor the deployment status
-    - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/$OPENSHIFT_APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  # wait a bit for redeployment to happen then monitor the deployment status
+  - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
   only:
-    - master
+  - master
