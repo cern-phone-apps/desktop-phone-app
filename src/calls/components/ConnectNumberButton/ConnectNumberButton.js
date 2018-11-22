@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
 import { logMessage } from "common/utils";
+import LogoutButtonContainer from "login/components/LogoutButton/LogoutButtonContainer";
+import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
 
 const ButtonNumbersList = ({ numbers, connect }) => {
   return (
@@ -27,6 +29,9 @@ ButtonNumbersList.propTypes = {
   connect: PropTypes.func.isRequired
 };
 
+/**
+ * Button to connect a user phone number
+ */
 class ConnectNumberButton extends Component {
   static propTypes = {
     phoneService: PropTypes.object.isRequired, // Phone Service
@@ -77,11 +82,16 @@ class ConnectNumberButton extends Component {
     }
 
     return (
-      <ButtonNumbersList
-        numbers={numbers}
-        connect={this.connect}
-        connecting={connecting}
-      />
+      <div>
+        <ErrorMessageContainer />
+        <ButtonNumbersList
+          numbers={numbers}
+          connect={this.connect}
+          connecting={connecting}
+        />
+        <hr />
+        <LogoutButtonContainer color={"red"} />
+      </div>
     );
   }
 }
