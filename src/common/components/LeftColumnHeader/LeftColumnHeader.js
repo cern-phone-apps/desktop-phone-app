@@ -5,7 +5,7 @@ import "./LeftColumnHeader.css";
 import ToggleButtonContainer from "common/components/ToggleButton/ToggleButtonContainer";
 import ColumnHeader from "common/components/ColumnHeader/ColumnHeader";
 import ConnectionStatusIconContainer from "calls/components/ConnectionStatusIcon/index";
-import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
+import ErrorButtonContainer from "common/components/ErrorButton/ErrorButtonContainer";
 
 class LeftColumnHeader extends Component {
 
@@ -33,7 +33,7 @@ class LeftColumnHeader extends Component {
             <Header as={"h4"}>
               {title}{" "}
               <Responsive
-                as={ErrorMessageContainer}
+                as={ErrorButtonContainer}
                 {...Responsive.onlyMobile}
               />
             </Header>
