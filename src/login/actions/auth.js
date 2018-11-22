@@ -13,6 +13,8 @@ export const TOKEN_REQUEST = "@@auth/TOKEN_REQUEST";
 export const TOKEN_RECEIVED = "@@auth/TOKEN_RECEIVED";
 export const TOKEN_FAILURE = "@@auth/TOKEN_FAILURE";
 
+export const CLEAR_TOKEN = "@@auth/CLEAR_TOKEN";
+
 export const buildAuthApiEndpoint = path => {
   return `${process.env.REACT_APP_API_ENDPOINT}${path}`;
 };
@@ -67,3 +69,15 @@ export const refreshAccessToken = () => ({
     types: [TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE]
   }
 });
+
+
+/**
+ * Action triggered when a call is taking place.
+ *
+ * @returns {{type: string}} A dict
+ */
+export function clearToken () {
+  return {
+    type: CLEAR_TOKEN
+  }
+}

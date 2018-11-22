@@ -4,9 +4,9 @@ context("Home", () => {
   // });
 
   // https://on.cypress.io/interacting-with-elements
-
+s
   it("redirects to login if not logged in", () => {
-    cy.visit("https://macbook-cdaic.cern.ch:3000");
+    cy.visit("https://localhost:3000");
     cy.url().should('include', '/login');
   });
 
