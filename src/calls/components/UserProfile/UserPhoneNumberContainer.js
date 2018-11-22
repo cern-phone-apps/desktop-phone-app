@@ -7,7 +7,6 @@ import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 function mapStateToProps({ calls }) {
   return {
-    unSelectUser: calls.search.unSelectUser,
     calling: calls.call.calling
   };
 }
