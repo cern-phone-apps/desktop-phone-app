@@ -7,6 +7,7 @@ import * as connectionActionCreators from "calls/actions/connection";
 import * as callActionCreators from "calls/actions/call";
 import * as recentActionCreators from "calls/actions/recent";
 import * as searchActionCreators from "calls/actions/search";
+import * as authActionCreators from "login/actions/auth";
 import { errorMessage, logEvent, logMessage } from "common/utils";
 import { success, info, warning } from "common/actions/notifications";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
@@ -36,6 +37,9 @@ export const phoneService = ComponentToWrap => {
  */
 class PhoneProvider extends Component {
   static propTypes = {
+    onCall: PropTypes.bool.isRequired,
+    recipient: PropTypes.object,
+    token: PropTypes.object,
     children: PropTypes.node,
     requestConnection: PropTypes.func,
     setConnectionFailure: PropTypes.func,
@@ -47,7 +51,6 @@ class PhoneProvider extends Component {
     isCalling: PropTypes.func,
     isReceivingCall: PropTypes.func,
     callFailed: PropTypes.func,
-    recipient: PropTypes.object,
     success: PropTypes.func,
     info: PropTypes.func,
     warning: PropTypes.func,
@@ -56,8 +59,8 @@ class PhoneProvider extends Component {
     acceptOutgoingCall: PropTypes.func.isRequired,
     hangupCall: PropTypes.func.isRequired,
     endSearch: PropTypes.func.isRequired,
-    onCall: PropTypes.bool.isRequired,
-    rejectIncomingCall: PropTypes.func.isRequired
+    rejectIncomingCall: PropTypes.func.isRequired,
+    clearToken: PropTypes.func.isRequired
   };
 
   state = {
@@ -186,13 +189,14 @@ class PhoneProvider extends Component {
       case "registered":
         this.props.success(this.registeredNotificationOpts);
         this.props.setConnected();
+        this.props.clearToken();
         break;
       case "unregistered":
         this.props.warning(this.unRegisteredNotificationOpts);
         this.props.setDisconnected();
         break;
       case "registrationFailed":
-        this.props.setConnectionFailure(event.detail.error);
+        this.props.setConnectionFailure(tempFailedMessage);
         break;
       // Calls
       case "progress":
@@ -219,7 +223,7 @@ class PhoneProvider extends Component {
         this.props.callFailed(tempFailedMessage);
         break;
 
-      case "invite":
+      case "inviteReceived":
         logMessage(event.data);
         this.receiveCall(event.data);
         break;
@@ -239,18 +243,24 @@ class PhoneProvider extends Component {
    * Authenticates the user using the Telephony API
    * @param username
    * @param password
+   * @param token
    * @returns {boolean|void|*}
    */
   authenticateUser = (username, password) => {
+
+    const {token, requestConnection} = this.props;
+
     logEvent("calls", `authenticate`, `user: ${username}.`);
     logMessage(`Authenticating user: ${username}/*****`);
     this.setState({ username: username });
-    this.props.requestConnection();
-    return this.state.dial.authenticate(username, password);
+    requestConnection();
+    this.state.dial.authenticate(username, password, JSON.stringify(token));
+    // TODO The ideal thing here is to know if the authentication succeeded
+
   };
 
   /**
-   * Unauthenticates the user
+   * Logs the user out of TONE
    */
   unAuthenticateUser = () => {
     logEvent("calls", `unAuthenticate`, `user: ${this.state.username}.`);
@@ -338,6 +348,7 @@ class PhoneProvider extends Component {
     logMessage("Accepting incoming call");
     this.stopRingTone();
     acceptIncomingCall();
+    this.state.dial.answer();
   };
 
   /**
@@ -369,10 +380,11 @@ PhoneProvider.childContextTypes = {
   phoneService: PropTypes.object.isRequired
 };
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ calls, auth }) {
   return {
     recipient: calls.call ? calls.call.recipient : undefined,
-    onCall: calls.call ? calls.call.onCall : false
+    onCall: calls.call ? calls.call.onCall : false,
+    token: auth.token
   };
 }
 
@@ -383,6 +395,7 @@ function mapDispatchToProps(dispatch) {
       ...callActionCreators,
       ...recentActionCreators,
       ...searchActionCreators,
+      ...authActionCreators,
       success,
       info,
       warning
