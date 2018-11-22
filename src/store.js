@@ -13,12 +13,14 @@ const createCustomStore = history => {
     "connection",
     "search",
     "call",
-    "dialpad"
+    "dialpad",
   ]);
 
   const blacklistLoginFilter = createBlacklistFilter("auth", [
     "loginInProgress",
-    "error"
+    "error",
+    "loggedIn",
+    "token"
   ]);
 
   const blacklistCommonFilter = createBlacklistFilter("common", [

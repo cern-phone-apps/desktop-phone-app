@@ -1,59 +1,71 @@
-import * as authActions from 'login/actions/auth'
-import Cookies from 'js-cookie'
-import {logMessage} from 'common/utils'
+import * as authActions from "login/actions/auth";
+import Cookies from "js-cookie";
+import { logMessage } from "common/utils";
 
 const initialState = {
   loggedIn: false,
+  token: undefined,
   loginInProgress: false,
   errors: {}
-}
+};
 
 /**
  * Gets the access token csrf from the cookies
  * @returns {*|{}} The cookie value
  */
-export function getAccessToken () {
-  return Cookies.get('csrf_access_token')
+export function getAccessToken() {
+  return Cookies.get("csrf_access_token");
 }
 
 /**
  * Checks if the access token csrf cookie is present (not expired) or not present (expired)
  * @returns {boolean} (true|false)
  */
-export function isAccessTokenExpired () {
-  return !getAccessToken()
+export function isAccessTokenExpired() {
+  return !getAccessToken();
 }
 
 /**
  * Gets the refresh token csrf from the cookies
  * @returns {*|{}} The cookie value
  */
-export function getRefreshToken () {
-  return Cookies.get('csrf_refresh_token')
+export function getRefreshToken() {
+  return Cookies.get("csrf_refresh_token");
 }
 
 /**
  * Checks if the refresh token csrf cookie is present (not expired) or not present (expired)
  * @returns {boolean} (true|false)
  */
-export function isRefreshTokenExpired () {
-  return !getRefreshToken()
+export function isRefreshTokenExpired() {
+  return !getRefreshToken();
 }
 
 /**
  * Checks if the user is authenticated on the application. Refresh token must be present.
  * @returns {boolean} (true|false)
  */
-export function isAuthenticated (state) {
-  const refreshToken = !isRefreshTokenExpired()
-  const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED
-  const loggedIn = state.loggedIn
+export function isAuthenticated(state) {
+  const refreshToken = !isRefreshTokenExpired();
+  const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED;
+  const loggedIn = state.loggedIn? state.loggedIn : false;
 
-  if (isOauthEnabled === 'false' && loggedIn === true) {
-    return true
+  logMessage(`LoggedIn is ${loggedIn}`);
+  logMessage(`isOauthEnabled is ${isOauthEnabled}`);
+
+  if (isOauthEnabled === "false" && loggedIn === true) {
+    return true;
   }
 
-  return refreshToken
+  // This check will log the user out every time the page loads.
+  // For now we want to log the user in every time the application starts
+  // to let him/her choose a new phone number.
+  // It works in combination with the redux store blacklist for auth
+  if(loggedIn === false){
+    return false
+  }
+
+  return refreshToken;
 }
 
 /**
@@ -61,8 +73,8 @@ export function isAuthenticated (state) {
  * @param state An state dict
  * @returns {*} A dict of errors
  */
-export function errors (state) {
-  return state.errors
+export function errors(state) {
+  return state.errors;
 }
 
 /**
@@ -71,11 +83,11 @@ export function errors (state) {
  * @returns {function(*): {'X-CSRF-TOKEN': (*|{})}} A function that returns a dict with
  * the new headers
  */
-export function withAuth (headers = {}) {
-  return (state) => ({
+export function withAuth(headers = {}) {
+  return state => ({
     ...headers,
-    'X-CSRF-TOKEN': getAccessToken()
-  })
+    "X-CSRF-TOKEN": getAccessToken()
+  });
 }
 
 /**
@@ -84,47 +96,46 @@ export function withAuth (headers = {}) {
  * @returns {function(*): {'X-CSRF-TOKEN': (*|{})}} A function that returns a dict with
  * the new headers
  */
-export function withRefresh (headers = {}) {
-  return (state) => ({
+export function withRefresh(headers = {}) {
+  return state => ({
     ...headers,
-    'X-CSRF-TOKEN': getRefreshToken()
-  })
+    "X-CSRF-TOKEN": getRefreshToken()
+  });
 }
 
 const clearCookies = () => {
-  Cookies.remove('csrf_refresh_token')
-  Cookies.remove('csrf_access_token')
-}
+  Cookies.remove("csrf_refresh_token");
+  Cookies.remove("csrf_access_token");
+};
 
-function handleErrorWithToken (state, action) {
-  logMessage(action)
-  let message
-  let statusCode
-  if(action.payload.message){
-    if(action.payload.name === "RequestError") {
-      message = "Dial backend is not currently available."
-      statusCode = 31
-
-    }else if(action.payload.name === "ApiError"){
-      message = action.payload.message
-      statusCode = (action.payload.status? action.payload.status : -1)
-    }else{
-      message = action.payload.message
-      statusCode = -1
+function handleErrorWithToken(state, action) {
+  logMessage(action);
+  let message;
+  let statusCode;
+  if (action.payload.message) {
+    if (action.payload.name === "RequestError") {
+      message = "Dial backend is not currently available.";
+      statusCode = 31;
+    } else if (action.payload.name === "ApiError") {
+      message = action.payload.message;
+      statusCode = action.payload.status ? action.payload.status : -1;
+    } else {
+      message = action.payload.message;
+      statusCode = -1;
     }
-  }else{
-    message = "Unknown error"
-    statusCode = 999
+  } else {
+    message = "Unknown error";
+    statusCode = 999;
   }
 
-  clearCookies()
+  clearCookies();
 
   return {
     ...state,
     loggedIn: false,
     loginInProgress: false,
-    error: {message: message, statusCode: statusCode}
-  }
+    error: { message: message, statusCode: statusCode }
+  };
 }
 
 /**
@@ -138,33 +149,40 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case authActions.LOGIN_REQUEST:
     case authActions.TOKEN_REQUEST:
-      if(action.error){
-        return handleErrorWithToken (state, action)
+      if (action.error) {
+        return handleErrorWithToken(state, action);
       }
       return {
         ...state,
         loginInProgress: true
-      }
+      };
     case authActions.LOGIN_SUCCESS:
     case authActions.TOKEN_RECEIVED:
       return {
         ...state,
         loggedIn: action.payload.login,
+        token: action.payload.token,
         loginInProgress: false,
         errors: {}
-      }
+      };
     case authActions.LOGIN_FAILURE:
     case authActions.TOKEN_FAILURE:
-      return handleErrorWithToken(state, action)
+      return handleErrorWithToken(state, action);
     case authActions.LOGOUT_SUCCESS:
-      clearCookies()
+      clearCookies();
       return {
         ...state,
         loggedIn: false,
+        token: undefined,
         loginInProgress: false,
         errors: {}
-      }
+      };
+    case authActions.CLEAR_TOKEN:
+      return {
+        ...state,
+        token: undefined,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
