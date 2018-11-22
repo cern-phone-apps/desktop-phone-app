@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { makeCall } from "calls/actions/call";
 import {updateDialpadValue} from "calls/actions/dialpad";
 import { CallerDialpad } from "./CallerDialpad";
+import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import { unSelectUser } from "calls/actions/search";
 
 function mapStateToProps({ calls }) {
   return {
@@ -15,13 +17,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       makeCall,
-      updateDialpadValue
+      updateDialpadValue,
+      unSelectUser
     },
     dispatch
   );
 }
 
-export default connect(
+export const ConnectedDialpad =  connect(
   mapStateToProps,
   mapDispatchToProps
 )(CallerDialpad);
+
+export default phoneService(ConnectedDialpad)
