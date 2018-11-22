@@ -3,6 +3,7 @@ import { Grid, Icon, Segment } from "semantic-ui-react";
 import React from "react";
 import {DialButton} from "calls/components/dialpads/DialButton";
 import Dialpad from "calls/components/dialpads/Dialpad";
+import { buildRecipient } from "calls/utils";
 
 /**
  * Represents the Call Button on the DialPad
@@ -25,15 +26,23 @@ CallButton.propTypes = {
 
 export class CallerDialpad extends Dialpad {
   static propTypes = {
-    makeCall: PropTypes.func.isRequired
+    phoneService: PropTypes.object.isRequired,
+    unSelectUser: PropTypes.func.isRequired,
   };
 
   makeCall = () => {
-    this.props.makeCall({
+    // this.props.makeCall({
+    //   name: "Unknown",
+    //   phoneNumber: this.props.dialpadValue,
+    //   startTime: Date.now()
+    // });
+    const recipient = {
       name: "Unknown",
-      phoneNumber: this.props.dialpadValue,
-      startTime: Date.now()
-    });
+      phoneNumber: this.props.dialpadValue
+    };
+
+    this.props.unSelectUser();
+    this.props.phoneService.makeCall(buildRecipient(recipient));
   };
 
   render () {
