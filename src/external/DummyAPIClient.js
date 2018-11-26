@@ -1,71 +1,76 @@
-const EventEmitter = require('events');
+const EventEmitter = require("events");
 export class DialNotifier extends EventEmitter {}
 
 export class Dial {
-  static _buildEvent (name, data) {
+  static _buildEvent(name, data) {
     return {
-      'name': name,
-      'data': data
-    }
+      name: name,
+      data: data
+    };
   }
 
-  constructor (media) {
-    this.media = media
+  constructor(media) {
+    this.media = media;
     this.dialNotifier = new DialNotifier();
   }
 
-  static buildEvent (name, data, errorCode = 0, errorMsg = undefined) {
+  static buildEvent(name, data, errorCode = 0, errorMsg = undefined) {
     let event = {
-      'name': name,
-      'data': data
-    }
+      name: name,
+      data: data
+    };
     if (errorCode) {
       event.error = {
-        'code': errorCode,
-        'description': errorMsg
-      }
+        code: errorCode,
+        description: errorMsg
+      };
     }
-    return event
+    return event;
   }
 
-  sendEvent (event) {
-    this.dialNotifier.emit('ToneEvent',event);
+  sendEvent(event) {
+    this.dialNotifier.emit("ToneEvent", event);
   }
 
-  getNotifier () {
-    return this.dialNotifier
+  getNotifier() {
+    return this.dialNotifier;
   }
 
-  authenticate (user, password) {
+  authenticate(user, password) {
     if (user && password) {
       setTimeout(() => {
-        const event = Dial.buildEvent('registered', {})
-        this.sendEvent(event)
-      }, 2000)
-    } else throw Error('Cannot authenticate. Password or User not set.')
+        const event = Dial.buildEvent("registered", {});
+        this.sendEvent(event);
+      }, 2000);
+    } else throw Error("Cannot authenticate. Password or User not set.");
   }
 
-  call (callee) {
+  call(callee) {
     if (!this.media) {
-      throw Error('Cannot launch call. Media element not set.')
+      throw Error("Cannot launch call. Media element not set.");
     }
     setTimeout(() => {
-      const event = Dial.buildEvent('accepted', {})
-      this.sendEvent(event)
-    }, 2000)
+      const event = Dial.buildEvent("accepted", {});
+      this.sendEvent(event);
+    }, 2000);
   }
 
-  hangUp () {
-    const event = Dial.buildEvent('terminated', {})
-    this.sendEvent(event)
+  hangUp() {
+    const event = Dial.buildEvent("terminated", {});
+    this.sendEvent(event);
+  }
+
+  answer() {
+    const event = Dial.buildEvent("Invite accepted", {});
+    this.sendEvent(event);
   }
 
   stopAgent = () => {
     setTimeout(() => {
-      const response = {}
-      const cause = {}
-      const event = Dial.buildEvent('unregistered', {}, cause, response)
-      this.sendEvent(event)
-    }, 2000)
-  }
+      const response = {};
+      const cause = {};
+      const event = Dial.buildEvent("unregistered", {}, cause, response);
+      this.sendEvent(event);
+    }, 2000);
+  };
 }

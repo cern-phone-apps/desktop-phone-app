@@ -1,52 +1,65 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { Menu, Modal, Icon, Button } from 'semantic-ui-react'
-import { logMessage } from 'common/utils'
-import { phoneService } from 'calls/providers/PhoneProvider/PhoneProvider'
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { Menu, Modal, Icon, Button } from "semantic-ui-react";
+import { logMessage } from "common/utils";
+import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 const ModalTrigger = ({ onClick }) => {
   return (
-    <Menu.Item onClick={onClick} name={'bug'}>
-      <Icon name={'bug'} />
-      {'Debug'}
+    <Menu.Item onClick={onClick} name={"bug"}>
+      <Icon name={"bug"} />
+      {"Debug"}
     </Menu.Item>
-  )
-}
+  );
+};
 
 ModalTrigger.propTypes = {
   onClick: PropTypes.func.isRequired
-}
+};
 
 class ModalDebug extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
     hideSidebarIfVisible: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired
-  }
+  };
+
+  state = { open: false };
+
+  close = () => this.setState({ open: false });
 
   receiveCall = () => {
-    const { phoneService } = this.props
-    logMessage('Receiving call in some seconds')
+    const { phoneService } = this.props;
+    logMessage("Receiving call in some seconds");
     phoneService.eventHandler({
-      name: 'invite',
+      name: "inviteReceived",
       data: {
-        callerNumber: '555 444 333',
-        callerName: 'John Doe'
+        callerNumber: "555 444 333",
+        callerName: "John Doe"
       }
-    })
-  }
+    });
+    this.close();
+  };
 
-  render () {
-    const { connected } = this.props
+  openModal = () => {
+    const { hideSidebarIfVisible } = this.props;
+    hideSidebarIfVisible();
+    this.setState({ open: true });
+  };
+
+  render() {
+    const { connected } = this.props;
+    const { open } = this.state;
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
     return (
       <Modal
-        size={'large'}
-        dimmer={'blurring'}
+        open={open}
+        size={"large"}
+        dimmer={"blurring"}
         closeIcon
-        trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible} />}
+        trigger={<ModalTrigger onClick={this.openModal} />}
       >
-        <Modal.Header>{'Debug'}</Modal.Header>
+        <Modal.Header>{"Debug"}</Modal.Header>
         <Modal.Content scrolling>
           <Modal.Description>
             <p>{`This is the Ddebug content`}</p>
@@ -56,10 +69,10 @@ class ModalDebug extends Component {
           </Modal.Description>
         </Modal.Content>
       </Modal>
-    )
+    );
   }
 }
 
-ModalDebug.propTypes = {}
+ModalDebug.propTypes = {};
 
-export default phoneService(ModalDebug)
+export default phoneService(ModalDebug);
