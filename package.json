@@ -17,7 +17,7 @@
     "precommit": "lint-staged",
     "test:staged": "cross-env CI=true NODE_PATH=./src REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests",
     "cypress:open": "cypress open",
-    "cypress:mock": "node cypress/utils/mock_server.js --port 7075",
+    "mock-server": "node cypress/utils/mock_server.js --port 7075",
     "cypress:verify": "cypress verify",
     "cypress:version": "cypress version",
     "cypress:run": "cypress run",
