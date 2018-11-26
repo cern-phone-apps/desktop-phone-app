@@ -5,10 +5,9 @@
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
-    "start-js:secure": "HTTPS=true react-scripts start",
-    "start-js:insecure": "react-scripts start",
-    "start": "cross-env NODE_PATH=./src npm-run-all -p watch-css start-js:secure",
-    "start:insecure": "cross-env NODE_PATH=./src npm-run-all -p watch-css start-js:insecure",
+    "start-js": "react-scripts start",
+    "start": "cross-env NODE_PATH=./src npm-run-all -p watch-css start-js",
+    "start:secure": "cross-env NODE_PATH=./src npm-run-all -p watch-css HTTPS=true start-js",
     "start:ci": "REACT_APP_ENV=ci sh -ac '. .env.ci; npm run start:insecure'",
     "build-js": "cross-env NODE_PATH=./src react-scripts build",
     "build": "cross-env npm-run-all build-css build-js",
