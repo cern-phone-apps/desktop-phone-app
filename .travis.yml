@@ -52,7 +52,7 @@ jobs:
         ## travis to run this process in the background
         ## else it would block execution and hang travis
         - npm run mock-server -- --silent &
-        - npm run start:ci -- --silent &
+        - npm run start:ci:silent
       script:
         ## now run cypress headlessly
         ## and record all of the tests.
