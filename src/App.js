@@ -19,7 +19,7 @@ const NoMatch = ({ location }) => (
 );
 
 NoMatch.propTypes = {
-  location: PropTypes.string
+  location: PropTypes.object
 };
 
 class App extends Component {
