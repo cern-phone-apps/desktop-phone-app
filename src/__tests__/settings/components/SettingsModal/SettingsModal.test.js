@@ -13,6 +13,6 @@ it("renders without crashing", () => {
   );
 
   expect(wrapper.text()).toContain("<Modal />");
-  expect(wrapper.html()).toContain('<a class="item">');
+  expect(wrapper.html()).toContain('<a class="item SidebarSettingsButton">');
   expect(wrapper.html()).toContain("Settings");
 });

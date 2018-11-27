@@ -41,6 +41,7 @@ export class UserSearchForm extends Component {
                     name={"searchValue"}
                     value={value}
                     onChange={onChange}
+                    className={'UserSearchInput'}
                   />
                 </Form.Field>
               </Form.Group>

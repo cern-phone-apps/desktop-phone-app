@@ -6,7 +6,7 @@ import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 const ModalTrigger = ({ onClick }) => {
   return (
-    <Menu.Item onClick={onClick} name={"bug"}>
+    <Menu.Item onClick={onClick} name={"bug"} className={'SidebarDebugButton'}>
       <Icon name={"bug"} />
       {"Debug"}
     </Menu.Item>
@@ -54,10 +54,14 @@ class ModalDebug extends Component {
     return (
       <Modal
         open={open}
-        size={"large"}
+        size={"small"}
         dimmer={"blurring"}
         closeIcon
-        trigger={<ModalTrigger onClick={this.openModal} />}
+        closeOnDimmerClick
+        onClose={this.close}
+        trigger={<ModalTrigger onClick={this.openModal}
+        />}
+        className={'ModalDebug'}
       >
         <Modal.Header>{"Debug"}</Modal.Header>
         <Modal.Content scrolling>

@@ -39,6 +39,7 @@ export class MainPage extends Component {
         key={index}
         to={route.path}
         exact={route.exact}
+        className={`Sidebar_${route.sidebarId}`}
       >
         <Icon name={route.sidebarIcon} />
         {route.sidebarText}

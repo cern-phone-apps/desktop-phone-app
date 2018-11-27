@@ -13,7 +13,7 @@ import CallsSettings from "settings/components/CallsSettings/CallsSettings";
 
 const ModalTrigger = ({ onClick }) => {
   return (
-    <Menu.Item onClick={onClick} name={"settings"}>
+    <Menu.Item onClick={onClick} name={"settings"} className={'SidebarSettingsButton'}>
       <Icon name={"settings"} />
       {"Settings"}
     </Menu.Item>
@@ -38,10 +38,11 @@ export class SettingsModal extends Component {
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
     return (
       <Modal
-        size={"large"}
+        size={"small"}
         dimmer={"blurring"}
         closeIcon
         trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible} />}
+        className={'ModalSettings'}
       >
         <Modal.Header>{t("header")}</Modal.Header>
         <Modal.Content scrolling>
