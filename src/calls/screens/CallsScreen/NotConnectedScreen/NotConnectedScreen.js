@@ -10,7 +10,7 @@ import MainHeader from "calls/components/MainHeader";
 export class SelectPhoneNumberModal extends Component {
   render() {
     return (
-      <Modal open={this.props.modalOpen} size="small">
+      <Modal open={this.props.modalOpen} size="small" className={'SelectPhoneModal'}>
         <Header icon="phone" content="Select a phone number" />
         <Modal.Content>
           <p>Select one of your phone numbers bellow to connect to TONE.</p>
