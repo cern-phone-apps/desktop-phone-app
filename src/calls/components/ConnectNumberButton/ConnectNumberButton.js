@@ -13,6 +13,7 @@ const ButtonNumbersList = ({ numbers, connect }) => {
           <Button
             fluid
             key={`number-${index}`}
+            className={'ConnectNumberButton'}
             onClick={() => connect(item.phoneNumber)}
           >
             <Icon name="plug" />
