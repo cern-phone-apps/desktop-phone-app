@@ -18,3 +18,9 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+beforeEach(function() {
+  cy.log("Before each...");
+  cy.clearCookies();
+  cy.clearLocalStorage();
+});
