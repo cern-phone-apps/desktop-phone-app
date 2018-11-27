@@ -41,7 +41,7 @@ export class Dial {
       setTimeout(() => {
         const event = Dial.buildEvent("registered", {});
         this.sendEvent(event);
-      }, 2000);
+      }, 300);
     } else throw Error("Cannot authenticate. Password or User not set.");
   }
 
@@ -52,7 +52,7 @@ export class Dial {
     setTimeout(() => {
       const event = Dial.buildEvent("accepted", {});
       this.sendEvent(event);
-    }, 2000);
+    }, 300);
   }
 
   hangUp() {
@@ -71,6 +71,6 @@ export class Dial {
       const cause = {};
       const event = Dial.buildEvent("unregistered", {}, cause, response);
       this.sendEvent(event);
-    }, 2000);
+    }, 300);
   };
 }
