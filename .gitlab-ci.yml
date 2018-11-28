@@ -50,9 +50,9 @@ integration_test:
   #- $(npm bin)/print-env CI
   # start the server in the background
   - npm run mock-server -- --silent &
-  - npm start:ci -- --silent &
+  - npm run start -- --silent &
   # run Cypress test in load balancing mode, pass id to tie jobs together
-  - npm run cypress:run:record
+  - npm run cypress:run:ci
 
 
 unit_test:
