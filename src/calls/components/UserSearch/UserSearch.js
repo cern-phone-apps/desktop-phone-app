@@ -119,6 +119,7 @@ class UserSearch extends Component {
                 name="search"
                 active={activeItem === "search"}
                 onClick={this.handleItemClick}
+                className={'DisplaySearchButton'}
               >
                 <Icon name="search" /> Search
               </Menu.Item>
@@ -126,6 +127,7 @@ class UserSearch extends Component {
                 name="dialpad"
                 active={activeItem === "dialpad"}
                 onClick={this.handleItemClick}
+                className={'DisplayDialpadButton'}
               >
                 <Icon name="text telephone" /> Dialpad
               </Menu.Item>

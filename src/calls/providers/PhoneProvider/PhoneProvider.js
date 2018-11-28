@@ -125,7 +125,9 @@ class PhoneProvider extends Component {
   };
 
   playRingbacktone = () => {
-    document.getElementById(this.ringBackToneId).play();
+    document.getElementById(this.ringBackToneId).play().catch(() => {
+      errorMessage('RingbackTone play() raised an error.')
+    });
   };
 
   stopRingbacktone = () => {
@@ -133,7 +135,9 @@ class PhoneProvider extends Component {
   };
 
   playRingTone = () => {
-    document.getElementById(this.ringToneId).play();
+    document.getElementById(this.ringToneId).play().catch(() => {
+      errorMessage('RingTone play() raised an error.')
+    });
   };
 
   stopRingTone = () => {
@@ -305,18 +309,19 @@ class PhoneProvider extends Component {
 
   hangUpCurrentCall = () => {
     const { dial } = this.state;
+    const { addRecentCall, recipient } = this.props;
     this.hangUpCallEvent();
+    addRecentCall(recipient);
     return dial.hangUp();
   };
 
   hangUpCallEvent = () => {
     const { username } = this.state;
-    const { hangupCall, addRecentCall, unSelectUser, recipient } = this.props;
+    const { hangupCall, unSelectUser } = this.props;
 
     logEvent("calls", `hangUp`, `caller: ${username}.`);
 
     hangupCall();
-    addRecentCall(recipient);
     unSelectUser();
   };
 
@@ -337,7 +342,7 @@ class PhoneProvider extends Component {
     } = this.props;
 
     this.stopRingTone();
-    addRecentCall(recipient);
+    // addRecentCall(recipient);
     unSelectUser();
     rejectOutgoingCall();
   };
@@ -361,7 +366,7 @@ class PhoneProvider extends Component {
     const { addRecentCall, unSelectUser, rejectIncomingCall } = this.props;
 
     this.stopRingTone();
-    addRecentCall(recipient);
+    // addRecentCall(recipient);
     unSelectUser();
     rejectIncomingCall();
   };

@@ -10,7 +10,7 @@ const UserSearchResult = ({ onClick, item }) => {
     cursor: "pointer"
   };
   return (
-    <Segment onClick={onClick} style={styles}>
+    <Segment onClick={onClick} style={styles} className={'UserSearchResult'}>
       <Header as="h4">
         <Icon name="user" color={"blue"} />
         <Header.Content>
@@ -57,7 +57,7 @@ class UserSearchResultsList extends Component {
     }
 
     return (
-      <div>
+      <div className={'UserSearchResultsList'}>
         {results.map((item, index) => {
           return (
             <UserSearchResult

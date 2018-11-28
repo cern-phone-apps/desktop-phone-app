@@ -27,6 +27,7 @@ export class OutgoingCallModal extends Component {
       <Modal
         open={this.props.modalOpen}
         size="small"
+        className={'OutgoingCallModal'}
       >
         <Header icon="phone" content="Calling..." />
         <Modal.Content>

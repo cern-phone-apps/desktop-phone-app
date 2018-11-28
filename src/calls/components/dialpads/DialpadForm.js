@@ -12,7 +12,7 @@ export class DialpadForm extends Component {
             <Form>
               <Form.Field width={16}>
                 <Input
-                  className={"DialPadInput"}
+                  className={"DialpadInput"}
                   value={this.props.value}
                   placeholder={"Input a number..."}
                   onChange={this.props.onChange}

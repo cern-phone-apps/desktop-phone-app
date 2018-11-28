@@ -35,6 +35,7 @@ export class UserSearchForm extends Component {
                         inverted
                         color={"blue"}
                         circular
+                        className={'SearchUserButton'}
                       />
                     }
                     placeholder="Search for a person..."

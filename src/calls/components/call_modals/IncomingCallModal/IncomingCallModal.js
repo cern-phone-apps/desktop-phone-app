@@ -35,7 +35,7 @@ ModalTrigger.propTypes = {
  */
 function RejectButton({ onClick }) {
   return (
-    <Button negative onClick={onClick}>
+    <Button negative onClick={onClick} className={'RejectCallButton'}>
       Reject
     </Button>
   );
@@ -54,9 +54,10 @@ function AnswerButton({ onClick }) {
     <Button
       positive
       onClick={onClick}
-      icon="phone"
-      labelPosition="right"
-      content="Answer"
+      icon={"phone"}
+      labelPosition={"right"}
+      content={"Answer"}
+      className={'AnswerCallButton'}
     />
   );
 }
@@ -160,7 +161,7 @@ export class IncomingCallModal extends Component {
           size={"tiny"}
           dimmer={"blurring"}
           open={receivingCall && !modalHidden}
-          className={styles.CallingModal}
+          className={`${styles.CallingModal} CallingModal`}
           closeIcon
           onOpen={this.onOpen}
           onClose={this.onClose}

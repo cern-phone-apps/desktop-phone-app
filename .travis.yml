@@ -18,8 +18,8 @@ install:
   - npm run cypress:verify
 
 stages:
-  - test
   - unit_test
+  - test
 
 jobs:
   include:
