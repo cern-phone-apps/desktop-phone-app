@@ -60,7 +60,7 @@ jobs:
         ## CYPRESS_RECORD_KEY environment
         ## variable by default and apply
         ## this to the run.
-        - npm run cypress:run:record
+        - npm run cypress:run
         ## alternatively we could specify
         ## a specific record key to use
         ## like this without having to
