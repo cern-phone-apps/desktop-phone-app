@@ -67,7 +67,7 @@ class ModalDebug extends Component {
         <Modal.Content scrolling>
           <Modal.Description>
             <p>{`This is the Ddebug content`}</p>
-            <Button disabled={!connected} onClick={this.receiveCall}>
+            <Button disabled={!connected} onClick={this.receiveCall} className={'ReceiveCallDebugButton'}>
               Receive a call
             </Button>
           </Modal.Description>

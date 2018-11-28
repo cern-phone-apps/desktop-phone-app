@@ -66,7 +66,7 @@ export class UserProfile extends Component {
     }
 
     return (
-      <Segment basic>
+      <Segment basic className={'UserProfile'}>
         <ProfileInfo profile={profile} />
         {profile.phones.map((phone, index) => (
           <UserPhoneNumberContainer

@@ -39,7 +39,7 @@ class RecentCall extends Component {
     const duration = moment.duration(moment(endTime).diff(moment(startTime)));
 
     return (
-      <Item className={"padded-item"}>
+      <Item className={"padded-item RecentCall"}>
         <Icon
           name="phone"
           size={"large"}
