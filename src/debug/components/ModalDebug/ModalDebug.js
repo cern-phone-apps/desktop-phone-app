@@ -29,7 +29,7 @@ class ModalDebug extends Component {
   close = () => this.setState({ open: false });
 
   receiveCall = () => {
-    const { phoneService } = this.props;
+    const { phoneService, hideSidebarIfVisible } = this.props;
     logMessage("Receiving call in some seconds");
     phoneService.eventHandler({
       name: "inviteReceived",
@@ -39,6 +39,7 @@ class ModalDebug extends Component {
       }
     });
     this.close();
+    hideSidebarIfVisible();
   };
 
   openModal = () => {
