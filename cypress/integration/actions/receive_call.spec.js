@@ -36,7 +36,8 @@ context("Receive Call Actions Tests", () => {
     cy.get(".CallingModal > i.close.icon").click();
     cy.get(".CallingModal").should("not.be.visible");
     cy.get(".CallingMessage").should("be.visible");
-    cy.get(".CallingMessage").click();
+    cy.wait(1000);
+    cy.get(".CallingMessage").click({ force: true });
     cy.get(".CallingModal").should("be.visible");
     cy.get(".CallingMessage").should("not.be.visible");
   });

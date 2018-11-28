@@ -10,6 +10,7 @@ import * as loginRoutes from "login/routes";
 import Notifications from "common/components/Notifications/Notifications";
 import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer";
 import SettingsModal from "settings/components/SettingsModal/SettingsModal";
+import { logMessage } from "common/utils";
 
 export class MainPage extends Component {
   static propTypes = {
@@ -22,7 +23,8 @@ export class MainPage extends Component {
   };
 
   hideSidebarIfVisible = () => {
-    return this.props.isVisible ? this.props.hideSidebar() : "";
+    logMessage("Hiding Sidebar");
+    return this.props.hideSidebar();
   };
 
   /**

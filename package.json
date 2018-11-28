@@ -21,6 +21,7 @@
     "cypress:verify": "cypress verify",
     "cypress:version": "cypress version",
     "cypress:run": "cypress run",
+    "cypress:run:ci": "cypress run --config video=false",
     "cypress:headed": "cypress run --headed",
     "cypress:canary": "cypress run --browser canary",
     "cypress:run:record": "cypress run --record"
