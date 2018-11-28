@@ -335,8 +335,6 @@ class PhoneProvider extends Component {
     logMessage("Rejecting call");
 
     let {
-      recipient,
-      addRecentCall,
       unSelectUser,
       rejectOutgoingCall
     } = this.props;
@@ -362,8 +360,7 @@ class PhoneProvider extends Component {
    */
   rejectIncomingCall = () => {
     logMessage("Rejecting incoming call");
-    let { recipient } = this.props;
-    const { addRecentCall, unSelectUser, rejectIncomingCall } = this.props;
+    const { unSelectUser, rejectIncomingCall } = this.props;
 
     this.stopRingTone();
     // addRecentCall(recipient);
