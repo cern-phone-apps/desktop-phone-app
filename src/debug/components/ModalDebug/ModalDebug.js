@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Menu, Modal, Icon, Button } from "semantic-ui-react";
-import { logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 const ModalTrigger = ({ onClick }) => {
@@ -31,6 +31,7 @@ class ModalDebug extends Component {
   receiveCall = () => {
     const { phoneService, hideSidebarIfVisible } = this.props;
     logMessage("Receiving call in some seconds");
+    actionMessage(`Calls: User clicks receive call button`);
     phoneService.eventHandler({
       name: "inviteReceived",
       data: {

@@ -22,6 +22,7 @@ import PhoneProvider from "calls/providers/PhoneProvider/PhoneProvider";
  * Set up Sentry and Piwik analytics
  */
 
+
 const piwik = new ReactPiwik({
   url: process.env.REACT_APP_PIWIK_URL,
   siteId: process.env.REACT_APP_PIWIK_SITE_ID,

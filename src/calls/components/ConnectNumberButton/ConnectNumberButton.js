@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
-import { logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils";
 import LogoutButtonContainer from "login/components/LogoutButton/LogoutButtonContainer";
 import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
 
@@ -49,6 +49,8 @@ class ConnectNumberButton extends Component {
 
   connect = activeNumber => {
     const { phoneService, setActiveNumber } = this.props;
+
+    actionMessage(`Calls | User clicks connect button (${activeNumber})`);
 
     setActiveNumber(activeNumber);
     const result = phoneService.authenticateUser(activeNumber, activeNumber);

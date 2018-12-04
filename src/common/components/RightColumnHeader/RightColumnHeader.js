@@ -4,6 +4,7 @@ import { Button, Grid, Header } from "semantic-ui-react";
 import "./RightColumnHeader.css";
 import ColumnHeader from "common/components/ColumnHeader/ColumnHeader";
 import ErrorButtonContainer from "common/components/ErrorButton/ErrorButtonContainer";
+import DownloadDebugLogsButton from "debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton";
 
 class RightColumnHeader extends Component {
   centerColumnStyles = {
@@ -35,7 +36,7 @@ class RightColumnHeader extends Component {
             </Header>
           </Grid.Column>
           <Grid.Column textAlign={"right"} width={3}>
-            <Button as={"a"} className={"flat"} icon={"info"} />
+            <DownloadDebugLogsButton/>
           </Grid.Column>
         </Grid.Row>
       </ColumnHeader>

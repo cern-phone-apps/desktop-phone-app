@@ -8,7 +8,7 @@ import * as callActionCreators from "calls/actions/call";
 import * as recentActionCreators from "calls/actions/recent";
 import * as searchActionCreators from "calls/actions/search";
 import * as authActionCreators from "login/actions/auth";
-import { errorMessage, logEvent, logMessage } from "common/utils";
+import { errorMessage, logEvent, logMessage, toneInMessage, toneOutMessage } from "common/utils";
 import { success, info, warning } from "common/actions/notifications";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 
@@ -149,8 +149,8 @@ class PhoneProvider extends Component {
   };
 
   eventHandler = event => {
-    logMessage("Event Received!");
-    logMessage(event);
+    toneInMessage(`Tone Event received: ${event.name}`);
+    toneInMessage(event);
     const tempRejectedMessage = {
       code: {
         status_code: "NI"
@@ -232,7 +232,7 @@ class PhoneProvider extends Component {
         this.receiveCall(event.data);
         break;
       default:
-        errorMessage(`Unhandled event: ${event.name}`);
+        toneInMessage(`Unhandled event: ${event.name}`);
     }
   };
 
@@ -255,7 +255,7 @@ class PhoneProvider extends Component {
     const {token, requestConnection} = this.props;
 
     logEvent("calls", `authenticate`, `user: ${username}.`);
-    logMessage(`Authenticating user: ${username}/*****`);
+    toneOutMessage(`Authenticating user: ${username}/*****`);
     this.setState({ username: username });
     requestConnection();
     this.state.dial.authenticate(username, password, JSON.stringify(token));
@@ -268,13 +268,13 @@ class PhoneProvider extends Component {
    */
   unAuthenticateUser = () => {
     logEvent("calls", `unAuthenticate`, `user: ${this.state.username}.`);
+    toneOutMessage(`UnAuthenticating user`);
+
     this.setState({ username: undefined });
 
     if (this.props.onCall) {
       this.hangUpCurrentCall();
     }
-
-    logMessage("UnAuthenticating user");
     this.props.requestDisconnection(true);
     return this.state.dial.stopAgent();
     // TODO Maybe stopAgent() is not the right method to call
@@ -290,7 +290,7 @@ class PhoneProvider extends Component {
     const { makeCall, isCalling, endSearch } = this.props;
     const { dial, username } = this.state;
 
-    logMessage(`Calling user ${name} with number ${phoneNumber}`);
+    toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
     logEvent(
       "calls",
       `make`,
@@ -309,6 +309,7 @@ class PhoneProvider extends Component {
 
   hangUpCurrentCall = () => {
     const { dial } = this.state;
+    toneOutMessage(`Hang up current call`);
     const { addRecentCall, recipient } = this.props;
     this.hangUpCallEvent();
     addRecentCall(recipient);
@@ -347,8 +348,8 @@ class PhoneProvider extends Component {
 
   acceptIncomingCall = () => {
     const { acceptIncomingCall } = this.props;
+    toneOutMessage(`Accepting incoming call`);
 
-    logMessage("Accepting incoming call");
     this.stopRingTone();
     acceptIncomingCall();
     this.state.dial.answer();
