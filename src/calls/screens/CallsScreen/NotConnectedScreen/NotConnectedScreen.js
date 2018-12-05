@@ -6,6 +6,8 @@ import ConnectNumberButtonContainer from "calls/components/ConnectNumberButton/i
 import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
+import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
+import LogoutButtonContainer from "login/components/LogoutButton/LogoutButtonContainer";
 
 export class SelectPhoneNumberModal extends Component {
   render() {
@@ -13,8 +15,11 @@ export class SelectPhoneNumberModal extends Component {
       <Modal open={this.props.modalOpen} size="small" className={'SelectPhoneModal'}>
         <Header icon="phone" content="Select a phone number" />
         <Modal.Content>
+          <ErrorMessageContainer />
           <p>Select one of your phone numbers bellow to connect to TONE.</p>
           <ConnectNumberButtonContainer />
+          <hr />
+          <LogoutButtonContainer color={"red"} />
         </Modal.Content>
       </Modal>
     );
