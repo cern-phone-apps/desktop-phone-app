@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon, Modal } from "semantic-ui-react";
 import DisconnectAndLogoutButton from "calls/components/DisconnectAndLogoutButton";
+import { actionMessage } from "common/utils";
 
 /**
  * Button that displays the connection status
@@ -33,6 +34,10 @@ export class ConnectionStatusIcon extends Component {
     }
   };
 
+  logUserAction = () => {
+    actionMessage(`Calls: User clicks on Connection Status Button`);
+  };
+
   render() {
     const { connected, activeNumber } = this.props;
     let color, message, callsMessage;
@@ -52,7 +57,7 @@ export class ConnectionStatusIcon extends Component {
         dimmer={"blurring"}
         style={this.inlineStyle.modal}
         closeIcon
-        trigger={<ConnectionIcon color={color} message={message} />}
+        trigger={<ConnectionIcon color={color} message={message} onClick={this.logUserAction} />}
       >
         <Modal.Header>
           <Icon name={"circle"} color={color} /> {"Your connection status"}
@@ -69,7 +74,7 @@ export class ConnectionStatusIcon extends Component {
             ) : (
               ""
             )}
-            <DisconnectAndLogoutButton color={'red'}/>
+            <DisconnectAndLogoutButton color={'red'} displayMessage={false}/>
           </Modal.Description>
         </Modal.Content>
       </Modal>

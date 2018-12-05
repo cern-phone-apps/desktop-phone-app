@@ -1,3 +1,5 @@
+import { logMessage } from "common/utils";
+
 export const CONNECT_REQUEST = "@@connection/CONNECT_REQUEST";
 export const CONNECT_SUCCESS = "@@connection/CONNECT_SUCCESS";
 export const CONNECT_FAILURE = "@@connection/CONNECT_FAILURE";
@@ -32,6 +34,7 @@ export function setConnected() {
  * @returns {{errors: *, type: string}} A dict
  */
 export function setConnectionFailure(errors) {
+  logMessage(`Calling setConnectionFailure`);
   return {
     errors,
     type: CONNECT_FAILURE

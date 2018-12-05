@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils";
 
 import "./UserSearch.css";
 import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
@@ -63,9 +63,10 @@ class UserSearch extends Component {
 
   handleSubmit = () => {
     const { searchUsers } = this.props;
-
     const { searchValue } = this.state;
-    logMessage(`Starting the search: ${searchValue}`);
+
+    actionMessage(`Search: Submit a search search: ${searchValue}`);
+
     searchUsers(searchValue).then(result => {
       logMessage(result);
       this.setState({
@@ -98,7 +99,10 @@ class UserSearch extends Component {
     updateDialpadValue(event.target.value);
   };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    actionMessage(`Search: User clicks on ${name} button`);
+    this.setState({ activeItem: name });
+  };
 
   render() {
     const { searchValue, activeItem } = this.state;
@@ -119,7 +123,7 @@ class UserSearch extends Component {
                 name="search"
                 active={activeItem === "search"}
                 onClick={this.handleItemClick}
-                className={'DisplaySearchButton'}
+                className={"DisplaySearchButton"}
               >
                 <Icon name="search" /> Search
               </Menu.Item>
@@ -127,7 +131,7 @@ class UserSearch extends Component {
                 name="dialpad"
                 active={activeItem === "dialpad"}
                 onClick={this.handleItemClick}
-                className={'DisplayDialpadButton'}
+                className={"DisplayDialpadButton"}
               >
                 <Icon name="text telephone" /> Dialpad
               </Menu.Item>

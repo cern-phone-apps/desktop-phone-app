@@ -1,20 +1,26 @@
-import * as numbersActions from 'calls/actions/numbers'
-import {logMessage} from 'common/utils'
+import * as numbersActions from "calls/actions/numbers";
+import { logMessage } from "common/utils";
 
 const initialState = {
   fetching: false,
   error: undefined,
   activeNumber: false
-}
+};
 
-function handleNumbersFailure (state, action) {
-  logMessage(action)
-  let error
-  if(action.payload && action.payload.response.result && action.payload.response.result.error){
-    error = {message: action.payload.response.result.error.message,
-      statusCode: action.payload.response.result.error.code}
-  }else{
-    error = {message: 'undefined error', statusCode: 401}
+function handleNumbersFailure(state, action) {
+  logMessage(action);
+  let error;
+  if (
+    action.payload &&
+    action.payload.response.result &&
+    action.payload.response.result.error
+  ) {
+    error = {
+      message: action.payload.response.result.error.message,
+      statusCode: action.payload.response.result.error.code
+    };
+  } else {
+    error = { message: "undefined error", statusCode: 401 };
   }
 
   return {
@@ -22,7 +28,33 @@ function handleNumbersFailure (state, action) {
     fetching: false,
     numbers: [],
     error: error
+  };
+}
+
+function handleServerError(state, action) {
+  logMessage(`Handle Server ERROR`);
+  let message;
+  let statusCode;
+  if (action.payload.message) {
+    if (action.payload.name === "RequestError") {
+      message = "Dial backend is not currently available.";
+      statusCode = 31;
+    } else if (action.payload.name === "ApiError") {
+      message = action.payload.message;
+      statusCode = action.payload.status ? action.payload.status : -1;
+    } else {
+      message = action.payload.message;
+      statusCode = -1;
+    }
+  } else {
+    message = "Unknown error";
+    statusCode = 999;
   }
+
+  return {
+    ...state,
+    error: { message: message, statusCode: statusCode }
+  };
 }
 
 /**
@@ -33,18 +65,24 @@ function handleNumbersFailure (state, action) {
  * @returns {{fetching, numbers, error}} The state with all the user's phone numbers
  */
 const numbersReducer = (state = initialState, action) => {
+
+  logMessage(`NUMBERS REDUCER ACTION RECEIVED`);
+  logMessage(action);
+
+  if (action.error) {
+    return handleServerError(state, action);
+  }
+
   switch (action.type) {
     case numbersActions.NUMBERS_REQUEST:
       return {
         ...state,
         fetching: true,
-        numbers: [],
         error: undefined
-      }
+      };
     case numbersActions.NUMBERS_SUCCESS:
-
-      if(action.payload.result.error){
-        return handleNumbersFailure (state, action)
+      if (action.payload.result.error) {
+        return handleNumbersFailure(state, action);
       }
 
       return {
@@ -52,17 +90,17 @@ const numbersReducer = (state = initialState, action) => {
         fetching: false,
         numbers: action.payload.result,
         error: undefined
-      }
+      };
     case numbersActions.NUMBERS_FAILURE:
-      return handleNumbersFailure(state, action)
+      return handleNumbersFailure(state, action);
     case numbersActions.NUMBERS_SET_ACTIVE:
       return {
         ...state,
         activeNumber: action.phoneNumber
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default numbersReducer
+export default numbersReducer;
