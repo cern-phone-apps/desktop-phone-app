@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { isAuthenticated } from "login/reducers/auth";
+import { isAuthenticated } from "login/utils";
 import { bindActionCreators } from "redux";
 
 import RedirectPage from "login/screens/RedirectPage/RedirectPage";
