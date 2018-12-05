@@ -148,7 +148,7 @@ class DownloadDebugLogsButton extends Component {
         ...this.getBrowserInformation(),
         ...this.getWebrtcInformation(),
         ...this.getDevicesInformation(),
-        ... ipAddress
+        ...ipAddress
       }
     };
   };
