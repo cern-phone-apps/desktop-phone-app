@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware'
-import { withAuth } from 'login/reducers/auth'
+import { withAuth } from 'login/utils'
 import {buildCallsApiEndpoint} from 'calls/actions/numbers'
 
 export const PROFILE_REQUEST = '@@search/PROFILE_REQUEST'

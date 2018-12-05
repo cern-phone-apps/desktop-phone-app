@@ -1,5 +1,5 @@
 import {RSAA} from 'redux-api-middleware'
-import {withAuth} from 'login/reducers/auth'
+import {withAuth} from 'login/utils'
 export const NUMBERS_REQUEST = '@@search/NUMBERS_REQUEST'
 export const NUMBERS_SUCCESS = '@@search/NUMBERS_SUCCESS'
 export const NUMBERS_FAILURE = '@@search/NUMBERS_FAILURE'
