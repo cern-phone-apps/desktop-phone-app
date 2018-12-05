@@ -1,12 +1,13 @@
-import * as connectionActions from 'calls/actions/connection'
+import * as connectionActions from "calls/actions/connection";
+import { logMessage } from "common/utils";
 
 const initialState = {
   connected: false,
-  activeNumber: '',
+  activeNumber: "",
   connecting: false,
   disconnecting: false,
   error: {}
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -16,36 +17,41 @@ export default (state = initialState, action) => {
         connected: false,
         connecting: true,
         error: {}
-      }
+      };
     case connectionActions.CONNECT_SUCCESS:
       return {
         ...state,
         connected: true,
         connecting: false,
         error: {}
-      }
+      };
     case connectionActions.DISCONNECT_REQUEST:
       return {
         ...state,
         disconnecting: true
-      }
+      };
     case connectionActions.DISCONNECT_SUCCESS:
       return {
         ...state,
         connected: false,
         disconnecting: false,
         error: {}
-      }
+      };
     case connectionActions.CONNECT_FAILURE:
     case connectionActions.DISCONNECT_FAILURE:
+      logMessage(`LOOK HERESSSSSSSSSSSSSSSS`);
+      logMessage(action.errors.code.status_code);
       return {
         ...state,
         connected: false,
         connecting: false,
-        error: {statusCode: action.errors.code.status_code, message: action.errors.description}
-      }
+        error: {
+          statusCode: action.errors.code.status_code,
+          message: action.errors.description
+        }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};

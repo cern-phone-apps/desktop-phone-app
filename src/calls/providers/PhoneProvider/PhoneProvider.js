@@ -8,7 +8,13 @@ import * as callActionCreators from "calls/actions/call";
 import * as recentActionCreators from "calls/actions/recent";
 import * as searchActionCreators from "calls/actions/search";
 import * as authActionCreators from "login/actions/auth";
-import { errorMessage, logEvent, logMessage, toneInMessage, toneOutMessage } from "common/utils";
+import {
+  errorMessage,
+  logEvent,
+  logMessage,
+  toneInMessage,
+  toneOutMessage
+} from "common/utils";
 import { success, info, warning } from "common/actions/notifications";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 
@@ -125,9 +131,12 @@ class PhoneProvider extends Component {
   };
 
   playRingbacktone = () => {
-    document.getElementById(this.ringBackToneId).play().catch(() => {
-      errorMessage('RingbackTone play() raised an error.')
-    });
+    document
+      .getElementById(this.ringBackToneId)
+      .play()
+      .catch(() => {
+        errorMessage("RingbackTone play() raised an error.");
+      });
   };
 
   stopRingbacktone = () => {
@@ -135,9 +144,12 @@ class PhoneProvider extends Component {
   };
 
   playRingTone = () => {
-    document.getElementById(this.ringToneId).play().catch(() => {
-      errorMessage('RingTone play() raised an error.')
-    });
+    document
+      .getElementById(this.ringToneId)
+      .play()
+      .catch(() => {
+        errorMessage("RingTone play() raised an error.");
+      });
   };
 
   stopRingTone = () => {
@@ -193,14 +205,16 @@ class PhoneProvider extends Component {
       case "registered":
         this.props.success(this.registeredNotificationOpts);
         this.props.setConnected();
-        this.props.clearToken();
+        // this.props.clearToken();
         break;
       case "unregistered":
         this.props.warning(this.unRegisteredNotificationOpts);
         this.props.setDisconnected();
         break;
       case "registrationFailed":
-        this.props.setConnectionFailure(tempFailedMessage);
+        if (event.error !== undefined) {
+          this.props.setConnectionFailure(event.error);
+        }
         break;
       // Calls
       case "progress":
@@ -251,8 +265,7 @@ class PhoneProvider extends Component {
    * @returns {boolean|void|*}
    */
   authenticateUser = (username, password) => {
-
-    const {token, requestConnection} = this.props;
+    const { token, requestConnection } = this.props;
 
     logEvent("calls", `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
@@ -260,7 +273,6 @@ class PhoneProvider extends Component {
     requestConnection();
     this.state.dial.authenticate(username, password, JSON.stringify(token));
     // TODO The ideal thing here is to know if the authentication succeeded
-
   };
 
   /**
@@ -335,10 +347,7 @@ class PhoneProvider extends Component {
   rejectOutgoingCall = () => {
     logMessage("Rejecting call");
 
-    let {
-      unSelectUser,
-      rejectOutgoingCall
-    } = this.props;
+    let { unSelectUser, rejectOutgoingCall } = this.props;
 
     this.stopRingTone();
     // addRecentCall(recipient);

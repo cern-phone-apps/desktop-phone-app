@@ -3,7 +3,7 @@ import { Header, Icon, Loader, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import "./UserSearch.css";
-import { logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils";
 
 const UserSearchResult = ({ onClick, item }) => {
   const styles = {
@@ -34,6 +34,8 @@ class UserSearchResultsList extends Component {
 
   handleResultSelect = result => {
     const { selectUser, getUserProfile } = this.props;
+
+    actionMessage(`Search: Clicks on a user search result`);
 
     logMessage(result);
     selectUser(result);
