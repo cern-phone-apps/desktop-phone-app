@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
 import { actionMessage, logMessage } from "common/utils";
-import LogoutButtonContainer from "login/components/LogoutButton/LogoutButtonContainer";
-import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
 
 const ButtonNumbersList = ({ numbers, connect }) => {
   return (
@@ -13,7 +11,7 @@ const ButtonNumbersList = ({ numbers, connect }) => {
           <Button
             fluid
             key={`number-${index}`}
-            className={'ConnectNumberButton'}
+            className={"ConnectNumberButton"}
             onClick={() => connect(item.phoneNumber)}
           >
             <Icon name="plug" />
