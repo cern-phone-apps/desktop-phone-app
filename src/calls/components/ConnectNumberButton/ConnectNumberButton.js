@@ -86,14 +86,11 @@ class ConnectNumberButton extends Component {
 
     return (
       <div>
-        <ErrorMessageContainer />
         <ButtonNumbersList
           numbers={numbers}
           connect={this.connect}
           connecting={connecting}
         />
-        <hr />
-        <LogoutButtonContainer color={"red"} />
       </div>
     );
   }
