@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import DetectRTC from "detectrtc";
-import { errorMessage, logMessage } from "common/utils";
+import { actionMessage, errorMessage, logMessage } from "common/utils";
 
 class DownloadDebugLogsButton extends Component {
-  state = { modalOpen: false };
+  state = {
+    modalOpen: false,
+    logsLoaded: false
+  };
 
   handleOpen = () => this.setState({ modalOpen: true });
 
   handleClose = () => this.setState({ modalOpen: false });
 
-  componentDidMount = () => {
+  loadLogs = () => {
+    actionMessage(`Calls: User Clicks on loadLogs button`);
     DetectRTC.load(() => {
       let ipDict = {};
 
@@ -28,6 +32,7 @@ class DownloadDebugLogsButton extends Component {
           this.generateLogs(ipDict);
         });
     });
+    this.setState({logsLoaded: true})
   };
 
   getIpAddress = (ip, publicAddress, ipv4) => {
@@ -149,6 +154,8 @@ class DownloadDebugLogsButton extends Component {
   };
 
   render() {
+
+    const {logsLoaded} = this.state;
     return (
       <Modal
         trigger={
@@ -169,8 +176,11 @@ class DownloadDebugLogsButton extends Component {
           </Form>
         </Modal.Content>
         <Modal.Actions>
+          <Button color={'green'} onClick={this.loadLogs}>Load Logs</Button>
+
           <Button
-            color="green"
+            color="blue"
+            disabled={!logsLoaded}
             href={`data:text/json;charset=utf-8,${encodeURIComponent(
               this.state.logs
             )}`}
