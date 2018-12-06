@@ -13,29 +13,25 @@ const addEntry = entry => {
   // localStorage.setItem("entry", JSON.stringify(entry));
   // Save allEntries back to local storage
   // console.log(simpleStringify(entry));
-  try{
-    if (typeof(entry) == 'object') {
-      entry = simpleStringify(entry)
-    }
-    existingEntries.push(entry);
-    localStorage.setItem("logs", JSON.stringify(existingEntries));
-  }catch(TypeError){
-    existingEntries.push("Avoiding circular error");
-    localStorage.setItem("logs", JSON.stringify(existingEntries));
+  try {
+    JSON.stringify(entry);
+  } catch (TypeError) {
+    entry = simpleStringify(entry);
   }
-
+  existingEntries.push(entry);
+  localStorage.setItem("logs", JSON.stringify(existingEntries));
 };
 
-const simpleStringify = (object) => {
+const simpleStringify = object => {
   var simpleObject = {};
-  for (var prop in object ){
-    if (!object.hasOwnProperty(prop)){
+  for (var prop in object) {
+    if (!object.hasOwnProperty(prop)) {
       continue;
     }
-    if (typeof(object[prop]) == 'object'){
+    if (typeof object[prop] == "object") {
       continue;
     }
-    if (typeof(object[prop]) == 'function'){
+    if (typeof object[prop] == "function") {
       continue;
     }
     simpleObject[prop] = object[prop];
