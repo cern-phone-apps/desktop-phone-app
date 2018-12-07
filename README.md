@@ -35,20 +35,10 @@ the sample configuration for this one) files.
 
 ### Setting up the mock server
 
-The mock server simulates all the responses from the backend server
-
-1. First, you must create a `config.js` file inside the `/mock` dir. You can take `config.sample.js` as an example.
-2. You must generate the certificates in order to run ser server using `ssl`. Run the following command inside `mock` folder:
-    ```bash
-    openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
-    ```
-3. Configure the app settings `.env` file:
-    `REACT_APP_OAUTH_ENABLED` must be set to `false`
-
 Then run the server:
 
 ```bash
-node mock
+npm run mock-server
 ```
 
 More info about this server: https://github.com/smollweide/node-mock-server#readme
