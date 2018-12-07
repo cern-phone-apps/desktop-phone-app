@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import { Segment } from "semantic-ui-react";
+import { Header, Segment } from "semantic-ui-react";
 
 import { translate } from "react-i18next";
 import "./LoginPage.css";
@@ -41,8 +41,11 @@ export class LoginPage extends Component {
               />
             </h2>
             <ErrorBoundary>
-              <Segment textAlign={"center"}>
-                <h3>{"Login with your CERN account"}</h3>
+              <Segment inverted color='grey' attached='top' textAlign={"center"}>
+                <Header as={'h2'}>CERN Phone App</Header>
+              </Segment>
+              <Segment textAlign={"center"} raised attached>
+                <h4>{"Login with your CERN account"}</h4>
                 <LoginButton />
               </Segment>
             </ErrorBoundary>
