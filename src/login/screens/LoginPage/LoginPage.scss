@@ -1,4 +1,4 @@
-$loginBg: #ebece7;
+$loginBg: #0d6ebd;
 
 .LoginPage {
   width: 100%;
@@ -20,5 +20,5 @@ $loginBg: #ebece7;
   /* Extra space in Cross Axis */
   overflow: auto;
   flex: 1;
-  background: $loginBg
+  background: radial-gradient(closest-side at 50% 50%, #4C97D9 0%, #0D6EBD 92%);
 }

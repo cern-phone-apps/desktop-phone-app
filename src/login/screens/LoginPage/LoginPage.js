@@ -17,9 +17,11 @@ export class LoginPage extends Component {
     loginInProgress: PropTypes.bool
   };
 
-  render() {
-    const { t } = this.props;
+  componentDidMount = () => {
+    document.body.className = "loginStyle";
+  };
 
+  render() {
     if (this.props.isAuthenticated) {
       return <Redirect exact={true} to={routes.callsRoute.path} />;
     }
@@ -33,10 +35,14 @@ export class LoginPage extends Component {
         <div className={"padded-item LoginPage__Centered"}>
           <div className="centered-element">
             <h2 className="ui center aligned header gray-text">
-              {t("loginPageHeader")}
+              <img
+                src={"/images/cern/outline_80_white.png"}
+                alt={"cern logo"}
+              />
             </h2>
             <ErrorBoundary>
               <Segment textAlign={"center"}>
+                <h3>{"Login with your CERN account"}</h3>
                 <LoginButton />
               </Segment>
             </ErrorBoundary>
