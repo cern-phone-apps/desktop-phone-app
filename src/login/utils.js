@@ -57,7 +57,8 @@ export function isAuthenticated (state) {
   //   return false
   // }
 
-  return refreshToken;
+
+  return (refreshToken && loggedIn);
 }
 
 /**
@@ -90,8 +91,8 @@ export function withRefresh (headers = {}) {
  * Clears the application cookies
  */
 export const clearCookies = () => {
-  Cookies.remove("csrf_refresh_token");
-  Cookies.remove("csrf_access_token");
+  // Cookies.remove("csrf_refresh_token");
+  // Cookies.remove("csrf_access_token");
 };
 
 /**
@@ -120,12 +121,36 @@ export function handleErrorWithToken (state, action) {
     message = "Unknown error";
     statusCode = 999;
   }
-
-  clearCookies();
-
   return {
     ...state,
-    errors: { message: message, statusCode: statusCode }
+    error: { message: message, statusCode: statusCode }
+  };
+}
+
+export function handleErrorWithLogin (state, action) {
+  let message;
+  let statusCode;
+  logMessage(action);
+
+  if (action.payload.message) {
+    if (action.payload.name === "RequestError") {
+      message = "Currently It is not possible to log in. Please, try again in a few minutes.";
+      statusCode = 31;
+    } else if (action.payload.name === "ApiError") {
+      message = action.payload.message;
+      statusCode = action.payload.status ? action.payload.status : -1;
+    } else {
+      message = action.payload.message;
+      statusCode = -1;
+    }
+  } else {
+    message = "Unknown error";
+    statusCode = 999;
+  }
+  return {
+    ...state,
+    loginInProgress: false,
+    error: { message: message, statusCode: statusCode }
   };
 }
 
@@ -135,5 +160,5 @@ export function handleErrorWithToken (state, action) {
  * @returns {*} A dict of errors
  */
 export function errors (state) {
-  return state.errors;
+  return state.error;
 }
