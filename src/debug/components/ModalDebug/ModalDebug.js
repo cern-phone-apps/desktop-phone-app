@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Menu, Modal, Icon, Button } from "semantic-ui-react";
 import { actionMessage, logMessage } from "common/utils";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import { stopStreams } from "settings/utils/devices";
 
 const ModalTrigger = ({ onClick }) => {
   return (
