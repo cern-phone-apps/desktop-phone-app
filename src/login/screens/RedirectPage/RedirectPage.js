@@ -6,7 +6,7 @@ import qs from "qs";
 import { callsRoute } from "calls/routes";
 import LoadingDimmer from "login/components/LoadingDimmer/LoadingDimmer";
 import * as loginRoutes from "login/routes";
-import { logMessage } from "common/utils";
+import { infoMessage, logMessage } from "common/utils";
 
 class RedirectPage extends Component {
   static propTypes = {
@@ -23,10 +23,11 @@ class RedirectPage extends Component {
     const queryParams = qs.parse(this.props.urlQuery.slice(1));
 
     if (queryParams.code || isOauthEnabled === "false") {
+      infoMessage('Login user with code...');
       login(queryParams.code).then((result) => {
-        logMessage(`Result is here`);
         logMessage(result);
         if(result !== undefined && !result.error){
+          infoMessage('User logged in successfully. Getting. profile...');
           getMe();
         }
       });
