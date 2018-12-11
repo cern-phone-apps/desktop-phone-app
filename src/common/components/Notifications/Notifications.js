@@ -40,7 +40,16 @@ class Notifications extends React.Component {
 
   render() {
     let notifyRef = el => (this.notify = el);
-    return <NotifySystem ref={notifyRef} />;
+
+    const style = {
+      NotificationItem: { // Override the notification item
+        DefaultStyle: { // Applied to every notification, regardless of the notification level
+          margin: '10px 5px'
+        }
+      }
+    };
+
+    return <NotifySystem ref={notifyRef} style={style} />;
   }
 }
 
