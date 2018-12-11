@@ -7,6 +7,9 @@ const clearLog = () => {
 };
 
 const addEntry = entry => {
+  if (process.env.CI === true) {
+    return;
+  }
   // Parse any JSON previously stored in allEntries
   let existingEntries = JSON.parse(localStorage.getItem("logs"));
   if (existingEntries == null) existingEntries = [];
@@ -19,7 +22,11 @@ const addEntry = entry => {
     entry = simpleStringify(entry);
   }
   existingEntries.push(entry);
-  localStorage.setItem("logs", JSON.stringify(existingEntries));
+  try {
+    localStorage.setItem("logs", JSON.stringify(existingEntries));
+  } catch (QuotaExceededError) {
+    clearLog();
+  }
 };
 
 const simpleStringify = object => {
@@ -41,7 +48,7 @@ const simpleStringify = object => {
 
 clearLog();
 
-(function() {
+(() => {
   //saving the original console.log function
   var preservedConsoleLog = console.log;
 
@@ -56,10 +63,6 @@ clearLog();
     preservedConsoleLog.apply(console, [...arguments, currentDate]);
 
     addEntry([...arguments, currentDate]);
-    // //and lastly, my addition to the `console.log` function
-    // if(application.socket){
-    //   application.socket.emit('console.log', arguments);
-    // }
   };
 })();
 
