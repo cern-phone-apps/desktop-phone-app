@@ -6,7 +6,7 @@ describe("numbers reducer", () => {
     expect(reducer(undefined, {})).toEqual({
       fetching: false,
       error: undefined,
-      activeNumber: false
+      activeNumber: undefined
     });
   });
 

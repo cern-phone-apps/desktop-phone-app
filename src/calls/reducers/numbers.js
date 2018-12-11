@@ -4,7 +4,7 @@ import { logMessage } from "common/utils";
 const initialState = {
   fetching: false,
   error: undefined,
-  activeNumber: false
+  activeNumber: undefined
 };
 
 function handleNumbersFailure(state, action) {
@@ -65,16 +65,12 @@ function handleServerError(state, action) {
  * @returns {{fetching, numbers, error}} The state with all the user's phone numbers
  */
 const numbersReducer = (state = initialState, action) => {
-
-  logMessage(`NUMBERS REDUCER ACTION RECEIVED`);
-  logMessage(action);
-
-  if (action.error) {
-    return handleServerError(state, action);
-  }
-
   switch (action.type) {
     case numbersActions.NUMBERS_REQUEST:
+      if (action.error) {
+        return handleServerError(state, action);
+      }
+
       return {
         ...state,
         fetching: true,
