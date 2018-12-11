@@ -9,6 +9,7 @@ import * as routes from "calls/routes";
 import LoadingDimmer from "login/components/LoadingDimmer/LoadingDimmer";
 import LoginButton from "login/components/LoginButton/LoginButton";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
+import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
 
 export class LoginPage extends Component {
   static propTypes = {
@@ -41,6 +42,7 @@ export class LoginPage extends Component {
               />
             </h2>
             <ErrorBoundary>
+              <ErrorMessageContainer/>
               <Segment inverted color='grey' attached='top' textAlign={"center"}>
                 <Header as={'h2'}>CERN Phone App</Header>
               </Segment>
