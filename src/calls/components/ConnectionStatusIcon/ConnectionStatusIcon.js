@@ -23,7 +23,7 @@ const ConnectionIcon = ({ color, message, onClick }) => {
 export class ConnectionStatusIcon extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
-    activeNumber: PropTypes.string.isRequired
+    activeNumber: PropTypes.string
   };
 
   inlineStyle = {

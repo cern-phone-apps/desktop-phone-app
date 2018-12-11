@@ -6,7 +6,7 @@ describe("auth reducer", () => {
     expect(reducer(undefined, {})).toEqual({
       loggedIn: false,
       loginInProgress: false,
-      errors: {}
+      error: {}
     });
   });
 
@@ -44,22 +44,16 @@ describe("auth reducer", () => {
           type: authActions.TOKEN_REQUEST
         }
       )
-    ).toEqual({
-      loginInProgress: true
-    });
+    ).toEqual({});
 
     expect(
       reducer(
-        {
-          loginInProgress: false
-        },
+        {},
         {
           type: authActions.TOKEN_REQUEST
         }
       )
-    ).toEqual({
-      loginInProgress: true
-    });
+    ).toEqual({});
   });
 
   it("should handle LOGIN_SUCCESS", () => {
@@ -76,7 +70,7 @@ describe("auth reducer", () => {
     ).toEqual({
       loggedIn: true,
       loginInProgress: false,
-      errors: {}
+      error: {}
     });
 
     expect(
@@ -84,7 +78,7 @@ describe("auth reducer", () => {
         {
           loggedIn: true,
           loginInProgress: false,
-          errors: {}
+          error: {}
         },
         {
           type: authActions.LOGIN_SUCCESS,
@@ -96,7 +90,7 @@ describe("auth reducer", () => {
     ).toEqual({
       loggedIn: true,
       loginInProgress: false,
-      errors: {}
+      error: {}
     });
   });
 
@@ -114,7 +108,7 @@ describe("auth reducer", () => {
     ).toEqual({
       loggedIn: true,
       loginInProgress: false,
-      errors: {}
+      error: {}
     });
 
     expect(
@@ -122,7 +116,7 @@ describe("auth reducer", () => {
         {
           loggedIn: true,
           loginInProgress: false,
-          errors: {}
+          error: {}
         },
         {
           type: authActions.TOKEN_RECEIVED,
@@ -134,7 +128,7 @@ describe("auth reducer", () => {
     ).toEqual({
       loggedIn: true,
       loginInProgress: false,
-      errors: {}
+      error: {}
     });
   });
 
@@ -150,7 +144,7 @@ describe("auth reducer", () => {
         }
       )
     ).toEqual({
-      errors: { message: "Unknown error", statusCode: 999 }
+      error: { message: "Unknown error", statusCode: 999 }
 
     });
 
@@ -159,7 +153,7 @@ describe("auth reducer", () => {
         {
           loggedIn: false,
           loginInProgress: false,
-          errors: {}
+          error: {}
         },
         {
           type: authActions.LOGIN_FAILURE,
@@ -167,7 +161,7 @@ describe("auth reducer", () => {
         }
       )
     ).toEqual({
-      errors: { message: "Unknown error", statusCode: 999 },
+      error: { message: "Unknown error", statusCode: 999 },
       loggedIn: false,
       loginInProgress: false
     });
@@ -184,14 +178,14 @@ describe("auth reducer", () => {
           }
         }
       )
-    ).toEqual({ errors: { message: "Unknown error", statusCode: 999 } });
+    ).toEqual({ error: { message: "Unknown error", statusCode: 999 } });
 
     expect(
       reducer(
         {
           loggedIn: false,
           loginInProgress: false,
-          errors: {}
+          error: {}
         },
         {
           type: authActions.TOKEN_FAILURE,
@@ -199,7 +193,7 @@ describe("auth reducer", () => {
         }
       )
     ).toEqual({
-      errors: { message: "Unknown error", statusCode: 999 },
+      error: { message: "Unknown error", statusCode: 999 },
       loggedIn: false,
       loginInProgress: false
     });
