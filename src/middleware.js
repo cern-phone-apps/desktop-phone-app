@@ -2,6 +2,7 @@ import { apiMiddleware, isRSAA, RSAA } from "redux-api-middleware";
 
 import {
   LOGOUT_REQUEST,
+  LOGIN_REQUEST,
   refreshAccessToken,
   TOKEN_RECEIVED
 } from "./login/actions/auth";
@@ -13,8 +14,7 @@ function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
     // Run postponed actions after token refresh
     if (nextAction.type === TOKEN_RECEIVED) {
-      logMessage("nextCheckPostponed");
-      logMessage(nextAction.type);
+      logMessage("Token received from API");
       next(nextAction);
       postponedRSAAs.forEach(postponed => {
         rsaaMiddleware(next)(postponed);
@@ -40,8 +40,11 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
       if (isOauthEnabled === "false") {
         return rsaaMiddleware(next)(action);
       }
-      // If it is a LOGOUT_REQUEST we don't try to refresh the token
-      if (action[RSAA].types.indexOf(LOGOUT_REQUEST) > -1) {
+      // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
+      if (
+        action[RSAA].types.indexOf(LOGOUT_REQUEST) > -1 ||
+        action[RSAA].types.indexOf(LOGIN_REQUEST) > -1
+      ) {
         return rsaaMiddleware(next)(action);
       }
 
