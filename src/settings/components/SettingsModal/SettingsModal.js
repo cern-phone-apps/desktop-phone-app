@@ -51,8 +51,6 @@ export class SettingsModal extends Component {
             <hr />
             <CallsSettings />
             <hr />
-            <LanguageSettings />
-            <hr />
             <DeviceSettings />
             <hr />
             <NotificationsSettings />
