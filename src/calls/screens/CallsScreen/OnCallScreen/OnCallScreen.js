@@ -4,7 +4,7 @@ import OnCallDetailsContainer from "calls/components/OnCallDetails/index";
 import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
-import { DtmfDialpadForm } from "calls/components/dialpads/DtmfDialpadForm/DtmfDialpadForm";
+import DtmfDialpadForm from "calls/components/dialpads/DtmfDialpadForm/DtmfDialpadForm";
 
 export class OncallScreen extends Component {
   styles = { height: "100%" };
