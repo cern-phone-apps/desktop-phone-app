@@ -1,6 +1,5 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { Icon } from "semantic-ui-react";
 import { DialButton } from "calls/components/dialpads/Dialpad/DialButton";
 import Dialpad from "calls/components/dialpads/Dialpad/Dialpad";
 
@@ -53,7 +52,7 @@ it("handles DialButton short press", () => {
   const onClick = jest.fn();
   const longPress = jest.fn();
 
-  const button = shallow(
+  const wrapper = shallow(
     <DialButton
       clickHandler={onClick}
       longPressHandler={longPress}
@@ -61,7 +60,7 @@ it("handles DialButton short press", () => {
       longPressTimeout={0}
     />
   );
-  const div = button.find(".DialButton");
+  const div = wrapper.find(".DialButton");
 
   div.simulate("mousedown");
   div.simulate("mouseup");
