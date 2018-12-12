@@ -122,6 +122,28 @@ class PhoneProvider extends Component {
     });
   }
 
+  /**
+   * Only for testing purposes.
+   */
+  sayHi = () => {
+    logMessage("Hello!");
+  };
+
+  acceptIncomingCall = () => {
+    const { acceptIncomingCall } = this.props;
+    toneOutMessage(`Accepting incoming call`);
+
+    this.stopRingTone();
+    acceptIncomingCall();
+    this.state.dial.answer();
+  };
+
+  acceptOutgoingCall = () => {
+    logMessage("Accepting call");
+    this.props.acceptOutgoingCall();
+    // TODO We need to stablish a connection between the clients
+  };
+
   addListeners = () => {
     this.notifier = this.state.dial.getNotifier();
     if (this.notifier) {
@@ -129,6 +151,90 @@ class PhoneProvider extends Component {
         this.eventHandler(event);
       });
     }
+  };
+
+  /**
+   * Authenticates the user using the Telephony API
+   * @param username
+   * @returns {boolean|void|*}
+   */
+  authenticateUser = username => {
+    const { token, requestConnection } = this.props;
+
+    logEvent("calls", `authenticate`, `user: ${username}.`);
+    toneOutMessage(`Authenticating user: ${username}/*****`);
+    this.setState({ username: username });
+    requestConnection();
+    this.state.dial.authenticate(username, JSON.stringify(token));
+    // TODO The ideal thing here is to know if the authentication succeeded
+  };
+
+  handleTrackAdded(event) {
+    this.audioElement.srcObject = event.data.remoteStream;
+    let playPromise = this.audioElement.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(_ => {
+          infoMessage("On a call. Audio track playing");
+          this.setState({
+            trackAdded: true
+          });
+        })
+        .catch(error => {
+          errorMessage("Unable to play the audio track.");
+          this.setState({
+            trackAdded: false,
+            error: error
+          });
+        });
+    }
+  }
+
+  hangUpCurrentCall = () => {
+    const { dial } = this.state;
+    toneOutMessage(`Hang up current call`);
+    const { addRecentCall, recipient } = this.props;
+    this.hangUpCallEvent();
+    addRecentCall(recipient);
+    return dial.hangUp();
+  };
+
+  hangUpCallEvent = () => {
+    const { username } = this.state;
+    const { hangupCall, unSelectUser } = this.props;
+
+    logEvent("calls", `hangUp`, `caller: ${username}.`);
+
+    hangupCall();
+    unSelectUser();
+  };
+
+  /**
+   * Makes a call to another person given his/her data
+   * @param name Name of the person
+   * @param phoneNumber Phone number
+   * @returns {*}
+   */
+  makeCall = ({ name, phoneNumber }) => {
+    const { makeCall, isCalling, endSearch } = this.props;
+    const { dial, username } = this.state;
+
+    toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
+    logEvent(
+      "calls",
+      `make`,
+      `caller: ${username}. callee: ${name}. number: ${phoneNumber}`
+    );
+    makeCall({
+      name: name,
+      phoneNumber: phoneNumber,
+      startTime: Date.now()
+    });
+    this.playRingbacktone();
+    isCalling();
+    endSearch();
+    return dial.call(phoneNumber);
   };
 
   playRingbacktone = () => {
@@ -140,10 +246,6 @@ class PhoneProvider extends Component {
       });
   };
 
-  stopRingbacktone = () => {
-    document.getElementById(this.ringBackToneId).pause();
-  };
-
   playRingTone = () => {
     document
       .getElementById(this.ringToneId)
@@ -153,16 +255,70 @@ class PhoneProvider extends Component {
       });
   };
 
+  sendDtmfCommand = tone => {
+    this.state.dial.sendDTMF(tone);
+  };
+
+  stopRingbacktone = () => {
+    document.getElementById(this.ringBackToneId).pause();
+  };
+
   stopRingTone = () => {
     document.getElementById(this.ringToneId).pause();
   };
 
-  /**
-   * Only for testing purposes.
-   */
-  sayHi = () => {
-    logMessage("Hello!");
+  receiveCall = ({ callerNumber, callerName }) => {
+    const { isReceivingCall } = this.props;
+    logMessage("Is receiving call");
+    this.playRingTone();
+    isReceivingCall(callerNumber, callerName);
   };
+
+  /**
+   * Method that must be called when an incoming call is rejected.
+   * It performs all the actions needed by this action.
+   */
+  rejectIncomingCall = () => {
+    logMessage("Rejecting incoming call");
+    const { unSelectUser, rejectIncomingCall } = this.props;
+
+    this.stopRingTone();
+    // addRecentCall(recipient);
+    unSelectUser();
+    rejectIncomingCall();
+  };
+
+  rejectOutgoingCall = () => {
+    logMessage("Rejecting call");
+
+    let { unSelectUser, rejectOutgoingCall } = this.props;
+
+    this.stopRingTone();
+    // addRecentCall(recipient);
+    unSelectUser();
+    rejectOutgoingCall();
+  };
+
+  /**
+   * Logs the user out of TONE
+   */
+  unAuthenticateUser = () => {
+    logEvent("calls", `unAuthenticate`, `user: ${this.state.username}.`);
+    toneOutMessage(`UnAuthenticating user`);
+
+    this.setState({ username: undefined });
+
+    if (this.props.onCall) {
+      this.hangUpCurrentCall();
+    }
+    this.props.requestDisconnection(true);
+    return this.state.dial.stopAgent();
+    // TODO Maybe stopAgent() is not the right method to call
+  };
+
+  getChildContext() {
+    return { phoneService: this.state.phoneService };
+  }
 
   eventHandler = event => {
     toneInMessage(`Tone Event received: ${event.name}`);
@@ -185,25 +341,7 @@ class PhoneProvider extends Component {
       // SetMedia
       case "trackAdded":
         infoMessage("trackAdded ");
-        this.audioElement.srcObject = event.data.remoteStream;
-        let playPromise = this.audioElement.play();
-
-        if (playPromise !== undefined) {
-          playPromise
-            .then(_ => {
-              infoMessage("On a call. Audio track playing");
-              this.setState({
-                trackAdded: true
-              });
-            })
-            .catch(error => {
-              errorMessage("Unable to play the audio track.");
-              this.setState({
-                trackAdded: false,
-                error: error
-              });
-            });
-        }
+        this.handleTrackAdded(event);
         break;
       // Registering
       case "registered":
@@ -253,136 +391,6 @@ class PhoneProvider extends Component {
         toneInMessage(`Unhandled event: ${event.name}`);
     }
   };
-
-  receiveCall = ({ callerNumber, callerName }) => {
-    const { isReceivingCall } = this.props;
-    logMessage("Is receiving call");
-    this.playRingTone();
-    isReceivingCall(callerNumber, callerName);
-  };
-
-  /**
-   * Authenticates the user using the Telephony API
-   * @param username
-   * @returns {boolean|void|*}
-   */
-  authenticateUser = (username) => {
-    const { token, requestConnection } = this.props;
-
-    logEvent("calls", `authenticate`, `user: ${username}.`);
-    toneOutMessage(`Authenticating user: ${username}/*****`);
-    this.setState({ username: username });
-    requestConnection();
-    this.state.dial.authenticate(username, JSON.stringify(token));
-    // TODO The ideal thing here is to know if the authentication succeeded
-  };
-
-  /**
-   * Logs the user out of TONE
-   */
-  unAuthenticateUser = () => {
-    logEvent("calls", `unAuthenticate`, `user: ${this.state.username}.`);
-    toneOutMessage(`UnAuthenticating user`);
-
-    this.setState({ username: undefined });
-
-    if (this.props.onCall) {
-      this.hangUpCurrentCall();
-    }
-    this.props.requestDisconnection(true);
-    return this.state.dial.stopAgent();
-    // TODO Maybe stopAgent() is not the right method to call
-  };
-
-  /**
-   * Makes a call to another person given his/her data
-   * @param name Name of the person
-   * @param phoneNumber Phone number
-   * @returns {*}
-   */
-  makeCall = ({ name, phoneNumber }) => {
-    const { makeCall, isCalling, endSearch } = this.props;
-    const { dial, username } = this.state;
-
-    toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
-    logEvent(
-      "calls",
-      `make`,
-      `caller: ${username}. callee: ${name}. number: ${phoneNumber}`
-    );
-    makeCall({
-      name: name,
-      phoneNumber: phoneNumber,
-      startTime: Date.now()
-    });
-    this.playRingbacktone();
-    isCalling();
-    endSearch();
-    return dial.call(phoneNumber);
-  };
-
-  hangUpCurrentCall = () => {
-    const { dial } = this.state;
-    toneOutMessage(`Hang up current call`);
-    const { addRecentCall, recipient } = this.props;
-    this.hangUpCallEvent();
-    addRecentCall(recipient);
-    return dial.hangUp();
-  };
-
-  hangUpCallEvent = () => {
-    const { username } = this.state;
-    const { hangupCall, unSelectUser } = this.props;
-
-    logEvent("calls", `hangUp`, `caller: ${username}.`);
-
-    hangupCall();
-    unSelectUser();
-  };
-
-  acceptOutgoingCall = () => {
-    logMessage("Accepting call");
-    this.props.acceptOutgoingCall();
-    // TODO We need to stablish a connection between the clients
-  };
-
-  rejectOutgoingCall = () => {
-    logMessage("Rejecting call");
-
-    let { unSelectUser, rejectOutgoingCall } = this.props;
-
-    this.stopRingTone();
-    // addRecentCall(recipient);
-    unSelectUser();
-    rejectOutgoingCall();
-  };
-
-  acceptIncomingCall = () => {
-    const { acceptIncomingCall } = this.props;
-    toneOutMessage(`Accepting incoming call`);
-
-    this.stopRingTone();
-    acceptIncomingCall();
-    this.state.dial.answer();
-  };
-
-  /**
-   * Method that must be called when an incoming call is rejected.
-   * It performs all the actions needed by this action.
-   */
-  rejectIncomingCall = () => {
-    logMessage("Rejecting incoming call");
-    const { unSelectUser, rejectIncomingCall } = this.props;
-
-    this.stopRingTone();
-    // addRecentCall(recipient);
-    unSelectUser();
-    rejectIncomingCall();
-  };
-
-  getChildContext() {
-    return { phoneService: this.state.phoneService };
-  }
 
   render() {
     const { children } = this.props;

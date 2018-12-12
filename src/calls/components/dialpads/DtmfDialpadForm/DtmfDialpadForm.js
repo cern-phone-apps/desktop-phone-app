@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import { Grid, Form, Icon, Input } from "semantic-ui-react";
 import { DtmfDialpad } from "../DtmfDialpad/DtmfDialpad";
 import { logMessage } from "common/utils";
+import PropTypes from "prop-types";
+import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 export class DtmfDialpadForm extends Component {
+  static propTypes = {
+    phoneService: PropTypes.object.isRequired // Phone Service
+  };
+
   state = {
     dialpadValue: ""
   };
@@ -17,7 +23,11 @@ export class DtmfDialpadForm extends Component {
   };
 
   sendDtmf = () => {
+    const {phoneService} = this.props;
+    const {dialpadValue} = this.state;
     logMessage("Sending DTMF");
+    phoneService.sendDtmfCommand(dialpadValue);
+    this.setState({dialpadValue: ''})
   };
 
   render() {
@@ -57,6 +67,8 @@ export class DtmfDialpadForm extends Component {
     );
   }
 }
+
+export default phoneService(DtmfDialpadForm)
 //
 // DtmfDialpadForm.propTypes = {
 //   value: PropTypes.any,
