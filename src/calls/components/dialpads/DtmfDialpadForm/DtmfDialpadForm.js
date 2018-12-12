@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid, Form, Icon, Input } from "semantic-ui-react";
-import PropTypes from "prop-types";
 import { DtmfDialpad } from "../DtmfDialpad/DtmfDialpad";
 import { logMessage } from "common/utils";
 

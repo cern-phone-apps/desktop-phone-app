@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Grid, Form, Icon, Input } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import CallerDialpadContainer from "../CallerDialpad";
-import { DtmfDialpadForm } from "../DtmfDialpadForm/DtmfDialpadForm";
 
 export class CallerDialpadForm extends Component {
   render() {
