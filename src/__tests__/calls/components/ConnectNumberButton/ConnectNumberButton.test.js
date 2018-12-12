@@ -11,7 +11,7 @@ describe("ConnectNumberButton Container", () => {
         getUserPhoneNumbers={getUserPhoneNumbers}
         setActiveNumber={setActiveNumber}
         phoneService={{}}
-       />
+      />
     );
 
     expect(wrapper.text()).toEqual("<Segment />");

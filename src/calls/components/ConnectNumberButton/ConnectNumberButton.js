@@ -51,7 +51,7 @@ class ConnectNumberButton extends Component {
     actionMessage(`Calls | User clicks connect button (${activeNumber})`);
 
     setActiveNumber(activeNumber);
-    const result = phoneService.authenticateUser(activeNumber, activeNumber);
+    const result = phoneService.authenticateUser(activeNumber);
     logMessage(result);
   };
 
