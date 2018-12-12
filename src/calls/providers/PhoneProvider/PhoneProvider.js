@@ -10,6 +10,7 @@ import * as searchActionCreators from "calls/actions/search";
 import * as authActionCreators from "login/actions/auth";
 import {
   errorMessage,
+  infoMessage,
   logEvent,
   logMessage,
   toneInMessage,
@@ -156,6 +157,9 @@ class PhoneProvider extends Component {
     document.getElementById(this.ringToneId).pause();
   };
 
+  /**
+   * Only for testing purposes.
+   */
   sayHi = () => {
     logMessage("Hello!");
   };
@@ -177,27 +181,27 @@ class PhoneProvider extends Component {
       description: "NOT IMPLEMENTED (FAILED)"
     };
 
-    let playPromise;
     switch (event.name) {
       // SetMedia
       case "trackAdded":
-        playPromise = this.audioElement.play();
+        infoMessage("trackAdded ");
+        this.audioElement.srcObject = event.data.remoteStream;
+        let playPromise = this.audioElement.play();
+
         if (playPromise !== undefined) {
           playPromise
             .then(_ => {
+              infoMessage("On a call. Audio track playing");
               this.setState({
                 trackAdded: true
               });
-              // Automatic playback started!
-              // Show playing UI.
             })
             .catch(error => {
+              errorMessage("Unable to play the audio track.");
               this.setState({
                 trackAdded: false,
                 error: error
               });
-              // Auto-play was prevented
-              // Show paused UI.
             });
         }
         break;
@@ -260,18 +264,16 @@ class PhoneProvider extends Component {
   /**
    * Authenticates the user using the Telephony API
    * @param username
-   * @param password
-   * @param token
    * @returns {boolean|void|*}
    */
-  authenticateUser = (username, password) => {
+  authenticateUser = (username) => {
     const { token, requestConnection } = this.props;
 
     logEvent("calls", `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     this.setState({ username: username });
     requestConnection();
-    this.state.dial.authenticate(username, password, JSON.stringify(token));
+    this.state.dial.authenticate(username, JSON.stringify(token));
     // TODO The ideal thing here is to know if the authentication succeeded
   };
 
