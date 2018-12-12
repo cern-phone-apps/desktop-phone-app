@@ -31,7 +31,7 @@ ButtonNumbersList.propTypes = {
 /**
  * Button to connect a user phone number
  */
-class ConnectNumberButton extends Component {
+export class NumberConnector extends Component {
   static propTypes = {
     phoneService: PropTypes.object.isRequired, // Phone Service
     connecting: PropTypes.bool.isRequired,
@@ -58,6 +58,16 @@ class ConnectNumberButton extends Component {
   render() {
     let { connecting, numbers } = this.props;
 
+    if (connecting) {
+      return (
+        <Segment padded basic textAlign={"center"}>
+          <Dimmer active inverted>
+            <Loader active inline="centered" content="Connecting..." />
+          </Dimmer>
+        </Segment>
+      );
+    }
+
     if (numbers === undefined || numbers.length === 0) {
       return (
         <Segment padded basic textAlign={"center"}>
@@ -72,26 +82,14 @@ class ConnectNumberButton extends Component {
       );
     }
 
-    if (connecting) {
-      return (
-        <Segment padded basic textAlign={"center"}>
-          <Dimmer active inverted>
-            <Loader active inline="centered" content="Connecting..." />
-          </Dimmer>
-        </Segment>
-      );
-    }
-
     return (
-      <div>
-        <ButtonNumbersList
-          numbers={numbers}
-          connect={this.connect}
-          connecting={connecting}
-        />
-      </div>
+      <ButtonNumbersList
+        numbers={numbers}
+        connect={this.connect}
+        connecting={connecting}
+      />
     );
   }
 }
 
-export default ConnectNumberButton;
+export default NumberConnector;

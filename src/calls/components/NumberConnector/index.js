@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 import { bindActionCreators } from "redux";
 import { getUserPhoneNumbers, setActiveNumber } from "calls/actions/numbers";
-import ConnectNumberButton from "./ConnectNumberButton";
+import NumberConnector from "./NumberConnector";
 
 function mapStateToProps({ calls }) {
   return {
@@ -21,6 +21,6 @@ function mapDispatchToProps(dispatch) {
 export const ConnectNumberButtonContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ConnectNumberButton);
+)(NumberConnector);
 
 export default phoneService(ConnectNumberButtonContainer);
