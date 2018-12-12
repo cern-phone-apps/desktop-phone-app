@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Grid, Icon, Segment } from "semantic-ui-react";
-import React from "react";
-import {DialButton} from "calls/components/dialpads/DialButton";
-import Dialpad from "calls/components/dialpads/Dialpad";
+import React, { Component } from "react";
+import Dialpad from "../Dialpad/Dialpad";
 import { buildRecipient } from "calls/utils";
+import { logMessage } from "common/utils";
 
 /**
  * Represents the Call Button on the DialPad
@@ -11,7 +11,7 @@ import { buildRecipient } from "calls/utils";
  * @returns {*}
  * @constructor
  */
-export function CallButton ({ clickHandler, text }) {
+export function CallButton({ clickHandler, text }) {
   return (
     <div className={"DialButton CallButton"} onClick={() => clickHandler()}>
       <div className={"DialButton__content"}>{text}</div>
@@ -24,18 +24,15 @@ CallButton.propTypes = {
   text: PropTypes.object.isRequired
 };
 
-export class CallerDialpad extends Dialpad {
+export class CallerDialpad extends Component {
   static propTypes = {
     phoneService: PropTypes.object.isRequired,
     unSelectUser: PropTypes.func.isRequired,
+    dialpadValue: PropTypes.string.isRequired,
+    updateDialpadValue: PropTypes.func.isRequired
   };
 
   makeCall = () => {
-    // this.props.makeCall({
-    //   name: "Unknown",
-    //   phoneNumber: this.props.dialpadValue,
-    //   startTime: Date.now()
-    // });
     const recipient = {
       name: "Unknown",
       phoneNumber: this.props.dialpadValue
@@ -45,44 +42,27 @@ export class CallerDialpad extends Dialpad {
     this.props.phoneService.makeCall(buildRecipient(recipient));
   };
 
-  render () {
+  handleDialPadButtonClick = value => {
+    logMessage("handleDialPadButtonClick: ", value);
+    logMessage("handleDialPadButtonClick: ", this.props.dialpadValue);
+    this.props.updateDialpadValue(this.props.dialpadValue + value);
+  };
+  render = () => {
     return (
       <Segment attached="bottom" className={"Dialpad"}>
-        <Grid columns={3} centered className={"Dialpad__grid"}>
-          {this.rows.map((row, index) => {
-            return (
-              <Grid.Row key={`row${index}`}>
-                {row.map((button, index) => {
-                  return (
-                    <DialButton
-                      key={`button${index}`}
-                      clickHandler={() =>
-                        this.handleDialPadButtonClick(button.symbol)
-                      }
-                      longPressHandler={() =>
-                        this.handleDialPadButtonClick(button.alt)
-                      }
-                      symbol={button.symbol}
-                      alt={button.alt}
-                    />
-                  );
-                })}
-              </Grid.Row>
-            );
-          })}
-
+        <Dialpad handleButtonClick={this.handleDialPadButtonClick}>
           <Grid.Row>
-            <Grid.Column/>
+            <Grid.Column />
             <Grid.Column textAlign={"center"}>
               <CallButton
                 clickHandler={this.makeCall}
-                text={<Icon name={"phone"}/>}
+                text={<Icon name={"phone"} />}
               />
             </Grid.Column>
-            <Grid.Column/>
+            <Grid.Column />
           </Grid.Row>
-        </Grid>
+        </Dialpad>
       </Segment>
     );
-  }
+  };
 }

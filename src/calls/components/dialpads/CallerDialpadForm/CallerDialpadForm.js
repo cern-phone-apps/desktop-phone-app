@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Grid, Form, Icon, Input } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import CallerDialpadContainer from "calls/components/dialpads/CallerDialpad/CallerDialpadContainer";
+import CallerDialpadContainer from "../CallerDialpad";
+import { DtmfDialpadForm } from "../DtmfDialpadForm/DtmfDialpadForm";
 
-export class DialpadForm extends Component {
+export class CallerDialpadForm extends Component {
   render() {
     return (
       <>
@@ -39,7 +40,7 @@ export class DialpadForm extends Component {
   }
 }
 
-DialpadForm.propTypes = {
+CallerDialpadForm.propTypes = {
   value: PropTypes.any,
   onChange: PropTypes.func.isRequired
 };

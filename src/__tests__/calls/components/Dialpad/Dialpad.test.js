@@ -1,9 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { Icon } from "semantic-ui-react";
-import Dialpad from "calls/components/dialpads/Dialpad";
 import { CallButton } from "calls/components/dialpads/CallerDialpad/CallerDialpad";
-import { DialButton } from "calls/components/dialpads/DialButton";
+import { DialButton } from "calls/components/dialpads/Dialpad/DialButton";
+import Dialpad from "calls/components/dialpads/Dialpad/Dialpad";
 
 it("renders Dialpad without crashing", () => {
   const dialpad = shallow(
@@ -14,7 +14,7 @@ it("renders Dialpad without crashing", () => {
     />
   );
 
-  expect(dialpad.text()).toEqual("<Segment />");
+  expect(dialpad.text()).toEqual("<Grid />");
 });
 
 it("Dialpad contains 10 numbers", () => {

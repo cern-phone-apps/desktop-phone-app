@@ -4,7 +4,7 @@ import { actionMessage, logMessage } from "common/utils";
 
 import "./UserSearch.css";
 import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
-import { DialpadForm } from "calls/components/dialpads/DialpadForm";
+import { CallerDialpadForm } from "calls/components/dialpads/CallerDialpadForm/CallerDialpadForm";
 import { Grid, Icon, Menu } from "semantic-ui-react";
 
 class UserSearch extends Component {
@@ -147,7 +147,7 @@ class UserSearch extends Component {
           />
         )}
         {activeItem === "dialpad" && (
-          <DialpadForm
+          <CallerDialpadForm
             value={dialpadValue}
             onChange={this.handleDialpadChange}
           />
