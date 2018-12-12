@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { isAuthenticated } from "login/utils";
+import { isAuthenticated } from "login/utils/tokens";
 import { withRouter } from "react-router-dom";
 import LoginPage from "login/screens/LoginPage/LoginPage";
 

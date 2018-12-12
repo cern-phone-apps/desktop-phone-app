@@ -1,5 +1,5 @@
 import { RSAA } from "redux-api-middleware";
-import { withAuth } from "login/utils";
+import { withAuth } from "login/utils/tokens";
 import { buildAuthApiEndpoint } from "login/actions/auth";
 
 export const ME_REQUEST = "@@user/ME_REQUEST";
