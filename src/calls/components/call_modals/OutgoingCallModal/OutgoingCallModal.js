@@ -1,11 +1,10 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Button, Header, Modal, Icon } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import PhoneRingingIcon from "calls/components/PhoneRingingIcon/PhoneRingingIcon";
 import { translate } from "react-i18next";
 
 export class OutgoingCallModal extends Component {
-
   static propTypes = {
     t: PropTypes.func.isRequired, // Translate service
     phoneService: PropTypes.object.isRequired, // Phone service
@@ -27,7 +26,7 @@ export class OutgoingCallModal extends Component {
       <Modal
         open={this.props.modalOpen}
         size="small"
-        className={'OutgoingCallModal'}
+        className={"OutgoingCallModal"}
       >
         <Header icon="phone" content="Calling..." />
         <Modal.Content>
@@ -36,8 +35,7 @@ export class OutgoingCallModal extends Component {
               <PhoneRingingIcon />
             </div>
             <h3 className="ui center aligned header">
-              {t("callingText")}{" "}
-              {recipientName}
+              {t("callingText")} {recipientName}
             </h3>
             <div className="ui center aligned basic segment">
               ({phoneNumber})
@@ -45,7 +43,11 @@ export class OutgoingCallModal extends Component {
           </div>
         </Modal.Content>
         <Modal.Actions>
-          <Button color="red" onClick={this.hangUpCurrentCall}>
+          <Button
+            color="red"
+            onClick={this.hangUpCurrentCall}
+            className={"HangupButton"}
+          >
             <Icon name="phone" /> Hangup
           </Button>
         </Modal.Actions>
@@ -54,4 +56,4 @@ export class OutgoingCallModal extends Component {
   }
 }
 
-export default translate("calls")(OutgoingCallModal)
+export default translate("calls")(OutgoingCallModal);
