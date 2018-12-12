@@ -26,7 +26,7 @@ export class DtmfDialpad extends Component {
       <Grid.Column textAlign={"center"}>
         <CallButton
           clickHandler={this.props.sendDtmfClick}
-          text={<Icon name={"send"}/>}
+          text={<Icon name={"tty"}/>}
         />
       </Grid.Column>
       <Grid.Column/>
