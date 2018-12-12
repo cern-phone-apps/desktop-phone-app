@@ -4,25 +4,7 @@ import React, { Component } from "react";
 import Dialpad from "../Dialpad/Dialpad";
 import { buildRecipient } from "calls/utils";
 import { logMessage } from "common/utils";
-
-/**
- * Represents the Call Button on the DialPad
- * @param props
- * @returns {*}
- * @constructor
- */
-export function CallButton({ clickHandler, text }) {
-  return (
-    <div className={"DialButton CallButton"} onClick={() => clickHandler()}>
-      <div className={"DialButton__content"}>{text}</div>
-    </div>
-  );
-}
-
-CallButton.propTypes = {
-  clickHandler: PropTypes.func.isRequired,
-  text: PropTypes.object.isRequired
-};
+import { CallButton } from "./CallButton";
 
 export class CallerDialpad extends Component {
   static propTypes = {

@@ -18,9 +18,9 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export const ConnectNumberButtonContainer = connect(
+export const NumberConnectorContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(NumberConnector);
 
-export default phoneService(ConnectNumberButtonContainer);
+export default phoneService(NumberConnectorContainer);

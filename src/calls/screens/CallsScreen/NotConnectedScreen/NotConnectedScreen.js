@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { Grid, Header, Segment, Modal } from "semantic-ui-react";
-import ConnectNumberButtonContainer from "calls/components/ConnectNumberButton/index";
 import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
@@ -17,7 +16,7 @@ export class SelectPhoneNumberModal extends Component {
         <Modal.Content>
           <ErrorMessageContainer />
           <p>Select one of your phone numbers bellow to connect to TONE.</p>
-          <ConnectNumberButtonContainer />
+          <NumberConnectorContainer />
           <hr />
           <LogoutButtonContainer color={"red"} />
         </Modal.Content>

@@ -1,7 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { Icon } from "semantic-ui-react";
-import { CallButton } from "calls/components/dialpads/CallerDialpad/CallerDialpad";
 import { DialButton } from "calls/components/dialpads/Dialpad/DialButton";
 import Dialpad from "calls/components/dialpads/Dialpad/Dialpad";
 
@@ -38,11 +37,6 @@ it("Dialpad contains 10 numbers", () => {
   expect(dialpad.html()).toContain("0");
 });
 
-it("renders CallButton without crashing", () => {
-  const button = shallow(
-    <CallButton clickHandler={() => {}} text={<Icon name={"phone"} />} />
-  );
-});
 
 it("renders DialButton without crashing", () => {
   const button = shallow(
