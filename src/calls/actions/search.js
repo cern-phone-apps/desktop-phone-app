@@ -1,5 +1,5 @@
 import { RSAA } from "redux-api-middleware";
-import { withAuth } from "login/utils";
+import { withAuth } from "login/utils/tokens";
 import { buildCallsApiEndpoint } from "calls/actions/numbers";
 
 export const SEARCH_REQUEST = "@@search/SEARCH_REQUEST";
