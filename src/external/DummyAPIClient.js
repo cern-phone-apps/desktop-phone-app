@@ -36,13 +36,13 @@ export class Dial {
     return this.dialNotifier;
   }
 
-  authenticate(user, password) {
-    if (user && password) {
+  authenticate(user, token) {
+    if (user && token) {
       setTimeout(() => {
         const event = Dial.buildEvent("registered", {});
         this.sendEvent(event);
       }, 300);
-    } else throw Error("Cannot authenticate. Password or User not set.");
+    } else throw Error("Cannot authenticate. Token or User not set.");
   }
 
   call(callee) {
