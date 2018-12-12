@@ -1,3 +1,5 @@
+import { infoMessage, logMessage } from "common/utils";
+
 const EventEmitter = require("events");
 export class DialNotifier extends EventEmitter {}
 
@@ -63,6 +65,10 @@ export class Dial {
   answer() {
     const event = Dial.buildEvent("Invite accepted", {});
     this.sendEvent(event);
+  }
+
+  sendDTMF(tone) {
+    infoMessage(`Sending DTMF message: ${tone}`);
   }
 
   stopAgent = () => {
