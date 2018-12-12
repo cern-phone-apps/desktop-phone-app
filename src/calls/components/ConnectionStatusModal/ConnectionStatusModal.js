@@ -20,7 +20,7 @@ const ConnectionIcon = ({ color, message, onClick }) => {
   );
 };
 
-export class ConnectionStatusIcon extends Component {
+export class ConnectionStatusModal extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
     activeNumber: PropTypes.string
@@ -57,7 +57,13 @@ export class ConnectionStatusIcon extends Component {
         dimmer={"blurring"}
         style={this.inlineStyle.modal}
         closeIcon
-        trigger={<ConnectionIcon color={color} message={message} onClick={this.logUserAction} />}
+        trigger={
+          <ConnectionIcon
+            color={color}
+            message={message}
+            onClick={this.logUserAction}
+          />
+        }
       >
         <Modal.Header>
           <Icon name={"circle"} color={color} /> {"Your connection status"}
@@ -74,7 +80,7 @@ export class ConnectionStatusIcon extends Component {
             ) : (
               ""
             )}
-            <DisconnectAndLogoutButton color={'red'} displayMessage={false}/>
+            <DisconnectAndLogoutButton color={"red"} displayMessage={false} />
           </Modal.Description>
         </Modal.Content>
       </Modal>
@@ -82,4 +88,4 @@ export class ConnectionStatusIcon extends Component {
   }
 }
 
-export default ConnectionStatusIcon;
+export default ConnectionStatusModal;
