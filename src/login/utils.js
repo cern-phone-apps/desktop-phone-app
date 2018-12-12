@@ -39,11 +39,7 @@ export function isRefreshTokenExpired () {
  */
 export function isAuthenticated (state) {
   const refreshToken = !isRefreshTokenExpired();
-  const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED;
   const loggedIn = state.loggedIn ? state.loggedIn : false;
-
-  logMessage(`LoggedIn is ${loggedIn}`);
-  logMessage(`isOauthEnabled is ${isOauthEnabled}`);
 
   // if (isOauthEnabled === "false" && loggedIn === true) {
   //   return true;
