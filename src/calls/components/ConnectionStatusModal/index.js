@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import ConnectionStatusIcon from "./ConnectionStatusIcon";
+import ConnectionStatusModal from "./ConnectionStatusModal";
 
 function mapStateToProps({ calls }) {
   return {
@@ -10,9 +10,9 @@ function mapStateToProps({ calls }) {
   };
 }
 
-export const ConnectionStatusIconContainer = connect(
+export const ConnectionStatusModalContainer = connect(
   mapStateToProps,
   null
-)(ConnectionStatusIcon);
+)(ConnectionStatusModal);
 
-export default phoneService(ConnectionStatusIconContainer);
+export default phoneService(ConnectionStatusModalContainer);

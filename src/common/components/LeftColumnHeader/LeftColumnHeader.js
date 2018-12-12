@@ -4,7 +4,7 @@ import { Grid, Header, Responsive } from "semantic-ui-react";
 import "./LeftColumnHeader.css";
 import ToggleButtonContainer from "common/components/ToggleButton/ToggleButtonContainer";
 import ColumnHeader from "common/components/ColumnHeader/ColumnHeader";
-import ConnectionStatusIconContainer from "calls/components/ConnectionStatusIcon/index";
+import ConnectionStatusModalContainer from "calls/components/ConnectionStatusModal";
 import ErrorButtonContainer from "common/components/ErrorButton/ErrorButtonContainer";
 
 class LeftColumnHeader extends Component {
@@ -39,7 +39,7 @@ class LeftColumnHeader extends Component {
             </Header>
           </Grid.Column>
           <Grid.Column textAlign={"right"} width={4}>
-            <ConnectionStatusIconContainer />
+            <ConnectionStatusModalContainer />
           </Grid.Column>
         </Grid.Row>
       </ColumnHeader>
