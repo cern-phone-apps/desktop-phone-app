@@ -58,7 +58,8 @@ app.post("/auth/v1/login/", (req, res, next) => {
   res.cookie("csrf_access_token", "abcd1234", { httpOnly: false });
   res.cookie("csrf_refresh_token", "abcd1234", { httpOnly: false });
   res.json({
-    login: true
+    login: true,
+    token: '123445'
   });
   // console.log("RES 2");
   // console.log(res);
