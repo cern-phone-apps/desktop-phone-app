@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { Icon, Segment, Grid } from "semantic-ui-react";
 import { CallButton } from "../CallerDialpad/CallerDialpad";
-import { logMessage } from "common/utils";
 import Dialpad from "../Dialpad/Dialpad";
 import PropTypes from "prop-types";
 
