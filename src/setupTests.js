@@ -13,3 +13,10 @@ global.mount = mount;
 console.error = message => {
   throw new Error(message);
 };
+
+global.navigator.mediaDevices = {
+  getUserMedia: jest
+    .fn()
+    .mockResolvedValueOnce({loggedIn: true})
+    .mockRejectedValueOnce(new Error('Async error'))
+};

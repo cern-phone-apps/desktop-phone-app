@@ -4,7 +4,7 @@ import DetectRTC from "detectrtc";
 import { actionMessage, errorMessage, logMessage } from "common/utils";
 import { stopStreams } from "settings/utils/devices";
 
-class DownloadDebugLogsButton extends Component {
+export class DownloadDebugLogsButton extends Component {
   state = {
     modalOpen: false,
     logsLoaded: false
