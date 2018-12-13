@@ -1,5 +1,9 @@
 import * as authActions from "login/actions/auth";
-import reducer, { handleLoginRequest, handleLogoutRequest, handleTokenRequest } from "login/reducers/auth";
+import reducer, {
+  handleLoginRequest,
+  handleLogoutRequest,
+  handleTokenRequest
+} from "login/reducers/auth";
 import { LOGIN_REQUEST } from "login/actions/auth";
 import { TOKEN_REQUEST } from "login/actions/auth";
 import { LOGOUT_REQUEST } from "login/actions/auth";
@@ -41,7 +45,6 @@ it("should handle an ERROR login request", () => {
     loginInProgress: false
   });
 });
-
 
 it("should handle a token request", () => {
   let initialState = {
@@ -173,6 +176,38 @@ describe("auth reducer", () => {
     ).toEqual({});
   });
 
+  it("should handle LOGOUT_REQUEST", () => {
+    expect(
+      reducer(
+        {},
+        {
+          type: authActions.LOGOUT_REQUEST
+        }
+      )
+    ).toEqual({
+      error: {},
+      loggedIn: false,
+      loginInProgress: false,
+      token: undefined
+    });
+
+    expect(
+      reducer(
+        {
+          loginInProgress: false
+        },
+        {
+          type: authActions.LOGOUT_REQUEST
+        }
+      )
+    ).toEqual({
+      error: {},
+      loggedIn: false,
+      loginInProgress: false,
+      token: undefined
+    });
+  });
+
   it("should handle LOGIN_SUCCESS", () => {
     expect(
       reducer(
@@ -209,6 +244,38 @@ describe("auth reducer", () => {
       loginInProgress: false,
       error: {}
     });
+  });
+
+  it("should handle LOGOUT_SUCCESS", () => {
+    expect(
+      reducer(
+        {},
+        {
+          type: authActions.LOGOUT_SUCCESS,
+          payload: {
+            logout: true
+          }
+        }
+      )
+    ).toEqual({
+      loggedIn: false
+    });
+
+    expect(
+      reducer(
+        {
+          loggedIn: true,
+          loginInProgress: false,
+          error: {}
+        },
+        {
+          type: authActions.LOGOUT_SUCCESS,
+          payload: {
+            logout: true
+          }
+        }
+      )
+    ).toEqual({ error: {}, loggedIn: false, loginInProgress: false });
   });
 
   it("should handle TOKEN_RECEIVED", () => {

@@ -74,7 +74,10 @@ export default (state = initialState, action) => {
     case authActions.LOGOUT_REQUEST:
       return handleLogoutRequest(state, action);
     case authActions.LOGOUT_SUCCESS:
-      return state;
+      return {
+        ...state,
+        loggedIn: false
+      };
     case authActions.CLEAR_TOKEN:
       return {
         ...state,
