@@ -370,6 +370,7 @@ class PhoneProvider extends Component {
       case "terminated":
         // TODO
         this.stopRingbacktone();
+        this.stopRingTone();
         this.props.success(this.callTerminatedNotificationOpts);
         this.hangUpCallEvent();
         break;
@@ -388,7 +389,7 @@ class PhoneProvider extends Component {
         this.receiveCall(event.data);
         break;
       default:
-        toneInMessage(`Unhandled event: ${event.name}`);
+        errorMessage(`Unhandled event: ${event.name}`);
     }
   };
 
