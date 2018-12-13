@@ -10,6 +10,37 @@ const initialState = {
   error: {}
 };
 
+export const handleLoginRequest = (state, action) => {
+  if (action.error) {
+    return handleErrorWithLogin(state, action);
+  }
+  return {
+    ...state,
+    loginInProgress: true
+  };
+};
+
+export const handleTokenRequest = (state, action) => {
+  if (action.error) {
+    return handleErrorWithToken(state, action);
+  }
+  return state;
+};
+
+export const handleLogoutRequest = (state, action) => {
+  if (action.error) {
+    return handleErrorWithToken(state, action);
+  }
+
+  return {
+    ...state,
+    loggedIn: false,
+    token: undefined,
+    loginInProgress: false,
+    error: {}
+  };
+};
+
 /**
  * Reducer function for the authentication actions
  *
@@ -20,18 +51,10 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case authActions.LOGIN_REQUEST:
-      if (action.error) {
-        return handleErrorWithLogin(state, action);
-      }
-      return {
-        ...state,
-        loginInProgress: true
-      };
-    case authActions.TOKEN_REQUEST:
-      if (action.error) {
-        return handleErrorWithToken(state, action);
-      }
-      return state;
+      return handleLoginRequest(state, action);
+    case authActions.LOGIN_FAILURE:
+    case authActions.TOKEN_FAILURE:
+      return handleErrorWithToken(state, action);
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
@@ -40,6 +63,8 @@ export default (state = initialState, action) => {
         loginInProgress: false,
         error: {}
       };
+    case authActions.TOKEN_REQUEST:
+      return handleTokenRequest(state, action);
     case authActions.TOKEN_RECEIVED:
       return {
         ...state,
@@ -47,29 +72,14 @@ export default (state = initialState, action) => {
         loginInProgress: false,
         error: {}
       };
-    case authActions.LOGIN_FAILURE:
-    case authActions.TOKEN_FAILURE:
-      return handleErrorWithToken(state, action);
-
     case authActions.LOGOUT_REQUEST:
-      if (action.error) {
-        logMessage(`Handling error on LOGOUT_REQUEST`);
-        return handleErrorWithToken(state, action);
-      }
-
-      return {
-        ...state,
-        loggedIn: false,
-        token: undefined,
-        loginInProgress: false,
-        error: {}
-      };
+      return handleLogoutRequest(state, action);
     case authActions.LOGOUT_SUCCESS:
       return state;
     case authActions.CLEAR_TOKEN:
       return {
         ...state,
-        token: undefined,
+        token: undefined
       };
     default:
       return state;

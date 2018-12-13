@@ -1,5 +1,122 @@
 import * as authActions from "login/actions/auth";
-import reducer from "login/reducers/auth";
+import reducer, { handleLoginRequest, handleLogoutRequest, handleTokenRequest } from "login/reducers/auth";
+import { LOGIN_REQUEST } from "login/actions/auth";
+import { TOKEN_REQUEST } from "login/actions/auth";
+import { LOGOUT_REQUEST } from "login/actions/auth";
+
+it("should handle a login request", () => {
+  let initialState = {
+    loggedIn: false,
+    loginInProgress: false,
+    error: {}
+  };
+
+  const action = {
+    name: LOGIN_REQUEST,
+    payload: {}
+  };
+
+  const result = handleLoginRequest(initialState, action);
+
+  expect(result).toEqual({ error: {}, loggedIn: false, loginInProgress: true });
+});
+
+it("should handle an ERROR login request", () => {
+  let initialState = {
+    loggedIn: false,
+    loginInProgress: false,
+    error: {}
+  };
+
+  const action = {
+    name: LOGIN_REQUEST,
+    error: true
+  };
+
+  const result = handleLoginRequest(initialState, action);
+
+  expect(result).toEqual({
+    error: { message: "Unknown error", statusCode: 999 },
+    loggedIn: false,
+    loginInProgress: false
+  });
+});
+
+
+it("should handle a token request", () => {
+  let initialState = {
+    loggedIn: false,
+    loginInProgress: false,
+    error: {}
+  };
+
+  const action = {
+    name: TOKEN_REQUEST,
+    payload: {}
+  };
+
+  const result = handleTokenRequest(initialState, action);
+
+  expect(result).toEqual(initialState);
+});
+
+it("should handle an ERROR token request", () => {
+  let initialState = {
+    loggedIn: false,
+    loginInProgress: false,
+    error: {}
+  };
+
+  const action = {
+    name: TOKEN_REQUEST,
+    error: true
+  };
+
+  const result = handleTokenRequest(initialState, action);
+
+  expect(result).toEqual({
+    error: { message: "Unknown error", statusCode: 999 },
+    loggedIn: false,
+    loginInProgress: false
+  });
+});
+it("should handle a logout request", () => {
+  let initialState = {
+    loggedIn: false,
+    loginInProgress: false,
+    error: {}
+  };
+
+  const action = {
+    name: LOGOUT_REQUEST,
+    payload: {}
+  };
+
+  const result = handleLogoutRequest(initialState, action);
+
+  expect(result).toEqual(initialState);
+});
+
+it("should handle an ERROR logout request", () => {
+  let initialState = {
+    loggedIn: false,
+    loginInProgress: false,
+    error: {}
+  };
+
+  const action = {
+    name: LOGOUT_REQUEST,
+    error: true
+  };
+
+  const result = handleLogoutRequest(initialState, action);
+
+  expect(result).toEqual({
+    error: { message: "Unknown error", statusCode: 999 },
+    loggedIn: false,
+    loginInProgress: false
+  });
+});
 
 describe("auth reducer", () => {
   it("should return the initial state", () => {
@@ -145,7 +262,6 @@ describe("auth reducer", () => {
       )
     ).toEqual({
       error: { message: "Unknown error", statusCode: 999 }
-
     });
 
     expect(

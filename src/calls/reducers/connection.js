@@ -39,8 +39,6 @@ export default (state = initialState, action) => {
       };
     case connectionActions.CONNECT_FAILURE:
     case connectionActions.DISCONNECT_FAILURE:
-      logMessage(`LOOK HERESSSSSSSSSSSSSSSS`);
-      logMessage(action.errors.code.status_code);
       return {
         ...state,
         connected: false,
