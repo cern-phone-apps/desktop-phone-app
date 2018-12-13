@@ -10,6 +10,13 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.1.3 - 2018-12-13
+### Added
+- Support for DTMF signals
+- Support for TONE API 0.7.0
+### Improved
+- Added more tests. Improve test coverage
+
 ## w0.1.1 - 2018-08-29
 ### Added
 - Integrate Sentry and error boundaries
