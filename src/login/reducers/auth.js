@@ -1,6 +1,5 @@
 import * as authActions from "login/actions/auth";
 import { handleErrorWithToken } from "login/utils/errors";
-import { logMessage } from "common/utils";
 import { handleErrorWithLogin } from "login/utils/errors";
 
 const initialState = {

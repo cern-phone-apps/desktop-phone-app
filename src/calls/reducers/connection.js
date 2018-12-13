@@ -1,5 +1,4 @@
 import * as connectionActions from "calls/actions/connection";
-import { logMessage } from "common/utils";
 
 const initialState = {
   connected: false,
