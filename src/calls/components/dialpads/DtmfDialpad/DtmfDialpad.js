@@ -14,13 +14,13 @@ export class DtmfDialpad extends Component {
     return (
       <Segment attached="bottom" className={"Dialpad"}>
         <Dialpad handleButtonClick={this.props.onButtonClick}>
-          {this.sendDtfmRow()}
+          {this.printDtmfRow()}
         </Dialpad>
       </Segment>
     );
   };
 
-  sendDtfmRow = () => {
+  printDtmfRow = () => {
     return <Grid.Row>
       <Grid.Column/>
       <Grid.Column textAlign={"center"}>
