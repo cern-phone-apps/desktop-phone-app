@@ -1,6 +1,6 @@
 import React from "react";
 import Raven from "raven-js";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

@@ -8,7 +8,7 @@ import RedirectPageContainer from "login/screens/RedirectPage/RedirectPageContai
 import LoginPageContainer from "login/screens/LoginPage/LoginPageContainer";
 import * as routes from "routes";
 import * as loginRoutes from "login/routes";
-import { infoMessage } from "common/utils";
+import { infoMessage } from "common/utils/logs";
 
 const NoMatch = ({ location }) => (
   <div>

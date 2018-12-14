@@ -1,5 +1,5 @@
 import * as numbersActions from "calls/actions/numbers";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 const initialState = {
   fetching: false,

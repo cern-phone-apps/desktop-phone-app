@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { Message, Segment } from "semantic-ui-react";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 export class ErrorMessage extends Component {
   static propTypes = {

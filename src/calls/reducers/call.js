@@ -1,5 +1,5 @@
 import * as callActions from 'calls/actions/call'
-import { logMessage } from 'common/utils'
+import { logMessage } from 'common/utils/logs'
 
 const initialState = {
   onCall: false,

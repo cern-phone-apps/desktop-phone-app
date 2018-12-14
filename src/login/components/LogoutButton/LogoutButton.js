@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { actionMessage, logEvent } from "common/utils";
+import { actionMessage, logEvent } from "common/utils/logs";
 
 /**
  * Will trigger the user's logout

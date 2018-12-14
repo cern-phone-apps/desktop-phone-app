@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import DetectRTC from "detectrtc";
-import { actionMessage, errorMessage, logMessage } from "common/utils";
+import { actionMessage, errorMessage, logMessage } from "common/utils/logs";
 import { stopStreams } from "settings/utils/devices";
 
 export class DownloadDebugLogsButton extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { actionMessage, logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils/logs";
 
 import "./UserSearch.css";
 import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";

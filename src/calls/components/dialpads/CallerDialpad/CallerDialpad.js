@@ -3,7 +3,7 @@ import { Grid, Icon, Segment } from "semantic-ui-react";
 import React, { Component } from "react";
 import Dialpad from "../Dialpad/Dialpad";
 import { buildRecipient } from "calls/utils";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 import { CallButton } from "./CallButton";
 
 export class CallerDialpad extends Component {

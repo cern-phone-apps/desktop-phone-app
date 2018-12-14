@@ -1,4 +1,4 @@
-import {errorMessage, logMessage} from 'common/utils'
+import {errorMessage, logMessage} from 'common/utils/logs'
 /**
  * Generates the constraints that will be passed to getUserMedia WebRTC method
  * @param sourceId Identifier of the device that will be set

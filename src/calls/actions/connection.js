@@ -1,4 +1,4 @@
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 export const CONNECT_REQUEST = "@@connection/CONNECT_REQUEST";
 export const CONNECT_SUCCESS = "@@connection/CONNECT_SUCCESS";

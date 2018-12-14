@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
-import { actionMessage, logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils/logs";
 
 const ButtonNumbersList = ({ numbers, connect }) => {
   return (

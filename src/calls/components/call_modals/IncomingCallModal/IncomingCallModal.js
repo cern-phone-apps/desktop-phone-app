@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import PhoneRingingIcon from "calls/components/PhoneRingingIcon/PhoneRingingIcon";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 import styles from "./IncomingCallModal.css";
 

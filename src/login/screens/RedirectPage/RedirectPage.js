@@ -6,7 +6,7 @@ import qs from "qs";
 import { callsRoute } from "calls/routes";
 import LoadingDimmer from "login/components/LoadingDimmer/LoadingDimmer";
 import * as loginRoutes from "login/routes";
-import { errorMessage, infoMessage, logMessage } from "common/utils";
+import { errorMessage, infoMessage, logMessage } from "common/utils/logs";
 
 class RedirectPage extends Component {
   static propTypes = {

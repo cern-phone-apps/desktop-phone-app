@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon } from "semantic-ui-react";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 export class DisconnectAndLogoutButton extends Component {
   static propTypes = {
