@@ -134,16 +134,18 @@ export class IncomingCallModal extends Component {
    * Action triggered when the reject call button is triggered
    */
   rejectIncomingCall = () => {
+    const {phoneService} = this.props;
     this.setState({ modalHidden: false });
-    this.props.phoneService.rejectIncomingCall();
+    phoneService.rejectIncomingCall();
   };
 
   /**
    * Action triggered when the answer button is clicked
    */
   answerCall = () => {
+    const {phoneService} = this.props;
     this.setState({ modalHidden: false });
-    this.props.phoneService.acceptIncomingCall();
+    phoneService.acceptIncomingCall();
   };
 
   render() {
