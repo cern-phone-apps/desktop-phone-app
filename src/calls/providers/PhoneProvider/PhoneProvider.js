@@ -279,19 +279,22 @@ class PhoneProvider extends Component {
    * It performs all the actions needed by this action.
    */
   rejectIncomingCall = () => {
-    logMessage("Rejecting incoming call");
     const { unSelectUser, rejectIncomingCall } = this.props;
+    const { dial } = this.state;
+
+    logMessage("Rejecting incoming call");
 
     this.stopRingTone();
     // addRecentCall(recipient);
     unSelectUser();
     rejectIncomingCall();
+    return dial.hangUp();
   };
 
   rejectOutgoingCall = () => {
-    logMessage("Rejecting call");
+    const { unSelectUser, rejectOutgoingCall } = this.props;
 
-    let { unSelectUser, rejectOutgoingCall } = this.props;
+    logMessage("Rejecting call");
 
     this.stopRingTone();
     // addRecentCall(recipient);
@@ -378,6 +381,7 @@ class PhoneProvider extends Component {
         // TODO: Detail doesn't include error field nor error code
         this.props.rejectOutgoingCall(tempRejectedMessage);
         this.stopRingbacktone();
+        this.hangUpCallEvent();
         break;
       case "failed":
         // TODO
