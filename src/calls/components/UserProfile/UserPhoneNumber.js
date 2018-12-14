@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon } from "semantic-ui-react";
-import { buildRecipient } from "calls/utils";
+import { buildRecipient, formatPhoneNumber } from "calls/utils";
 
 export class UserPhoneNumber extends Component {
   static propTypes = {
@@ -9,13 +9,17 @@ export class UserPhoneNumber extends Component {
     recipientName: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     phoneService: PropTypes.object.isRequired,
-    unSelectUser: PropTypes.func.isRequired,
+    unSelectUser: PropTypes.func.isRequired
   };
 
   makeCall = () => {
+    const { phoneNumber, recipientName } = this.props;
+
+    const formattedNumber = formatPhoneNumber(phoneNumber);
+
     const recipient = {
-      name: this.props.recipientName,
-      phoneNumber: this.props.phoneNumber,
+      name: recipientName,
+      phoneNumber: formattedNumber,
       incoming: false,
       missed: false
     };

@@ -36,3 +36,11 @@ export const getWindowTitle = (connected, onCall, calling) => {
   }
   return title;
 };
+
+export function formatPhoneNumber (phoneNumber) {
+  return phoneNumber
+    .replace("+", "00")
+    .replace(/ /g, "")
+    .replace(".", "")
+    .replace("-", "");
+}
