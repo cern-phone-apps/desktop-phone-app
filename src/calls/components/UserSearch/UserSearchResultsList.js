@@ -3,7 +3,7 @@ import { Header, Icon, Loader, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 import "./UserSearch.css";
-import { actionMessage, logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils/logs";
 
 const UserSearchResult = ({ onClick, item }) => {
   const styles = {

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Menu, Modal, Icon, Button } from "semantic-ui-react";
-import { actionMessage, logMessage } from "common/utils";
+import { actionMessage, logMessage } from "common/utils/logs";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 const ModalTrigger = ({ onClick }) => {

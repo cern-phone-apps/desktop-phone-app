@@ -1,4 +1,4 @@
-import { infoMessage } from "common/utils";
+import { infoMessage } from "common/utils/logs";
 
 const EventEmitter = require("events");
 export class DialNotifier extends EventEmitter {}

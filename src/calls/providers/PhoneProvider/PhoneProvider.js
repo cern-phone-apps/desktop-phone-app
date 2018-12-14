@@ -15,7 +15,7 @@ import {
   logMessage,
   toneInMessage,
   toneOutMessage
-} from "common/utils";
+} from "common/utils/logs";
 import { success, info, warning } from "common/actions/notifications";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 

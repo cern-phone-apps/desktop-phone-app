@@ -10,7 +10,7 @@ import * as loginRoutes from "login/routes";
 import Notifications from "common/components/Notifications/Notifications";
 import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer";
 import SettingsModal from "settings/components/SettingsModal/SettingsModal";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 export class MainPage extends Component {
   static propTypes = {

@@ -1,4 +1,4 @@
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 export const TOGGLE_DIALPAD = "@@dialpad/TOGGLE";
 export const DIALPAD_NUMBER_UPDATED = "@@dialpad/DIALPAD_NUMBER_UPDATED";

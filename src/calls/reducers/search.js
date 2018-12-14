@@ -1,5 +1,5 @@
 import * as searchActions from "calls/actions/search";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 const initialState = {
   userSelected: false,

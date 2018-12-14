@@ -6,7 +6,7 @@ import configureMockStore from "redux-mock-store";
 import createHistory from "history/createBrowserHistory";
 import { routerMiddleware } from "react-router-redux";
 import { UserSearchContainer } from "calls/components/UserSearch/UserSearchContainer";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 const history = createHistory();
 const middlewares = [thunk, routerMiddleware(history)];

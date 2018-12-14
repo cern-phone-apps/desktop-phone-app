@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Form, Icon, Input } from "semantic-ui-react";
 import { DtmfDialpad } from "../DtmfDialpad/DtmfDialpad";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 import PropTypes from "prop-types";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 

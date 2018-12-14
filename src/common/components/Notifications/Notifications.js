@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { hide } from "common/actions/notifications";
 import NotifySystem from "react-notification-system";
-import { logMessage } from "common/utils";
+import { logMessage } from "common/utils/logs";
 
 /**
  * Handles the application notifications
