@@ -40,7 +40,6 @@ class App extends Component {
           path={loginRoutes.loginRoute.path}
           component={LoginPageContainer}
         />
-        <Route component={NoMatch} />
       </Switch>
     );
   }
