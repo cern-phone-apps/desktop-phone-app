@@ -47,7 +47,7 @@ export class ConnectionStatusModal extends Component {
       callsMessage = `You are able to make and receive calls`;
     } else {
       color = "red";
-      message = "You are not connected to TONE";
+      message = "You are not connected to the telephony backend";
       callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
     }
 
@@ -74,7 +74,7 @@ export class ConnectionStatusModal extends Component {
             <p>{callsMessage}</p>
             {connected ? (
               <p>
-                If you want to disconnect from TONE, you can use the following
+                If you want to disconnect from the telephony backend, you can use the following
                 button to logout and login again.
               </p>
             ) : (

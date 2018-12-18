@@ -16,7 +16,7 @@ export class SelectPhoneNumberModal extends Component {
         <Header icon="phone" content="Select a phone number" />
         <Modal.Content>
           <ErrorMessageContainer />
-          <p>Select one of your phone numbers bellow to connect to TONE.</p>
+          <p>Select which one of your phone numbers you want to use with this client.</p>
           <NumberConnectorContainer />
           <hr />
           <LogoutButtonContainer color={"red"} />
