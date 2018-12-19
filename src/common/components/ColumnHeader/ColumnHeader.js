@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 
 import "./ColumnHeader.css";
 
-class ColumnHeader extends Component {
+export class ColumnHeader extends Component {
   static propTypes = {
-    style: PropTypes.object
+    style: PropTypes.object,
+    children: PropTypes.node
   };
   render() {
     return (
