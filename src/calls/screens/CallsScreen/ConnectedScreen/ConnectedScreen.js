@@ -30,30 +30,34 @@ export class ConnectedScreen extends Component {
         className={"CallsScreen__RightColumn"}
       >
         <RightColumn>
-          <MainHeaderContainer />
+          <MainHeaderContainer/>
           <ErrorBoundary>
-            <IncomingCallModalContainer />
-            <Grid padded style={this.styles} className={"CallPage"}>
-              <Grid.Row
-                columns={numberOfColumns}
-                divided
-                style={this.dividedStyles}
-              >
-                <Grid.Column>
-                  {calling && <CallModalContainer modalOpen={calling} />}
-                  <UserSearchContainer />
-                </Grid.Column>
-                {userSelected && (
-                  <Grid.Column>
-                    <UserProfileContainer />
-                  </Grid.Column>
-                )}
-              </Grid.Row>
-            </Grid>
+            <IncomingCallModalContainer/>
+            {this.renderMainContent(numberOfColumns, calling, userSelected)}
           </ErrorBoundary>
         </RightColumn>
       </Grid.Column>
     );
+  }
+
+  renderMainContent (numberOfColumns, calling, userSelected) {
+    return <Grid padded style={this.styles} className={"CallPage"}>
+      <Grid.Row
+        columns={numberOfColumns}
+        divided
+        style={this.dividedStyles}
+      >
+        <Grid.Column>
+          {calling && <CallModalContainer modalOpen={calling}/>}
+          <UserSearchContainer/>
+        </Grid.Column>
+        {userSelected && (
+          <Grid.Column>
+            <UserProfileContainer/>
+          </Grid.Column>
+        )}
+      </Grid.Row>
+    </Grid>;
   }
 }
 
