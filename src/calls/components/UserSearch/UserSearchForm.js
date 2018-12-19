@@ -19,44 +19,52 @@ export class UserSearchForm extends Component {
       marginBottom: '10px'
     };
     return (
-      <>
-        <Grid.Row>
-          <Grid.Column width={16}>
-            <Form onSubmit={onSubmit}>
-              <Form.Group>
-                <Form.Field width={16}>
-                  <Input
-                    icon={
-                      <Icon
-                        onClick={onSubmit}
-                        disabled={!enableSearch}
-                        link={enableSearch}
-                        name="search"
-                        inverted
-                        color={"blue"}
-                        circular
-                        className={'SearchUserButton'}
-                      />
-                    }
-                    placeholder="Search for a person..."
-                    name={"searchValue"}
-                    value={value}
-                    onChange={onChange}
-                    className={'UserSearchInput'}
-                  />
-                </Form.Field>
-              </Form.Group>
-            </Form>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row style={secondColumn}>
-          <Grid.Column width={16}>
-            <div>
-              <UserSearchResultsListContainer />
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </>
+      <div>
+        {this.renderSearchFieldRow(onSubmit, enableSearch, value, onChange)}
+        {this.renderSearchResultsRow(secondColumn)}
+      </div>
     );
+  }
+
+  renderSearchResultsRow (secondColumn) {
+    return <Grid.Row style={secondColumn}>
+      <Grid.Column width={16}>
+        <div>
+          <UserSearchResultsListContainer/>
+        </div>
+      </Grid.Column>
+    </Grid.Row>;
+  }
+
+  renderSearchFieldRow (onSubmit, enableSearch, value, onChange) {
+    return <Grid.Row>
+      <Grid.Column width={16}>
+        <Form onSubmit={onSubmit}>
+          <Form.Group>
+            <Form.Field width={16}>
+              <Input
+                icon={
+                  <Icon
+                    onClick={onSubmit}
+                    disabled={!enableSearch}
+                    link={enableSearch}
+                    name="search"
+                    inverted
+                    color={"blue"}
+                    circular
+                    className={"SearchUserButton"}
+                  />
+                }
+                placeholder="Search for a person..."
+                name={"searchValue"}
+                value={value}
+                onChange={onChange}
+                className={"UserSearchInput"}
+              />
+            </Form.Field>
+          </Form.Group>
+        </Form>
+      </Grid.Column>
+    </Grid.Row>;
   }
 }
