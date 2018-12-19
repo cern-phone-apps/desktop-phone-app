@@ -6,12 +6,11 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
 import DtmfDialpadForm from "calls/components/dialpads/DtmfDialpadForm/DtmfDialpadForm";
 
-export class OncallScreen extends Component {
+export class OnCallScreen extends Component {
   styles = { height: "100%" };
   dividedStyles = { paddingTop: "0", paddingBottom: 0 };
 
   render() {
-
     return (
       <Grid.Column
         computer={12}
@@ -21,24 +20,30 @@ export class OncallScreen extends Component {
       >
         <RightColumn>
           <MainHeader />
-          <ErrorBoundary>
-            <Grid padded style={this.styles} className={"CallPage"}>
-              <Grid.Row columns={2} divided style={this.dividedStyles}>
-                <Grid.Column>
-                  <OnCallDetailsContainer />
-                </Grid.Column>
-                <Grid.Column>
-                  <Segment basic>
-                    <Grid.Column>
-                      <DtmfDialpadForm/>
-                    </Grid.Column>
-                  </Segment>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </ErrorBoundary>
+          {this.renderMainContent()}
         </RightColumn>
       </Grid.Column>
+    );
+  }
+
+  renderMainContent() {
+    return (
+      <ErrorBoundary>
+        <Grid padded style={this.styles} className={"CallPage"}>
+          <Grid.Row columns={2} divided style={this.dividedStyles}>
+            <Grid.Column>
+              <OnCallDetailsContainer />
+            </Grid.Column>
+            <Grid.Column>
+              <Segment basic>
+                <Grid.Column>
+                  <DtmfDialpadForm />
+                </Grid.Column>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </ErrorBoundary>
     );
   }
 }
