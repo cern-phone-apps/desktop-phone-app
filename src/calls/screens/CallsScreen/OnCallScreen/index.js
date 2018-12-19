@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { OncallScreen } from "./OnCallScreen";
+import { OnCallScreen } from "./OnCallScreen";
 
 function mapStateToProps({ calls }) {
   return {
@@ -10,4 +10,4 @@ function mapStateToProps({ calls }) {
   };
 }
 
-export default connect(mapStateToProps)(OncallScreen);
+export default connect(mapStateToProps)(OnCallScreen);

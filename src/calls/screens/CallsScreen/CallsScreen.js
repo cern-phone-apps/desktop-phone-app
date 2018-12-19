@@ -8,13 +8,13 @@ import NotConnectedScreen from "calls/screens/CallsScreen/NotConnectedScreen/Not
 import ConnectedScreen from "calls/screens/CallsScreen/ConnectedScreen";
 import OnCallScreen from "calls/screens/CallsScreen/OnCallScreen";
 
-class CallsScreen extends Component {
+export class CallsScreen extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
-    onCall: PropTypes.bool.isRequired,
+    onCall: PropTypes.bool.isRequired
   };
   render() {
-    const {connected, onCall} = this.props;
+    const { connected, onCall } = this.props;
     return (
       <Grid stackable className={"CallsScreen__Grid"}>
         <RecentCallListContainer />
