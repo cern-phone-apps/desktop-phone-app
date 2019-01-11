@@ -1,0 +1,20 @@
+.ScrollableContent {
+  //display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  /* align items in Main Axis */
+  align-items: stretch;
+  /* align items in Cross Axis */
+  align-content: stretch;
+  /* Extra space in Cross Axis */
+  overflow: auto;
+  flex: 1;
+}
+
+.ScrollableContent .grid {
+  max-width: 100%;
+}
+
+.ScrollableContent a {
+  color: inherit
+}

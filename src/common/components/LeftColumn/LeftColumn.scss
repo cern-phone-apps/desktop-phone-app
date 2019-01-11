@@ -1,0 +1,44 @@
+
+.LeftColumn {
+    flex: 0.5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* align items in Main Axis */
+    align-items: stretch;
+    /* align items in Cross Axis */
+    align-content: stretch;
+    /* Extra space in Cross Axis */
+}
+
+.LeftColumn .ui.items>.item{
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.LeftColumn .ui.items>.item{
+  padding: 5px 5px 5px 10px;
+  border-bottom: 1px solid #d4d4d4;
+    margin: 0;
+}
+.LeftColumn .ui.items>.item:hover{
+    background-color: #f2f6fa;
+}
+
+.LeftColumn .content .ui.grid{
+    margin-right: 0;
+}
+
+.LeftColumn .ui.items > .item{
+    font-size: .9em;
+}
+
+.LeftColumn .ui.items>.item.active{
+    background-color: #2185d0;
+    color: #fff
+}
+
+.LeftColumn .ui.items>.item.active>.content>.header{
+    color: #fff
+}

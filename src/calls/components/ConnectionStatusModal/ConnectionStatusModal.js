@@ -1,0 +1,91 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Button, Icon, Modal } from "semantic-ui-react";
+import DisconnectAndLogoutButton from "calls/components/DisconnectAndLogoutButton";
+import { actionMessage } from "common/utils/logs";
+
+/**
+ * Button that displays the connection status
+ * @param color (string) Color of the button
+ * @param message
+ * @param onClick
+ * @returns {*}
+ * @constructor
+ */
+const ConnectionIcon = ({ color, message, onClick }) => {
+  return (
+    <Button onClick={onClick} as={"a"} className={"flat"} title={message}>
+      <Icon name={"circle"} color={color} />
+    </Button>
+  );
+};
+
+export class ConnectionStatusModal extends Component {
+  static propTypes = {
+    connected: PropTypes.bool.isRequired,
+    activeNumber: PropTypes.string
+  };
+
+  inlineStyle = {
+    modal: {
+      marginTop: "0px !important",
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  };
+
+  logUserAction = () => {
+    actionMessage(`Calls: User clicks on Connection Status Button`);
+  };
+
+  render() {
+    const { connected, activeNumber } = this.props;
+    let color, message, callsMessage;
+    if (connected) {
+      color = "green";
+      message = `You are connected with number ${activeNumber}`;
+      callsMessage = `You are able to make and receive calls`;
+    } else {
+      color = "red";
+      message = "You are not connected to the telephony backend";
+      callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
+    }
+
+    return (
+      <Modal
+        size={"tiny"}
+        dimmer={"blurring"}
+        style={this.inlineStyle.modal}
+        closeIcon
+        trigger={
+          <ConnectionIcon
+            color={color}
+            message={message}
+            onClick={this.logUserAction}
+          />
+        }
+      >
+        <Modal.Header>
+          <Icon name={"circle"} color={color} /> {"Your connection status"}
+        </Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <p>{message}</p>
+            <p>{callsMessage}</p>
+            {connected ? (
+              <p>
+                If you want to disconnect from the telephony backend, you can use the following
+                button to logout and login again.
+              </p>
+            ) : (
+              ""
+            )}
+            <DisconnectAndLogoutButton color={"red"} displayMessage={false} />
+          </Modal.Description>
+        </Modal.Content>
+      </Modal>
+    );
+  }
+}
+
+export default ConnectionStatusModal;

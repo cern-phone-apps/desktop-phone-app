@@ -1,0 +1,42 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-webapp).
+
+## [unreleased]
+### Added
+- XXX
+### Fixed
+- XXX
+### Improved
+- XXX
+
+## w0.1.5 - 2018-12-17
+### Improved
+- Format phone numbers before making a call
+
+## w0.1.4 - 2018-12-14
+### Improved
+- D1 Release
+
+## w0.1.3.1 - 2018-12-13
+### Fixed
+- Incoming call rejection from callee
+
+## w0.1.3 - 2018-12-13
+### Added
+- Support for DTMF signals
+- Support for TONE API 0.7.0
+### Improved
+- Added more tests. Improve test coverage
+
+## w0.1.1 - 2018-08-29
+### Added
+- Integrate Sentry and error boundaries
+- Display version number on settings
+### Improved
+- Added more tests. Improve test coverage
+
+## w0.1.0 - 2018-08-21
+### Added
+- Add mockups for the backend using node mockup server
+- Ringing on outgoing call

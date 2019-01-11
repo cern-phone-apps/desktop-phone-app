@@ -1,0 +1,120 @@
+stages:
+#- install
+- test
+- build
+- generate_docker_image
+- redeploy
+
+# to cache both npm modules and Cypress binary we use environment variables
+# to point at the folders we can list as paths in "cache" job settings
+variables:
+  # Integration test variables
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+  # Testing variables
+  REACT_APP_API_ENDPOINT: "http://localhost:7075"
+  REACT_APP_OAUTH_ENABLED: "false"
+  REACT_APP_OAUTH_CLIENT_ID: "test"
+  REACT_APP_OAUTH_AUTHORIZATION_URL: "http://localhost:7075/OAuth/Authorize"
+  REACT_APP_OAUTH_REDIRECT_URL: "http://localhost:3000/redirect/"
+  REACT_APP_SENTRY_DSN: "https://ID@HOSTNAME/PROJECT"
+  REACT_APP_TONE_API_PATH: "external/DummyAPIClient"
+  REACT_APP_PIWIK_URL: "https://"
+  REACT_APP_PIWIK_SITE_ID: "1"
+
+# cache using branch name
+# https://gitlab.com/help/ci/caching/index.md
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - .npm
+  - cache/Cypress
+  - node_modules
+
+# this job installs NPM dependencies and Cypress
+# The image is based on node:XX images
+#install:
+#  image: cypress/base:10
+#  stage: install
+#  script:
+#  - npm ci
+#  - npm run cypress:verify
+
+## actual job definitions
+## all steps are the same, they come from the template above
+#integration_test:
+#  image: cypress/base:10
+#  stage: test
+#  script:
+#  # print CI environment variables for reference
+#  #- $(npm bin)/print-env CI
+#  # start the server in the background
+#  - npm run mock-server -- --silent &
+#  - npm run start -- --silent &
+#  # run Cypress test in load balancing mode, pass id to tie jobs together
+#  - npm run cypress:run:ci
+
+
+unit_test:
+  image: node:10.13
+  stage: test
+  script:
+  - npm run build
+  - npm test -- --coverage
+
+#
+# The following phases are dedicated to deployment builds
+#
+build_next:
+  image: node:10.13
+  stage: build
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    REACT_APP_API_ENDPOINT: ${API_ENDPOINT}
+    REACT_APP_OAUTH_ENABLED: ${OAUTH_ENABLED}
+    REACT_APP_OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+    REACT_APP_OAUTH_AUTHORIZATION_URL: ${OAUTH_AUTHORIZATION_URL}
+    REACT_APP_OAUTH_REDIRECT_URL: ${OAUTH_REDIRECT_URL}
+    REACT_APP_SENTRY_DSN: ${SENTRY_DSN_NEXT}
+    REACT_APP_TONE_API_PATH: ${TONE_API_PATH}
+    REACT_APP_PIWIK_URL: ${PIWIK_URL}
+    REACT_APP_PIWIK_SITE_ID: ${PIWIK_SITE_ID}
+  before_script:
+  - git submodule update --init --recursive --remote
+  - npm ci
+  script:
+  - npm run build
+  artifacts:
+    paths:
+    - build # The application is built for production
+  only:
+  - master # or master, the branch you want to publish
+
+generate_docker_image_next:
+  stage: generate_docker_image
+  tags:
+  - docker-image-build
+  script: "echo building $CI_REGISTRY_IMAGE/next" # No empty scripts are allowed
+  dependencies:
+  - build_next # we'll need the built artifact to build the image
+  variables:
+    TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
+  only:
+  - master # or dev, the branch you want to publish
+
+redeploy_next:
+  stage: redeploy
+  image: gitlab-registry.cern.ch/paas-tools/openshift-client:latest
+  environment:
+    name: next
+  variables:
+    GITLAB_NAMESPACE: dialtone
+    OPENSHIFT_SERVER: https://openshift.cern.ch # use https://openshift-dev.cern.ch for a Test site
+    OPENSHIFT_NAMESPACE: phone-next # this is the name of your Openshift project (i.e. the site name)
+    OPENSHIFT_APP_NAME: dial-webapp # this is the name of the ImageStream/DeploymentConfig objects created by oc new-app. Typically, this will be the name of the GitLab project.
+  script:
+  - "oc import-image $OPENSHIFT_APP_NAME --all --server=$OPENSHIFT_SERVER --namespace=$OPENSHIFT_NAMESPACE --from=gitlab-registry.cern.ch/$GITLAB_NAMESPACE/$OPENSHIFT_APP_NAME/next --confirm --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  # wait a bit for redeployment to happen then monitor the deployment status
+  - "sleep 30s && oc rollout status dc/$OPENSHIFT_APP_NAME --server=$OPENSHIFT_SERVER --namespace $OPENSHIFT_NAMESPACE --token=$IMAGE_IMPORT_TOKEN_NEXT"
+  only:
+  - master

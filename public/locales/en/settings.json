@@ -1,0 +1,26 @@
+{
+  "header": "Settings",
+  "dangerZoneHeader": "Danger zone",
+  "logoutButtonText": "Logout",
+  "language": {
+    "header": "Language"
+  },
+  "personalInfo": {
+    "header": "Your profile",
+    "name": "Name:",
+    "username": "Username:",
+    "email": "Email:"
+  },
+  "devices": {
+    "header": "Devices",
+    "audioInputLabel": "Input",
+    "audioOutputLabel": "Output"
+  },
+  "appInfo": {
+    "header": "App Info",
+    "version": "Version:"
+  }
+}
+
+
+

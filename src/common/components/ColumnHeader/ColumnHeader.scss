@@ -1,0 +1,17 @@
+.ui .grid .right.right-sub-column{
+  justify-content: flex-end;
+  display: flex;
+}
+
+.status-dropdown{
+  align-self: center;
+}
+
+.column-header {
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+  background-color: rgb(247, 247, 247);
+  border-bottom: 1px solid #d4d4d4;
+}
