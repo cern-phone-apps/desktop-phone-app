@@ -127,4 +127,12 @@ describe("numbers reducer", () => {
       )
     ).toEqual({ activeNumber: "1234" });
   });
+
+  it("should create an action to set active number", () => {
+    const expectedAction = {
+      type: actions.NUMBERS_SET_ACTIVE
+    };
+    expect(actions.setActiveNumber ()).toEqual(expectedAction);
+  });
+
 });

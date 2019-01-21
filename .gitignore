@@ -30,3 +30,6 @@ mock/rest/*/*/*/mock/response.txt
 /src/third-party/*
 /cypress/videos/
 /cypress/screenshots/
+
+\mockserver/rest/*/*/*/mock/response.txt
+mockserver/rest/*/*/*/mock/response.txt
