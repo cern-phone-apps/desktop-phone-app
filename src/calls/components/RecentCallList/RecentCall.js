@@ -11,18 +11,6 @@ class RecentCall extends Component {
     recentCall: PropTypes.object.isRequired
   };
 
-  setRecipient = () => {
-    const { name, phoneNumber, startTime } = this.props.recentCall;
-    const recipient = {
-      name: name,
-      phoneNumber: phoneNumber,
-      startTime: startTime,
-      incoming: false,
-      missed: false
-    };
-    return buildRecipient(recipient);
-  };
-
   render() {
     const {
       name,

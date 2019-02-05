@@ -44,21 +44,6 @@ export class UserProfile extends Component {
     profile: PropTypes.object.isRequired
   };
 
-  getItems = () => {
-    const { profile } = this.props;
-    if (!profile || !profile.phones) {
-      return [];
-    }
-    return profile.phones.map((phone, index) => (
-      <UserPhoneNumberContainer
-        key={`number-${index}`}
-        phoneNumber={phone.number}
-        recipientName={profile.displayName}
-        icon={phone.phoneType}
-      />
-    ));
-  };
-
   render() {
     const { fetching, profile } = this.props;
     if (fetching) {
