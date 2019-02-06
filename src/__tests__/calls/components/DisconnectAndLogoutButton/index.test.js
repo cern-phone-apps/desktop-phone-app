@@ -2,16 +2,14 @@ import React from "react";
 import { shallow } from "enzyme";
 import configureMockStore from 'redux-mock-store';
 import DisconnectAndLogoutButtonContainer from "calls/components/DisconnectAndLogoutButton/index";
-import PropTypes from "prop-types";
 import DisconnectAndLogoutButton
   from "../../../../calls/components/DisconnectAndLogoutButton/DisconnectAndLogoutButton";
 const mockStore = configureMockStore();
 
 
 describe('DisconnectAndLogoutButton', () => {
-  let wrapper, store, store2;
+  let wrapper, store, disconnectButtonWrapper;
   let phoneService = {test: true};
-  const logout = jest.fn();
 
   beforeEach(() => {
     const initialState = {
@@ -23,32 +21,20 @@ describe('DisconnectAndLogoutButton', () => {
       }
     };
 
-    const initialState2 = {
-      phoneService: {test: true},
-      disconnecting: false,
-      connected: true,
-      displayMessage: false,
-      logout: logout
-    };
-
     store = mockStore(initialState);
-    store2 = mockStore(initialState2);
+    const context = { phoneService: phoneService };
 
     wrapper = shallow(
-      <DisconnectAndLogoutButtonContainer store={store} phoneService={phoneService} />
-    ).dive(store2);
+      <DisconnectAndLogoutButtonContainer store={store} phoneService={phoneService} displayMessage={false} />, { context });
 
-    wrapper.setProps({phoneService: phoneService});
-    // console.log('props: ' + wrapper.props().phoneService  );
+    disconnectButtonWrapper = wrapper.shallow().shallow();
+
 
   });
 
 
   it('should show the correct props', () => {
-
-    // TODO: Revise this, not done yet
-    expect(true).toBe(true);
-    // expect(wrapper.dive().props().disconnecting).toBe(false);
+    expect(disconnectButtonWrapper.prop('disconnecting')).toBe(false);
   });
 
 
