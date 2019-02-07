@@ -3,7 +3,7 @@ import * as dialpadActions from 'calls/actions/dialpad'
 const initialState = {
   display: false,
   value: ''
-}
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -11,12 +11,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         value: action.newValue
-      }
+      };
     case dialpadActions.TOGGLE_DIALPAD:
       return {
         ...state,
         display: action.newStatus
-      }
+      };
     default:
       return state
   }
