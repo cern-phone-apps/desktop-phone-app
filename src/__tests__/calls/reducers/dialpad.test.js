@@ -8,7 +8,7 @@ describe('dialpad reducer', () => {
         display: false, value: ''
       }
     )
-  })
+  });
 
   it('should handle TOGGLE_DIALPAD', () => {
     expect(
@@ -21,7 +21,7 @@ describe('dialpad reducer', () => {
         display: true
       }
     )
-  })
+  });
 
   it('should handle TOGGLE_DIALPAD', () => {
     expect(
@@ -34,6 +34,19 @@ describe('dialpad reducer', () => {
         display: false
       }
     )
+  });
+
+  it('should handle DIALPAD_NUMBER_UPDATED', () => {
+    expect(
+      reducer({}, {
+        type: actions.DIALPAD_NUMBER_UPDATED,
+        newValue: '1'
+      })
+    ).toEqual(
+      {
+        value:'1'
+      }
+    )
   })
 
-})
+});
