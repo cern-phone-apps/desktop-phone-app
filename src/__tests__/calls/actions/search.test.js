@@ -28,6 +28,20 @@ describe("search actions", () => {
     const expectedResult = `http://localhost:7075/api/v1/users/search/?username=${value}`;
     expect(actions.buildSearchEndpoint(value)).toEqual(expectedResult);
   });
+
+  it("should create an action to end search", () => {
+    const expectedAction = {
+      type: actions.SEARCH_END
+    };
+    expect(actions.endSearch()).toEqual(expectedAction);
+  });
+
+  it("should create an action to clear search results", () => {
+    const expectedAction = {
+      type: actions.SEARCH_CLEAR
+    };
+    expect(actions.clearSearchResults()).toEqual(expectedAction);
+  });
 });
 
 describe("async search test", () => {
