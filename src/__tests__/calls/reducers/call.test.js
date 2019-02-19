@@ -172,7 +172,7 @@ describe("calls reducer", () => {
       receivingCall: false,
       recipient: {
         missed: false,
-        startTime: Date.now()
+        startTime: expect.any(Number)
       }
     });
   });
@@ -190,7 +190,7 @@ describe("calls reducer", () => {
       receivingCall: false,
       recipient: {
         missed: true,
-        startTime: Date.now()
+        startTime: expect.any(Number)
       }
     });
   });

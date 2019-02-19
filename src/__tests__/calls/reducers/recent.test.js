@@ -31,7 +31,7 @@ describe("recent reducer", () => {
       lastRecentId: 2,
       recentCalls: [
         {
-          endTime: Date.now(),
+          endTime: expect.any(Number),
           id: 2,
           incoming: true,
           missed: false,
