@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Icon, Item } from "semantic-ui-react";
-import { buildRecipient } from "calls/utils";
+
 
 import styles from "./RecentCall.module.css";
 
