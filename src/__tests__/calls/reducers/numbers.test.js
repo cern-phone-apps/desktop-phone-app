@@ -127,4 +127,111 @@ describe("numbers reducer", () => {
       )
     ).toEqual({ activeNumber: "1234" });
   });
+
+  it("should create an action to set active number", () => {
+    const expectedAction = {
+      type: actions.NUMBERS_SET_ACTIVE
+    };
+    expect(actions.setActiveNumber ()).toEqual(expectedAction);
+  });
+
+  it("should handle NUMBERS_REQUEST with error 31", () => {
+    let error = { message: "Dial backend is not currently available.", statusCode: 31 };
+
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.NUMBERS_REQUEST,
+          error: true,
+          payload: {
+            message: {
+              error: true
+            },
+            name: 'RequestError'
+          }
+        }
+      )
+    ).toEqual({ error: error});
+  });
+
+  it("should handle NUMBERS_REQUEST with error -1", () => {
+    let error = { message: {error: true}, statusCode: -1 };
+
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.NUMBERS_REQUEST,
+          error: true,
+          payload: {
+            message: {
+              error: true
+            },
+            name: 'ApiError'
+          }
+        }
+      )
+    ).toEqual({ error: error});
+  });
+
+  it("should handle NUMBERS_REQUEST with error -1", () => {
+    let error = { message: {error: true}, statusCode: -1 };
+
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.NUMBERS_REQUEST,
+          error: true,
+          payload: {
+            message: {
+              error: true
+            },
+            name: 'ApiError',
+            status: -1
+          }
+        }
+      )
+    ).toEqual({ error: error});
+  });
+
+  it("should handle NUMBERS_REQUEST with error -1 and message", () => {
+    let error = { message: {error: true}, statusCode: -1 };
+
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.NUMBERS_REQUEST,
+          error: true,
+          payload: {
+            message: {
+              error: true
+            },
+            name: 'Error message.'
+          }
+        }
+      )
+    ).toEqual({ error: error});
+  });
+
+  it("should handle NUMBERS_REQUEST with unknown error", () => {
+    let error = { message: "Unknown error", statusCode: 999 };
+
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.NUMBERS_REQUEST,
+          error: true,
+          payload: {
+            message: false,
+            name: 'Error message.'
+          }
+        }
+      )
+    ).toEqual({ error: error});
+  });
+
 });

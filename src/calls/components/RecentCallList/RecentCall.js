@@ -2,25 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Icon, Item } from "semantic-ui-react";
-import { buildRecipient } from "calls/utils";
+
 
 import styles from "./RecentCall.module.css";
 
 class RecentCall extends Component {
   static propTypes = {
     recentCall: PropTypes.object.isRequired
-  };
-
-  setRecipient = () => {
-    const { name, phoneNumber, startTime } = this.props.recentCall;
-    const recipient = {
-      name: name,
-      phoneNumber: phoneNumber,
-      startTime: startTime,
-      incoming: false,
-      missed: false
-    };
-    return buildRecipient(recipient);
   };
 
   render() {

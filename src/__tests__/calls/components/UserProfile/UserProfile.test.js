@@ -18,4 +18,39 @@ describe("CalleeProfile Component tests", () => {
     );
     expect(wrapper.text()).toEqual("<Segment />");
   });
+
+  it("renders Loader without crashing", () => {
+    const unSelectUser = jest.fn();
+    const getProfile = jest.fn();
+    const wrapper = shallow(
+      <UserProfile
+        t={key => key}
+        fetching={true}
+        getUserProfile={getProfile}
+        username={"example"}
+        profile={{ phones: [] }}
+        recipientName={"test name"}
+        unSelectUser={unSelectUser}
+      />
+    );
+    expect(wrapper.text()).toEqual("<Loader />");
+  });
+
+  it("renders UserPhoneNumberContainer", () => {
+    const unSelectUser = jest.fn();
+    const getProfile = jest.fn();
+    const wrapper = shallow(
+      <UserProfile
+        t={key => key}
+        fetching={false}
+        getUserProfile={getProfile}
+        username={"example"}
+        profile={{ phones: [{'number': 1}] }}
+        recipientName={"test name"}
+        unSelectUser={unSelectUser}
+      />
+    );
+    expect(wrapper.text()).toEqual("<Segment />");
+
+  });
 });

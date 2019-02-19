@@ -4,7 +4,7 @@ const initialState = {
   profile: {},
   fetching: false,
   error: undefined
-}
+};
 
 /**
  * Reducer used for the search state.
@@ -21,24 +21,24 @@ const search = (state = initialState, action) => {
         profile: {},
         fetching: true,
         error: undefined
-      }
+      };
     case profileActions.PROFILE_SUCCESS:
       return {
         ...state,
         fetching: false,
         profile: action.payload.result,
         error: undefined
-      }
+      };
     case profileActions.PROFILE_FAILURE:
       return {
         ...state,
         fetching: false,
         profile: {},
         error: action.payload.error
-      }
+      };
     default:
       return state
   }
-}
+};
 
 export default search

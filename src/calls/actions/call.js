@@ -93,7 +93,7 @@ export function rejectOutgoingCall (errors = { code: { status_code: 0 } }) {
  * Action triggered when a call is rejected
  * @returns {{type: string}} A dict
  */
-export function callFailed (errors) {
+export function callFailed (errors = { code: { status_code: 0 } }) {
   return {
     type: CALL_FAILED,
     errors
