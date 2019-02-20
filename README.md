@@ -35,6 +35,8 @@ the sample configuration for this one) files.
 
 ### Setting up the mock server
 
+The mock server simulates the behaviour of a backend server by providing some sample responses.
+
 Then run the server:
 
 ```bash
@@ -52,9 +54,20 @@ a path to the file.
 
 ### Run the application
 
-```bash
-npm start
-```
+* `npm start`: Runs the application on development mode. It uses `.env.development.local` env file.
+* `npm run start-secure`: Runs the application using `HTTPS`. . It uses `.env.development.local` env file.
+* `npm run start-ci`: Runs the application using `.env.ci` environment file in CI mode.
+
+## Mock Server methods
+
+* GET `/OAuth/Authorize`
+* POST `/auth/v1/login/`
+* DELETE `/auth/v1/logout/`
+* GET `/api/v1/users/me/`
+* GET `/api/v1/numbers/`
+* GET `/api/v1/users/search/`
+* GET `/api/v1/users/`
+
 
 ## React Docs
 
