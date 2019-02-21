@@ -159,6 +159,42 @@ describe("calls reducer", () => {
     });
   });
 
+  it("should handle INCOMING_CALL_ACCEPTED", () => {
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.INCOMING_CALL_ACCEPTED
+        }
+      )
+    ).toEqual({
+      onCall: true,
+      receivingCall: false,
+      recipient: {
+        missed: false,
+        startTime: expect.any(Number)
+      }
+    });
+  });
+
+  it("should handle INCOMING_CALL_REJECTED", () => {
+    expect(
+      reducer(
+        {},
+        {
+          type: actions.INCOMING_CALL_REJECTED
+        }
+      )
+    ).toEqual({
+      onCall: false,
+      receivingCall: false,
+      recipient: {
+        missed: true,
+        startTime: expect.any(Number)
+      }
+    });
+  });
+
   it("should handle HANGUP_CALL", () => {
     expect(
       reducer(
@@ -173,4 +209,6 @@ describe("calls reducer", () => {
       recipient: {}
     });
   });
+
+
 });
