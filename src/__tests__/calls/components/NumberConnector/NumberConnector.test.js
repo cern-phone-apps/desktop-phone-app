@@ -63,4 +63,29 @@ describe("NumberConnector Container", () => {
     expect(wrapper.text()).toEqual("<Segment />");
     expect(wrapper.html()).toContain("Connecting...");
   });
+
+  it("runs the correct function on click", () => {
+    const getUserPhoneNumbers = jest.fn();
+    const setActiveNumber = jest.fn();
+
+    const phoneService = {
+      authenticateUser: jest.fn()
+    };
+
+    const wrapper = shallow(
+      <NumberConnector
+        connecting={false}
+        numbers={[
+          {'phoneNumber': 1}
+        ]}
+        getUserPhoneNumbers={getUserPhoneNumbers}
+        setActiveNumber={setActiveNumber}
+        phoneService={phoneService}
+      />
+    );
+    const div = wrapper.dive().find("Button").first();
+    div.simulate('click');
+    expect(setActiveNumber).toHaveBeenCalled();
+  });
+
 });

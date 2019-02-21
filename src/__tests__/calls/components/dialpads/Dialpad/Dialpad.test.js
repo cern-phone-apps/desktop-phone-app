@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
+import {mount} from 'enzyme';
 import { DialButton } from "calls/components/dialpads/Dialpad/DialButton";
 import Dialpad from "calls/components/dialpads/Dialpad/Dialpad";
 
@@ -57,7 +58,7 @@ it("handles DialButton short press", () => {
       clickHandler={onClick}
       longPressHandler={longPress}
       symbol={"7"}
-      longPressTimeout={0}
+      longPressTimeout={1000}
     />
   );
   const div = wrapper.find(".DialButton");
@@ -67,7 +68,7 @@ it("handles DialButton short press", () => {
   expect(onClick).toHaveBeenCalled();
 });
 
-it("handles DialButton long press", () => {
+it("handles DialButton long press", done  => {
   const onClick = jest.fn();
   const longPress = jest.fn();
 
@@ -76,13 +77,52 @@ it("handles DialButton long press", () => {
       clickHandler={onClick}
       longPressHandler={longPress}
       symbol={"7"}
-      longPressTimeout={1}
+      longPressTimeout={1000}
+      alt={"*"}
     />
   );
+
   const div = button.find(".DialButton");
   div.simulate("mousedown");
-  setTimeout(2, () => {
+  setTimeout(() => {
     div.simulate("mouseup");
     expect(longPress).toHaveBeenCalled();
-  });
+    done();
+  }, 2000);
+});
+
+it("Dialpad click handler works", () => {
+
+  const onClick = jest.fn();
+
+  const dialpad = mount(
+    <Dialpad
+      handleButtonClick={onClick}
+    />
+  );
+
+  const div = dialpad.find(".DialButton").first();
+
+  div.simulate("mousedown");
+  div.simulate("mouseup");
+  expect(onClick).toHaveBeenCalled();
+});
+
+it("Dialpad click handler works", done  => {
+
+  const longPress = jest.fn();
+
+  const dialpad = mount(
+    <Dialpad
+      handleButtonClick={longPress}
+    />
+  );
+
+  const div = dialpad.find(".DialButton").at(10);
+  div.simulate("mousedown");
+  setTimeout(() => {
+    div.simulate("mouseup");
+    expect(longPress).toHaveBeenCalled();
+    done();
+  }, 2000);
 });

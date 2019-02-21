@@ -24,7 +24,7 @@ const UserSearchResult = ({ onClick, item }) => {
   );
 };
 
-class UserSearchResultsList extends Component {
+export class UserSearchResultsList extends Component {
   static propTypes = {
     results: PropTypes.array.isRequired,
     searching: PropTypes.bool.isRequired,
