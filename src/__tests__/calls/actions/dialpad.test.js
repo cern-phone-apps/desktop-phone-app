@@ -7,4 +7,12 @@ describe("dialpad actions", () => {
     };
     expect(actions.toggleDialpad()).toEqual(expectedAction);
   });
+
+  it("should create an action to update dialpad", () => {
+    const expectedAction = {
+      type: actions.DIALPAD_NUMBER_UPDATED
+    };
+    expect(actions.updateDialpadValue()).toEqual(expectedAction);
+  });
+
 });

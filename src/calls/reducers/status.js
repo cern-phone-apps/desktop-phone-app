@@ -1,6 +1,6 @@
 import * as statusActions from 'calls/actions/status'
 
-const initialState = 'available'
+const initialState = 'available';
 
 /**
  * Reducer used to handle the user status of the current logged in user.
@@ -12,14 +12,14 @@ const initialState = 'available'
 const user = (state = initialState, action) => {
   switch (action.type) {
     case statusActions.SET_AVAILABLE:
-      return 'available'
+      return 'available';
     case statusActions.SET_INVISIBLE:
-      return 'invisible'
+      return 'invisible';
     case statusActions.SET_DO_NOT_DISTURB:
-      return 'do_not_disturb'
+      return 'do_not_disturb';
     default:
       return state
   }
-}
+};
 
 export default user
