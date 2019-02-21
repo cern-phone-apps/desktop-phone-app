@@ -7,7 +7,7 @@ import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
 import { CallerDialpadForm } from "calls/components/dialpads/CallerDialpadForm/CallerDialpadForm";
 import { Grid, Icon, Menu } from "semantic-ui-react";
 
-class UserSearch extends Component {
+export class UserSearch extends Component {
   static propTypes = {
     results: PropTypes.array.isRequired,
     displayDialpad: PropTypes.bool.isRequired,
@@ -19,7 +19,8 @@ class UserSearch extends Component {
     unSelectUser: PropTypes.func.isRequired,
     searchUsers: PropTypes.func.isRequired,
     updateDialpadValue: PropTypes.func.isRequired,
-    toggleDialpad: PropTypes.func.isRequired
+    toggleDialpad: PropTypes.func.isRequired,
+    clearSearchResults: PropTypes.func
   };
 
   state = {
@@ -75,10 +76,10 @@ class UserSearch extends Component {
     });
   };
 
-  handleSearchChange = (e, { name, value }) => {
+  handleSearchChange = (e) => {
     const { timeout } = this.state;
 
-    this.setState({ [name]: value });
+    this.setState({ [e.name]: e.value });
     this.shouldEnableSearch();
     this.removeSearchResults();
 
@@ -89,7 +90,7 @@ class UserSearch extends Component {
 
     this.setState({
       timeout: setTimeout(() => {
-        this._handleSearchTimeout(value);
+        this._handleSearchTimeout(e.value);
       }, 300)
     });
   };
@@ -99,9 +100,9 @@ class UserSearch extends Component {
     updateDialpadValue(event.target.value);
   };
 
-  handleItemClick = (e, { name }) => {
-    actionMessage(`Search: User clicks on ${name} button`);
-    this.setState({ activeItem: name });
+  handleItemClick = (e) => {
+    actionMessage(`Search: User clicks on ${e.name} button`);
+    this.setState({ activeItem: e.name });
   };
 
   render() {

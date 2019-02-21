@@ -13,7 +13,7 @@ const initialState = {
     missed: false
   },
   error: {}
-}
+};
 
 function processCall (state, recipient) {
   return {
@@ -56,8 +56,8 @@ function processCallMissed (state) {
 }
 
 function processCallReceiving (state, action) {
-  logMessage(`Receiving call from`)
-  logMessage(action)
+  logMessage(`Receiving call from`);
+  logMessage(action);
   return {
     ...state,
     onCall: false,
@@ -72,7 +72,7 @@ function processCallReceiving (state, action) {
 }
 
 function acceptIncomingCall (state) {
-  logMessage(`Accept Incoming call`)
+  logMessage(`Accept Incoming call`);
   return {
     ...state,
     onCall: true,
@@ -86,7 +86,7 @@ function acceptIncomingCall (state) {
 }
 
 function rejectIncomingCall (state) {
-  logMessage(`Reject Incoming call`)
+  logMessage(`Reject Incoming call`);
   return {
     ...state,
     onCall: false,
@@ -120,7 +120,7 @@ function processCallAccepted (state) {
 const call = (state = initialState, action) => {
   switch (action.type) {
     case callActions.CALL:
-      return processCall(state, action.recipient)
+      return processCall(state, action.recipient);
     case callActions.OUTGOING_CALL_ACCEPTED:
       if (state.calling === true || state.receivingCall === true) {
         return processCallAccepted(state)
@@ -128,23 +128,23 @@ const call = (state = initialState, action) => {
         return state
       }
     case callActions.OUTGOING_CALL_REJECTED:
-      return processCallRejected(state, action.errors)
+      return processCallRejected(state, action.errors);
     case callActions.CALL_FAILED:
-      return processCallFailed(state, action.errors)
+      return processCallFailed(state, action.errors);
     case callActions.CALL_MISSED:
-      return processCallMissed(state)
+      return processCallMissed(state);
     case callActions.IS_RECEIVING_CALL:
-      return processCallReceiving(state, action)
+      return processCallReceiving(state, action);
     case callActions.INCOMING_CALL_ACCEPTED:
-      return acceptIncomingCall(state)
+      return acceptIncomingCall(state);
     case callActions.INCOMING_CALL_REJECTED:
-      return rejectIncomingCall(state)
+      return rejectIncomingCall(state);
     case callActions.HANGUP_CALL:
-      return processCallHangup(state)
+      return processCallHangup(state);
 
     default:
       return state
   }
-}
+};
 
 export default call
