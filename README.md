@@ -14,18 +14,29 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ## Development
 
+- [Requirements](#requirements)
+- [Install dependencies](#install-dependencies)
+- [Creating the .env configuration files](#creating-the-env-configuration-files)
+- [Setting up the mock server](#setting-up-the-mock-server)
+    - [Mock Server methods](#mock-server-methods)
+- [Adding your own API Client](#adding-your-own-api-client)
+- [Run the application](#run-the-application)
+- [Testing the application](#testing-the-application)
+    - [Unit tests](#unit-tests)
+    - [Integration tests](#integration-tests)
+
 ### Requirements
 
 - node v8.11.2
-- npm 6.2.0
+- npm 6.5.0
 
-### Install the dependencies
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### Creating the .env configuration files
+## Creating the .env configuration files
 
 This project gets the configuration from the `.env` files located on the root of the project.
 There is a `.env.development.local.sample` file that can be used as example.
@@ -33,7 +44,7 @@ There is a `.env.development.local.sample` file that can be used as example.
 You must create the `env.development.local` (you must customize this one) and `.env.test.local` (you can use
 the sample configuration for this one) files.
 
-### Setting up the mock server
+## Setting up the mock server
 
 The mock server simulates the behaviour of a backend server by providing some sample responses.
 
@@ -45,20 +56,7 @@ npm run mock-server
 
 More info about this server: https://github.com/smollweide/node-mock-server#readme
 
-### Adding your own API Client
-
-This application uses an API to connect to the telephony backend (Called TONE) but it can be
-customize with your own library. To add it, you can use the `src/third-party` folder and
-then reference it using the environment variable `REACT_APP_TONE_API_PATH` to set
-a path to the file.
-
-### Run the application
-
-* `npm start`: Runs the application on development mode. It uses `.env.development.local` env file.
-* `npm run start-secure`: Runs the application using `HTTPS`. . It uses `.env.development.local` env file.
-* `npm run start-ci`: Runs the application using `.env.ci` environment file in CI mode.
-
-## Mock Server methods
+### Mock Server methods
 
 * GET `/OAuth/Authorize`
 * POST `/auth/v1/login/`
@@ -68,6 +66,50 @@ a path to the file.
 * GET `/api/v1/users/search/`
 * GET `/api/v1/users/`
 
+## Adding your own API Client
+
+This application uses an API to connect to the telephony backend (Called TONE) but it can be
+customize with your own library. To add it, you can use the `src/third-party` folder and
+then reference it using the environment variable `REACT_APP_TONE_API_PATH` to set
+a path to the file.
+
+## Run the application
+
+* `npm start`: Runs the application on development mode. It uses `.env.development.local` env file.
+* `npm run start-secure`: Runs the application using `HTTPS`. . It uses `.env.development.local` env file.
+* `npm run start-ci`: Runs the application using `.env.ci` environment file in CI mode.
+
+## Testing the application
+
+Application can be tested in two different ways:
+
+* Using [Jest](https://jestjs.io/) for unit tests.
+* Using [Cypress](https://www.cypress.io/) for integration tests.
+
+### Unit tests
+
+Tests are located on `src/__tests__` folder.
+
+In order to run them: `npm test`
+
+### Integration tests
+
+Tests are located on `cypress/integration`.
+
+The mock server needs to be running in order to run the integration tests:
+
+```bash
+npm run mock-server
+npm run start-ci
+```
+
+Then, you can either open cypress with `npm run cypress:open` or run it 
+directly with `npm run cypress:run`.
+
+
+## Continuous Integration
+
+-TODO-
 
 ## React Docs
 
