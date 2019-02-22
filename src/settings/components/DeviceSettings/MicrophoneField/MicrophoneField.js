@@ -4,7 +4,11 @@ import DeviceField, {
   devicePropTypes
 } from "settings/components/DeviceSettings/DeviceField";
 import DetectRTC from "detectrtc";
+import { logMessage } from "common/utils/logs";
 
+/**
+ *
+ */
 export class MicrophoneField extends DeviceField {
   static propTypes = {
     ...devicePropTypes,
@@ -12,16 +16,14 @@ export class MicrophoneField extends DeviceField {
     setMicrophone: PropTypes.func.isRequired,
   };
 
-  constructor() {
-    super();
+  componentDidMount = () => {
+    super.componentDidMount();
+
     this.state.hasDevice = false;
     if (this.props && this.props.inputDevice) {
       this.state.device = this.props.inputDevice;
     }
-  }
 
-  componentDidMount = () => {
-    super.componentDidMount();
     DetectRTC.load(() => {
       this.setState({
         hasDevice: DetectRTC.hasMicrophone
@@ -33,6 +35,7 @@ export class MicrophoneField extends DeviceField {
   selectDevice = value => {
     this.props.setMicrophone(value);
     // this.stopStreams()
+    logMessage("Selecting device");
     changeInputDevice(value);
   };
 }

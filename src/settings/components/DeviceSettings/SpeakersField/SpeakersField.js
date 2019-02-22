@@ -23,15 +23,13 @@ export class SpeakersField extends DeviceField {
     outputDevice: PropTypes.string
   };
 
-  constructor() {
-    super();
+  componentDidMount = () => {
+
     this.state.hasDevice = false;
     if (this.props && this.props.outputDevice) {
       this.state.device = this.props.outputDevice;
     }
-  }
 
-  componentDidMount = () => {
     super.componentDidMount();
     DetectRTC.load(() => {
       this.setState({
@@ -42,9 +40,8 @@ export class SpeakersField extends DeviceField {
   };
 
   selectDevice = value => {
-    let audioElement = document.querySelector("audio");
     this.props.setSpeaker(value);
-    changeAudioDestination(audioElement, value);
+    changeAudioDestination(value);
   };
 }
 

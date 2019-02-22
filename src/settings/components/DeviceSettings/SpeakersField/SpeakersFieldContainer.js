@@ -1,21 +1,21 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import MicrophoneField from "settings/components/DeviceSettings/MicrophoneField";
-import {setMicrophone} from "settings/actions/devices";
+import SpeakersField from "settings/components/DeviceSettings/SpeakersField/SpeakersField";
+import {setSpeaker} from "settings/actions/devices";
 
 function mapStateToProps({ devices }) {
   return {
-    inputDevice: devices.microphone
+    outputDevice: devices.speaker
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    setMicrophone
+    setSpeaker
   }, dispatch);
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MicrophoneField);
+)(SpeakersField);
