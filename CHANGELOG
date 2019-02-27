@@ -10,6 +10,15 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.1.8 - 2019-02-27
+### Added
+- Enter key now places a call on Dialpad (#10)
+### Fixed
+- Call timer now displays the correct time (#15)
+- Device switching now saving the device (#4)
+### Improved
+- Cypress updated to 3.1.5 (#18)
+
 ## w0.1.5 - 2018-12-17
 ### Improved
 - Format phone numbers before making a call
