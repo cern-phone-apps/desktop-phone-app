@@ -100,7 +100,6 @@ export class MainPage extends Component {
           />
         </Sidebar>
         <Sidebar.Pusher
-          onClick={this.hideSidebarIfVisible}
           dimmed={this.props.contentDimmed}
           className={"MainPusher"}
         >
