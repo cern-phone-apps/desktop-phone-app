@@ -3,9 +3,9 @@ import { bindActionCreators } from "redux";
 import SpeakersField from "settings/components/DeviceSettings/SpeakersField/SpeakersField";
 import {setSpeaker} from "settings/actions/devices";
 
-function mapStateToProps({ devices }) {
+function mapStateToProps({ settings }) {
   return {
-    outputDevice: devices.speaker
+    outputDevice: settings.devices? settings.devices.outputDevice : undefined
   };
 }
 
