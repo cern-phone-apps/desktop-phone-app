@@ -1,12 +1,12 @@
-import * as authActions from "login/actions/auth";
+import * as authActions from "auth/actions/auth";
 import reducer, {
   handleLoginRequest,
   handleLogoutRequest,
   handleTokenRequest
-} from "login/reducers/auth";
-import { LOGIN_REQUEST } from "login/actions/auth";
-import { TOKEN_REQUEST } from "login/actions/auth";
-import { LOGOUT_REQUEST } from "login/actions/auth";
+} from "auth/reducers/auth";
+import { LOGIN_REQUEST } from "auth/actions/auth";
+import { TOKEN_REQUEST } from "auth/actions/auth";
+import { LOGOUT_REQUEST } from "auth/actions/auth";
 
 it("should handle a login request", () => {
   let initialState = {
