@@ -1,5 +1,5 @@
 import React from 'react'
-import {MicrophoneField} from 'settings/components/DeviceSettings/MicrophoneField'
+import {MicrophoneField} from 'settings/components/DeviceSettings/MicrophoneField/MicrophoneField'
 
 it('constructs without crashing', () => {
 

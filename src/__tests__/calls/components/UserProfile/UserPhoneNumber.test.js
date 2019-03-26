@@ -1,11 +1,11 @@
 import React from "react";
-import UserPhoneNumber from "calls/components/UserProfile/UserPhoneNumber";
+import UserPhoneNumberButton from "calls/components/UserPhoneNumberButton/UserPhoneNumberButton";
 
 describe("CalleeProfileNumber Component tests", () => {
   it("renders without crashing", () => {
     const unSelect = jest.fn();
     const wrapper = shallow(
-      <UserPhoneNumber
+      <UserPhoneNumberButton
         phoneNumber={"12345"}
         unSelectUser={unSelect}
         icon={"phone"}
@@ -22,7 +22,7 @@ describe("CalleeProfileNumber Component tests", () => {
     const makeCall = jest.fn();
 
     const wrapper = shallow(
-      <UserPhoneNumber
+      <UserPhoneNumberButton
         phoneNumber={"12345"}
         unSelectUser={unSelect}
         icon={"phone"}
@@ -38,6 +38,5 @@ describe("CalleeProfileNumber Component tests", () => {
     const div = wrapper.find(".CalleeProfileNumber");
     div.simulate("click");
     expect(makeCall).toHaveBeenCalled();
-    expect(unSelect).toHaveBeenCalled();
   });
 });

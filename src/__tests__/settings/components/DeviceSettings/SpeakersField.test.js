@@ -1,5 +1,5 @@
 import React from 'react'
-import {SpeakersField} from 'settings/components/DeviceSettings/SpeakersField'
+import {SpeakersField} from 'settings/components/DeviceSettings/SpeakersField/SpeakersField'
 
 it('constructs without crashing', () => {
 

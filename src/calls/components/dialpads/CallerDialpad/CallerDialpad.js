@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 import { Grid, Icon, Segment } from "semantic-ui-react";
 import React, { Component } from "react";
 import Dialpad from "../Dialpad/Dialpad";
-import { buildRecipient, formatPhoneNumber } from "calls/utils";
+import { buildRecipient} from "calls/utils/utils";
 import { logMessage } from "common/utils/logs";
 import { CallButton } from "./CallButton";
+import { formatPhoneNumber } from "calls/utils/utils";
 
 export class CallerDialpad extends Component {
   static propTypes = {

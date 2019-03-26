@@ -16,7 +16,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.disable('etag');
+app.disable("etag");
 
 app.use(function(req, res, next) {
   res.type("application/json");
@@ -59,7 +59,7 @@ app.post("/auth/v1/login/", (req, res, next) => {
   res.cookie("csrf_refresh_token", "abcd1234", { httpOnly: false });
   res.json({
     login: true,
-    token: '123445'
+    token: "123445"
   });
   // console.log("RES 2");
   // console.log(res);
@@ -87,6 +87,39 @@ app.get("/api/v1/users/me/", (req, res, next) => {
     email: "john.doe@cern.ch",
     username: "johndoe55"
   });
+  console.log(req.cookies);
+  res.send();
+});
+
+app.get("/api/v1/contacts/", (req, res, next) => {
+  res.json([
+    {
+      firstName: "John",
+      lastName: "One",
+      personId: "123456",
+      division: "IT"
+    },
+    {
+      firstName: "John",
+      lastName: "Does",
+      personId: "234567",
+      division: "IT",
+      cernGroup: "CDA"
+    },
+    {
+      firstName: "Ron",
+      lastName: "Troes",
+      personId: "345689",
+      division: "IT",
+      cernGroup: "CDA",
+      cernSection: "IC"
+    },
+    {
+      firstName: "John",
+      lastName: "Foures",
+      personId: "4567891"
+    },
+  ]);
   console.log(req.cookies);
   res.send();
 });

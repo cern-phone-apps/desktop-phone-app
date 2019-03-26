@@ -71,6 +71,7 @@ clearLog();
  * @type {Function}
  */
 let errorMessage = debug("APP:ERROR");
+let warnMessage = debug("APP:WARN");
 let infoMessage = debug("APP:INFO");
 let logMessage = debug("APP:LOG");
 
@@ -111,6 +112,7 @@ const logEvent = (category, method, message = "") => {
 
 export {
   errorMessage,
+  warnMessage,
   infoMessage,
   logMessage,
   toneInMessage,

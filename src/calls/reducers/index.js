@@ -1,12 +1,13 @@
-import { combineReducers } from 'redux'
-import call from './call'
-import status from './status'
-import search from './search'
-import dialpad from './dialpad'
-import connection from './connection'
-import numbers from './numbers'
-import recent from './recent'
-import profile from './profile'
+import { combineReducers } from "redux";
+import call from "./call";
+import status from "./status";
+import search from "./search";
+import dialpad from "./dialpad";
+import connection from "./connection";
+import numbers from "./numbers";
+import recent from "./recent";
+import profile from "./profile";
+import contacts from "./contacts";
 
 const callsReducer = combineReducers({
   call,
@@ -16,7 +17,8 @@ const callsReducer = combineReducers({
   connection,
   numbers,
   recent,
-  profile
-})
+  profile,
+  contacts
+});
 
-export default callsReducer
+export default callsReducer;

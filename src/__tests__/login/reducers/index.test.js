@@ -1,4 +1,4 @@
-import userReducer from 'login/reducers'
+import userReducer from 'auth/reducers'
 
 describe('auth index reducer', () => {
   it('should return the combined reducers', () => {
