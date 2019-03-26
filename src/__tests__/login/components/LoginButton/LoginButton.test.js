@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import "i18n";
-import { LoginButton } from "login/components/LoginButton/LoginButton";
+import { LoginButton } from "auth/components/LoginButton/LoginButton";
 it("renders without crashing", () => {
   const button = shallow(
     <LoginButton t={key => key} loggedIn={false} urlQuery={""} />

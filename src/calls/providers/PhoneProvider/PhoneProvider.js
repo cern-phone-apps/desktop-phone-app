@@ -7,7 +7,7 @@ import * as connectionActionCreators from "calls/actions/connection";
 import * as callActionCreators from "calls/actions/call";
 import * as recentActionCreators from "calls/actions/recent";
 import * as searchActionCreators from "calls/actions/search";
-import * as authActionCreators from "login/actions/auth";
+import * as authActionCreators from "auth/actions/auth";
 import {
   errorMessage,
   infoMessage,
@@ -228,8 +228,7 @@ class PhoneProvider extends Component {
     );
     makeCall({
       name: name,
-      phoneNumber: phoneNumber,
-      startTime: Date.now()
+      phoneNumber: phoneNumber
     });
     this.playRingbacktone();
     isCalling();
@@ -368,6 +367,7 @@ class PhoneProvider extends Component {
       case "accepted":
         // TODO
         this.stopRingbacktone();
+        this.props.recipient.startTime = Date.now();
         this.props.acceptOutgoingCall();
         break;
       case "terminated":

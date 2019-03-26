@@ -1,14 +1,26 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Form, Header } from "semantic-ui-react";
+import { Button, Form, Header } from "semantic-ui-react";
 import { translate } from "react-i18next";
-import SpeakersFieldContainer from "settings/components/DeviceSettings/SpeakersFieldContainer";
-import MicrophoneFieldContainer from "settings/components/DeviceSettings/MicrophoneFieldContainer";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
+import MicrophoneFieldContainer from "settings/components/DeviceSettings/MicrophoneField/MicrophoneFieldContainer";
+import SpeakersFieldContainer from "settings/components/DeviceSettings/SpeakersField/SpeakersFieldContainer";
 
 export class DeviceSettings extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired
+  };
+
+  playSound = () => {
+    document
+      .getElementById("ringbackTone")
+      .play();
+  };
+
+  stopSound = () => {
+    document
+      .getElementById("ringbackTone")
+      .pause();
   };
 
   render() {
@@ -29,9 +41,8 @@ export class DeviceSettings extends Component {
               fieldId={"audioOutput"}
               fieldType={"audiooutput"}
             />
-            <Form.Field>
-              {/* <audio id="gum-local" controls autoPlay/> */}
-            </Form.Field>
+            <Button onClick={this.playSound}>Play Sound</Button>
+            <Button onClick={this.stopSound}>Stop Sound</Button>
           </Form>
         </ErrorBoundary>
       </div>

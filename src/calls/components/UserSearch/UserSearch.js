@@ -4,7 +4,7 @@ import { actionMessage, logMessage } from "common/utils/logs";
 
 import "./UserSearch.css";
 import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
-import { CallerDialpadForm } from "calls/components/dialpads/CallerDialpadForm/CallerDialpadForm";
+import CallerDialpadFormContainer from "calls/components/dialpads/CallerDialpadForm/index";
 import { Grid, Icon, Menu } from "semantic-ui-react";
 
 export class UserSearch extends Component {
@@ -76,10 +76,10 @@ export class UserSearch extends Component {
     });
   };
 
-  handleSearchChange = (e) => {
+  handleSearchChange = (e, { name, value }) => {
     const { timeout } = this.state;
 
-    this.setState({ [e.name]: e.value });
+    this.setState({ [name]: value });
     this.shouldEnableSearch();
     this.removeSearchResults();
 
@@ -90,7 +90,7 @@ export class UserSearch extends Component {
 
     this.setState({
       timeout: setTimeout(() => {
-        this._handleSearchTimeout(e.value);
+        this._handleSearchTimeout(value);
       }, 300)
     });
   };
@@ -100,9 +100,9 @@ export class UserSearch extends Component {
     updateDialpadValue(event.target.value);
   };
 
-  handleItemClick = (e) => {
-    actionMessage(`Search: User clicks on ${e.name} button`);
-    this.setState({ activeItem: e.name });
+  handleItemClick = (e, { name }) => {
+    actionMessage(`Search: User clicks on ${name} button`);
+    this.setState({ activeItem: name });
   };
 
   render() {
@@ -148,9 +148,10 @@ export class UserSearch extends Component {
           />
         )}
         {activeItem === "dialpad" && (
-          <CallerDialpadForm
+          <CallerDialpadFormContainer
             value={dialpadValue}
             onChange={this.handleDialpadChange}
+            unSelectUser={this.props.unSelectUser}
           />
         )}
       </Grid>

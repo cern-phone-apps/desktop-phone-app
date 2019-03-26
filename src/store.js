@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, compose } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import { routerMiddleware } from "react-router-redux";
 import storage from "redux-persist/lib/storage";
@@ -14,29 +14,38 @@ const createCustomStore = history => {
     "search",
     "call",
     "dialpad",
+    "contacts"
   ]);
 
   const blacklistLoginFilter = createBlacklistFilter("auth", [
     "loginInProgress",
-    "error",
+    "error"
     // "loggedIn",
     // "token"
   ]);
 
   const blacklistCommonFilter = createBlacklistFilter("common", [
-    "notifications"
+    "notifications",
+    "sidebar"
   ]);
+
+  const blacklistSettingsFilter = createBlacklistFilter("settings", ["modal"]);
 
   const persistConfig = {
     key: "phone-webapp",
     storage: storage,
     blacklist: ["sidebar"],
-    transforms: [blacklistFilter, blacklistLoginFilter, blacklistCommonFilter]
+    transforms: [
+      blacklistFilter,
+      blacklistLoginFilter,
+      blacklistCommonFilter,
+      blacklistSettingsFilter
+    ]
   };
 
   const persistedReducers = persistReducer(persistConfig, rootReducer);
 
-  const store = createStore(
+  return createStore(
     persistedReducers,
     {},
     compose(
@@ -44,7 +53,6 @@ const createCustomStore = history => {
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
-  return store;
 };
 
 export default history => {
