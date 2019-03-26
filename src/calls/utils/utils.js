@@ -12,7 +12,6 @@ export const buildRecipient = recipient => {
     startTime: recipient.startTime
   };
 };
-
 /**
  * Sets the different titles for the Calls Screen based on the
  * current status of the application.
