@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
 import { logMessage } from "common/utils/logs";
 import PropTypes from "prop-types";
+import styles from "./ContactAddButton.module.css";
 
 class ContactAddButton extends Component {
   static propTypes = {
@@ -20,10 +21,9 @@ class ContactAddButton extends Component {
 
   async componentDidMount() {
     const { getUserContacts, contact } = this.props;
-    // const { getUserContacts, contacts, contact } = this.props;
     this.setState({ loading: true });
     const newContacts = await getUserContacts();
-    if(newContacts && newContacts.payload){
+    if (newContacts && newContacts.payload) {
       let ids = newContacts.payload.result.map(a => a.personId.toString());
       logMessage(ids.includes(contact.personId));
       if (ids.includes(contact.personId)) {
@@ -61,11 +61,25 @@ class ContactAddButton extends Component {
 
     if (hasContact) {
       return (
-        <Icon name="star" size='big' color={"yellow"} onClick={this.removeContactAction} />
+        <Icon
+          name="star"
+          className={styles.ContactAddButton}
+          size="big"
+          color={"yellow"}
+          onClick={this.removeContactAction}
+        />
       );
     }
 
-    return <Icon name="star" size='big' color={"grey"} onClick={this.addContactAction} />;
+    return (
+      <Icon
+        name="star"
+        className={styles.ContactAddButton}
+        size="big"
+        color={"grey"}
+        onClick={this.addContactAction}
+      />
+    );
   }
 }
 
