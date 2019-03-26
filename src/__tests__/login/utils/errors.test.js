@@ -5,7 +5,7 @@ import {
   handleErrorResponse,
   handleErrorWithLogin,
   handleErrorWithToken
-} from "login/utils/errors";
+} from "auth/utils/errors";
 
 it("generates a default error", () => {
   const error = buildError();

@@ -1,5 +1,5 @@
 import React from "react";
-import { LoginPage } from "login/screens/LoginPage/LoginPage";
+import { LoginPage } from "auth/screens/LoginPage/LoginPage";
 
 it("renders without crashing", () => {
   const loader = shallow(
