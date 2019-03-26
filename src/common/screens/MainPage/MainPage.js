@@ -6,10 +6,10 @@ import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
 
 import "./MainPage.css";
 import * as routes from "routes";
-import * as loginRoutes from "login/routes";
+import * as loginRoutes from "auth/routes";
 import Notifications from "common/components/Notifications/Notifications";
 import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer";
-import SettingsModal from "settings/components/SettingsModal/SettingsModal";
+import SettingsModalContainer from "settings/components/SettingsModal/SettingsModalContainer";
 import { logMessage } from "common/utils/logs";
 
 export class MainPage extends Component {
@@ -20,6 +20,7 @@ export class MainPage extends Component {
     contentDimmed: PropTypes.bool.isRequired,
     notifications: PropTypes.array,
     hideSidebar: PropTypes.func.isRequired,
+    openSettingsModal: PropTypes.func.isRequired
   };
 
   hideSidebarIfVisible = () => {
@@ -74,6 +75,11 @@ export class MainPage extends Component {
     ));
   };
 
+  openSettingsModalAction = () => {
+    const { openSettingsModal } = this.props;
+    openSettingsModal();
+  };
+
   render() {
     const { notifications } = this.props;
 
@@ -92,12 +98,18 @@ export class MainPage extends Component {
           vertical
         >
           {this.renderSidebarItems()}
-          <SettingsModal
-            hideSidebarIfVisible={this.hideSidebarIfVisible}
-          />
+          <Menu.Item
+            onClick={this.openSettingsModalAction}
+            name={"settings"}
+            className={"SidebarSettingsButton"}
+          >
+            <Icon name={"settings"} />
+            {"Settings"}
+          </Menu.Item>
           <ModalDebugContainer
             hideSidebarIfVisible={this.hideSidebarIfVisible}
           />
+
         </Sidebar>
         <Sidebar.Pusher
           dimmed={this.props.contentDimmed}
@@ -105,6 +117,9 @@ export class MainPage extends Component {
         >
           {this.renderMainRoutes()}
           <Notifications notifications={notifications} />
+          <SettingsModalContainer
+            hideSidebarIfVisible={this.hideSidebarIfVisible}
+          />
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     );

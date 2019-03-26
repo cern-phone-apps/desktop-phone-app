@@ -7,7 +7,7 @@ import * as connectionActionCreators from "calls/actions/connection";
 import * as callActionCreators from "calls/actions/call";
 import * as recentActionCreators from "calls/actions/recent";
 import * as searchActionCreators from "calls/actions/search";
-import * as authActionCreators from "login/actions/auth";
+import * as authActionCreators from "auth/actions/auth";
 import {
   errorMessage,
   infoMessage,

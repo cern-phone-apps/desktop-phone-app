@@ -42,7 +42,6 @@ export function getUsersFormattedForSearch(usersArray) {
  * @returns {{userSelected: boolean, value: string, searchResults: Array}}
  */
 const search = (state = initialState, action) => {
-  logMessage(`Calling call reducer: ${action.type}`);
   switch (action.type) {
     case searchActions.USER_SELECTED:
       return {
