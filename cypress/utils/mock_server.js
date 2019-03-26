@@ -96,18 +96,29 @@ app.get("/api/v1/contacts/", (req, res, next) => {
     {
       firstName: "John",
       lastName: "One",
-      personId: "123456"
+      personId: "123456",
+      division: "IT"
     },
     {
       firstName: "John",
       lastName: "Does",
-      personId: "234567"
+      personId: "234567",
+      division: "IT",
+      cernGroup: "CDA"
     },
     {
       firstName: "Ron",
       lastName: "Troes",
-      personId: "345689"
-    }
+      personId: "345689",
+      division: "IT",
+      cernGroup: "CDA",
+      cernSection: "IC"
+    },
+    {
+      firstName: "John",
+      lastName: "Foures",
+      personId: "4567891"
+    },
   ]);
   console.log(req.cookies);
   res.send();
