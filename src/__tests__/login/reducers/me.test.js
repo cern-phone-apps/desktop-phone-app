@@ -1,5 +1,5 @@
-import * as actions from 'login/actions/me'
-import reducer from 'login/reducers/me'
+import * as actions from 'auth/actions/me'
+import reducer from 'auth/reducers/me'
 
 describe('auth reducer', () => {
   it('should return the initial state', () => {

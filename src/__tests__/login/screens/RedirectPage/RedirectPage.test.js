@@ -1,5 +1,5 @@
 import React from "react";
-import RedirectPage from "login/screens/RedirectPage/RedirectPage";
+import RedirectPage from "auth/screens/RedirectPage/RedirectPage";
 
 it("renders without crashing", () => {
   const login = async code => {
