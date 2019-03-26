@@ -5,10 +5,10 @@ import {
   LOGIN_REQUEST,
   refreshAccessToken,
   TOKEN_RECEIVED
-} from "./login/actions/auth";
-import { isAccessTokenExpired } from "./login/utils/tokens";
+} from "./auth/actions/auth";
+import { isAccessTokenExpired } from "./auth/utils/tokens";
 import { logMessage } from "common/utils/logs";
-import { getRefreshToken } from "login/utils/tokens";
+import { getRefreshToken } from "auth/utils/tokens";
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import "i18n";
-import { LoadingDimmer } from "login/components/LoadingDimmer/LoadingDimmer";
+import { LoadingDimmer } from "auth/components/LoadingDimmer/LoadingDimmer";
 import { Dimmer, Loader } from "semantic-ui-react";
 
 it("renders without crashing", () => {

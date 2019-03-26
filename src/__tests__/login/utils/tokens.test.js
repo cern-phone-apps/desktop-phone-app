@@ -5,7 +5,7 @@ import {
   getAccessToken,
   getRefreshToken,
   isAccessTokenExpired, isRefreshTokenExpired, withAuth, withRefresh
-} from "login/utils/tokens";
+} from "auth/utils/tokens";
 
 const cookiesGet = Cookies.get;
 

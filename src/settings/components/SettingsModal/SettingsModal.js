@@ -7,12 +7,17 @@ import DeviceSettings from "settings/components/DeviceSettings/DeviceSettings";
 import PersonalInfoContainer from "settings/components/PersonalInfo/PersonalInfoContainer";
 import AppInfo from "settings/components/AppInfo/AppInfo";
 import NotificationsSettings from "settings/components/NotificationsSettings/NotificationsSettings";
-import LogoutButtonContainer from "login/components/LogoutButton/LogoutButtonContainer";
+import LogoutButtonContainer from "auth/components/LogoutButton/LogoutButtonContainer";
 import CallsSettings from "settings/components/CallsSettings/CallsSettings";
+import { logMessage } from "common/utils/logs";
 
 const ModalTrigger = ({ onClick }) => {
   return (
-    <Menu.Item onClick={onClick} name={"settings"} className={'SidebarSettingsButton'}>
+    <Menu.Item
+      onClick={onClick}
+      name={"settings"}
+      className={"SidebarSettingsButton"}
+    >
       <Icon name={"settings"} />
       {"Settings"}
     </Menu.Item>
@@ -28,20 +33,35 @@ ModalTrigger.propTypes = {
  */
 export class SettingsModal extends Component {
   static propTypes = {
+    modalOpen: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    hideSidebarIfVisible: PropTypes.func.isRequired
+    hideSidebarIfVisible: PropTypes.func.isRequired,
+    openSettingsModal: PropTypes.func.isRequired,
+    closeSettingsModal: PropTypes.func.isRequired
   };
 
+  handleClose = () => {
+    const { closeSettingsModal } = this.props;
+    closeSettingsModal();
+  };
+
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    console.log("Component did update")
+  }
+
   render() {
-    const { t } = this.props;
+    const { t, modalOpen } = this.props;
+    logMessage("Rendering SETTINGS modal");
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
     return (
       <Modal
         size={"small"}
         dimmer={"blurring"}
         closeIcon
-        trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible} />}
-        className={'ModalSettings'}
+        // trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible} />}
+        className={"ModalSettings"}
+        onClose={this.handleClose}
+        open={modalOpen}
       >
         <Modal.Header>{t("header")}</Modal.Header>
         <Modal.Content scrolling>

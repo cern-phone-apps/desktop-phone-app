@@ -5,7 +5,7 @@ describe("RecentCallList component", () => {
   it("renders  empty list without crashing", () => {
     const wrapper = shallow(<RecentCallList recentCalls={[]} />);
 
-    expect(wrapper.text()).toEqual("<Responsive />");
+    expect(wrapper.text()).toEqual("<ScrollableContent />");
     expect(wrapper.debug()).toContain("ItemGroup");
   });
 
@@ -24,7 +24,7 @@ describe("RecentCallList component", () => {
 
     const wrapper = shallow(<RecentCallList recentCalls={recent} />);
 
-    expect(wrapper.text()).toEqual("<Responsive />");
+    expect(wrapper.text()).toEqual("<ScrollableContent />");
     expect(wrapper.debug()).toContain("ItemGroup");
   });
 });
