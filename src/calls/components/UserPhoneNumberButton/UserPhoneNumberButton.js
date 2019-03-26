@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon } from "semantic-ui-react";
-import { buildRecipient, formatPhoneNumber } from "calls/utils";
+import { buildRecipient} from "calls/utils/utils";
+import { formatPhoneNumber } from "calls/utils/utils";
 
-export class UserPhoneNumber extends Component {
+export class UserPhoneNumberButton extends Component {
   static propTypes = {
     phoneNumber: PropTypes.string.isRequired,
     recipientName: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     phoneService: PropTypes.object.isRequired,
-    unSelectUser: PropTypes.func.isRequired
   };
 
   makeCall = () => {
@@ -23,8 +23,6 @@ export class UserPhoneNumber extends Component {
       incoming: false,
       missed: false
     };
-
-    this.props.unSelectUser();
     this.props.phoneService.makeCall(buildRecipient(recipient));
   };
 
@@ -37,4 +35,4 @@ export class UserPhoneNumber extends Component {
   }
 }
 
-export default UserPhoneNumber;
+export default UserPhoneNumberButton;

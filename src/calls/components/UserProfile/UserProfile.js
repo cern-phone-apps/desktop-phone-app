@@ -1,34 +1,55 @@
-import React, {Component} from "react";
-import {Header, Icon, Loader, Segment} from "semantic-ui-react";
+import React, { Component } from "react";
+import { Header, Icon, Loader, Segment, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import UserPhoneNumberContainer from "calls/components/UserProfile/UserPhoneNumberContainer";
+import { formatUserOrganization } from "calls/utils/formatters";
+import ContactAddButtonContainer from "calls/components/ContactAddButton/ContactAddButtonContainer";
+import { UserProfileCloseButtonContainer } from "calls/components/UserProfileCloseButton/UserProfileCloseButtonContainer";
+import UserPhoneNumberContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
+
+export function UserProfileExtraInfo(props) {
+  return (
+    <ul>
+      <li>
+        <Icon name={"mail"} /> {props.mail}
+      </li>
+      <li>
+        <Icon name={"pin"} /> {props.physicalDeliveryOfficeName}
+      </li>
+    </ul>
+  );
+}
+
+UserProfileExtraInfo.propTypes = {
+  mail: PropTypes.any,
+  physicalDeliveryOfficeName: PropTypes.any
+};
 
 export function ProfileInfo({ profile }) {
-  const division = profile.division === "[]" ? "" : profile.division;
-  const group = profile.cernGroup === "[]" ? "" : `-${profile.cernGroup}`;
-  const section = profile.cernSection === "[]" ? "" : `-${profile.cernSection}`;
+  const organization = formatUserOrganization(profile);
+
   return (
     <Segment attached>
-      <Header as="h3">
-        <Icon name="user" color={"blue"} />
-        <Header.Content>
-          {profile.displayName}
-          <Header.Subheader>
-            {division}
-            {group}
-            {section}
-          </Header.Subheader>
-        </Header.Content>
-      </Header>
+      <Button.Group>
+        <UserProfileCloseButtonContainer />
+      </Button.Group>
+      <Segment basic clearing>
+        <Header as="h5" floated={"right"}>
+          <ContactAddButtonContainer contact={profile} />
+        </Header>
 
-      <ul>
-        <li>
-          <Icon name={"mail"} /> {profile.mail}
-        </li>
-        <li>
-          <Icon name={"pin"} /> {profile.physicalDeliveryOfficeName}
-        </li>
-      </ul>
+        <Header as="h3" floated={"left"}>
+          <Icon name="user" color={"blue"} />
+          <Header.Content>
+            {profile.displayName}
+            <Header.Subheader>{organization}</Header.Subheader>
+          </Header.Content>
+        </Header>
+      </Segment>
+
+      <UserProfileExtraInfo
+        mail={profile.mail}
+        physicalDeliveryOfficeName={profile.physicalDeliveryOfficeName}
+      />
     </Segment>
   );
 }
@@ -51,7 +72,7 @@ export class UserProfile extends Component {
     }
 
     return (
-      <Segment basic className={'UserProfile'}>
+      <Segment basic className={"UserProfile"}>
         <ProfileInfo profile={profile} />
         {profile.phones.map((phone, index) => (
           <UserPhoneNumberContainer
