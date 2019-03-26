@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import './LeftColumn.css'
+import "./LeftColumn.css";
 
 class LeftColumn extends Component {
   static propTypes = {
@@ -9,15 +9,11 @@ class LeftColumn extends Component {
       PropTypes.arrayOf(PropTypes.node),
       PropTypes.node
     ])
-  }
+  };
 
-  render () {
-    return (
-      <div className={'LeftColumn'}>
-        {this.props.children}
-      </div>
-    )
+  render() {
+    return <div className={"LeftColumn"}>{this.props.children}</div>;
   }
 }
 
-export default LeftColumn
+export default LeftColumn;

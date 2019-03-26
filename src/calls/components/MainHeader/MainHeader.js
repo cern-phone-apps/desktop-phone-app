@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getWindowTitle } from "calls/utils";
+import { getWindowTitle } from "calls/utils/utils";
 import { Responsive } from "semantic-ui-react";
 import PropTypes from "prop-types";
 

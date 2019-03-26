@@ -2,7 +2,6 @@
 .LeftColumn {
     flex: 0.5;
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,6 +10,7 @@
     /* align items in Cross Axis */
     align-content: stretch;
     /* Extra space in Cross Axis */
+  height: 100vh;
 }
 
 .LeftColumn .ui.items>.item{
