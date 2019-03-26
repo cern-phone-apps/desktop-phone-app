@@ -3,9 +3,9 @@ import { bindActionCreators } from "redux";
 import MicrophoneField from "settings/components/DeviceSettings/MicrophoneField/MicrophoneField";
 import {setMicrophone} from "settings/actions/devices";
 
-function mapStateToProps({ devices }) {
+function mapStateToProps({ settings }) {
   return {
-    inputDevice: devices.microphone
+    inputDevice: settings.devices? settings.devices.microphone : undefined
   };
 }
 
