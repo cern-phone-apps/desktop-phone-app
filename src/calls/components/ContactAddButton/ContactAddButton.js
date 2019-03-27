@@ -19,7 +19,8 @@ class ContactAddButton extends Component {
   };
 
   async componentDidMount() {
-    const { getUserContacts, contacts, contact } = this.props;
+    const { getUserContacts, contact } = this.props;
+    // const { getUserContacts, contacts, contact } = this.props;
     this.setState({ loading: true });
     const newContacts = await getUserContacts();
     logMessage(newContacts);
