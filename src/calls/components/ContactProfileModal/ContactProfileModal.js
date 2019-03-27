@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
-  Button,
+ // Button,
   Dimmer,
   Header,
   Icon,
@@ -10,7 +10,7 @@ import {
   Segment
 } from "semantic-ui-react";
 import { formatUserOrganization } from "calls/utils/formatters";
-import { errorMessage, logMessage } from "common/utils/logs";
+//import { errorMessage, logMessage } from "common/utils/logs";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
 
@@ -87,7 +87,8 @@ export class ContactProfileModal extends Component {
               </Dimmer>
             </Segment>
           ) : (
-            this.state.profile.phones.map((phone, index) => {
+//            this.state.profile.phones.map((phone, index) => {
+            this.state.profile.phones.map((phone) => {
               if (phone.number !== null) {
                 return (
                   <UserPhoneNumberButtonContainer
@@ -96,7 +97,7 @@ export class ContactProfileModal extends Component {
                     recipientName={this.state.profile.displayName}
                   />
                 );
-              }
+              } else return null;
             })
           )}
         </Modal.Content>
