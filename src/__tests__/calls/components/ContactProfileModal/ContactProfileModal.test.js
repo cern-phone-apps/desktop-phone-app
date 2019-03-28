@@ -228,7 +228,7 @@ describe("Contact component", () => {
 
   });
 
-  it("renders without crashing when modal is open but there are not results", () => {
+  it("renders without crashing when there is not selected contact", () => {
 
     const modalOpen = true;
     const unSelectContact = jest.fn();
