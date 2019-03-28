@@ -4,7 +4,6 @@ import { Item, Icon } from "semantic-ui-react";
 
 import styles from "./Contact.module.css";
 import { formatUserOrganization } from "calls/utils/formatters";
-import { logMessage } from "common/utils/logs";
 
 class Contact extends Component {
   static propTypes = {

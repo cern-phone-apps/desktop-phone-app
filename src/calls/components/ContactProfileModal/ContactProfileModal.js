@@ -13,7 +13,6 @@ import { formatUserOrganization } from "calls/utils/formatters";
 //import { errorMessage, logMessage } from "common/utils/logs";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
-import { logMessage } from "common/utils/logs";
 
 
 export class ContactProfileModal extends Component {
@@ -92,13 +91,13 @@ export class ContactProfileModal extends Component {
               if (phone.number !== null) {
                 return (
                   <UserPhoneNumberButtonContainer
-                    key={index}
+                    key={`button-${index}`}
                     phoneNumber={phone.number}
                     icon={phone.phoneType}
                     recipientName={this.state.profile.displayName}
                   />
                 );
-              } else return null;
+              }
             })
           )}
         </Modal.Content>
