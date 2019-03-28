@@ -23,7 +23,6 @@ class ContactAddButton extends Component {
     // const { getUserContacts, contacts, contact } = this.props;
     this.setState({ loading: true });
     const newContacts = await getUserContacts();
-    logMessage(newContacts);
     if(newContacts && newContacts.payload){
       let ids = newContacts.payload.result.map(a => a.personId.toString());
       logMessage(ids.includes(contact.personId));
@@ -36,8 +35,6 @@ class ContactAddButton extends Component {
 
   addContactAction = async () => {
     const { addUserContact, contact, getUserContacts } = this.props;
-    logMessage(`Adding contact`);
-    logMessage(contact);
     this.setState({ loading: true });
     await addUserContact(contact);
     this.setState({ loading: false });

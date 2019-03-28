@@ -13,6 +13,8 @@ import { formatUserOrganization } from "calls/utils/formatters";
 //import { errorMessage, logMessage } from "common/utils/logs";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
+import { logMessage } from "common/utils/logs";
+
 
 export class ContactProfileModal extends Component {
   static propTypes = {
@@ -35,7 +37,6 @@ export class ContactProfileModal extends Component {
         this.setState({ fetching: true });
       }
       const result = await getUserProfileById(selectedContact.personId);
-
       if (result && result.payload) {
         if (
           !this.state.profile ||
@@ -87,11 +88,11 @@ export class ContactProfileModal extends Component {
               </Dimmer>
             </Segment>
           ) : (
-//            this.state.profile.phones.map((phone, index) => {
-            this.state.profile.phones.map((phone) => {
+            this.state.profile.phones.map((phone, index) => {
               if (phone.number !== null) {
                 return (
                   <UserPhoneNumberButtonContainer
+                    key={index}
                     phoneNumber={phone.number}
                     icon={phone.phoneType}
                     recipientName={this.state.profile.displayName}
