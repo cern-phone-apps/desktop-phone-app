@@ -97,7 +97,7 @@ export class ContactProfileModal extends Component {
                     recipientName={this.state.profile.displayName}
                   />
                 );
-              }
+              } else return null;
             })
           )}
         </Modal.Content>
