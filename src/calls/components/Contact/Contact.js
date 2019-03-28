@@ -14,8 +14,6 @@ class Contact extends Component {
 
   selectContactAction = () => {
     const { contact, selectContact } = this.props;
-    logMessage(`Contact`);
-    logMessage(contact);
     selectContact(contact);
   };
 

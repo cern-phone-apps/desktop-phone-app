@@ -1,6 +1,5 @@
 import React from "react";
 import ContactAddButton from "calls/components/ContactAddButton/ContactAddButton";
-import PropTypes from "prop-types";
 
 describe("Contact component", () => {
 
@@ -54,7 +53,6 @@ describe("Contact component", () => {
     const wrapper = shallow(
       <ContactAddButton contact={contact} contacts={contacts} addUserContact={addUserContact} removeUserContact={removeUserContact} getUserContacts={getUserContacts}  />
     );
-    console.log( wrapper.debug());
     expect(wrapper.text()).toEqual("<Icon />");
   });
 
