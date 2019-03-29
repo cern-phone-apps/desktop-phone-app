@@ -23,7 +23,6 @@ class ContactEmergencyItem extends Component {
           <Icon
             name={icon}
             size={"large"}
-            color={"white"}
             className={"ui avatar"}
           />
         </div>
