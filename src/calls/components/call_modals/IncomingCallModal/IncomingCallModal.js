@@ -23,7 +23,7 @@ const ModalTrigger = ({ onClick, callerName, callerNumber }) => {
 
 ModalTrigger.propTypes = {
   onClick: PropTypes.func.isRequired,
-  callerName: PropTypes.string.isRequired,
+  callerName: PropTypes.string,
   callerNumber: PropTypes.string.isRequired
 };
 
@@ -35,7 +35,7 @@ ModalTrigger.propTypes = {
  */
 function RejectButton({ onClick }) {
   return (
-    <Button negative onClick={onClick} className={'RejectCallButton'}>
+    <Button negative onClick={onClick} className={"RejectCallButton"}>
       Reject
     </Button>
   );
@@ -57,7 +57,7 @@ function AnswerButton({ onClick }) {
       icon={"phone"}
       labelPosition={"right"}
       content={"Answer"}
-      className={'AnswerCallButton'}
+      className={"AnswerCallButton"}
     />
   );
 }
@@ -65,11 +65,11 @@ function AnswerButton({ onClick }) {
 AnswerButton.propTypes = { onClick: PropTypes.func };
 
 function CallingModalContent({
-  callerName,
-  callerNumber,
-  onClickReject,
-  onClickAnswer
-}) {
+                               callerName,
+                               callerNumber,
+                               onClickReject,
+                               onClickAnswer
+                             }) {
   return (
     <>
       <Modal.Header>{"Receiving an incoming call"}</Modal.Header>
@@ -108,10 +108,14 @@ export class IncomingCallModal extends Component {
     receivingCall: PropTypes.bool.isRequired,
     callerName: PropTypes.string,
     callerNumber: PropTypes.string,
-    isReceivingCall: PropTypes.func.isRequired, // TODO Rename this function
+    isReceivingCall: PropTypes.func.isRequired // TODO Rename this function
   };
 
-  state = { modalOpen: false, modalHidden: false };
+  state = {
+    modalOpen: false,
+    modalHidden: false,
+    callerName: undefined
+  };
 
   /**
    * Action triggered when the modal is opened
@@ -134,7 +138,7 @@ export class IncomingCallModal extends Component {
    * Action triggered when the reject call button is triggered
    */
   rejectIncomingCall = () => {
-    const {phoneService} = this.props;
+    const { phoneService } = this.props;
     this.setState({ modalHidden: false });
     phoneService.rejectIncomingCall();
   };
@@ -143,10 +147,14 @@ export class IncomingCallModal extends Component {
    * Action triggered when the answer button is clicked
    */
   answerCall = () => {
-    const {phoneService} = this.props;
+    const { phoneService } = this.props;
     this.setState({ modalHidden: false });
     phoneService.acceptIncomingCall();
   };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // TODO Make a call to the backend to retrieve the owner of the number
+  }
 
   render() {
     const { connected, receivingCall, callerName, callerNumber } = this.props;
