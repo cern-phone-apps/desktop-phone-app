@@ -46,7 +46,7 @@ class RecentCall extends Component {
           </Item.Description>
           <Item.Extra className={styles.ExtraContent}>
             <span className="date">
-              {printableDate} - {duration.humanize()}
+              {printableDate} {!missed? (`- ${duration.humanize()}`) : ""}
             </span>
           </Item.Extra>
         </Item.Content>

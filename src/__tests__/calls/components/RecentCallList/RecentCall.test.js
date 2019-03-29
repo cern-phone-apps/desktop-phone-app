@@ -40,6 +40,5 @@ describe("RecentCall component", () => {
     expect(wrapper.debug()).toContain("ItemContent");
     expect(wrapper.debug()).toContain("ItemDescription");
     expect(wrapper.debug()).toContain("Icon");
-    expect(wrapper.debug()).toContain("a few seconds");
   });
 });
