@@ -10,7 +10,7 @@ describe("calls reducer", () => {
       receivingCall: false,
       recipient: {
         incoming: false,
-        missed: false,
+        missed: true,
         name: "",
         phoneNumber: "",
         startTime: null
