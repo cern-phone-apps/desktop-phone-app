@@ -1,13 +1,6 @@
 import React, { Children, Component } from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
 
-import * as connectionActionCreators from "calls/actions/connection";
-import * as callActionCreators from "calls/actions/call";
-import * as recentActionCreators from "calls/actions/recent";
-import * as searchActionCreators from "calls/actions/search";
-import * as authActionCreators from "auth/actions/auth";
 import {
   errorMessage,
   infoMessage,
@@ -16,7 +9,6 @@ import {
   toneInMessage,
   toneOutMessage
 } from "common/utils/logs";
-import { success, info, warning } from "common/actions/notifications";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 
 export const phoneService = ComponentToWrap => {
@@ -42,7 +34,7 @@ export const phoneService = ComponentToWrap => {
 /**
  * Interfaces between Telephony API and UI
  */
-class PhoneProvider extends Component {
+export default class PhoneProvider extends Component {
   static propTypes = {
     onCall: PropTypes.bool.isRequired,
     recipient: PropTypes.object,
@@ -65,7 +57,6 @@ class PhoneProvider extends Component {
     addRecentCall: PropTypes.func.isRequired,
     acceptOutgoingCall: PropTypes.func.isRequired,
     hangupCall: PropTypes.func.isRequired,
-    endSearch: PropTypes.func.isRequired,
     rejectIncomingCall: PropTypes.func.isRequired,
     clearToken: PropTypes.func.isRequired
   };
@@ -217,7 +208,7 @@ class PhoneProvider extends Component {
    * @returns {*}
    */
   makeCall = ({ name, phoneNumber }) => {
-    const { makeCall, isCalling, endSearch } = this.props;
+    const { makeCall, isCalling } = this.props;
     const { dial, username } = this.state;
 
     toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
@@ -232,7 +223,6 @@ class PhoneProvider extends Component {
     });
     this.playRingbacktone();
     isCalling();
-    endSearch();
     return dial.call(phoneNumber);
   };
 
@@ -406,34 +396,3 @@ class PhoneProvider extends Component {
 PhoneProvider.childContextTypes = {
   phoneService: PropTypes.object.isRequired
 };
-
-function mapStateToProps({ calls, auth }) {
-  return {
-    recipient: calls.call ? calls.call.recipient : undefined,
-    onCall: calls.call ? calls.call.onCall : false,
-    token: auth.token
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      ...connectionActionCreators,
-      ...callActionCreators,
-      ...recentActionCreators,
-      ...searchActionCreators,
-      ...authActionCreators,
-      success,
-      info,
-      warning
-    },
-    dispatch
-  );
-}
-
-export default phoneService(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(PhoneProvider)
-);

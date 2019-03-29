@@ -15,7 +15,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "store";
 import i18n from "i18n";
 import App from "App";
-import PhoneProvider from "calls/providers/PhoneProvider/PhoneProvider";
+import PhoneProviderContainer from "calls/providers/PhoneProvider/PhoneProviderContainer";
 // We need the PhoneProvider to be available in the whole app in order to make and receive calls
 
 /**
@@ -40,11 +40,11 @@ ReactDOM.render(
     <I18nextProvider i18n={i18n}>
       <PersistGate loading={<div />} persistor={persistor}>
         {/* Need to be here, before ConnectedRouter */}
-        <PhoneProvider>
+        <PhoneProviderContainer>
           <ConnectedRouter history={piwik.connectToHistory(history)}>
             <App />
           </ConnectedRouter>
-        </PhoneProvider>
+        </PhoneProviderContainer>
       </PersistGate>
     </I18nextProvider>
   </Provider>,
