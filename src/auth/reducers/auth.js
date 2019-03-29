@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loggedIn: action.payload.login,
-        token: action.payload.token,
+        token: JSON.stringify(action.payload.token),
         loginInProgress: false,
         error: {}
       };
