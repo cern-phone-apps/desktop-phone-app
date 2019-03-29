@@ -12,7 +12,8 @@ const INITIAL_STATE = {
     selectedContact: undefined,
     modalOpen: false
   },
-  contacts: []
+  contacts: [],
+  emergencyModalOpen: false
 };
 
 const contactsReducer = (state = INITIAL_STATE, action) => {
@@ -22,7 +23,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         fetching: true,
         errors: {
-          ...state,
+          ...state.errors,
           fetching: undefined
         }
       };
@@ -33,7 +34,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         fetching: false,
         contacts: action.payload.result,
         errors: {
-          ...state,
+          ...state.errors,
           fetching: undefined
         }
       };
@@ -43,7 +44,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         fetching: false,
         errors: {
-          ...state,
+          ...state.errors,
           fetching: "Error fetching the contacts"
         }
       };
@@ -54,7 +55,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         adding: true,
         added: false,
         errors: {
-          ...state,
+          ...state.errors,
           adding: undefined
         }
       };
@@ -65,7 +66,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         added: true,
         adding: false,
         errors: {
-          ...state,
+          ...state.errors,
           adding: undefined
         }
       };
@@ -75,7 +76,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         fetching: false,
         errors: {
-          ...state,
+          ...state.errors,
           adding: "Error adding the contact"
         }
       };
@@ -86,7 +87,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         selectedModal: {
           selectedContact: action.contact,
           modalOpen: true
-        },
+        }
       };
 
     case contactsActions.UNSELECT_CONTACT:
@@ -95,7 +96,18 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
         selectedModal: {
           selectedContact: undefined,
           modalOpen: false
-        },
+        }
+      };
+
+    case contactsActions.OPEN_EMERGENCY_MODAL:
+      return {
+        ...state,
+        emergencyModalOpen: true
+      };
+    case contactsActions.CLOSE_EMERGENCY_MODAL:
+      return {
+        ...state,
+        emergencyModalOpen: false
       };
     default:
       return state;
