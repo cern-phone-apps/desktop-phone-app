@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 import {isReceivingCall, rejectIncomingCall} from "calls/actions/call";
 
 import IncomingCallModal from "./IncomingCallModal";
+import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
 
 /**
  * Mapping the props to the container

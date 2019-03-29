@@ -4,7 +4,7 @@ import { Grid } from "semantic-ui-react";
 import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import CallModalContainer from "calls/components/call_modals/OutgoingCallModal/index";
-import IncomingCallModalContainer from "calls/components/call_modals/IncomingCallModal/index";
+import IncomingCallModalContainer from "calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer";
 import MainHeaderContainer from "calls/components/MainHeader";
 import UserProfileContainer from "calls/components/UserProfile/UserProfileContainer";
 import UserSearchContainer from "calls/components/UserSearch/UserSearchContainer";
