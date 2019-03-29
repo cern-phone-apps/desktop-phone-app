@@ -7,7 +7,7 @@ import ContactProfileModalContainer from "calls/components/ContactProfileModal/C
 
 class ContactList extends Component {
   static propTypes = {
-    contacts: PropTypes.array.isRequired,
+    contacts: PropTypes.array,
     getUserContacts: PropTypes.func.isRequired
   };
 
