@@ -10,6 +10,14 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.2.0 - 2019-03-29
+### Added
+- Contact list support (#10)
+- Emergency contact link
+- Phone number displayed on incoming call
+### Improved
+- Support for recent calls
+
 ## w0.1.8 - 2019-02-27
 ### Added
 - Enter key now places a call on Dialpad (#10)
