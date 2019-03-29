@@ -260,4 +260,34 @@ app.get("/api/v1/users/", (req, res, next) => {
   res.send();
 });
 
+app.post("/api/v1/contacts/", (req, res, next) => {
+
+  res.json({
+    added: true
+  });
+
+  res.send();
+});
+
+app.delete("/api/v1/contacts/", (req, res, next) => {
+
+  res.json({
+    deleted: true
+  });
+
+  res.send();
+});
+
+app.get("/api/v1/users/?personId=12345", (req, res, next) => {
+
+  res.json({
+    firstName: "John",
+    lastName: "One",
+    personId: "123456",
+    division: "IT"
+  });
+
+  res.send();
+});
+
 app.listen(port, () => {});
