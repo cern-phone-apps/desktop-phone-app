@@ -1,6 +1,6 @@
 import { RSAA } from "redux-api-middleware";
 import { withAuth } from "auth/utils/tokens";
-import { PROFILE_FAILURE, PROFILE_REQUEST, PROFILE_SUCCESS } from "calls/actions/profile";
+//import { PROFILE_FAILURE, PROFILE_REQUEST, PROFILE_SUCCESS } from "calls/actions/profile";
 
 export const GET_CONTACTS_REQUEST = "@@contacts/GET_CONTACTS_REQUEST";
 export const GET_CONTACTS_SUCCESS = "@@contacts/GET_CONTACTS_SUCCESS";
