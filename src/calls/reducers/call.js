@@ -1,21 +1,21 @@
-import * as callActions from 'calls/actions/call'
-import { logMessage } from 'common/utils/logs'
+import * as callActions from "calls/actions/call";
+import { logMessage } from "common/utils/logs";
 
 const initialState = {
   onCall: false,
   calling: false,
   receivingCall: false,
   recipient: {
-    name: '',
-    phoneNumber: '',
+    name: "",
+    phoneNumber: "",
     startTime: null,
     incoming: false,
-    missed: false
+    missed: true
   },
   error: {}
 };
 
-function processCall (state, recipient) {
+function processCall(state, recipient) {
   return {
     ...state,
     calling: true,
@@ -25,37 +25,37 @@ function processCall (state, recipient) {
       incoming: false,
       missed: false
     }
-  }
+  };
 }
 
-function processCallRejected (state, errors) {
+function processCallRejected(state, errors) {
   return {
     ...state,
     onCall: false,
     calling: false,
     receivingCall: false,
     error: { statusCode: errors.code.status_code, message: errors.description }
-  }
+  };
 }
 
-function processCallFailed (state, errors) {
+function processCallFailed(state, errors) {
   return {
     ...state,
     onCall: false,
     calling: false,
     error: { statusCode: errors.code.status_code, message: errors.description }
-  }
+  };
 }
 
-function processCallMissed (state) {
+function processCallMissed(state) {
   return {
     ...state,
     onCall: false,
     calling: false
-  }
+  };
 }
 
-function processCallReceiving (state, action) {
+function processCallReceiving(state, action) {
   logMessage(`Receiving call from`);
   logMessage(action);
   return {
@@ -68,10 +68,10 @@ function processCallReceiving (state, action) {
       missed: true,
       incoming: true
     }
-  }
+  };
 }
 
-function acceptIncomingCall (state) {
+function acceptIncomingCall(state) {
   logMessage(`Accept Incoming call`);
   return {
     ...state,
@@ -82,10 +82,10 @@ function acceptIncomingCall (state) {
       startTime: Date.now(),
       missed: false
     }
-  }
+  };
 }
 
-function rejectIncomingCall (state) {
+function rejectIncomingCall(state) {
   logMessage(`Reject Incoming call`);
   return {
     ...state,
@@ -96,25 +96,25 @@ function rejectIncomingCall (state) {
       startTime: Date.now(),
       missed: true
     }
-  }
+  };
 }
 
-function processCallHangup (state) {
+function processCallHangup(state) {
   return {
     ...state,
     onCall: false,
     calling: false,
     recipient: {}
-  }
+  };
 }
 
-function processCallAccepted (state) {
+function processCallAccepted(state) {
   return {
     ...state,
     onCall: true,
     calling: false,
     receivingCall: false
-  }
+  };
 }
 
 const call = (state = initialState, action) => {
@@ -123,9 +123,9 @@ const call = (state = initialState, action) => {
       return processCall(state, action.recipient);
     case callActions.OUTGOING_CALL_ACCEPTED:
       if (state.calling === true || state.receivingCall === true) {
-        return processCallAccepted(state)
+        return processCallAccepted(state);
       } else {
-        return state
+        return state;
       }
     case callActions.OUTGOING_CALL_REJECTED:
       return processCallRejected(state, action.errors);
@@ -142,9 +142,27 @@ const call = (state = initialState, action) => {
     case callActions.HANGUP_CALL:
       return processCallHangup(state);
 
+    case callActions.SET_RECIPIENT_START_DATE:
+      return {
+        ...state,
+        recipient: {
+          ...state.recipient,
+          startTime: action.date
+        }
+      };
+
+    case callActions.SET_RECIPIENT_PHONE_NUMBER:
+      return {
+        ...state,
+        recipient: {
+          ...state.recipient,
+          phoneNumber: action.number
+        }
+      };
+
     default:
-      return state
+      return state;
   }
 };
 
-export default call
+export default call;
