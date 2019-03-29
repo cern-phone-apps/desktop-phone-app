@@ -150,14 +150,15 @@ export default class PhoneProvider extends Component {
    * @returns {boolean|void|*}
    */
   authenticateUser = username => {
-    const { token, requestConnection, encryptToken } = this.props;
+    const { token, requestConnection } = this.props;
 
     logEvent("calls", `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     this.setState({ username: username });
     requestConnection();
-    const eToken = this.state.dial.authenticate(username, token);
-    encryptToken(eToken);
+    this.state.dial.authenticate(username, token);
+    // const eToken = this.state.dial.authenticate(username, token);
+    // encryptToken(eToken);
 
     // TODO The ideal thing here is to know if the authentication succeeded
   };
