@@ -1,6 +1,5 @@
 import { RSAA } from "redux-api-middleware";
 import { withAuth } from "auth/utils/tokens";
-//import { PROFILE_FAILURE, PROFILE_REQUEST, PROFILE_SUCCESS } from "calls/actions/profile";
 
 export const GET_CONTACTS_REQUEST = "@@contacts/GET_CONTACTS_REQUEST";
 export const GET_CONTACTS_SUCCESS = "@@contacts/GET_CONTACTS_SUCCESS";
@@ -17,9 +16,15 @@ export const REMOVE_CONTACTS_FAILURE = "@@contacts/REMOVE_CONTACTS_FAILURE";
 export const SELECT_CONTACT = "@@contacts/SELECT_CONTACT";
 export const UNSELECT_CONTACT = "@@contacts/UNSELECT_CONTACT";
 
-export const GET_CONTACTS_PROFILE_REQUEST = "@@contacts/GET_CONTACTS_PROFILE_REQUEST";
-export const GET_CONTACTS_PROFILE_SUCCESS = "@@contacts/GET_CONTACTS_PROFILE_SUCCESS";
-export const GET_CONTACTS_PROFILE_FAILURE = "@@contacts/GET_CONTACTS_PROFILE_FAILURE";
+export const GET_CONTACTS_PROFILE_REQUEST =
+  "@@contacts/GET_CONTACTS_PROFILE_REQUEST";
+export const GET_CONTACTS_PROFILE_SUCCESS =
+  "@@contacts/GET_CONTACTS_PROFILE_SUCCESS";
+export const GET_CONTACTS_PROFILE_FAILURE =
+  "@@contacts/GET_CONTACTS_PROFILE_FAILURE";
+
+export const OPEN_EMERGENCY_MODAL = "@@contacts/OPEN_EMERGENCY_MODAL";
+export const CLOSE_EMERGENCY_MODAL = "@@contacts/CLOSE_EMERGENCY_MODAL";
 
 export const buildCallsApiEndpoint = path => {
   return `${process.env.REACT_APP_API_ENDPOINT}${path}`;
@@ -42,8 +47,7 @@ export const getUserContacts = () => ({
   }
 });
 
-
-export const addUserContact = (contact) => ({
+export const addUserContact = contact => ({
   [RSAA]: {
     endpoint: buildCallsApiEndpoint("/api/v1/contacts/"),
     method: "POST",
@@ -54,14 +58,18 @@ export const addUserContact = (contact) => ({
   }
 });
 
-export const removeUserContact = (personId) => ({
+export const removeUserContact = personId => ({
   [RSAA]: {
     endpoint: buildCallsApiEndpoint("/api/v1/contacts/"),
     method: "DELETE",
     credentials: "include",
     headers: withAuth({ "Content-Type": "application/json" }),
-    body: JSON.stringify({personId: personId}),
-    types: [REMOVE_CONTACTS_REQUEST, REMOVE_CONTACTS_SUCCESS, REMOVE_CONTACTS_FAILURE]
+    body: JSON.stringify({ personId: personId }),
+    types: [
+      REMOVE_CONTACTS_REQUEST,
+      REMOVE_CONTACTS_SUCCESS,
+      REMOVE_CONTACTS_FAILURE
+    ]
   }
 });
 
@@ -85,6 +93,22 @@ export const getUserProfileById = personId => ({
     method: "GET",
     credentials: "include",
     headers: withAuth({ "Content-Type": "application/json" }),
-    types: [GET_CONTACTS_PROFILE_REQUEST, GET_CONTACTS_PROFILE_SUCCESS, GET_CONTACTS_PROFILE_FAILURE]
+    types: [
+      GET_CONTACTS_PROFILE_REQUEST,
+      GET_CONTACTS_PROFILE_SUCCESS,
+      GET_CONTACTS_PROFILE_FAILURE
+    ]
   }
 });
+
+export function openEmergencyModal() {
+  return {
+    type: OPEN_EMERGENCY_MODAL
+  };
+}
+
+export function closeEmergencyModal() {
+  return {
+    type: CLOSE_EMERGENCY_MODAL
+  };
+}
