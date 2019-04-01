@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import { Item } from "semantic-ui-react";
-import RecentCall from "calls/components/RecentCallList/RecentCall";
+import RecentCall from "calls/components/recent_calls/RecentCall/RecentCall";
 import ScrollableContent from "common/components/ScrollableContent/ScrollableContent";
 
 /**

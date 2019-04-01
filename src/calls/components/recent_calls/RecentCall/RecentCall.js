@@ -4,7 +4,7 @@ import moment from "moment";
 import { Icon, Item } from "semantic-ui-react";
 
 
-import styles from "./RecentCall.module.css";
+import styles from "../RecentCallList/RecentCall.module.css";
 
 class RecentCall extends Component {
   static propTypes = {

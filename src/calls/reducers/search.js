@@ -3,7 +3,6 @@ import * as searchActions from "calls/actions/search";
 
 const initialState = {
   userSelected: false,
-  searchResults: [],
   searching: false,
   searchEnable: false
 };
@@ -47,7 +46,7 @@ const search = (state = initialState, action) => {
       return {
         ...state,
         user: action.user,
-        userSelected: true
+        userSelected: true,
       };
     case searchActions.USER_NOT_SELECTED:
       return {
@@ -59,24 +58,24 @@ const search = (state = initialState, action) => {
         ...state,
         searching: true,
         searchEnable: true,
-        searchResults: []
+        // searchResults: []
       };
     case searchActions.SEARCH_END:
       return {
         ...state,
         searching: false,
-        searchResults: [],
+        // searchResults: [],
         searchEnable: false
       };
     case searchActions.SEARCH_CLEAR:
       return {
         ...state,
-        searchResults: []
+        // searchResults: []
       };
     case searchActions.SEARCH_SUCCESS:
       return {
         ...state,
-        searchResults: getUsersFormattedForSearch(action.payload.result),
+        // searchResults: getUsersFormattedForSearch(action.payload.result),
         searching: false
       };
     case searchActions.SEARCH_FAILURE:
