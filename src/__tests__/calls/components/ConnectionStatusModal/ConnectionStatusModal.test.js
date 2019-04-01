@@ -1,23 +1,37 @@
 import { shallow } from "enzyme/build";
-import {mount} from 'enzyme';
+import { mount } from "enzyme";
 import React from "react";
 import ConnectionStatusModal from "calls/components/ConnectionStatusModal/ConnectionStatusModal";
 import { actionMessage } from "common/utils/logs";
 
 describe("Connection Status Modal Tests", () => {
   it("renders ConnectionStatusModal without crashing", () => {
+    const asyncMock = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}}); //result.payload.doNotDisturb
+    const asyncSetDoNotDisturb = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}});
     const wrapper = shallow(
       <ConnectionStatusModal
-       connected/>
+        connected
+        doNotDisturb={false}
+        getMe={asyncMock}
+        setUserDoNotDisturb={asyncSetDoNotDisturb}
+      />
     );
 
     expect(wrapper.text()).toEqual("<Modal />");
   });
 
   it("contains Texts when connected", () => {
+
+    const asyncMock = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}}); //result.payload.doNotDisturb
+    const asyncSetDoNotDisturb = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}});
+
     const wrapper = shallow(
       <ConnectionStatusModal
-        connected/>
+        connected
+        doNotDisturb={false}
+        getMe={asyncMock}
+        setUserDoNotDisturb={asyncSetDoNotDisturb}
+      />
     );
 
     expect(wrapper.debug()).toContain("ModalContent");
@@ -26,9 +40,16 @@ describe("Connection Status Modal Tests", () => {
   });
 
   it("contains Texts when not connected", () => {
+    const asyncMock = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}}); //result.payload.doNotDisturb
+    const asyncSetDoNotDisturb = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}});
+
     const wrapper = shallow(
       <ConnectionStatusModal
-        connected={false}/>
+        connected={false}
+        doNotDisturb={false}
+        getMe={asyncMock}
+        setUserDoNotDisturb={asyncSetDoNotDisturb}
+      />
     );
 
     expect(wrapper.debug()).toContain("ModalContent");
@@ -37,16 +58,48 @@ describe("Connection Status Modal Tests", () => {
   });
 
   it("contains a styled button", () => {
-    const wrapper = mount( <ConnectionStatusModal connected={true}/> );
+    const asyncMock = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}}); //result.payload.doNotDisturb
+    const asyncSetDoNotDisturb = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}});
 
-    expect(wrapper.debug()).toContain('Button');
+    const wrapper = mount(
+      <ConnectionStatusModal
+        connected={true}
+        doNotDisturb={false}
+        getMe={asyncMock}
+        setUserDoNotDisturb={asyncSetDoNotDisturb}
+      />
+    );
+
+    expect(wrapper.debug()).toContain("Button");
   });
 
-  it("should log user action", () => {
+  test('should log user action', async () => {
+    const asyncMock = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}}); //result.payload.doNotDisturb
+    const asyncSetDoNotDisturb = jest.fn().mockResolvedValue({payload: {doNotDisturb: false}});
 
-    let wrapper = shallow( <ConnectionStatusModal connected={true}/> );
-    expect( wrapper.instance().logUserAction()).toEqual(undefined);
-
+    let wrapper = shallow(
+      <ConnectionStatusModal
+        connected={true}
+        doNotDisturb={false}
+        getMe={asyncMock}
+        setUserDoNotDisturb={asyncSetDoNotDisturb}
+      />
+    );
+    expect(wrapper.instance().logUserAction()).toEqual(undefined);
   });
 
+//   it("should log user action", () => {
+//     const getMe = jest.fn();
+//     const setUserDoNotDisturb = jest.fn();
+//
+//     let wrapper = shallow(
+//       <ConnectionStatusModal
+//         connected={true}
+//         doNotDisturb={false}
+//         getMe={getMe}
+//         setUserDoNotDisturb={setUserDoNotDisturb}
+//       />
+//     );
+//     expect(wrapper.instance().logUserAction()).toEqual(undefined);
+//   });
 });

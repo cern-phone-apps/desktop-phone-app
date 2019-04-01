@@ -3,36 +3,55 @@ import reducer from "calls/reducers/status";
 
 describe("status reducer", () => {
 
-  it("should handle SET_AVAILABLE", () => {
+  it("should handle SET_DO_NOT_DISTURB_REQUEST", () => {
     expect(
-      reducer('available',
+      reducer(
+        {},
         {
-          type: actions.SET_AVAILABLE
+          type: actions.SET_DO_NOT_DISTURB_REQUEST,
         }
       )
-    ).toEqual('available');
+    ).toEqual({
+      fetching: true,
+    });
   });
 
-
-  it("should handle SET_INVISIBLE", () => {
+  it("should handle SET_DO_NOT_DISTURB_SUCCESS", () => {
     expect(
-      reducer('available',
+      reducer(
+        {},
         {
-          type: actions.SET_INVISIBLE
+          type: actions.SET_DO_NOT_DISTURB_SUCCESS,
+          payload: {
+            result: {
+              doNotDisturb: true
+            }
+          }
         }
       )
-    ).toEqual('invisible');
+    ).toEqual({
+      fetching: false,
+      doNotDisturb: true
+    });
   });
 
-  it("should handle SET_DO_NOT_DISTURB", () => {
+  it("should handle SET_DO_NOT_DISTURB_FAILURE", () => {
     expect(
-      reducer('available',
+      reducer(
+        {},
         {
-          type: actions.SET_DO_NOT_DISTURB
+          type: actions.SET_DO_NOT_DISTURB_FAILURE,
+          payload: {
+            result: {
+              doNotDisturb: true
+            }
+          }
         }
       )
-    ).toEqual('do_not_disturb');
+    ).toEqual({
+      fetching: false,
+      doNotDisturb: true
+    });
   });
-
 
 });

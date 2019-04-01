@@ -1,33 +1,22 @@
-export const SET_AVAILABLE = '@@status/SET_AVAILABLE'
-export const SET_INVISIBLE = '@@status/SET_INVISIBLE'
-export const SET_DO_NOT_DISTURB = '@@status/SET_DO_NOT_DISTURB'
+import { RSAA } from "redux-api-middleware";
+import { buildCallsApiEndpoint } from "calls/actions/numbers";
+import { withAuth } from "auth/utils/tokens";
 
-/**
- * Action that triggers a change of status of visibility for the user to available
- * @returns {{type: string}} The action dict
- */
-export function setUserAvailable () {
-  return {
-    type: SET_AVAILABLE
-  }
-}
+export const SET_DO_NOT_DISTURB_REQUEST = "@@status/SET_DO_NOT_DISTURB_REQUEST";
+export const SET_DO_NOT_DISTURB_SUCCESS = "@@status/SET_DO_NOT_DISTURB_SUCCESS";
+export const SET_DO_NOT_DISTURB_FAILURE = "@@status/SET_DO_NOT_DISTURB_SUCCESS";
 
-/**
- * Action that triggers a change of status of visibility for the user to invisible
- * @returns {{type: string}} The action dict
- */
-export function setUserInvisible () {
-  return {
-    type: SET_INVISIBLE
+export const setUserDoNotDisturb = value => ({
+  [RSAA]: {
+    endpoint: `${buildCallsApiEndpoint("/api/v1/users/me/")}`,
+    method: "PUT",
+    credentials: "include",
+    headers: withAuth({ "Content-Type": "application/json" }),
+    body: JSON.stringify({doNotDisturb: value}),
+    types: [
+      SET_DO_NOT_DISTURB_REQUEST,
+      SET_DO_NOT_DISTURB_SUCCESS,
+      SET_DO_NOT_DISTURB_FAILURE
+    ]
   }
-}
-
-/**
- * Action that triggers a change of status of visibility for the user to do not disturb
- * @returns {{type: string}} The action dict
- */
-export function setUserDoNotDisturb () {
-  return {
-    type: SET_DO_NOT_DISTURB
-  }
-}
+});
