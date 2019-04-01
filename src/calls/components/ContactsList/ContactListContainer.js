@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import ContactList from "./ContactList";
 import { bindActionCreators } from "redux";
 import { getUserContacts } from "calls/actions/contacts";
@@ -17,9 +16,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default withRouter(
-  connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactList)
-);
+  )(ContactList);
