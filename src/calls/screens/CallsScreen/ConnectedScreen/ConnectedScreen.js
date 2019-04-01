@@ -6,12 +6,10 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import CallModalContainer from "calls/components/call_modals/OutgoingCallModal/index";
 import IncomingCallModalContainer from "calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer";
 import MainHeaderContainer from "calls/components/MainHeader";
-import UserProfileContainer from "calls/components/UserProfile/UserProfileContainer";
-import UserSearchContainer from "calls/components/UserSearch/UserSearchContainer";
+import UserSearchContainer from "calls/components/search/UserSearch/UserSearchContainer";
 
 export class ConnectedScreen extends Component {
   static propTypes = {
-    userSelected: PropTypes.bool.isRequired,
     calling: PropTypes.bool.isRequired
   };
 
@@ -19,8 +17,7 @@ export class ConnectedScreen extends Component {
   dividedStyles = { paddingTop: "0", paddingBottom: 0 };
 
   render() {
-    const { userSelected, calling } = this.props;
-    const numberOfColumns = userSelected ? 2 : 1;
+    const { calling } = this.props;
 
     return (
       <Grid.Column
@@ -33,17 +30,17 @@ export class ConnectedScreen extends Component {
           <MainHeaderContainer/>
           <ErrorBoundary>
             <IncomingCallModalContainer/>
-            {this.renderMainContent(numberOfColumns, calling, userSelected)}
+            {this.renderMainContent(calling)}
           </ErrorBoundary>
         </RightColumn>
       </Grid.Column>
     );
   }
 
-  renderMainContent (numberOfColumns, calling, userSelected) {
+  renderMainContent (calling) {
     return <Grid padded style={this.styles} className={"CallPage"}>
       <Grid.Row
-        columns={numberOfColumns}
+        columns={1}
         divided
         style={this.dividedStyles}
       >
@@ -51,11 +48,6 @@ export class ConnectedScreen extends Component {
           {calling && <CallModalContainer modalOpen={calling}/>}
           <UserSearchContainer/>
         </Grid.Column>
-        {userSelected && (
-          <Grid.Column>
-            <UserProfileContainer/>
-          </Grid.Column>
-        )}
       </Grid.Row>
     </Grid>;
   }

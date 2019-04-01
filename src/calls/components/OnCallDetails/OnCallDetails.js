@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./OnCallDetails.css";
-import Timer from "simple-react-timer";
 import { Icon, Segment } from "semantic-ui-react";
 import { translate } from "react-i18next";
+import Timer from "calls/components/Timer/Timer";
 
 export class OnCallDetails extends Component {
   static propTypes = {

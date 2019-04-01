@@ -15,50 +15,44 @@ import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
 import ContactAddButtonContainer from "calls/components/ContactAddButton/ContactAddButtonContainer";
 
 
-export class ContactProfileModal extends Component {
+export class SearchProfileModal extends Component {
   static propTypes = {
-    selectedContact: PropTypes.object,
-    modalOpen: PropTypes.bool.isRequired,
-    unSelectContact: PropTypes.func.isRequired,
-    getUserProfileById: PropTypes.func.isRequired
+    user: PropTypes.object,
+    userSelected: PropTypes.bool.isRequired,
+    unSelectUser: PropTypes.func.isRequired,
   };
 
-  state = {
-    profile: undefined,
-    fetching: true
-  };
-
-  async componentDidUpdate(prevProps, prevState, snapshot) {
-    const { getUserProfileById, selectedContact } = this.props;
-
-    if (this.props.modalOpen) {
-      if (!this.state.fetching) {
-        this.setState({ fetching: true });
-      }
-      const result = await getUserProfileById(selectedContact.personId);
-      if (result && result.payload) {
-        if (
-          !this.state.profile ||
-          result.payload.result.personId !== this.state.profile.personId
-        ) {
-          this.setState({ profile: result.payload.result, fetching: false });
-        }
-      }
-    }
-  }
+  // async componentDidUpdate(prevProps, prevState, snapshot) {
+  //   const { getUserProfile, selectedContact } = this.props;
+  //
+  //   if (this.props.modalOpen) {
+  //     if (!this.state.fetching) {
+  //       this.setState({ fetching: true });
+  //     }
+  //     const result = await getUserProfileById(selectedUser.personId);
+  //     if (result && result.payload) {
+  //       if (
+  //         !this.state.profile ||
+  //         result.payload.result.personId !== this.state.profile.personId
+  //       ) {
+  //         this.setState({ profile: result.payload.result, fetching: false });
+  //       }
+  //     }
+  //   }
+  // }
 
   handleClose = () => {
-    const { unSelectContact } = this.props;
-    unSelectContact();
+    const { unSelectUser } = this.props;
+    unSelectUser();
   };
 
   render() {
-    const { modalOpen, selectedContact } = this.props;
+    const { userSelected, user } = this.props;
     return (
       <Modal
         dimmer={`blurring`}
         size="tiny"
-        open={modalOpen}
+        open={userSelected}
         onClose={this.handleClose}
         closeIcon
       >
@@ -66,38 +60,38 @@ export class ContactProfileModal extends Component {
           <Icon name="user" color={"blue"} />
           <Header.Content>
             <Header as="h5" floated={"right"}>
-              <ContactAddButtonContainer contact={selectedContact} />
+              <ContactAddButtonContainer contact={user} />
             </Header>
-            {selectedContact ? selectedContact.displayName : ""}
+            {user ? user.displayName : ""}
             <Header.Subheader>
-              {selectedContact ? formatUserOrganization(selectedContact) : ""}
+              {user ? formatUserOrganization(user) : ""}
             </Header.Subheader>
           </Header.Content>
         </Header>
         <Modal.Content>
-          {this.state.profile && (
+          {user && (
             <UserProfileExtraInfo
-              mail={this.state.profile.mail}
+              mail={user.mail}
               physicalDeliveryOfficeName={
-                this.state.profile.physicalDeliveryOfficeName
+                user.physicalDeliveryOfficeName
               }
             />
           )}
-          {!this.state.profile ? (
+          {!user ? (
             <Segment basic>
               <Dimmer active inverted>
                 <Loader inverted size={"large"} />
               </Dimmer>
             </Segment>
           ) : (
-            this.state.profile.phones.map((phone, index) => {
+            user.phones.map((phone, index) => {
               if (phone.number !== null) {
                 return (
                   <UserPhoneNumberButtonContainer
                     key={`button-${index}`}
                     phoneNumber={phone.number}
                     icon={phone.phoneType}
-                    recipientName={this.state.profile.displayName}
+                    recipientName={user.displayName}
                   />
                 );
               } else return null;
@@ -109,4 +103,4 @@ export class ContactProfileModal extends Component {
   }
 }
 
-export default ContactProfileModal;
+export default SearchProfileModal;

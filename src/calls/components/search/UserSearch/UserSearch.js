@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { actionMessage, logMessage } from "common/utils/logs";
+import { actionMessage, errorMessage, logMessage } from "common/utils/logs";
 
 import "./UserSearch.css";
-import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
+import { UserSearchForm } from "calls/components/search/UserSearchForm/UserSearchForm";
 import CallerDialpadFormContainer from "calls/components/dialpads/CallerDialpadForm/index";
 import { Grid, Icon, Menu } from "semantic-ui-react";
+import SearchProfileModalContainer from "calls/components/search/SearchProfileModal/SearchProfileModalContainer";
 
 export class UserSearch extends Component {
   static propTypes = {
-    results: PropTypes.array.isRequired,
+    // results: PropTypes.array.isRequired,
     displayDialpad: PropTypes.bool.isRequired,
     onCall: PropTypes.bool.isRequired,
     calling: PropTypes.bool.isRequired,
@@ -20,13 +21,13 @@ export class UserSearch extends Component {
     searchUsers: PropTypes.func.isRequired,
     updateDialpadValue: PropTypes.func.isRequired,
     toggleDialpad: PropTypes.func.isRequired,
-    clearSearchResults: PropTypes.func
   };
 
   state = {
     timeout: 0,
     activeItem: "search",
-    searchValue: ""
+    searchValue: "",
+    searchResults: []
   };
 
   shouldEnableSearch = () => {
@@ -39,41 +40,47 @@ export class UserSearch extends Component {
     this.shouldEnableSearch();
   }
 
-  _handleSearchTimeout(value) {
+  componentWillUnmount () {
+    this.setState({searchResults: []})
+  }
+
+  makeSearch = () => {
     const { searchUsers } = this.props;
     const { searchValue } = this.state;
 
-    logMessage("Calling set timeout");
-    if (searchValue && searchValue.length > 3) {
-      searchUsers(value).then(() => {
-        this.setState({
-          isLoading: false
-        });
+    searchUsers(searchValue).then(result => {
+      this.setState({
+        isLoading: false
       });
+      errorMessage(result.payload.result);
+      if (!result.error) {
+        this.setState({
+          searchResults: result.payload.result
+        });
+      }
+    });
+  };
+
+  async _handleSearchTimeout(value) {
+    logMessage("Calling set timeout");
+    await this.setState({
+      searchValue: value
+    });
+    if (value && value.length > 3) {
+      this.makeSearch();
     }
   }
 
   removeSearchResults = () => {
-    const { clearSearchResults } = this.props;
     const { searchValue } = this.state;
 
     if (searchValue !== "") {
-      clearSearchResults();
+      this.setState({searchResults: []})
     }
   };
 
   handleSubmit = () => {
-    const { searchUsers } = this.props;
-    const { searchValue } = this.state;
-
-    actionMessage(`Search: Submit a search search: ${searchValue}`);
-
-    searchUsers(searchValue).then(result => {
-      logMessage(result);
-      this.setState({
-        isLoading: false
-      });
-    });
+    this.makeSearch();
   };
 
   handleSearchChange = (e, { name, value }) => {
@@ -100,8 +107,8 @@ export class UserSearch extends Component {
     updateDialpadValue(event.target.value);
   };
 
-  handleItemClick = (e, { name }) => {
-    actionMessage(`Search: User clicks on ${name} button`);
+  handleTabClick = (e, { name }) => {
+    // actionMessage(`Search: User clicks on ${name} button`);
     this.setState({ activeItem: name });
   };
 
@@ -123,7 +130,7 @@ export class UserSearch extends Component {
               <Menu.Item
                 name="search"
                 active={activeItem === "search"}
-                onClick={this.handleItemClick}
+                onClick={this.handleTabClick}
                 className={"DisplaySearchButton"}
               >
                 <Icon name="search" /> Search
@@ -131,7 +138,7 @@ export class UserSearch extends Component {
               <Menu.Item
                 name="dialpad"
                 active={activeItem === "dialpad"}
-                onClick={this.handleItemClick}
+                onClick={this.handleTabClick}
                 className={"DisplayDialpadButton"}
               >
                 <Icon name="text telephone" /> Dialpad
@@ -145,6 +152,7 @@ export class UserSearch extends Component {
             onSubmit={this.handleSubmit}
             value={searchValue}
             onChange={this.handleSearchChange}
+            searchResults={this.state.searchResults}
           />
         )}
         {activeItem === "dialpad" && (
@@ -154,6 +162,7 @@ export class UserSearch extends Component {
             unSelectUser={this.props.unSelectUser}
           />
         )}
+        <SearchProfileModalContainer/>
       </Grid>
     );
   }

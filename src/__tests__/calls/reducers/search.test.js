@@ -2,11 +2,9 @@ import * as actions from "calls/actions/search";
 import reducer from "calls/reducers/search";
 
 describe("search reducer", () => {
-
   it("should return the initial state", () => {
     expect(reducer(undefined, {})).toEqual({
       userSelected: false,
-      searchResults: [],
       searching: false,
       searchEnable: false
     });
@@ -23,10 +21,8 @@ describe("search reducer", () => {
         }
       )
     ).toEqual({
-
-      user: 'userTest',
+      user: "userTest",
       userSelected: true
-
     });
   });
 
@@ -39,9 +35,7 @@ describe("search reducer", () => {
         }
       )
     ).toEqual({
-
       userSelected: false
-
     });
   });
 
@@ -54,11 +48,8 @@ describe("search reducer", () => {
         }
       )
     ).toEqual({
-
       searching: true,
-      searchEnable: true,
-      searchResults: []
-
+      searchEnable: true
     });
   });
 
@@ -71,11 +62,8 @@ describe("search reducer", () => {
         }
       )
     ).toEqual({
-
       searching: false,
-      searchResults: [],
       searchEnable: false
-
     });
   });
 
@@ -87,11 +75,7 @@ describe("search reducer", () => {
           type: actions.SEARCH_CLEAR
         }
       )
-    ).toEqual({
-
-      searchResults: []
-
-    });
+    ).toEqual({});
   });
 
   it("should handle SEARCH_FAILURE", () => {
@@ -103,9 +87,7 @@ describe("search reducer", () => {
         }
       )
     ).toEqual({
-
       searching: false
-
     });
   });
 
@@ -118,27 +100,18 @@ describe("search reducer", () => {
           payload: {
             result: [
               {
-                division: 'divisionTest',
-                cernGroup: 'groupTest',
-                cernSection: 'sectionTest',
-                displayName: 'displayNameTest',
-                username: 'usernameTest'
+                division: "divisionTest",
+                cernGroup: "groupTest",
+                cernSection: "sectionTest",
+                displayName: "displayNameTest",
+                username: "usernameTest"
               }
             ]
           }
         }
       )
     ).toEqual({
-
-      searching: false,
-      searchResults: [
-            {
-              description: "divisionTest-groupTest-sectionTest",
-              index: 0,
-              title: "displayNameTest",
-              username: "usernameTest"
-             }
-          ]
+      searching: false
     });
   });
 
@@ -154,24 +127,15 @@ describe("search reducer", () => {
                 division: "[]",
                 cernGroup: "[]",
                 cernSection: "[]",
-                displayName: 'displayNameTest',
-                username: 'usernameTest'
+                displayName: "displayNameTest",
+                username: "usernameTest"
               }
             ]
           }
         }
       )
     ).toEqual({
-
-      searching: false,
-      searchResults: [
-        {
-          description: "",
-          index: 0,
-          title: "displayNameTest",
-          username: "usernameTest"
-        }
-      ]
+      searching: false
     });
   });
 
@@ -187,11 +151,7 @@ describe("search reducer", () => {
         }
       )
     ).toEqual({
-
-      searching: false,
-      searchResults: []
-
+      searching: false
     });
   });
-
 });
