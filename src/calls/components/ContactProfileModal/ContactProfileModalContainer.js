@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { unSelectContact, getUserProfileById } from "calls/actions/contacts";
 import ContactProfileModal from "calls/components/ContactProfileModal/ContactProfileModal";
@@ -21,9 +20,7 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default withRouter(
-  connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactProfileModal)
-);
+  )(ContactProfileModal);

@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { addUserContact, getUserContacts, removeUserContact } from "calls/actions/contacts";
 import ContactAddButton from "calls/components/ContactAddButton/ContactAddButton";
@@ -7,7 +6,8 @@ import ContactAddButton from "calls/components/ContactAddButton/ContactAddButton
 
 function mapStateToProps({ calls }) {
   return {
-    contacts: calls.contacts.contacts
+    contacts: calls.contacts.contacts,
+    contact: calls.contacts.contact
   };
 }
 
@@ -19,9 +19,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default withRouter(
-  connect(
+export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactAddButton)
-);
+  )(ContactAddButton);
