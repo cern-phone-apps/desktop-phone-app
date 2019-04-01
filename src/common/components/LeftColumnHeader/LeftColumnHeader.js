@@ -4,7 +4,7 @@ import { Grid, Header, Responsive } from "semantic-ui-react";
 import "./LeftColumnHeader.css";
 import ToggleButtonContainer from "common/components/ToggleButton/ToggleButtonContainer";
 import ColumnHeader from "common/components/ColumnHeader/ColumnHeader";
-import ConnectionStatusModalContainer from "calls/components/ConnectionStatusModal";
+import ConnectionStatusModalContainer from "calls/components/ConnectionStatusModal/ConnectionStatusModalContainer";
 import ErrorButtonContainer from "common/components/ErrorButton/ErrorButtonContainer";
 
 class LeftColumnHeader extends Component {

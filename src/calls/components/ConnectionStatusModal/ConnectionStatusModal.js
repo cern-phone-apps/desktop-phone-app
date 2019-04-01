@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon, Modal } from "semantic-ui-react";
 import DisconnectAndLogoutButton from "calls/components/DisconnectAndLogoutButton";
-import { actionMessage } from "common/utils/logs";
+import { actionMessage, logMessage } from "common/utils/logs";
 
 /**
  * Button that displays the connection status
@@ -23,7 +23,14 @@ const ConnectionIcon = ({ color, message, onClick }) => {
 export class ConnectionStatusModal extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
-    activeNumber: PropTypes.string
+    activeNumber: PropTypes.string,
+    doNotDisturb: PropTypes.bool.isRequired,
+    getMe: PropTypes.func.isRequired,
+    setUserDoNotDisturb: PropTypes.func.isRequired
+  };
+
+  state = {
+    loading: false
   };
 
   inlineStyle = {
@@ -34,21 +41,45 @@ export class ConnectionStatusModal extends Component {
     }
   };
 
+  componentDidMount() {
+    this.setState({ loading: true });
+    this.props.getMe().then(result => {
+      logMessage(result);
+      if (!result.error) {
+        this.props.setUserDoNotDisturb(result.payload.doNotDisturb).then(() => {
+          this.setState({ loading: false });
+        });
+      }
+    });
+  }
+
   logUserAction = () => {
     actionMessage(`Calls: User clicks on Connection Status Button`);
   };
 
+  dontDisturbAction = () => {
+    logMessage("doNotDisturb");
+    this.setState({ loading: true });
+    this.props.setUserDoNotDisturb(!this.props.doNotDisturb).then(() => {
+      this.setState({ loading: false });
+    });
+  };
+
   render() {
-    const { connected, activeNumber } = this.props;
+    const { connected, activeNumber, doNotDisturb } = this.props;
     let color, message, callsMessage;
     if (connected) {
-      color = "green";
       message = `You are connected with number ${activeNumber}`;
       callsMessage = `You are able to make and receive calls`;
     } else {
-      color = "red";
       message = "You are not connected to the telephony backend";
       callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
+    }
+
+    if (doNotDisturb) {
+      color = "red";
+    } else {
+      color = "green";
     }
 
     return (
@@ -72,10 +103,18 @@ export class ConnectionStatusModal extends Component {
           <Modal.Description>
             <p>{message}</p>
             <p>{callsMessage}</p>
+
+            <p>Do not disturb is: {JSON.stringify(this.props.doNotDisturb)} </p>
+            <p>
+              <Button onClick={this.dontDisturbAction}>
+                Set do not disturb
+              </Button>
+            </p>
+
             {connected ? (
               <p>
-                If you want to disconnect from the telephony backend, you can use the following
-                button to logout and login again.
+                If you want to disconnect from the telephony backend, you can
+                use the following button to logout and login again.
               </p>
             ) : (
               ""

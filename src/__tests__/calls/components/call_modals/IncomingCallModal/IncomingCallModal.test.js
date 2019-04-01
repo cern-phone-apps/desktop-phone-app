@@ -12,6 +12,7 @@ describe("Incoming Call Modal Tests", () => {
         phoneService={{}}
         receivingCall
         t={key => key}
+        doNotDisturb={false}
       />
     );
 
@@ -26,6 +27,7 @@ describe("Incoming Call Modal Tests", () => {
         isReceivingCall={isReceivingCall}
         phoneService={{}}
         receivingCall
+        doNotDisturb={false}
         t={key => key}
       />
     );
@@ -37,6 +39,7 @@ describe("Incoming Call Modal Tests", () => {
     const isReceivingCall = jest.fn();
     const wrapper = shallow(
       <IncomingCallModal
+        doNotDisturb={false}
         connected={false}
         isReceivingCall={isReceivingCall}
         phoneService={{}}
@@ -67,6 +70,4 @@ describe("Incoming Call Modal Tests", () => {
   //   );
   //
   // });
-
-
 });

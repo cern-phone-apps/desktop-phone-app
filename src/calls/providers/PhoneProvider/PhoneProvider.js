@@ -54,7 +54,8 @@ export default class PhoneProvider extends Component {
     addRecentCall: PropTypes.func.isRequired,
     acceptOutgoingCall: PropTypes.func.isRequired,
     hangupCall: PropTypes.func.isRequired,
-    rejectIncomingCall: PropTypes.func.isRequired
+    rejectIncomingCall: PropTypes.func.isRequired,
+    doNotDisturb: PropTypes.bool.isRequired
   };
 
   static childContextTypes = {
@@ -235,12 +236,15 @@ export default class PhoneProvider extends Component {
   };
 
   playRingTone = () => {
-    document
-      .getElementById(this.ringToneId)
-      .play()
-      .catch(() => {
-        errorMessage("RingTone play() raised an error.");
-      });
+    const { doNotDisturb } = this.props;
+    if (!doNotDisturb) {
+      document
+        .getElementById(this.ringToneId)
+        .play()
+        .catch(() => {
+          errorMessage("RingTone play() raised an error.");
+        });
+    }
   };
 
   sendDtmfCommand = tone => {
@@ -252,7 +256,10 @@ export default class PhoneProvider extends Component {
   };
 
   stopRingTone = () => {
-    document.getElementById(this.ringToneId).pause();
+    const { doNotDisturb } = this.props;
+    if (!doNotDisturb) {
+      document.getElementById(this.ringToneId).pause();
+    }
   };
 
   receiveCall = ({ callerNumber, callerName }) => {
@@ -364,7 +371,7 @@ export default class PhoneProvider extends Component {
       case "accepted":
         // TODO
         this.stopRingbacktone();
-        const {setRecipentStartDate} = this.props;
+        const { setRecipentStartDate } = this.props;
         setRecipentStartDate(Date.now());
         acceptOutgoingCall();
         break;
@@ -375,7 +382,7 @@ export default class PhoneProvider extends Component {
         if (this.props.onCall) {
           const { addRecentCall, recipient } = this.props;
           let recipient2 = recipient;
-          if(!recipient2.name){
+          if (!recipient2.name) {
             recipient2.name = recipient2.phoneNumber;
           }
           recipient2.endDate = new Date();
@@ -390,7 +397,7 @@ export default class PhoneProvider extends Component {
         rejectOutgoingCall(tempRejectedMessage);
         const { addRecentCall, recipient } = this.props;
         let recipient2 = recipient;
-        if(!recipient2.name){
+        if (!recipient2.name) {
           recipient2.name = recipient2.phoneNumber;
         }
         recipient2.missed = true;

@@ -6,7 +6,7 @@ class ContactEmergencyItem extends Component {
   state = {
     name: "Emergencies",
     icon: "emergency",
-    description: "Fire Brigade & Medical Service numbers"
+    description: "Emergency Services"
   };
 
   openEmergencyModalAction = () => {

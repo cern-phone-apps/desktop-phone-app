@@ -14,6 +14,7 @@ export function mapStateToProps({ calls, auth }) {
     recipient: calls.call ? calls.call.recipient : undefined,
     onCall: calls.call ? calls.call.onCall : false,
     token: auth.token,
+    doNotDisturb: calls.status.doNotDisturb
   };
 }
 

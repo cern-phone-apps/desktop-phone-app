@@ -1,4 +1,4 @@
-import * as me from 'auth/actions/me'
+import * as me from "auth/actions/me";
 
 const initialState = {
   email: null,
@@ -8,8 +8,9 @@ const initialState = {
   phone: null,
   username: null,
   error: {},
-  fetching: false
-}
+  fetching: false,
+  doNotDisturb: false
+};
 
 /**
  * Reducer used to set the current logged in user information.
@@ -25,7 +26,7 @@ export default (state = initialState, action) => {
         ...state,
         fetching: true,
         error: {}
-      }
+      };
     case me.ME_SUCCESS:
       return {
         ...state,
@@ -35,9 +36,10 @@ export default (state = initialState, action) => {
         mobile: action.payload.mobile,
         phone: action.payload.phone,
         username: action.payload.username,
+        doNotDisturb: action.payload.doNotDisturb,
         error: {},
         fetching: false
-      }
+      };
     case me.ME_FAILURE:
       return {
         ...state,
@@ -47,10 +49,11 @@ export default (state = initialState, action) => {
         mobile: null,
         phone: null,
         username: null,
+        doNotDisturb: null,
         error: action.payload.error,
         fetching: false
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
