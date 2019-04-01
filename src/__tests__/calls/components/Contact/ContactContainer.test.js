@@ -41,8 +41,6 @@ describe('ContactContainer', () => {
 
   it('should show the correct props', () => {
 
-    console.log( wrapper.props() );
-
     expect( wrapper.props().contact ).toEqual(  contactTest  );
 
   });

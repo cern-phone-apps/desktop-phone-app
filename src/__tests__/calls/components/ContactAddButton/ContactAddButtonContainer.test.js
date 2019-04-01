@@ -63,8 +63,6 @@ describe('ContactAddButtonContainer', () => {
 
   it('should show the correct props', () => {
 
-    console.log( wrapper.props() );
-
     expect( wrapper.props().contacts ).toEqual(  contactsList  );
     expect( wrapper.props().contact ).toEqual(  contactTest  );
 
