@@ -4,6 +4,7 @@ import { Item, Icon } from "semantic-ui-react";
 
 import styles from "./Contact.module.css";
 import { formatUserOrganization } from "calls/utils/formatters";
+import { logMessage } from "common/utils/logs";
 
 class Contact extends Component {
   static propTypes = {
@@ -18,7 +19,7 @@ class Contact extends Component {
 
   render() {
     const { contact } = this.props;
-
+    logMessage(contact);
     return (
       <Item className={``} onClick={this.selectContactAction}>
         <div className={`ui tiny image ${styles.avatar}`}>
@@ -30,8 +31,12 @@ class Contact extends Component {
           />
         </div>
         <Item.Content>
-          <Item.Header className={``}>{contact.displayName}</Item.Header>
-          <Item.Extra>{formatUserOrganization(contact)}</Item.Extra>
+          <Item.Header className={``}>
+            {contact ? contact.displayName : ""}
+          </Item.Header>
+          <Item.Extra>
+            {contact ? formatUserOrganization(contact) : ""}
+          </Item.Extra>
         </Item.Content>
       </Item>
     );

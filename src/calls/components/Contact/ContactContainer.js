@@ -4,11 +4,6 @@ import { bindActionCreators } from "redux";
 
 import Contact from "calls/components/Contact/Contact";
 
-function mapStateToProps({ calls }) {
-  return {
-    contact: calls.contacts.contact
-  };
-}
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -20,6 +15,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   )(Contact);

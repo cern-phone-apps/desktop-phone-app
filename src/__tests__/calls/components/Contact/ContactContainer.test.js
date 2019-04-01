@@ -25,7 +25,6 @@ describe('ContactContainer', () => {
       selectContact: selectContactFn,
       calls: {
         contacts: {
-          contact: contactTest
         }
       }
     };
@@ -33,7 +32,7 @@ describe('ContactContainer', () => {
     store = mockStore(initialState);
 
     wrapper = shallow(
-      <ContactContainer store={store} />
+      <ContactContainer store={store} contact={contactTest} />
     );
 
   });
