@@ -1,5 +1,5 @@
 import React from "react";
-import RecentCallList from "calls/components/RecentCallList/RecentCallList";
+import RecentCallList from "calls/components/recent_calls/RecentCallList/RecentCallList";
 
 describe("RecentCallList component", () => {
   it("renders  empty list without crashing", () => {

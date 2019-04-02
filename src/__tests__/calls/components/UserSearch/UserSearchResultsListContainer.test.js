@@ -1,7 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
 import configureMockStore from 'redux-mock-store';
-import UserSearchContainer from "calls/components/UserSearch/UserSearchResultsListContainer";
+import UserSearchResultsListContainer
+  from "calls/components/search/UserSearchResultsList/UserSearchResultsListContainer";
 const mockStore = configureMockStore();
 
 
@@ -23,7 +24,7 @@ describe('UserSearchResultsList', () => {
     store = mockStore(initialState);
 
     wrapper = shallow(
-      <UserSearchContainer
+      <UserSearchResultsListContainer
         store={store}
       />
     );

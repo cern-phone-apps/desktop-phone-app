@@ -8,7 +8,7 @@ import { selectUser } from "calls/actions/search";
 function mapStateToProps({ calls }) {
   return {
     userSelected: calls.search.userSelected,
-    results: calls.search.searchResults,
+    searchResults: calls.search.searchResults,
     searching: calls.search.searching
   };
 }

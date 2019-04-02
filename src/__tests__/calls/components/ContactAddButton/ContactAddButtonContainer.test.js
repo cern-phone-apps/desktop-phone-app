@@ -45,14 +45,18 @@ describe("ContactAddButtonContainer", () => {
     const initialState = {
       calls: {
         contacts: {
-          contacts: contactsList
+          getContacts: {
+            contacts: contactsList
+          }
         }
       }
     };
 
     store = mockStore(initialState);
 
-    wrapper = shallow(<ContactAddButtonContainer store={store} contact={contactTest} />);
+    wrapper = shallow(
+      <ContactAddButtonContainer store={store} contact={contactTest} />
+    );
   });
 
   it("should show the correct props", () => {

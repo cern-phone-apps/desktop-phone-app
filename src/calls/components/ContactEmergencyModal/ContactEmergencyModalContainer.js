@@ -6,7 +6,7 @@ import ContactEmergencyModal from "calls/components/ContactEmergencyModal/Contac
 
 function mapStateToProps({ calls }) {
   return {
-    emergencyModalOpen: calls.contacts.emergencyModalOpen
+    emergencyModalOpen: calls.contacts.emergencyModal.emergencyModalOpen
   };
 }
 

@@ -11,19 +11,7 @@ export class UserSearchResultsList extends Component {
   static propTypes = {
     searchResults: PropTypes.array.isRequired,
     searching: PropTypes.bool.isRequired
-    // selectUser: PropTypes.func.isRequired,
-    // getUserProfile: PropTypes.func.isRequired
   };
-
-  // handleResultSelect = result => {
-  //   const { selectUser, getUserProfile } = this.props;
-  //
-  //   actionMessage(`Search: Clicks on a user search result`);
-  //
-  //   logMessage(result);
-  //   selectUser(result);
-  //   getUserProfile(result.username);
-  // };
 
   styles = {
     display: "block",

@@ -6,7 +6,7 @@ import { getUserContacts } from "calls/actions/contacts";
 
 function mapStateToProps({ calls }) {
   return {
-    contacts: calls.contacts.contacts
+    contacts: calls.contacts.getContacts.contacts
   };
 }
 

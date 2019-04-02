@@ -23,7 +23,7 @@ describe('ContactProfileModalContainer', () => {
     const initialState = {
       calls: {
         contacts: {
-          selectedModal: {
+          modal: {
             selectedContact: contact,
             modalOpen: true
           },

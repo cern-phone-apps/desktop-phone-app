@@ -1,7 +1,6 @@
 import React from "react";
-import { UserSearchForm } from "calls/components/UserSearch/UserSearchForm";
-import { UserSearch } from "calls/components/UserSearch/UserSearch";
-import PropTypes from "prop-types";
+import { UserSearchForm } from "calls/components/search/UserSearchForm/UserSearchForm";
+import UserSearch from "calls/components/search/UserSearch/UserSearch";
 
 describe("UserSearchForm component", () => {
   it("renders without crashing", () => {
@@ -9,7 +8,7 @@ describe("UserSearchForm component", () => {
     const onSubmit = jest.fn();
 
     const wrapper = shallow(
-      <UserSearchForm onChange={onChange} onSubmit={onSubmit}/>
+      <UserSearchForm onChange={onChange} onSubmit={onSubmit} />
     );
 
     expect(wrapper.text()).toEqual("<GridRow /><GridRow />");
@@ -17,8 +16,7 @@ describe("UserSearchForm component", () => {
     expect(wrapper.debug()).toContain("UserSearchResultsList");
   });
 
-  it("runs the correct function on user search form submit", done  => {
-
+  it("runs the correct function on user search form submit", done => {
     const selectUser = jest.fn();
     const unSelectUser = jest.fn();
     const searchUsers = jest.fn();
@@ -28,12 +26,12 @@ describe("UserSearchForm component", () => {
 
     const wrapper = shallow(
       <UserSearch
-        results={['1', '2', '3']}
+        results={["1", "2", "3"]}
         displayDialpad={true}
         onCall={false}
         calling={false}
         userSelected={true}
-        dialpadValue={'1'}
+        dialpadValue={"1"}
         selectUser={selectUser}
         unSelectUser={unSelectUser}
         searchUsers={searchUsers}
@@ -43,22 +41,19 @@ describe("UserSearchForm component", () => {
       />
     );
 
-    searchUsers.mockImplementation(() => Promise.resolve({ results: [] }));
+    searchUsers.mockImplementation(() =>
+      Promise.resolve({ payload: { results: [] } })
+    );
 
-
-    wrapper.setState({ searchValue: 'test' }, () => {
-
+    wrapper.setState({ searchValue: "test" }, () => {
       wrapper.update();
 
-      wrapper.find('UserSearchForm').simulate('submit');
+      wrapper.find("UserSearchForm").simulate("submit");
 
-      setTimeout(()=>{
+      setTimeout(() => {
         expect(searchUsers).toHaveBeenCalled();
         done();
       }, 350);
     });
-
   });
-
-
 });

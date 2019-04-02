@@ -1,5 +1,5 @@
 import React from "react";
-import RecentCall from "calls/components/RecentCallList/RecentCall";
+import RecentCall from "calls/components/recent_calls/RecentCall/RecentCall";
 
 describe("RecentCall component", () => {
   it("renders without crashing", () => {
