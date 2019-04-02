@@ -13,12 +13,6 @@ export class UserSearchForm extends Component {
 
   render() {
     const { onSubmit, onChange, value, enableSearch } = this.props;
-    const secondColumn = {
-      flex: 1,
-      overflowY: "scroll",
-      marginBottom: "10px",
-      maxHeight: "100vh"
-    };
     return (
       <div>
         {this.renderSearchFieldRow(onSubmit, enableSearch, value, onChange)}

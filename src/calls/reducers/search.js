@@ -1,5 +1,4 @@
 import * as searchActions from "calls/actions/search";
-//import { logMessage } from "common/utils/logs";
 
 const initialState = {
   userSelected: false,
@@ -58,24 +57,20 @@ const search = (state = initialState, action) => {
         ...state,
         searching: true,
         searchEnable: true,
-        // searchResults: []
       };
     case searchActions.SEARCH_END:
       return {
         ...state,
         searching: false,
-        // searchResults: [],
         searchEnable: false
       };
     case searchActions.SEARCH_CLEAR:
       return {
         ...state,
-        // searchResults: []
       };
     case searchActions.SEARCH_SUCCESS:
       return {
         ...state,
-        // searchResults: getUsersFormattedForSearch(action.payload.result),
         searching: false
       };
     case searchActions.SEARCH_FAILURE:
