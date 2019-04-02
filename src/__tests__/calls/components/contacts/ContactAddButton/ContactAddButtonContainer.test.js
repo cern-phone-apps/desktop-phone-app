@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import configureMockStore from "redux-mock-store";
-import ContactAddButtonContainer from "calls/components/ContactAddButton/ContactAddButtonContainer";
+import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
 const mockStore = configureMockStore();
 
 describe("ContactAddButtonContainer", () => {

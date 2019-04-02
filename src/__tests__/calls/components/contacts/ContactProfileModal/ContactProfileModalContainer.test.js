@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import configureMockStore from 'redux-mock-store';
-import ContactProfileModalContainer from "calls/components/ContactProfileModal/ContactProfileModalContainer";
+import ContactProfileModalContainer from "calls/components/contacts/ContactProfileModal/ContactProfileModalContainer";
 const mockStore = configureMockStore();
 
 

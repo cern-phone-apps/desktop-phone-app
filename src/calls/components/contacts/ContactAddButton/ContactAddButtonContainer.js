@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addUserContact, getUserContacts, removeUserContact } from "calls/actions/contacts";
-import ContactAddButton from "calls/components/ContactAddButton/ContactAddButton";
+import ContactAddButton from "calls/components/contacts/ContactAddButton/ContactAddButton";
 
 
 function mapStateToProps({ calls }) {

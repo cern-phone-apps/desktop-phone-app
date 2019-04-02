@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Item } from "semantic-ui-react";
 import ScrollableContent from "common/components/ScrollableContent/ScrollableContent";
-import ContactContainer from "calls/components/Contact/ContactContainer";
-import ContactProfileModalContainer from "calls/components/ContactProfileModal/ContactProfileModalContainer";
-import ContactEmergencyItemContainer from "calls/components/ContactEmergencyItem/ContactEmergencyItemContainer";
-import ContactEmergencyModalContainer from "calls/components/ContactEmergencyModal/ContactEmergencyModalContainer";
+import ContactContainer from "calls/components/contacts/Contact/ContactContainer";
+import ContactProfileModalContainer from "calls/components/contacts/ContactProfileModal/ContactProfileModalContainer";
+import ContactEmergencyItemContainer from "calls/components/contacts/ContactEmergencyItem/ContactEmergencyItemContainer";
+import ContactEmergencyModalContainer from "calls/components/contacts/ContactEmergencyModal/ContactEmergencyModalContainer";
 
 class ContactList extends Component {
   static propTypes = {
