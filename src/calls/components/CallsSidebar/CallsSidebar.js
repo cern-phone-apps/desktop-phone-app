@@ -5,7 +5,7 @@ import RecentCallListContainer from "calls/components/recent_calls/RecentCallLis
 import LeftColumn from "common/components/LeftColumn/LeftColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import LeftColumnHeader from "common/components/LeftColumnHeader/LeftColumnHeader";
-import ContactListContainer from "calls/components/ContactsList/ContactListContainer";
+import ContactListContainer from "calls/components/contacts/ContactsList/ContactListContainer";
 
 class CallsSidebar extends Component {
   static propTypes = {

@@ -1,6 +1,5 @@
 import React from "react";
-import Contact from "calls/components/Contact/Contact";
-import PropTypes from "prop-types";
+import Contact from "calls/components/contacts/Contact/Contact";
 
 describe("Contact component", () => {
 

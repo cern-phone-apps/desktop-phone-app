@@ -1,5 +1,5 @@
 import React from "react";
-import ContactsList from "calls/components/ContactsList/ContactList";
+import ContactsList from "calls/components/contacts/ContactsList/ContactList";
 
 
 describe("ContactList component", () => {

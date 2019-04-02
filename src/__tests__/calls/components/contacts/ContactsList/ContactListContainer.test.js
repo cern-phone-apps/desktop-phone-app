@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import configureMockStore from "redux-mock-store";
-import ContactsListContainer from "calls/components/ContactsList/ContactListContainer";
+import ContactsListContainer from "calls/components/contacts/ContactsList/ContactListContainer";
 const mockStore = configureMockStore();
 
 describe("ContactsListContainer tests", () => {

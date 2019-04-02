@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { selectContact } from "calls/actions/contacts";
 import { bindActionCreators } from "redux";
 
-import Contact from "calls/components/Contact/Contact";
+import Contact from "calls/components/contacts/Contact/Contact";
 
 
 function mapDispatchToProps(dispatch) {

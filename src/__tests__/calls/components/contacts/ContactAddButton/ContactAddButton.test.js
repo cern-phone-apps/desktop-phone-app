@@ -1,5 +1,5 @@
 import React from "react";
-import ContactAddButton from "calls/components/ContactAddButton/ContactAddButton";
+import ContactAddButton from "calls/components/contacts/ContactAddButton/ContactAddButton";
 
 describe("Contact component", () => {
 

@@ -1,5 +1,5 @@
 import React from "react";
-import ContactProfileModal from "calls/components/ContactProfileModal/ContactProfileModal";
+import ContactProfileModal from "calls/components/contacts/ContactProfileModal/ContactProfileModal";
 
 
 describe("Contact component", () => {

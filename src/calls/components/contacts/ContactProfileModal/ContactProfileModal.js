@@ -12,7 +12,7 @@ import {
 import { formatUserOrganization } from "calls/utils/formatters";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
-import ContactAddButtonContainer from "calls/components/ContactAddButton/ContactAddButtonContainer";
+import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
 
 
 export class ContactProfileModal extends Component {

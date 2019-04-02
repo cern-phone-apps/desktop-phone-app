@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { openEmergencyModal } from "calls/actions/contacts";
 import { bindActionCreators } from "redux";
-import ContactEmergencyItem from "calls/components/ContactEmergencyItem/ContactEmergencyItem";
+import ContactEmergencyItem from "calls/components/contacts/ContactEmergencyItem/ContactEmergencyItem";
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { unSelectContact, getUserProfileById } from "calls/actions/contacts";
-import ContactProfileModal from "calls/components/ContactProfileModal/ContactProfileModal";
+import ContactProfileModal from "calls/components/contacts/ContactProfileModal/ContactProfileModal";
 
 function mapStateToProps({ calls }) {
   return {

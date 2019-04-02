@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Header, Icon, Loader, Segment, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { formatUserOrganization } from "calls/utils/formatters";
-import ContactAddButtonContainer from "calls/components/ContactAddButton/ContactAddButtonContainer";
+import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
 import { UserProfileCloseButtonContainer } from "calls/components/UserProfileCloseButton/UserProfileCloseButtonContainer";
 import UserPhoneNumberContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 
