@@ -15,14 +15,14 @@ describe("call actions", () => {
     const expectedAction = {
       type: callActions.IS_CALLING
     };
-    expect(callActions.isCalling()).toEqual(expectedAction);
+    expect(callActions.setIsCalling()).toEqual(expectedAction);
   });
 
   it("should create an action to is receiving call", () => {
     const expectedAction = {
       type: callActions.IS_RECEIVING_CALL
     };
-    expect(callActions.isReceivingCall()).toEqual(expectedAction);
+    expect(callActions.setIsReceivingCall()).toEqual(expectedAction);
   });
 
   it("should create an action to is accept call", () => {
@@ -66,7 +66,7 @@ describe("call actions", () => {
       errors: { code: { status_code: 0 } },
       type: "@@call/CALL_FAILED"
     };
-    expect(callActions.callFailed()).toEqual(expectedAction);
+    expect(callActions.setCallFailed()).toEqual(expectedAction);
   });
 
   it("should create an action that is triggered on hang up", () => {

@@ -13,7 +13,7 @@ describe("connection actions", () => {
     const expectedAction = {
       type: actions.CONNECT_SUCCESS
     };
-    expect(actions.setConnected()).toEqual(expectedAction);
+    expect(actions.setAuthenticated()).toEqual(expectedAction);
   });
 
   it("should create an action for failed connection", () => {

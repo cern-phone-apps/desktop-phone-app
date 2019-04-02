@@ -4,11 +4,11 @@ import React from "react";
 
 describe("Incoming Call Modal Tests", () => {
   it("renders IncomingCallModal without crashing", () => {
-    const isReceivingCall = jest.fn();
+    const setIsReceivingCall = jest.fn();
     const wrapper = shallow(
       <IncomingCallModal
         connected={true}
-        isReceivingCall={isReceivingCall}
+        setIsReceivingCall={setIsReceivingCall}
         phoneService={{}}
         receivingCall
         t={key => key}
@@ -20,11 +20,11 @@ describe("Incoming Call Modal Tests", () => {
   });
 
   it("contains CallingModalContent", () => {
-    const isReceivingCall = jest.fn();
+    const setIsReceivingCall = jest.fn();
     const wrapper = shallow(
       <IncomingCallModal
         connected={true}
-        isReceivingCall={isReceivingCall}
+        setIsReceivingCall={setIsReceivingCall}
         phoneService={{}}
         receivingCall
         doNotDisturb={false}
@@ -36,12 +36,12 @@ describe("Incoming Call Modal Tests", () => {
   });
 
   it("is empty when not connected", () => {
-    const isReceivingCall = jest.fn();
+    const setIsReceivingCall = jest.fn();
     const wrapper = shallow(
       <IncomingCallModal
         doNotDisturb={false}
         connected={false}
-        isReceivingCall={isReceivingCall}
+        setIsReceivingCall={setIsReceivingCall}
         phoneService={{}}
         receivingCall
         t={key => key}

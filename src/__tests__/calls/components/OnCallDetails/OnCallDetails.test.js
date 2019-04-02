@@ -24,7 +24,7 @@ describe("NotConnectedScreen component", () => {
     const wrapper = shallow(
       <OnCallDetails
         t={key => key}
-        phoneService={{ hangUpCurrentCall: hangup }}
+        phoneService={{ hangUpCurrentCallAction: hangup }}
         receivingCall={false}
         recipient={{}}
       />

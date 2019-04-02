@@ -22,7 +22,7 @@ export function requestConnection() {
  * Action that is triggered on a successful connection to TONE
  * @returns {{type: string}} A dict
  */
-export function setConnected() {
+export function setAuthenticated() {
   return {
     type: CONNECT_SUCCESS
   };

@@ -14,7 +14,7 @@ export class OnCallDetails extends Component {
 
   hangup = () => {
     const { phoneService } = this.props;
-    phoneService.hangUpCurrentCall();
+    phoneService.hangUpCurrentCallAction();
   };
 
   render() {

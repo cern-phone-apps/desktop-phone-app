@@ -104,10 +104,12 @@ export class ConnectionStatusModal extends Component {
             <p>{message}</p>
             <p>{callsMessage}</p>
 
-            <p>Do not disturb is: {JSON.stringify(this.props.doNotDisturb)} </p>
             <p>
               <Button onClick={this.dontDisturbAction}>
-                Set do not disturb
+                {doNotDisturb ?
+                  "Disable Do not disturb"
+                  : "Enable Do not disturb"
+                }
               </Button>
             </p>
 

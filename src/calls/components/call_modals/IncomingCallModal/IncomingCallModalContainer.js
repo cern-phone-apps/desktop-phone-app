@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {isReceivingCall, rejectIncomingCall} from "calls/actions/call";
+import {setIsReceivingCall, rejectIncomingCall} from "calls/actions/call";
 
 import IncomingCallModal from "./IncomingCallModal";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
@@ -26,7 +26,7 @@ function mapStateToProps({ calls }) {
  */
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    isReceivingCall,
+    setIsReceivingCall,
     rejectIncomingCall
   }, dispatch);
 }

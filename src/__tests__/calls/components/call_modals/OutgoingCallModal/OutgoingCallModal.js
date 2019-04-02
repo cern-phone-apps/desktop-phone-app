@@ -38,12 +38,12 @@ describe("Outgoing Call Modal Tests", () => {
   });
 
   it("can cancel a call", () => {
-    const hangUpCurrentCall = jest.fn();
+    const hangUpCurrentCallAction = jest.fn();
 
     const phoneNumber = "123456";
     const recipient = "John Doe";
     const phoneService = {
-      hangUpCurrentCall: hangUpCurrentCall
+      hangUpCurrentCallAction: hangUpCurrentCallAction
     };
 
     const wrapper = shallow(
@@ -58,6 +58,6 @@ describe("Outgoing Call Modal Tests", () => {
     const div = wrapper.find(".HangupButton");
     div.simulate("click");
 
-    expect(hangUpCurrentCall).toHaveBeenCalled();
+    expect(hangUpCurrentCallAction).toHaveBeenCalled();
   });
 });

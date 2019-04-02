@@ -108,7 +108,7 @@ export class IncomingCallModal extends Component {
     receivingCall: PropTypes.bool.isRequired,
     callerName: PropTypes.string,
     callerNumber: PropTypes.string,
-    isReceivingCall: PropTypes.func.isRequired // TODO Rename this function
+    setIsReceivingCall: PropTypes.func.isRequired // TODO Rename this function
   };
 
   state = {

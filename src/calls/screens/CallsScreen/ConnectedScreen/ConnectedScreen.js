@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Grid } from "semantic-ui-react";
 import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
-import CallModalContainer from "calls/components/call_modals/OutgoingCallModal/index";
+import CallModalContainer from "calls/components/call_modals/OutgoingCallModal/OutgoingCallModalContainer";
 import IncomingCallModalContainer from "calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer";
 import MainHeaderContainer from "calls/components/MainHeader";
 import CallerTabsSelectorContainer from "calls/components/CallerTabsSelector/CallerTabsSelectorContainer";
