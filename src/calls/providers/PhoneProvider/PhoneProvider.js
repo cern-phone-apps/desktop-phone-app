@@ -10,19 +10,19 @@ import {
 } from "common/utils/logs";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 
-const tempRejectedMessage = {
-  code: {
-    status_code: "NI"
-  },
-  description: "NOT IMPLEMENTED (REJECTED)"
-};
-
-const tempFailedMessage = {
-  code: {
-    status_code: "NI"
-  },
-  description: "NOT IMPLEMENTED (FAILED)"
-};
+// const tempRejectedMessage = {
+//   code: {
+//     status_code: "NI"
+//   },
+//   description: "NOT IMPLEMENTED (REJECTED)"
+// };
+//
+// const tempFailedMessage = {
+//   code: {
+//     status_code: "NI"
+//   },
+//   description: "NOT IMPLEMENTED (FAILED)"
+// };
 
 export const phoneService = ComponentToWrap => {
   return class ThemeComponent extends Component {
