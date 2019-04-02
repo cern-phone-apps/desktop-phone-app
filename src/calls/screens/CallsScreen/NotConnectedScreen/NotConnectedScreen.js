@@ -7,7 +7,7 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
 import ErrorMessageContainer from "common/components/ErrorMessage/ErrorMessageContainer";
 import LogoutButtonContainer from "auth/components/LogoutButton/LogoutButtonContainer";
-import NumberConnectorContainer from "calls/components/NumberConnector";
+import NumberConnectorContainer from "calls/components/NumberConnector/NumberConnectorContainer";
 
 export class SelectPhoneNumberModal extends Component {
   render() {

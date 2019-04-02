@@ -11,8 +11,8 @@ import {
 } from "semantic-ui-react";
 import { formatUserOrganization } from "calls/utils/formatters";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
-import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
 import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
+import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
 
 
 export class ContactProfileModal extends Component {
