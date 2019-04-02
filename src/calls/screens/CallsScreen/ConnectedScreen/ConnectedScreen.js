@@ -6,7 +6,7 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import CallModalContainer from "calls/components/call_modals/OutgoingCallModal/index";
 import IncomingCallModalContainer from "calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer";
 import MainHeaderContainer from "calls/components/MainHeader";
-import UserSearchContainer from "calls/components/search/UserSearch/UserSearchContainer";
+import CallerTabsSelectorContainer from "calls/components/CallerTabsSelector/CallerTabsSelectorContainer";
 
 export class ConnectedScreen extends Component {
   static propTypes = {
@@ -46,7 +46,7 @@ export class ConnectedScreen extends Component {
       >
         <Grid.Column>
           {calling && <CallModalContainer modalOpen={calling}/>}
-          <UserSearchContainer/>
+          <CallerTabsSelectorContainer/>
         </Grid.Column>
       </Grid.Row>
     </Grid>;

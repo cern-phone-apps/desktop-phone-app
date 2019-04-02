@@ -9,9 +9,12 @@ export class CallerDialpadForm extends Component {
 
   static propTypes = {
     value: PropTypes.any,
-    onChange: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired,
-    unSelectUser: PropTypes.func.isRequired
+  };
+
+  handleDialpadChange = event => {
+    const { updateDialpadValue } = this.props;
+    updateDialpadValue(event.target.value);
   };
 
 
@@ -26,7 +29,6 @@ export class CallerDialpadForm extends Component {
       phoneNumber: formattedNumber
     };
 
-    this.props.unSelectUser();
     this.props.phoneService.makeCall(buildRecipient(recipient));
   };
 
@@ -41,7 +43,7 @@ export class CallerDialpadForm extends Component {
                   className={"DialpadInput"}
                   value={this.props.value}
                   placeholder={"Input a number..."}
-                  onChange={this.props.onChange}
+                  onChange={this.handleDialpadChange}
                   icon={
                     <Icon
                       name="text telephone"

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { makeCall } from "calls/actions/call";
 import { CallerDialpadForm } from "./CallerDialpadForm";
 import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import { unSelectUser } from "calls/actions/search";
+import { updateDialpadValue } from "calls/actions/dialpad";
 
 function mapStateToProps({ calls }) {
   return {
@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       makeCall,
-      unSelectUser
+      updateDialpadValue
     },
     dispatch
   );

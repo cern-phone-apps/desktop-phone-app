@@ -1,0 +1,55 @@
+import React, { Component } from "react";
+
+import "./CallerTabsSelector.css";
+import CallerDialpadFormContainer from "calls/components/dialpads/CallerDialpadForm/CallerDialpadFormContainer";
+import { Grid, Icon, Menu } from "semantic-ui-react";
+import UserSearchFormContainer from "calls/components/search/UserSearchForm/UserSearchFormContainer";
+
+export class CallerTabsSelector extends Component {
+  state = {
+    activeItem: "search"
+  };
+  handleTabClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+  };
+
+  render() {
+    const { activeItem } = this.state;
+    const gridStyle = {
+      display: "flex",
+      height: "100%",
+      flexDirection: "column"
+    };
+
+    return (
+      <Grid padded style={gridStyle}>
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <Menu widths={2} size={"mini"}>
+              <Menu.Item
+                name="search"
+                active={activeItem === "search"}
+                onClick={this.handleTabClick}
+                className={"DisplaySearchButton"}
+              >
+                <Icon name="search" /> Search
+              </Menu.Item>
+              <Menu.Item
+                name="dialpad"
+                active={activeItem === "dialpad"}
+                onClick={this.handleTabClick}
+                className={"DisplayDialpadButton"}
+              >
+                <Icon name="text telephone" /> Dialpad
+              </Menu.Item>
+            </Menu>
+          </Grid.Column>
+        </Grid.Row>
+        {activeItem === "search" && <UserSearchFormContainer />}
+        {activeItem === "dialpad" && <CallerDialpadFormContainer />}
+      </Grid>
+    );
+  }
+}
+
+export default CallerTabsSelector;
