@@ -42,23 +42,4 @@ describe("UserSearchForm component", () => {
     );
 
   });
-
-  // it("runs the correct function on click", () => {
-  //   const selectUser = jest.fn();
-  //
-  //   const wrapper = shallow(
-  //     <UserSearchResultsList
-  //       searchResults={["1", "2", "3"]}
-  //       searching={false}
-  //     />
-  //   );
-  //
-  //   const div = wrapper
-  //     .find("UserSearchResult")
-  //     .first()
-  //     .dive();
-  //   div.simulate("click");
-  //
-  //   expect(selectUser).toHaveBeenCalled();
-  // });
 });

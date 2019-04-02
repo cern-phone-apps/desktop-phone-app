@@ -26,6 +26,7 @@ describe('UserSearchResultsList', () => {
     wrapper = shallow(
       <UserSearchResultsListContainer
         store={store}
+        searchResults={resultsArray}
       />
     );
 
