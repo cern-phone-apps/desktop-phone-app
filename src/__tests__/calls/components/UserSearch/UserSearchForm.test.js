@@ -1,5 +1,5 @@
 import React from "react";
-import UserSearch from "calls/components/UserSearch/UserSearch";
+import UserSearch from "calls/components/search/UserSearch/UserSearch";
 
 describe("UserSearch component", () => {
   it("renders without crashing", () => {

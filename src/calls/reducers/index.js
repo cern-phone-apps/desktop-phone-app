@@ -7,7 +7,7 @@ import connection from "./connection";
 import numbers from "./numbers";
 import recent from "./recent";
 import profile from "./profile";
-import contacts from "./contacts";
+import contacts from "./contacts/index";
 
 const callsReducer = combineReducers({
   call,

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import "./OnCallBanner.css";
 import PropTypes from "prop-types";
-import Timer from "simple-react-timer";
 import { Link } from "react-router-dom";
 import { translate } from "react-i18next";
+import Timer from "calls/components/Timer/Timer";
 
 export class OnCallBanner extends Component {
   static propTypes = {

@@ -5,8 +5,8 @@ import ContactProfileModal from "calls/components/ContactProfileModal/ContactPro
 
 function mapStateToProps({ calls }) {
   return {
-    modalOpen: calls.contacts.selectedModal.modalOpen,
-    selectedContact: calls.contacts.selectedModal.selectedContact
+    modalOpen: calls.contacts.modal.modalOpen,
+    selectedContact: calls.contacts.modal.selectedContact
   };
 }
 

@@ -6,7 +6,7 @@ import ContactAddButton from "calls/components/ContactAddButton/ContactAddButton
 
 function mapStateToProps({ calls }) {
   return {
-    contacts: calls.contacts.contacts,
+    contacts: calls.contacts.getContacts.contacts,
   };
 }
 

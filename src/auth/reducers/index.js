@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux'
-import me from './me'
+import { combineReducers } from "redux";
+import me from "./me";
 
 /**
  * All the reducers related to user information
@@ -7,6 +7,6 @@ import me from './me'
  */
 const userReducer = combineReducers({
   me
-})
+});
 
-export default userReducer
+export default userReducer;

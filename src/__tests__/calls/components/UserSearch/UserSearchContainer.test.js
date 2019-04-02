@@ -5,8 +5,8 @@ import configureMockStore from "redux-mock-store";
 
 import createHistory from "history/createBrowserHistory";
 import { routerMiddleware } from "react-router-redux";
-import { UserSearchContainer } from "calls/components/UserSearch/UserSearchContainer";
 import { logMessage } from "common/utils/logs";
+import UserSearchContainer from "calls/components/search/UserSearch/UserSearchContainer";
 
 const history = createHistory();
 const middlewares = [thunk, routerMiddleware(history)];
@@ -22,10 +22,7 @@ describe("UserSearch Container", () => {
         calling: false
       },
       search: {
-        userSelected: false,
-        searchResults: [],
-        searching: false,
-        searchEnable: false
+        userSelected: false
       },
       dialpad: {
         display: false,
@@ -48,7 +45,6 @@ describe("UserSearch Container", () => {
         unSelectUser: expect.any(Function),
         calling: expect.any(Boolean),
         onCall: expect.any(Boolean),
-        results: expect.any(Array),
         displayDialpad: expect.any(Boolean)
       })
     );
