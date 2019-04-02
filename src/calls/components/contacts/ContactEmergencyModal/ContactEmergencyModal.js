@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Header, Icon, Modal } from "semantic-ui-react";
-import FireBrigadeButton from "calls/components/FireBrigadeCallButton/FireBrigadeButton";
-import EuropeanEmergencyCallButton from "calls/components/EuropeanEmergencyCallButton/EuropeanEmergencyCallButton";
+import FireBrigadeButton from "calls/components/contacts/FireBrigadeCallButton/FireBrigadeButton";
+import EuropeanEmergencyCallButton from "calls/components/contacts/EuropeanEmergencyCallButton/EuropeanEmergencyCallButton";
 
 class ContactEmergencyModal extends Component {
   static propTypes = {

@@ -11,8 +11,8 @@ import {
 } from "semantic-ui-react";
 import { formatUserOrganization } from "calls/utils/formatters";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
-import { UserProfileExtraInfo } from "calls/components/UserProfile/UserProfile";
 import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
+import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
 
 
 export class SearchProfileModal extends Component {
@@ -21,25 +21,6 @@ export class SearchProfileModal extends Component {
     userSelected: PropTypes.bool.isRequired,
     unSelectUser: PropTypes.func.isRequired,
   };
-
-  // async componentDidUpdate(prevProps, prevState, snapshot) {
-  //   const { getUserProfile, selectedContact } = this.props;
-  //
-  //   if (this.props.modalOpen) {
-  //     if (!this.state.fetching) {
-  //       this.setState({ fetching: true });
-  //     }
-  //     const result = await getUserProfileById(selectedUser.personId);
-  //     if (result && result.payload) {
-  //       if (
-  //         !this.state.profile ||
-  //         result.payload.result.personId !== this.state.profile.personId
-  //       ) {
-  //         this.setState({ profile: result.payload.result, fetching: false });
-  //       }
-  //     }
-  //   }
-  // }
 
   handleClose = () => {
     const { unSelectUser } = this.props;
