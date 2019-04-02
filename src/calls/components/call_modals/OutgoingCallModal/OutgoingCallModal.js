@@ -15,9 +15,9 @@ export class OutgoingCallModal extends Component {
   /**
    * Hangups the current call using the Phone Service
    */
-  hangUpCurrentCall = () => {
+  hangUpCurrentCallAction = () => {
     const { phoneService } = this.props;
-    phoneService.hangUpCurrentCall();
+    phoneService.hangUpCurrentCallAction();
   };
 
   render() {
@@ -45,7 +45,7 @@ export class OutgoingCallModal extends Component {
         <Modal.Actions>
           <Button
             color="red"
-            onClick={this.hangUpCurrentCall}
+            onClick={this.hangUpCurrentCallAction}
             className={"HangupButton"}
           >
             <Icon name="phone" /> Hangup

@@ -34,19 +34,12 @@ class ContactEmergencyModal extends Component {
           </Header.Content>
         </Header>
         <Modal.Content scrolling>
-          <Header as={"h4"}>Fire - Accident - Pollution</Header>
+          <Header as={"h4"}>
+            Fire - Accident - Pollution - Medical emergencies
+          </Header>
           <p>
-            In case of FIRE - ACCIDENT or POLLUTION on the CERN Site, call the
-            Fire Brigade on <strong>74444, 24h/24</strong>.
-          </p>
-          <p>
-            <FireBrigadeButton />
-          </p>
-          <Header as={"h4"}>Medical emergencies on the CERN site</Header>
-          <p>
-            In case of any <strong>medical emergencies</strong>, please call{" "}
-            <strong>74444, 24h/24</strong>. Please remain calm and wait for
-            instructions from the Fire Brigade before moving the patient.
+            In case of FIRE - ACCIDENT or POLLUTION or MEDICAL EMERGENCY on the
+            CERN Site, call the Fire Brigade on <strong>74444, 24h/24</strong>.
           </p>
           <p>
             <FireBrigadeButton />

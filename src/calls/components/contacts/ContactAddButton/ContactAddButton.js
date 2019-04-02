@@ -23,7 +23,7 @@ class ContactAddButton extends Component {
     const { getUserContacts, contact } = this.props;
     this.setState({ loading: true });
     const newContacts = await getUserContacts();
-    if (newContacts && newContacts.payload) {
+    if (newContacts && newContacts.payload && newContacts.payload.result) {
       let ids = newContacts.payload.result.map(a => a.personId.toString());
       if (ids.includes(contact.personId) || ids.includes(contact.personId.toString())) {
         this.setState({ hasContact: true });

@@ -30,7 +30,7 @@ export function makeCall(recipient) {
  *
  * @returns {{type: string}} A dict
  */
-export function isCalling() {
+export function setIsCalling() {
   return {
     type: IS_CALLING
   };
@@ -41,7 +41,7 @@ export function isCalling() {
  *
  * @returns {{type: string}} A dict
  */
-export function isReceivingCall(callerNumber, callerName) {
+export function setIsReceivingCall(callerNumber, callerName) {
   return {
     type: IS_RECEIVING_CALL,
     callerNumber,
@@ -96,7 +96,7 @@ export function rejectOutgoingCall(errors = { code: { status_code: 0 } }) {
  * Action triggered when a call is rejected
  * @returns {{type: string}} A dict
  */
-export function callFailed(errors = { code: { status_code: 0 } }) {
+export function setCallFailed(errors = { code: { status_code: 0 } }) {
   return {
     type: CALL_FAILED,
     errors
