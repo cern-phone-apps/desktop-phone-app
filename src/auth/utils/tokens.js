@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { logMessage } from "common/utils/logs";
 
 /**
  * Gets the access token csrf from the cookies
@@ -13,7 +14,9 @@ export function getAccessToken () {
  * @returns {boolean} (true|false)
  */
 export function isAccessTokenExpired () {
-  return !getAccessToken();
+  const result = !getAccessToken();
+  logMessage(`Access token is: ${!result}`);
+  return result;
 }
 
 /**
