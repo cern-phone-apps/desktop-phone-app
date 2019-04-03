@@ -20,7 +20,13 @@ const ConnectionIcon = ({ color, message, onClick }) => {
   );
 };
 
-function ConnectionStatusModalContent({message, callsMessage, onClick, connected, doNotDisturb}) {
+function ConnectionStatusModalContent({
+  message,
+  callsMessage,
+  onClick,
+  connected,
+  doNotDisturb
+}) {
   return (
     <Modal.Content>
       <Modal.Description>
@@ -29,9 +35,7 @@ function ConnectionStatusModalContent({message, callsMessage, onClick, connected
 
         <p>
           <Button onClick={onClick}>
-            {doNotDisturb
-              ? "Disable Do not disturb"
-              : "Enable Do not disturb"}
+            {doNotDisturb ? "Disable Do not disturb" : "Enable Do not disturb"}
           </Button>
         </p>
 
@@ -104,20 +108,11 @@ export class ConnectionStatusModal extends Component {
 
   render() {
     const { connected, activeNumber, doNotDisturb } = this.props;
-    let color, message, callsMessage;
-    if (connected) {
-      message = `You are connected with number ${activeNumber}`;
-      callsMessage = `You are able to make and receive calls`;
-    } else {
-      message = "You are not connected to the telephony backend";
-      callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
-    }
-
-    if (doNotDisturb) {
-      color = "red";
-    } else {
-      color = "green";
-    }
+    let { color, message, callsMessage } = this.getUiProperties(
+      connected,
+      activeNumber,
+      doNotDisturb
+    );
 
     return (
       <Modal
@@ -145,6 +140,24 @@ export class ConnectionStatusModal extends Component {
         />
       </Modal>
     );
+  }
+
+  getUiProperties(connected, activeNumber, doNotDisturb) {
+    let color, message, callsMessage;
+    if (connected) {
+      message = `You are connected with number ${activeNumber}`;
+      callsMessage = `You are able to make and receive calls`;
+    } else {
+      message = "You are not connected to the telephony backend";
+      callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
+    }
+
+    if (doNotDisturb) {
+      color = "red";
+    } else {
+      color = "green";
+    }
+    return { color, message, callsMessage };
   }
 }
 
