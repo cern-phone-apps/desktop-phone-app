@@ -7,6 +7,38 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import LeftColumnHeader from "common/components/LeftColumnHeader/LeftColumnHeader";
 import ContactListContainer from "calls/components/contacts/ContactsList/ContactListContainer";
 
+function CallsSidebarMenu(props) {
+  return (
+    <Menu icon size="massive" fluid widths={3}>
+      <Menu.Item
+        name="phone"
+        active={props.activeItem === "phone"}
+        onClick={props.onClick}
+      >
+        <Icon name="phone" />
+      </Menu.Item>
+
+      <Menu.Item
+        name="user"
+        active={props.activeItem === "user"}
+        onClick={props.onClick}
+      >
+        <Icon name="user" />
+      </Menu.Item>
+
+      <Menu.Item name="settings" onClick={props.onClick1}>
+        <Icon name="settings" />
+      </Menu.Item>
+    </Menu>
+  );
+}
+
+CallsSidebarMenu.propTypes = {
+  activeItem: PropTypes.string,
+  onClick: PropTypes.func,
+  onClick1: PropTypes.func
+};
+
 class CallsSidebar extends Component {
   static propTypes = {
     openSettingsModal: PropTypes.func.isRequired
@@ -37,30 +69,11 @@ class CallsSidebar extends Component {
             <LeftColumnHeader />
             {activeItem === "phone" && <RecentCallListContainer />}
             {activeItem === "user" && <ContactListContainer />}
-            <Menu icon size="massive" fluid widths={3}>
-              <Menu.Item
-                name="phone"
-                active={activeItem === "phone"}
-                onClick={this.handleItemClick}
-              >
-                <Icon name="phone" />
-              </Menu.Item>
-
-              <Menu.Item
-                name="user"
-                active={activeItem === "user"}
-                onClick={this.handleItemClick}
-              >
-                <Icon name="user" />
-              </Menu.Item>
-
-              <Menu.Item
-                name="settings"
-                onClick={this.handleSettingsClickAction}
-              >
-                <Icon name="settings" />
-              </Menu.Item>
-            </Menu>
+            <CallsSidebarMenu
+              activeItem={activeItem}
+              onClick={this.handleItemClick}
+              onClick1={this.handleSettingsClickAction}
+            />
           </ErrorBoundary>
         </LeftColumn>
       </Responsive>
