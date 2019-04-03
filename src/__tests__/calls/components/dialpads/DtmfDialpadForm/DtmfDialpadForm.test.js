@@ -18,7 +18,7 @@ it("contains expected strings", () => {
 
   expect(wrapper.debug()).toContain("<Grid");
   expect(wrapper.debug()).toContain("<DtmfDialpad");
-  expect(wrapper.debug()).toContain("Input a dtmf command...");
+  expect(wrapper.debug()).toContain("DtmfDialpadField");
 });
 
 it("triggers sendDtmfCommand", () => {
