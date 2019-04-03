@@ -15,6 +15,6 @@ it("renders without crashing", () => {
   );
 
   expect(loader.text()).toEqual("<SidebarPushable />");
-  expect(loader.debug()).toContain("MenuItem");
-  expect(loader.debug()).toContain("SidebarPusher");
+  expect(loader.debug()).toContain("MainPusher");
+  expect(loader.debug()).toContain("MainSidebar");
 });

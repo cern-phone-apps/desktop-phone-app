@@ -4,6 +4,36 @@ import { Header, Icon, Modal } from "semantic-ui-react";
 import FireBrigadeButton from "calls/components/contacts/FireBrigadeCallButton/FireBrigadeButton";
 import EuropeanEmergencyCallButton from "calls/components/contacts/EuropeanEmergencyCallButton/EuropeanEmergencyCallButton";
 
+function ContactEmergencyModalHeader () {
+  return <Header>
+    <Icon name="emergency" color={"red"}/>
+    <Header.Content>
+      {"In case of emergency"}
+      <Header.Subheader/>
+    </Header.Content>
+  </Header>;
+}
+
+function ContactEmergencyModalContent () {
+  return <Modal.Content scrolling>
+    <Header as={"h4"}>
+      Fire - Accident - Pollution - Medical emergencies
+    </Header>
+    <p>
+      In case of FIRE - ACCIDENT or POLLUTION or MEDICAL EMERGENCY on the
+      CERN Site, call the Fire Brigade on <strong>74444, 24h/24</strong>.
+    </p>
+    <p>
+      <FireBrigadeButton/>
+    </p>
+    <Header as={"h4"}>Emergencies outside CERN</Header>
+    <p>Appel d'urgence Européen - European Emergency call</p>
+    <p>
+      <EuropeanEmergencyCallButton/>
+    </p>
+  </Modal.Content>;
+}
+
 class ContactEmergencyModal extends Component {
   static propTypes = {
     emergencyModalOpen: PropTypes.bool.isRequired,
@@ -26,30 +56,8 @@ class ContactEmergencyModal extends Component {
         onClose={this.handleClose}
         closeIcon
       >
-        <Header>
-          <Icon name="emergency" color={"red"} />
-          <Header.Content>
-            {"In case of emergency"}
-            <Header.Subheader />
-          </Header.Content>
-        </Header>
-        <Modal.Content scrolling>
-          <Header as={"h4"}>
-            Fire - Accident - Pollution - Medical emergencies
-          </Header>
-          <p>
-            In case of FIRE - ACCIDENT or POLLUTION or MEDICAL EMERGENCY on the
-            CERN Site, call the Fire Brigade on <strong>74444, 24h/24</strong>.
-          </p>
-          <p>
-            <FireBrigadeButton />
-          </p>
-          <Header as={"h4"}>Emergencies outside CERN</Header>
-          <p>Appel d'urgence Européen - European Emergency call</p>
-          <p>
-            <EuropeanEmergencyCallButton />
-          </p>
-        </Modal.Content>
+        <ContactEmergencyModalHeader/>
+        <ContactEmergencyModalContent/>
       </Modal>
     );
   }

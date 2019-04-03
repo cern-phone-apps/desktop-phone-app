@@ -9,20 +9,22 @@ export class CallerTabsSelector extends Component {
   state = {
     activeItem: "search"
   };
+
+  gridStyle = {
+    display: "flex",
+    height: "100%",
+    flexDirection: "column"
+  };
+
+
   handleTabClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
 
   render() {
     const { activeItem } = this.state;
-    const gridStyle = {
-      display: "flex",
-      height: "100%",
-      flexDirection: "column"
-    };
-
     return (
-      <Grid padded style={gridStyle}>
+      <Grid padded style={this.gridStyle}>
         <Grid.Row>
           <Grid.Column width={16}>
             <Menu widths={2} size={"mini"}>
