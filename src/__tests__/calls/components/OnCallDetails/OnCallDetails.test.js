@@ -1,5 +1,5 @@
 import React from "react";
-import { OnCallDetails } from "calls/components/OnCallDetails/OnCallDetails";
+import { HangupButton, OnCallDetails } from "calls/components/OnCallDetails/OnCallDetails";
 
 describe("NotConnectedScreen component", () => {
   it("renders without crashing", () => {
@@ -27,6 +27,20 @@ describe("NotConnectedScreen component", () => {
         phoneService={{ hangUpCurrentCallAction: hangup }}
         receivingCall={false}
         recipient={{}}
+      />
+    );
+
+    // const div = wrapper.find(".OnCallDetails__HangupButton");
+    // div.simulate("click");
+    expect(wrapper.text()).toContain("Segment");
+  });
+
+  it("renders without crashing", () => {
+    const hangup = jest.fn();
+
+    const wrapper = shallow(
+      <HangupButton
+        onClick={hangup}
       />
     );
 

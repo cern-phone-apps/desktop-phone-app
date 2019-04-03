@@ -17,6 +17,26 @@ ModalTrigger.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
+function ModalDebugContent (props) {
+  return <Modal.Content scrolling>
+    <Modal.Description>
+      <p>{`This is the Ddebug content`}</p>
+      <Button
+        disabled={!props.connected}
+        onClick={props.onClick}
+        className={"ReceiveCallDebugButton"}
+      >
+        Receive a call
+      </Button>
+    </Modal.Description>
+  </Modal.Content>;
+}
+
+ModalDebugContent.propTypes = {
+  connected: PropTypes.any,
+  onClick: PropTypes.func
+};
+
 class ModalDebug extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
@@ -53,32 +73,10 @@ class ModalDebug extends Component {
     const { connected } = this.props;
     const { open } = this.state;
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
-    return (
-      <Modal
-        open={open}
-        size={"small"}
-        dimmer={"blurring"}
-        closeIcon
-        closeOnDimmerClick
-        onClose={this.close}
-        trigger={<ModalTrigger onClick={this.openModal} />}
-        className={"ModalDebug"}
-      >
+    return <Modal open={open} size={"small"} dimmer={"blurring"} closeIcon closeOnDimmerClick onClose={this.close} trigger={<ModalTrigger onClick={this.openModal} />} className={"ModalDebug"}>
         <Modal.Header>{"Debug"}</Modal.Header>
-        <Modal.Content scrolling>
-          <Modal.Description>
-            <p>{`This is the Ddebug content`}</p>
-            <Button
-              disabled={!connected}
-              onClick={this.receiveCall}
-              className={"ReceiveCallDebugButton"}
-            >
-              Receive a call
-            </Button>
-          </Modal.Description>
-        </Modal.Content>
-      </Modal>
-    );
+        <ModalDebugContent connected={connected} onClick={this.receiveCall} />
+      </Modal>;
   }
 }
 

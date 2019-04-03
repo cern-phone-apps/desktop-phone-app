@@ -5,6 +5,19 @@ import { Icon, Segment } from "semantic-ui-react";
 import { translate } from "react-i18next";
 import Timer from "calls/components/Timer/Timer";
 
+export function HangupButton (props) {
+  return <button
+    onClick={props.onClick}
+    className={
+      "ui circular red icon button OnCallDetails__HangupButton"
+    }
+  >
+    <i className="phone icon"/>
+  </button>;
+}
+
+HangupButton.propTypes = { onClick: PropTypes.func };
+
 export class OnCallDetails extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -25,22 +38,15 @@ export class OnCallDetails extends Component {
           <div>
             <h3 className="ui center aligned header">{t("onCallWithText")}</h3>
             <h2 className="ui center aligned header">
-              <Icon name={"user"} /> {recipient.name}
+              <Icon name={"user"}/> {recipient.name}
             </h2>
             <div className="ui center aligned basic segment">
-              <Timer startTime={recipient.startTime} />
+              <Timer startTime={recipient.startTime}/>
             </div>
             <div className="ui center aligned basic segment">
-              <button
-                onClick={() => this.hangup()}
-                className={
-                  "ui circular red icon button OnCallDetails__HangupButton"
-                }
-              >
-                <i className="phone icon" />
-              </button>
+              <HangupButton onClick={() => this.hangup()}/>
               <button className="ui circular icon button">
-                <i className="mute icon" />
+                <i className="mute icon"/>
               </button>
             </div>
           </div>
