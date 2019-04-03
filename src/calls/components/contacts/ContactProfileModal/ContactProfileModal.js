@@ -15,6 +15,61 @@ import ContactAddButtonContainer from "calls/components/contacts/ContactAddButto
 import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
 import { errorMessage } from "common/utils/logs";
 
+function ContactProfileModalContent (props) {
+  return <Modal.Content>
+    {props.profile && (
+      <UserProfileExtraInfo
+        mail={props.profile.mail}
+        physicalDeliveryOfficeName={
+          props.profile.physicalDeliveryOfficeName
+        }
+      />
+    )}
+    {!props.profile ? (
+      <Segment basic>
+        <Dimmer active inverted>
+          <Loader inverted size={"large"}/>
+        </Dimmer>
+      </Segment>
+    ) : (
+      props.profile.phones.map((phone, index) => {
+        if (phone.number !== null) {
+          return (
+            <UserPhoneNumberButtonContainer
+              key={`button-${index}`}
+              phoneNumber={phone.number}
+              icon={phone.phoneType}
+              recipientName={props.profile.displayName}
+            />
+          );
+        } else return null;
+      })
+    )}
+  </Modal.Content>;
+}
+
+ContactProfileModalContent.propTypes = {
+  profile: PropTypes.any,
+  f: PropTypes.func
+};
+
+function ContactProfileModalHeader (props) {
+  return <Header>
+    <Icon name="user" color={"blue"}/>
+    <Header.Content>
+      <Header as="h5" floated={"right"}>
+        <ContactAddButtonContainer contact={props.contact}/>
+      </Header>
+      {props.contact ? props.contact.displayName : ""}
+      <Header.Subheader>
+        {props.contact ? formatUserOrganization(props.contact) : ""}
+      </Header.Subheader>
+    </Header.Content>
+  </Header>;
+}
+
+ContactProfileModalHeader.propTypes = { contact: PropTypes.any };
+
 export class ContactProfileModal extends Component {
   static propTypes = {
     selectedContact: PropTypes.object,
@@ -62,48 +117,8 @@ export class ContactProfileModal extends Component {
         onClose={this.handleClose}
         closeIcon
       >
-        <Header>
-          <Icon name="user" color={"blue"} />
-          <Header.Content>
-            <Header as="h5" floated={"right"}>
-              <ContactAddButtonContainer contact={selectedContact} />
-            </Header>
-            {selectedContact ? selectedContact.displayName : ""}
-            <Header.Subheader>
-              {selectedContact ? formatUserOrganization(selectedContact) : ""}
-            </Header.Subheader>
-          </Header.Content>
-        </Header>
-        <Modal.Content>
-          {this.state.profile && (
-            <UserProfileExtraInfo
-              mail={this.state.profile.mail}
-              physicalDeliveryOfficeName={
-                this.state.profile.physicalDeliveryOfficeName
-              }
-            />
-          )}
-          {!this.state.profile ? (
-            <Segment basic>
-              <Dimmer active inverted>
-                <Loader inverted size={"large"} />
-              </Dimmer>
-            </Segment>
-          ) : (
-            this.state.profile.phones.map((phone, index) => {
-              if (phone.number !== null) {
-                return (
-                  <UserPhoneNumberButtonContainer
-                    key={`button-${index}`}
-                    phoneNumber={phone.number}
-                    icon={phone.phoneType}
-                    recipientName={this.state.profile.displayName}
-                  />
-                );
-              } else return null;
-            })
-          )}
-        </Modal.Content>
+        <ContactProfileModalHeader contact={selectedContact}/>
+        <ContactProfileModalContent profile={this.state.profile}/>
       </Modal>
     );
   }
