@@ -3,6 +3,50 @@ import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import DetectRTC from "detectrtc";
 import { actionMessage, errorMessage, logMessage } from "common/utils/logs";
 import { stopStreams } from "settings/utils/devices";
+import * as PropTypes from "prop-types";
+
+function DownloadDebugModalActions(props) {
+  return (
+    <Modal.Actions>
+      <Button color={"green"} onClick={props.onClick}>
+        Load Logs
+      </Button>
+
+      <Button
+        color="blue"
+        disabled={!props.logsLoaded}
+        href={`data:text/json;charset=utf-8,${encodeURIComponent(
+          props.uriComponent
+        )}`}
+        download="data.json"
+      >
+        <Icon name="checkmark" /> Download Logs
+      </Button>
+      <Button onClick={props.onClick1}>Close</Button>
+    </Modal.Actions>
+  );
+}
+
+DownloadDebugModalActions.propTypes = {
+  onClick: PropTypes.func,
+  logsLoaded: PropTypes.bool,
+  uriComponent: PropTypes.any,
+  onClick1: PropTypes.func
+};
+
+function DownloadDebugModalLogsContent (props) {
+  return <Modal.Content>
+    <Form>
+            <TextArea
+              placeholder="Log content"
+              style={{ minHeight: 100 }}
+              value={props.value}
+            />
+    </Form>
+  </Modal.Content>;
+}
+
+DownloadDebugModalLogsContent.propTypes = { value: PropTypes.any };
 
 export class DownloadDebugLogsButton extends Component {
   state = {
@@ -162,39 +206,20 @@ export class DownloadDebugLogsButton extends Component {
     return (
       <Modal
         trigger={
-          <Button onClick={this.handleOpen} className={"flat"} icon={"bug"} />
+          <Button onClick={this.handleOpen} className={"flat"} icon={"bug"}/>
         }
         open={this.state.modalOpen}
         onClose={this.handleClose}
         size="small"
       >
-        <Header icon="browser" content="Logs" />
-        <Modal.Content>
-          <Form>
-            <TextArea
-              placeholder="Log content"
-              style={{ minHeight: 100 }}
-              value={this.state.logs}
-            />
-          </Form>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color={"green"} onClick={this.loadLogs}>
-            Load Logs
-          </Button>
-
-          <Button
-            color="blue"
-            disabled={!logsLoaded}
-            href={`data:text/json;charset=utf-8,${encodeURIComponent(
-              this.state.logs
-            )}`}
-            download="data.json"
-          >
-            <Icon name="checkmark" /> Download Logs
-          </Button>
-          <Button onClick={this.handleClose}>Close</Button>
-        </Modal.Actions>
+        <Header icon="browser" content="Logs"/>
+        <DownloadDebugModalLogsContent value={this.state.logs}/>
+        <DownloadDebugModalActions
+          onClick={this.loadLogs}
+          logsLoaded={logsLoaded}
+          uriComponent={this.state.logs}
+          onClick1={this.handleClose}
+        />
       </Modal>
     );
   }

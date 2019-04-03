@@ -12,6 +12,56 @@ import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer
 import SettingsModalContainer from "settings/components/SettingsModal/SettingsModalContainer";
 import { logMessage } from "common/utils/logs";
 
+function MainSidebar(props) {
+  return (
+    <Sidebar
+      as={Menu}
+      animation="overlay"
+      width="thin"
+      visible={props.visible}
+      icon="labeled"
+      vertical
+    >
+      {props.renderSidebarItems}
+      <Menu.Item
+        onClick={props.onClick}
+        name={"settings"}
+        className={"SidebarSettingsButton"}
+      >
+        <Icon name={"settings"} />
+        {"Settings"}
+      </Menu.Item>
+      <ModalDebugContainer hideSidebarIfVisible={props.hideSidebarIfVisible} />
+    </Sidebar>
+  );
+}
+
+MainSidebar.propTypes = {
+  visible: PropTypes.bool,
+  renderSidebarItems: PropTypes.any,
+  onClick: PropTypes.func,
+  hideSidebarIfVisible: PropTypes.func
+};
+
+function MainPusher(props) {
+  return (
+    <Sidebar.Pusher dimmed={props.dimmed} className={"MainPusher"}>
+      {props.renderMainRoutes}
+      <Notifications notifications={props.notifications} />
+      <SettingsModalContainer
+        hideSidebarIfVisible={props.hideSidebarIfVisible}
+      />
+    </Sidebar.Pusher>
+  );
+}
+
+MainPusher.propTypes = {
+  dimmed: PropTypes.bool,
+  renderMainRoutes: PropTypes.any,
+  notifications: PropTypes.any,
+  hideSidebarIfVisible: PropTypes.func
+};
+
 export class MainPage extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
@@ -89,38 +139,18 @@ export class MainPage extends Component {
 
     return (
       <Sidebar.Pushable as={Segment}>
-        <Sidebar
-          as={Menu}
-          animation="overlay"
-          width="thin"
+        <MainSidebar
           visible={this.props.isVisible}
-          icon="labeled"
-          vertical
-        >
-          {this.renderSidebarItems()}
-          <Menu.Item
-            onClick={this.openSettingsModalAction}
-            name={"settings"}
-            className={"SidebarSettingsButton"}
-          >
-            <Icon name={"settings"} />
-            {"Settings"}
-          </Menu.Item>
-          <ModalDebugContainer
-            hideSidebarIfVisible={this.hideSidebarIfVisible}
-          />
-
-        </Sidebar>
-        <Sidebar.Pusher
+          renderSidebarItems={this.renderSidebarItems()}
+          onClick={this.openSettingsModalAction}
+          hideSidebarIfVisible={this.hideSidebarIfVisible}
+        />
+        <MainPusher
           dimmed={this.props.contentDimmed}
-          className={"MainPusher"}
-        >
-          {this.renderMainRoutes()}
-          <Notifications notifications={notifications} />
-          <SettingsModalContainer
-            hideSidebarIfVisible={this.hideSidebarIfVisible}
-          />
-        </Sidebar.Pusher>
+          renderMainRoutes={this.renderMainRoutes()}
+          notifications={notifications}
+          hideSidebarIfVisible={this.hideSidebarIfVisible}
+        />
       </Sidebar.Pushable>
     );
   }
