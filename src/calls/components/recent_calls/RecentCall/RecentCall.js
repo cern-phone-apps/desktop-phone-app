@@ -3,8 +3,39 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import { Icon, Item } from "semantic-ui-react";
 
-
 import styles from "../RecentCallList/RecentCall.module.css";
+
+function RecentCallContent(props) {
+  return (
+    <Item.Content>
+      <Item.Header className={styles.ItemHeader}>{props.name}</Item.Header>
+      <Item.Description className={styles.Content}>
+        {props.incoming ? (
+          <Icon name={"arrow down"} color={props.color} />
+        ) : (
+          <Icon name={"arrow up"} color={props.color} />
+        )}{" "}
+        {props.phoneNumber ? `(${props.phoneNumber})` : ""}
+      </Item.Description>
+      <Item.Extra className={styles.ExtraContent}>
+        <span className="date">
+          {props.printableDate}{" "}
+          {!props.missed ? `- ${props.duration.humanize()}` : ""}
+        </span>
+      </Item.Extra>
+    </Item.Content>
+  );
+}
+
+RecentCallContent.propTypes = {
+  name: PropTypes.any,
+  incoming: PropTypes.any,
+  color: PropTypes.string,
+  phoneNumber: PropTypes.any,
+  printableDate: PropTypes.string,
+  missed: PropTypes.any,
+  duration: PropTypes.any
+};
 
 class RecentCall extends Component {
   static propTypes = {
@@ -20,9 +51,7 @@ class RecentCall extends Component {
       missed,
       incoming
     } = this.props.recentCall;
-
     const color = missed ? "red" : "green";
-
     const printableDate = moment(startTime).calendar();
     const duration = moment.duration(moment(endTime).diff(moment(startTime)));
 
@@ -35,21 +64,15 @@ class RecentCall extends Component {
           className={"ui avatar"}
         />
 
-        <Item.Content>
-          <Item.Header className={styles.ItemHeader}>{name}</Item.Header>
-          <Item.Description className={styles.Content}>
-            {incoming ? (
-              <Icon name={"arrow down"} color={color} />
-            ) : (
-              <Icon name={"arrow up"} color={color} />
-            )} {phoneNumber ? `(${phoneNumber})` : ""}
-          </Item.Description>
-          <Item.Extra className={styles.ExtraContent}>
-            <span className="date">
-              {printableDate} {!missed? (`- ${duration.humanize()}`) : ""}
-            </span>
-          </Item.Extra>
-        </Item.Content>
+        <RecentCallContent
+          name={name}
+          incoming={incoming}
+          color={color}
+          phoneNumber={phoneNumber}
+          printableDate={printableDate}
+          missed={missed}
+          duration={duration}
+        />
       </Item>
     );
   }

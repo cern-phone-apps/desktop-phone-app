@@ -16,11 +16,7 @@ describe("RecentCall component", () => {
     const wrapper = shallow(<RecentCall recentCall={call} />);
 
     expect(wrapper.text()).toEqual("<Item />");
-    expect(wrapper.debug()).toContain("ItemContent");
-    expect(wrapper.debug()).toContain("ItemDescription");
-    expect(wrapper.debug()).toContain("Icon");
-    expect(wrapper.debug()).toContain("a few seconds");
-    expect(wrapper.debug()).toContain("12345");
+    expect(wrapper.debug()).toContain("RecentCallContent");
   });
 
   it("renders without crashing with incoming true", () => {
@@ -37,8 +33,6 @@ describe("RecentCall component", () => {
     const wrapper = shallow(<RecentCall recentCall={call} />);
 
     expect(wrapper.text()).toEqual("<Item />");
-    expect(wrapper.debug()).toContain("ItemContent");
-    expect(wrapper.debug()).toContain("ItemDescription");
-    expect(wrapper.debug()).toContain("Icon");
+    expect(wrapper.debug()).toContain("RecentCallContent");
   });
 });
