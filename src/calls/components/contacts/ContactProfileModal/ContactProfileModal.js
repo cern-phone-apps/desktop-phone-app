@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
- // Button,
+  // Button,
   Dimmer,
   Header,
   Icon,
@@ -13,7 +13,7 @@ import { formatUserOrganization } from "calls/utils/formatters";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
 import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
-
+import { errorMessage } from "common/utils/logs";
 
 export class ContactProfileModal extends Component {
   static propTypes = {
@@ -36,7 +36,7 @@ export class ContactProfileModal extends Component {
         this.setState({ fetching: true });
       }
       const result = await getUserProfileById(selectedContact.personId);
-      if (result && result.payload) {
+      if (result && result.payload && result.payload.result) {
         if (
           !this.state.profile ||
           result.payload.result.personId !== this.state.profile.personId
