@@ -32,6 +32,51 @@ export function getUsersFormattedForSearch(usersArray) {
   });
 }
 
+function setUserSelected(state, action) {
+  return {
+    ...state,
+    user: action.user,
+    userSelected: true
+  };
+}
+
+function setUserNotSelected(state) {
+  return {
+    ...state,
+    userSelected: false
+  };
+}
+
+function makeSearchRequest(state) {
+  return {
+    ...state,
+    searching: true,
+    searchEnable: true
+  };
+}
+
+function setSearchFinished(state) {
+  return {
+    ...state,
+    searching: false,
+    searchEnable: false
+  };
+}
+
+function setSearchSuccess(state) {
+  return {
+    ...state,
+    searching: false
+  };
+}
+
+function setSearchFailure(state) {
+  return {
+    ...state,
+    searching: false
+  };
+}
+
 /**
  * Reducer used for the search state.
  *
@@ -42,42 +87,21 @@ export function getUsersFormattedForSearch(usersArray) {
 const search = (state = initialState, action) => {
   switch (action.type) {
     case searchActions.USER_SELECTED:
-      return {
-        ...state,
-        user: action.user,
-        userSelected: true,
-      };
+      return setUserSelected(state, action);
     case searchActions.USER_NOT_SELECTED:
-      return {
-        ...state,
-        userSelected: false
-      };
+      return setUserNotSelected(state);
     case searchActions.SEARCH_REQUEST:
-      return {
-        ...state,
-        searching: true,
-        searchEnable: true,
-      };
+      return makeSearchRequest(state);
     case searchActions.SEARCH_END:
-      return {
-        ...state,
-        searching: false,
-        searchEnable: false
-      };
+      return setSearchFinished(state);
     case searchActions.SEARCH_CLEAR:
       return {
-        ...state,
+        ...state
       };
     case searchActions.SEARCH_SUCCESS:
-      return {
-        ...state,
-        searching: false
-      };
+      return setSearchSuccess(state);
     case searchActions.SEARCH_FAILURE:
-      return {
-        ...state,
-        searching: false
-      };
+      return setSearchFailure(state);
 
     default:
       return state;
