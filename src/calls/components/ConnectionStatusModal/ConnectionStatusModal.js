@@ -20,6 +20,43 @@ const ConnectionIcon = ({ color, message, onClick }) => {
   );
 };
 
+function ConnectionStatusModalContent({message, callsMessage, onClick, connected, doNotDisturb}) {
+  return (
+    <Modal.Content>
+      <Modal.Description>
+        <p>{message}</p>
+        <p>{callsMessage}</p>
+
+        <p>
+          <Button onClick={onClick}>
+            {doNotDisturb
+              ? "Disable Do not disturb"
+              : "Enable Do not disturb"}
+          </Button>
+        </p>
+
+        {connected ? (
+          <p>
+            If you want to disconnect from the telephony backend, you can use
+            the following button to logout and login again.
+          </p>
+        ) : (
+          ""
+        )}
+        <DisconnectAndLogoutButton color={"red"} displayMessage={false} />
+      </Modal.Description>
+    </Modal.Content>
+  );
+}
+
+ConnectionStatusModalContent.propTypes = {
+  message: PropTypes.any,
+  callsMessage: PropTypes.any,
+  onClick: PropTypes.func,
+  doNotDisturb: PropTypes.any,
+  connected: PropTypes.any
+};
+
 export class ConnectionStatusModal extends Component {
   static propTypes = {
     connected: PropTypes.bool.isRequired,
@@ -45,7 +82,7 @@ export class ConnectionStatusModal extends Component {
     this.setState({ loading: true });
     this.props.getMe().then(result => {
       logMessage(result);
-      if (!result.error) {
+      if (result && !result.error) {
         this.props.setUserDoNotDisturb(result.payload.doNotDisturb).then(() => {
           this.setState({ loading: false });
         });
@@ -99,31 +136,13 @@ export class ConnectionStatusModal extends Component {
         <Modal.Header>
           <Icon name={"circle"} color={color} /> {"Your connection status"}
         </Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <p>{message}</p>
-            <p>{callsMessage}</p>
-
-            <p>
-              <Button onClick={this.dontDisturbAction}>
-                {doNotDisturb ?
-                  "Disable Do not disturb"
-                  : "Enable Do not disturb"
-                }
-              </Button>
-            </p>
-
-            {connected ? (
-              <p>
-                If you want to disconnect from the telephony backend, you can
-                use the following button to logout and login again.
-              </p>
-            ) : (
-              ""
-            )}
-            <DisconnectAndLogoutButton color={"red"} displayMessage={false} />
-          </Modal.Description>
-        </Modal.Content>
+        <ConnectionStatusModalContent
+          message={message}
+          callsMessage={callsMessage}
+          onClick={this.dontDisturbAction}
+          doNotDisturb={doNotDisturb}
+          connected={connected}
+        />
       </Modal>
     );
   }
