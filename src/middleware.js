@@ -35,11 +35,6 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
 
     if (isRSAA(action)) {
       const refreshToken = getRefreshToken();
-      const isOauthEnabled = process.env.REACT_APP_OAUTH_ENABLED;
-
-      if (isOauthEnabled === "false") {
-        return rsaaMiddleware(next)(action);
-      }
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(LOGOUT_REQUEST) > -1 ||
