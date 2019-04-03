@@ -1,10 +1,26 @@
-import * as sidebarActions from 'common/actions/sidebar'
+import * as sidebarActions from "common/actions/sidebar";
 
 const initialState = {
   isVisible: false,
   isDisplaying: false,
   contentDimmed: false,
   displayTime: 500
+};
+
+function setSidebarIsDisplaying (state) {
+  return {
+    ...state,
+    isVisible: true,
+    contentDimmed: true,
+    isDisplaying: true
+  };
+}
+
+function setSidebarFinishedDisplaying (state) {
+  return {
+    ...state,
+    isDisplaying: false
+  };
 }
 
 /**
@@ -25,18 +41,10 @@ const sidebar = (state = initialState, action) => {
      */
     case sidebarActions.DISPLAY_SIDEBAR:
     case sidebarActions.IS_DISPLAYING:
-      return {
-        ...state,
-        isVisible: true,
-        contentDimmed: true,
-        isDisplaying: true
-      }
+      return setSidebarIsDisplaying(state);
 
     case sidebarActions.FINISHED_DISPLAYING:
-      return {
-        ...state,
-        isDisplaying: false
-      }
+      return setSidebarFinishedDisplaying(state);
 
     case sidebarActions.HIDE_SIDEBAR:
       if (state.isDisplaying === false) {
@@ -44,14 +52,14 @@ const sidebar = (state = initialState, action) => {
           ...state,
           isVisible: false,
           contentDimmed: false
-        }
+        };
       }
       return {
         ...state
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default sidebar
+export default sidebar;
