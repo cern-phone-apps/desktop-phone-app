@@ -117,6 +117,26 @@ function processCallAccepted(state) {
   };
 }
 
+function setRecipientStartDate(state, action) {
+  return {
+    ...state,
+    recipient: {
+      ...state.recipient,
+      startTime: action.date
+    }
+  };
+}
+
+function setRecipientPhoneNumber(state, action) {
+  return {
+    ...state,
+    recipient: {
+      ...state.recipient,
+      phoneNumber: action.number
+    }
+  };
+}
+
 const call = (state = initialState, action) => {
   switch (action.type) {
     case callActions.CALL:
@@ -143,22 +163,10 @@ const call = (state = initialState, action) => {
       return processCallHangup(state);
 
     case callActions.SET_RECIPIENT_START_DATE:
-      return {
-        ...state,
-        recipient: {
-          ...state.recipient,
-          startTime: action.date
-        }
-      };
+      return setRecipientStartDate(state, action);
 
     case callActions.SET_RECIPIENT_PHONE_NUMBER:
-      return {
-        ...state,
-        recipient: {
-          ...state.recipient,
-          phoneNumber: action.number
-        }
-      };
+      return setRecipientPhoneNumber(state, action);
 
     default:
       return state;
