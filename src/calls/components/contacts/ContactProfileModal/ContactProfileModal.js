@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
-  // Button,
   Dimmer,
   Header,
   Icon,
@@ -13,7 +12,6 @@ import { formatUserOrganization } from "calls/utils/formatters";
 import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
 import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
 import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
-import { errorMessage } from "common/utils/logs";
 
 function ContactProfileModalContent (props) {
   return <Modal.Content>
