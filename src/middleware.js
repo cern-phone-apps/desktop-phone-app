@@ -19,6 +19,7 @@ function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
       postponedRSAAs.forEach(postponed => {
         rsaaMiddleware(next)(postponed);
       });
+      postponedRSAAs = [];
     } else {
       next(nextAction);
     }
