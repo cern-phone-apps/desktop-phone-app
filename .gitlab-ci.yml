@@ -58,6 +58,9 @@ cache:
 unit_test:
   image: node:10.13
   stage: test
+  before_script:
+    - git submodule update --init --recursive --remote
+    - npm ci
   script:
   - npm run build
   - npm test -- --coverage
