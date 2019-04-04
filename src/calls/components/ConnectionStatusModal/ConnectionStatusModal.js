@@ -20,6 +20,24 @@ const ConnectionIcon = ({ color, message, onClick }) => {
   );
 };
 
+function getUiProperties(connected, activeNumber, doNotDisturb) {
+  let color, message, callsMessage;
+  if (connected) {
+    message = `You are connected with number ${activeNumber}`;
+    callsMessage = `You are able to make and receive calls`;
+  } else {
+    message = "You are not connected to the telephony backend";
+    callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
+  }
+
+  if (doNotDisturb) {
+    color = "red";
+  } else {
+    color = "green";
+  }
+  return { color, message, callsMessage };
+}
+
 function ConnectionStatusModalContent({
   message,
   callsMessage,
@@ -108,7 +126,7 @@ export class ConnectionStatusModal extends Component {
 
   render() {
     const { connected, activeNumber, doNotDisturb } = this.props;
-    let { color, message, callsMessage } = this.getUiProperties(
+    let { color, message, callsMessage } = getUiProperties(
       connected,
       activeNumber,
       doNotDisturb
@@ -140,24 +158,6 @@ export class ConnectionStatusModal extends Component {
         />
       </Modal>
     );
-  }
-
-  getUiProperties(connected, activeNumber, doNotDisturb) {
-    let color, message, callsMessage;
-    if (connected) {
-      message = `You are connected with number ${activeNumber}`;
-      callsMessage = `You are able to make and receive calls`;
-    } else {
-      message = "You are not connected to the telephony backend";
-      callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
-    }
-
-    if (doNotDisturb) {
-      color = "red";
-    } else {
-      color = "green";
-    }
-    return { color, message, callsMessage };
   }
 }
 
