@@ -5,6 +5,7 @@ import RightColumn from "common/components/RightColumn/RightColumn";
 import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
 import DtmfDialpadForm from "calls/components/dialpads/DtmfDialpadForm/DtmfDialpadForm";
+import styles from "calls/screens/CallsScreen/ConnectedScreen/ConnectedScreen.module.css";
 
 export class OnCallScreen extends Component {
   styles = { height: "100%" };
@@ -19,8 +20,10 @@ export class OnCallScreen extends Component {
         className={"CallsScreen__RightColumn"}
       >
         <RightColumn>
-          <MainHeader />
-          {this.renderMainContent()}
+          <div className={styles.innerContainer}>
+            <MainHeader />
+            {this.renderMainContent()}
+          </div>
         </RightColumn>
       </Grid.Column>
     );
@@ -29,7 +32,7 @@ export class OnCallScreen extends Component {
   renderMainContent() {
     return (
       <ErrorBoundary>
-        <Grid padded style={this.styles} className={"CallPage"}>
+        <Grid padded style={this.styles}>
           <Grid.Row columns={2} divided style={this.dividedStyles}>
             <Grid.Column>
               <OnCallDetailsContainer />

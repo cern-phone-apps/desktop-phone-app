@@ -11,8 +11,6 @@ export class CallerTabsSelector extends Component {
   };
 
   gridStyle = {
-    display: "flex",
-    height: "100%",
     flexDirection: "column"
   };
 

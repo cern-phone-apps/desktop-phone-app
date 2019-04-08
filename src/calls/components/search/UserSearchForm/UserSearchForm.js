@@ -34,8 +34,8 @@ export class UserSearchForm extends Component {
       this.setState({
         isLoading: false
       });
-      errorMessage(result.payload.result);
-      if (!result.error) {
+      // errorMessage(result.payload.result);
+      if (result && !result.error) {
         this.setState({
           searchResults: result.payload.result
         });

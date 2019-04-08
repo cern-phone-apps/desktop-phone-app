@@ -1,0 +1,52 @@
+//.testFooter{
+//  flex: 0.1;
+//  background-color: #4C97D9;
+//  min-height: 54px;
+//}
+
+
+.innerContainer {
+  //background-color: green;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  background-color: #ebece7;
+}
+//
+//
+//.blue {
+//  background-color: blue;
+//  height: 100px;
+//}
+//
+//.orange {
+//  background-color: brown;
+//  flex: 1;
+//  display: flex;
+//  //overflow: auto;
+//  flex-direction: column;
+//}
+//
+//.orange2{
+//  background: orange;
+//  //flex: 0.1;
+//}
+//
+//.yellow {
+//  background-color: yellow;
+//  padding: 5px;
+//  flex: 1;
+//}
+//
+//.purple {
+//  background-color: purple;
+//  flex-direction: column;
+//  justify-content: center;
+//}
+
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
