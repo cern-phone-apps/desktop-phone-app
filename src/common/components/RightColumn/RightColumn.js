@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
-import './RightColumn.css'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styles from "./RightColumn.module.css";
 
 class RightColumn extends Component {
   static propTypes = {
@@ -9,15 +8,11 @@ class RightColumn extends Component {
       PropTypes.arrayOf(PropTypes.node),
       PropTypes.node
     ])
-  }
+  };
 
-  render () {
-    return (
-      <div className={'RightColumn'}>
-        {this.props.children}
-      </div>
-    )
+  render() {
+    return <div className={styles.rightColumn}>{this.props.children}</div>;
   }
 }
 
-export default RightColumn
+export default RightColumn;

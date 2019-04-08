@@ -1,4 +1,5 @@
 .userSearchList{
-  overflow-y: scroll;
-  max-height: 100vh;
+  overflow-y: auto;
+  max-height: 70vh;
+  padding-bottom: 20px;
 }
