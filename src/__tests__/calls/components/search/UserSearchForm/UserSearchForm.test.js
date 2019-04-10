@@ -5,9 +5,9 @@ describe("UserSearch component", () => {
   it("renders without crashing", () => {
     const wrapper = shallow(<UserSearchForm />);
 
-    expect(wrapper.text()).toEqual("<SearchFieldRow /><SearchResultsRow /><Connect(SearchProfileModal) />");
-    expect(wrapper.debug()).toContain("SearchFieldRow");
-    expect(wrapper.debug()).toContain("SearchResultsRow");
+    expect(wrapper.text()).toEqual("<GridRow />");
+    expect(wrapper.debug()).toContain("Search");
+    expect(wrapper.debug()).toContain("noResultsMessage");
     expect(wrapper.debug()).toContain("SearchProfileModal");
   });
 

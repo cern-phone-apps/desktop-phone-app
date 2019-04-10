@@ -10,6 +10,10 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.3.1 - 2019-04-10
+### Improved
+- User search refactored and simplified.
+
 ## w0.3.0 - 2019-03-29
 ### Added
 - Do not disturb support (#21)

@@ -1,146 +1,92 @@
 import React, { Component } from "react";
-import { Grid, Form, Icon, Input } from "semantic-ui-react";
-import UserSearchResultsListContainer from "calls/components/search/UserSearchResultsList/UserSearchResultsListContainer";
-import { errorMessage, logMessage } from "common/utils/logs";
+import { Grid, Search } from "semantic-ui-react";
+import { logMessage } from "common/utils/logs";
 import SearchProfileModalContainer from "calls/components/search/SearchProfileModal/SearchProfileModalContainer";
+import _ from "lodash";
+import { formatUserOrganization } from "calls/utils/formatters";
 
 export class UserSearchForm extends Component {
-
   state = {
     timeout: 0,
-    searchValue: "",
-    searchResults: []
+    value: "",
+    results: [],
+    searchResults: [],
+    isLoading: false
   };
 
-  shouldEnableSearch = () => {
-    const { searchValue } = this.state;
-    logMessage(`Should enable search? ${searchValue}: ${searchValue !== ""}`);
-    return searchValue !== "";
+  formatResultsForSearch = results => {
+    const formattedResults = results.map((result, index) => {
+      return {
+        id: index,
+        title: result.displayName,
+        description: `${formatUserOrganization(result)} - ${result.username}`
+      };
+    });
+    logMessage(formattedResults);
+    return formattedResults;
+
   };
 
-  componentDidMount() {
-    this.shouldEnableSearch();
-  }
-
-  componentWillUnmount() {
-    this.setState({ searchResults: [] });
-  }
-
-  makeSearch = () => {
+  makeSearch = value => {
     const { searchUsers } = this.props;
-    const { searchValue } = this.state;
-
-    searchUsers(searchValue).then(result => {
+    searchUsers(value).then(result => {
       this.setState({
         isLoading: false
       });
-      // errorMessage(result.payload.result);
       if (result && !result.error) {
         this.setState({
+          results: this.formatResultsForSearch(result.payload.result),
           searchResults: result.payload.result
         });
       }
     });
   };
 
-  async _handleSearchTimeout(value) {
-    logMessage("Calling set timeout");
-    await this.setState({
-      searchValue: value
-    });
-    if (value && value.length > 3) {
-      this.makeSearch();
-    }
-  }
-
-  removeSearchResults = () => {
-    const { searchValue } = this.state;
-
-    if (searchValue !== "") {
-      this.setState({ searchResults: [] });
-    }
-  };
-
-  handleSearchChange = (e, { name, value }) => {
-    const { timeout } = this.state;
-
-    this.setState({ [name]: value });
-    this.shouldEnableSearch();
-    this.removeSearchResults();
-
-    if (timeout) {
-      logMessage("Clearing timeout");
-      clearTimeout(timeout);
-    }
-
+  handleResultSelect = (e, { result }) => {
+    const { selectUser } = this.props;
     this.setState({
-      timeout: setTimeout(() => {
-        this._handleSearchTimeout(value);
-      }, 300)
+      value: result.title
     });
+    selectUser(this.state.searchResults[result.id]);
   };
 
-  handleSubmit = () => {
-    this.makeSearch();
+  handleSearchChange = (e, { value }) => {
+    this.setState({ isLoading: true, value });
+
+    setTimeout(() => {
+      // If there is no input value, the component must be cleared
+      if (this.state.value.length < 1) {
+        return this.resetComponent();
+      }
+
+      if (this.state.value.length > 3) {
+        this.makeSearch(this.state.value);
+      }
+    }, 300);
   };
+
+  resetComponent = () =>
+    this.setState({ isLoading: false, results: [], value: "" });
 
   render() {
-    const shouldEnableSearch = this.shouldEnableSearch();
+    const { isLoading, value, results } = this.state;
     return (
-      <div>
-        <SearchFieldRow
-          onSubmit={this.handleSubmit}
-          enableSearch={shouldEnableSearch}
-          value={this.state.searchValue}
-          onChange={this.handleSearchChange}
-        />
-        <SearchResultsRow searchResults={this.state.searchResults} />
-        <SearchProfileModalContainer />
-      </div>
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <Search
+            fluid
+            input={{ fluid: true }}
+            loading={isLoading}
+            onResultSelect={this.handleResultSelect}
+            onSearchChange={_.debounce(this.handleSearchChange, 500, {
+              leading: true
+            })}
+            results={results}
+            value={value}
+          />
+          <SearchProfileModalContainer />
+        </Grid.Column>
+      </Grid.Row>
     );
   }
-}
-
-function SearchResultsRow({ searchResults }) {
-  return (
-    <Grid.Row>
-      <Grid.Column width={16}>
-        <UserSearchResultsListContainer searchResults={searchResults} />
-      </Grid.Column>
-    </Grid.Row>
-  );
-}
-
-function SearchFieldRow({ onSubmit, enableSearch, value, onChange }) {
-  return (
-    <Grid.Row>
-      <Grid.Column width={16}>
-        <Form onSubmit={onSubmit}>
-          <Form.Group>
-            <Form.Field width={16}>
-              <Input
-                icon={
-                  <Icon
-                    onClick={onSubmit}
-                    disabled={!enableSearch}
-                    link={enableSearch}
-                    name="search"
-                    inverted
-                    color={"blue"}
-                    circular
-                    className={"SearchUserButton"}
-                  />
-                }
-                placeholder="Search for a person..."
-                name={"searchValue"}
-                value={value}
-                onChange={onChange}
-                className={"UserSearchInput"}
-              />
-            </Form.Field>
-          </Form.Group>
-        </Form>
-      </Grid.Column>
-    </Grid.Row>
-  );
 }
