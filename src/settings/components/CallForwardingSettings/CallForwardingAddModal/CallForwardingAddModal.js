@@ -47,7 +47,10 @@ export class CallForwardingAddModal extends React.Component {
       <Modal
         open={modalOpen}
         trigger={
-          <Button icon onClick={this.handleOpen}>
+          <Button
+            icon
+            onClick={this.handleOpen}
+          >
             <Icon name={"add"} />
           </Button>
         }
@@ -69,10 +72,10 @@ export class CallForwardingAddModal extends React.Component {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button onClick={this.handleClose}>
+          <Button onClick={this.handleClose} className={`CancelButton`}>
             <Icon name="remove" /> Cancel
           </Button>
-          <Button color="green" onClick={this.addSelectedNumber}>
+          <Button color="green" onClick={this.addSelectedNumber} className={`AddButton`}>
             <Icon name="checkmark" /> Add this number
           </Button>
         </Modal.Actions>
