@@ -8,6 +8,7 @@ export class CallForwardingForm extends React.Component {
   static propTypes = {
     addLocalForwardNumber: PropTypes.func.isRequired,
     localForwardList: PropTypes.array.isRequired,
+    getCallForwardingStatus: PropTypes.func.isRequired,
     fetchingStatus: PropTypes.bool.isRequired,
     status: PropTypes.object.isRequired
   };
@@ -34,7 +35,6 @@ export class CallForwardingForm extends React.Component {
    * Set the default values of the dropdown with the ones fetched from the backend.
    */
   selectDefaultDropdownSelection = () => {
-    logMessage("Selecting the default values...");
     this.setState({
       defaultDropdownValues: this.props.status["destination-list"]
     });
