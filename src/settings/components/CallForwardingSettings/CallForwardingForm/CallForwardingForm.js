@@ -1,7 +1,7 @@
 import { Button, Dropdown, Form, Icon, Radio } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import React from "react";
-import { logMessage } from "common/utils/logs";
+import { errorMessage, logMessage } from "common/utils/logs";
 import CallForwardingAddModalContainer from "settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModalContainer";
 
 export class CallForwardingForm extends React.Component {
@@ -17,7 +17,8 @@ export class CallForwardingForm extends React.Component {
     forwardList: [],
     defaultDropdownValues: [],
     isFetching: true,
-    forwardStatus: "disabled"
+    forwardStatus: "disabled",
+    fetchTimes: 0
   };
 
   /**
@@ -25,7 +26,7 @@ export class CallForwardingForm extends React.Component {
    * dropdown.
    */
   componentDidMount() {
-    this.fetchOptions();
+    this.fetchData();
     this.selectDefaultDropdownSelection();
   }
 
@@ -39,7 +40,7 @@ export class CallForwardingForm extends React.Component {
     });
   };
 
-  fetchOptions = async () => {
+  fetchData = async () => {
     const forwardingData = await this.props.getCallForwardingStatus();
     if (forwardingData && forwardingData.payload.result.success) {
       // Obtain values from the payload
@@ -61,8 +62,10 @@ export class CallForwardingForm extends React.Component {
         isFetching: false,
         forwardList: [...remoteList, ...this.props.localForwardList]
       });
-    }else{
-      logMessage("Forwarding data was not loaded")
+    } else if (forwardingData === undefined && this.state.fetchTimes < 2) {
+      errorMessage("Forwarding data was not loaded");
+      this.setState({ fetchTimes: (this.state.fetchTimes += 1) });
+      this.fetchData();
     }
   };
 
