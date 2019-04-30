@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Grid, Search } from "semantic-ui-react";
-import { logMessage } from "common/utils/logs";
 import SearchProfileModalContainer from "calls/components/search/SearchProfileModal/SearchProfileModalContainer";
 import _ from "lodash";
-import { formatUserOrganization } from "calls/utils/formatters";
+import {UserSearchUtils, UserSearchResultsFormatter} from "../utils"
 
 export class UserSearchForm extends Component {
   state = {
@@ -12,34 +11,6 @@ export class UserSearchForm extends Component {
     results: [],
     searchResults: [],
     isLoading: false
-  };
-
-  formatResultsForSearch = results => {
-    const formattedResults = results.map((result, index) => {
-      return {
-        id: index,
-        title: result.displayName,
-        description: `${formatUserOrganization(result)} - ${result.username}`
-      };
-    });
-    logMessage(formattedResults);
-    return formattedResults;
-
-  };
-
-  makeSearch = value => {
-    const { searchUsers } = this.props;
-    searchUsers(value).then(result => {
-      this.setState({
-        isLoading: false
-      });
-      if (result && !result.error) {
-        this.setState({
-          results: this.formatResultsForSearch(result.payload.result),
-          searchResults: result.payload.result
-        });
-      }
-    });
   };
 
   handleResultSelect = (e, { result }) => {
@@ -51,16 +22,23 @@ export class UserSearchForm extends Component {
   };
 
   handleSearchChange = (e, { value }) => {
+    const { searchUsers } = this.props;
+
     this.setState({ isLoading: true, value });
 
-    setTimeout(() => {
+    setTimeout(async () => {
       // If there is no input value, the component must be cleared
       if (this.state.value.length < 1) {
         return this.resetComponent();
       }
 
       if (this.state.value.length > 3) {
-        this.makeSearch(this.state.value);
+        const result = await UserSearchUtils.searchUsersAndFormatResults(
+          this.state.value,
+          searchUsers,
+          UserSearchResultsFormatter.formatResults
+        );
+        this.setState(result);
       }
     }, 300);
   };
