@@ -1,0 +1,17 @@
+
+.callForwardingMessage {
+    background: #fbbd08;
+    min-height: 30px;
+    position: relative;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1;
+    cursor: pointer;
+    color: #fff
+}
+
+a.callForwardingMessage:hover{
+    text-decoration: none;
+    color: #fff;
+}

@@ -7,6 +7,8 @@ import IncomingCallModalContainer from "calls/components/call_modals/IncomingCal
 import MainHeaderContainer from "calls/components/MainHeader";
 import CallerTabsSelectorContainer from "calls/components/CallerTabsSelector/CallerTabsSelectorContainer";
 import styles from "./ConnectedScreen.module.css";
+import CallForwardingBannerContainer
+  from "settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBannerContainer";
 
 export class ConnectedScreen extends Component {
   static propTypes = {
@@ -29,7 +31,8 @@ export class ConnectedScreen extends Component {
         <RightColumn className={styles.container}>
           <div className={styles.innerContainer}>
             <MainHeaderContainer/>
-              <div>
+            <CallForwardingBannerContainer />
+            <div>
                 <div>
                   {calling && <CallModalContainer modalOpen={calling} />}
                   <CallerTabsSelectorContainer />

@@ -8,7 +8,7 @@ export class CallForwardingSettings extends React.Component {
   render = () => {
     return (
       <ErrorBoundary>
-        <Header as={"h5"}>{"Call Forwarding"}</Header>
+        <Header as={"h4"}>{"Call Forwarding"}</Header>
         <CallForwardingFormContainer />
       </ErrorBoundary>
     );

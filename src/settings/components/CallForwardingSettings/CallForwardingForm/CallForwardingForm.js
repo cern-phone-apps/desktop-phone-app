@@ -1,7 +1,15 @@
-import { Button, Dropdown, Form, Icon, Radio } from "semantic-ui-react";
+import {
+  Button,
+  Dropdown,
+  Form,
+  Grid,
+  Header,
+  Icon,
+  Radio
+} from "semantic-ui-react";
 import PropTypes from "prop-types";
 import React from "react";
-import { errorMessage, logMessage } from "common/utils/logs";
+import { errorMessage } from "common/utils/logs";
 import CallForwardingAddModalContainer from "settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModalContainer";
 
 export class CallForwardingForm extends React.Component {
@@ -102,6 +110,13 @@ export class CallForwardingForm extends React.Component {
     this.setState({ isFetching: false });
   };
 
+  selectExistingNumber = number => {
+    this.setState({
+      forwardList: [...this.state.remoteList, ...this.props.localForwardList],
+      defaultDropdownValues: [...this.state.defaultDropdownValues, number]
+    });
+  };
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.localForwardList !== this.props.localForwardList) {
       this.updateForwardList();
@@ -130,58 +145,72 @@ export class CallForwardingForm extends React.Component {
 
     return (
       <Form>
-        <Form.Field>
-          <Radio
-            label="Disable Call Forwarding"
-            name="radioGroup"
-            value="disabled"
-            checked={forwardStatus === "disabled"}
-            onChange={this.handleRadioChangeAction}
-          />
-        </Form.Field>
-        <Form.Group>
-          <Form.Field width={4}>
-            <Radio
-              label="Forward to"
-              name="radioGroup"
-              value="forward"
-              checked={forwardStatus === "forward"}
-              onChange={this.handleRadioChangeAction}
-            />
-          </Form.Field>
-          <Form.Field width={9}>
-            <Dropdown
-              multiple
-              labeled={true}
-              search
-              selection
-              value={defaultDropdownValues}
-              options={forwardList}
-              placeholder="Select Number"
-              loading={isFetching}
-              disabled={isFetching}
-              onChange={this.handleDropdownChangeAction}
-            />
-          </Form.Field>
-          <Form.Field width={3}>
-            <CallForwardingAddModalContainer />
-            <Button icon onClick={this.handleSave}>
-              <Icon name={"save"} />
-            </Button>
-          </Form.Field>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Field width={4}>
-            <Radio
-              label="Simultaneous ringing"
-              name="radioGroup"
-              value="simultaneous"
-              checked={forwardStatus === "simultaneous"}
-              onChange={this.handleRadioChangeAction}
-            />
-          </Form.Field>
-        </Form.Group>
+        <Grid columns={2} relaxed="very" divided>
+          <Grid.Row>
+            <Grid.Column>
+              <Form.Field>
+                <Radio
+                  label="Disable Call Forwarding"
+                  name="radioGroup"
+                  value="disabled"
+                  checked={forwardStatus === "disabled"}
+                  onChange={this.handleRadioChangeAction}
+                />
+              </Form.Field>
+              <Form.Field>
+                <Radio
+                  label="Forward to"
+                  name="radioGroup"
+                  value="forward"
+                  checked={forwardStatus === "forward"}
+                  onChange={this.handleRadioChangeAction}
+                />
+              </Form.Field>
+              <Form.Field>
+                <Radio
+                  label="Simultaneous ringing"
+                  name="radioGroup"
+                  value="simultaneous"
+                  checked={forwardStatus === "simultaneous"}
+                  onChange={this.handleRadioChangeAction}
+                />
+              </Form.Field>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as={"h5"}>Forward/Ringing list</Header>
+              <Form.Group>
+                <Form.Field>
+                  <Dropdown
+                    multiple
+                    labeled={true}
+                    search
+                    selection
+                    value={defaultDropdownValues}
+                    options={forwardList}
+                    placeholder="Select Number"
+                    loading={isFetching}
+                    disabled={isFetching}
+                    onChange={this.handleDropdownChangeAction}
+                  />
+                </Form.Field>
+                <CallForwardingAddModalContainer
+                  selectExistingNumber={this.selectExistingNumber}
+                />
+              </Form.Group>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Grid columns={2} relaxed="very" divided>
+          <Grid.Row>
+            <Grid.Column>
+              <Form.Field>
+                <Button icon onClick={this.handleSave}>
+                  <Icon name={"save"} /> Save
+                </Button>
+              </Form.Field>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Form>
     );
   }

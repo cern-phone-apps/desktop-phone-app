@@ -1,13 +1,19 @@
 import React from "react";
 import { CallForwardingAddModal } from "settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModal";
-import styles from "settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModal.module.css";
 
 describe("CallForwardingAddModal component", () => {
   it("renders without crashing", () => {
     const addNumber = jest.fn();
+    const searchUsers = jest.fn();
+    const selectExistingNumber = jest.fn();
 
     const wrapper = shallow(
-      <CallForwardingAddModal addLocalForwardNumber={addNumber} />
+      <CallForwardingAddModal
+        addLocalForwardNumber={addNumber}
+        searchUsers={searchUsers}
+        me={{}}
+        selectExistingNumber={selectExistingNumber}
+      />
     );
 
     expect(wrapper.text()).toEqual("<Modal />");
@@ -17,12 +23,17 @@ describe("CallForwardingAddModal component", () => {
 
   it("triggers open and close", () => {
     const addNumber = jest.fn();
+    const searchUsers = jest.fn();
+    const selectExistingNumber = jest.fn();
 
     const wrapper = shallow(
       <CallForwardingAddModal
         addLocalForwardNumber={addNumber}
         localForwardList={[]}
         status={{}}
+        me={{}}
+        searchUsers={searchUsers}
+        selectExistingNumber={selectExistingNumber}
       />
     );
 
@@ -34,6 +45,8 @@ describe("CallForwardingAddModal component", () => {
 
   it("triggers add select number", () => {
     const addNumber = jest.fn();
+    const searchUsers = jest.fn();
+    const selectExistingNumber = jest.fn();
 
     const wrapper = shallow(
       <CallForwardingAddModal
@@ -42,6 +55,9 @@ describe("CallForwardingAddModal component", () => {
         status={{
           "destination-list": []
         }}
+        me={{}}
+        searchUsers={searchUsers}
+        selectExistingNumber={selectExistingNumber}
       />
     );
 
