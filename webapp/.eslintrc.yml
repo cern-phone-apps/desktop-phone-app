@@ -11,10 +11,20 @@ plugins:
   - jsx-a11y
   - import
 env:
+  browser: true
   node: true
+  es6: true
 rules:
   prettier/prettier: error
   react/jsx-filename-extension: off
   react/prop-types:
     - error
     - ignore: [navigation]
+settings:
+  import/resolver:
+    node:
+      moduleDirectory:
+        # an array of absolute paths which will also be searched
+        # think NODE_PATH
+        - src
+        - node_modules
