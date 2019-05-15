@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Button } from "semantic-ui-react";
-import PropTypes from "prop-types";
-import { translate } from "react-i18next";
-import { actionMessage, logEvent } from "common/utils/logs";
+import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
+import { actionMessage, logEvent } from 'common/utils/logs';
 
 /**
  * Will trigger the user's logout
@@ -13,12 +13,17 @@ export class LogoutButton extends Component {
     color: PropTypes.string,
     logout: PropTypes.func.isRequired
   };
+
+  static defaultProps = {
+    color: 'red'
+  };
+
   /**
    * Fires the logout action
    */
   logoutUser = () => {
-    const {logout} = this.props;
-    logEvent("trackEvent", "auth", `logout`);
+    const { logout } = this.props;
+    logEvent('trackEvent', 'auth', `logout`);
     actionMessage(`Auth: User clicks logout button`);
     logout();
   };
@@ -26,15 +31,11 @@ export class LogoutButton extends Component {
   render() {
     const { t, color } = this.props;
     return (
-      <Button
-        className={"LogoutButton"}
-        color={color}
-        onClick={this.logoutUser}
-      >
-        {t("logoutButtonText")}
+      <Button className="LogoutButton" color={color} onClick={this.logoutUser}>
+        {t('logoutButtonText')}
       </Button>
     );
   }
 }
 
-export default translate("translations")(LogoutButton);
+export default translate('translations')(LogoutButton);

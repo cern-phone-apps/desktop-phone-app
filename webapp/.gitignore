@@ -3,13 +3,13 @@
 .idea
 
 # dependencies
-/node_modules
+node_modules
 
 # testing
-/coverage
+coverage
 
 # production
-/build
+build
 
 # misc
 .DS_Store
@@ -24,12 +24,12 @@ yarn-error.log*
 *.css
 
 mock/rest/*/*/*/mock/response.txt
-/mock/cert.pem
-/mock/key.pem
-/mock/config.js
-/src/third-party/*
-/cypress/videos/
-/cypress/screenshots/
+mock/cert.pem
+mock/key.pem
+mock/config.js
+src/third-party/*
+cypress/videos/
+cypress/screenshots/
 
 \mockserver/rest/*/*/*/mock/response.txt
 mockserver/rest/*/*/*/mock/response.txt

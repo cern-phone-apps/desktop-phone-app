@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { withAuth, withRefresh } from '../util/tokens';
+import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
 
 export const AUTH_START = '@@auth/AUTH_START';
 
@@ -27,8 +27,14 @@ const API_PATH = '/auth/v1';
  * @returns {{}} A RSAA request with REQUEST, SUCCESS and FAILURE statuses.
  */
 
-export default function(apiEndpoint) {
+export default function(apiEndpoint, type = 'web') {
   const buildAuthURL = path => `${apiEndpoint}${API_PATH}${path}`;
+  let handlerClass;
+  if (type === 'web') {
+    handlerClass = JwtTokenHandlerWeb;
+  } else {
+    handlerClass = JwtTokenHandlerMobile;
+  }
 
   return {
     /**
@@ -38,12 +44,12 @@ export default function(apiEndpoint) {
       type: AUTH_START
     }),
 
-    login: code => ({
+    login: (code, type = 'web') => ({
       [RSAA]: {
         endpoint: buildAuthURL('/login/'),
         method: 'POST',
-        body: JSON.stringify({ code, type: 'mobile' }),
-        // credentials: "include",
+        body: JSON.stringify({ code, type }),
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
       }
@@ -61,7 +67,9 @@ export default function(apiEndpoint) {
         endpoint: buildAuthURL('/logout/'),
         method: 'DELETE',
         credentials: 'include',
-        headers: withAuth({ 'Content-Type': 'application/json' }),
+        headers: handlerClass.withAuth({
+          'Content-Type': 'application/json'
+        }),
         types: [LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE]
       }
     }),
@@ -77,7 +85,9 @@ export default function(apiEndpoint) {
         endpoint: buildAuthURL('/refresh/'),
         method: 'POST',
         credentials: 'include',
-        headers: withRefresh({ 'Content-Type': 'application/json' }),
+        headers: handlerClass.withRefresh({
+          'Content-Type': 'application/json'
+        }),
         types: [TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE]
       }
     }),

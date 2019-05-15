@@ -1,9 +1,9 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import {logout} from "auth/actions/auth";
-import DisconnectAndLogoutButton from "./DisconnectAndLogoutButton";
-import { bindActionCreators } from "redux";
+import { phoneService } from 'calls/providers/PhoneProvider/PhoneProvider';
+import { bindActionCreators } from 'redux';
+import { authActionFactory } from 'dial-core';
+import { DisconnectAndLogoutButton } from './DisconnectAndLogoutButton';
 
 function mapStateToProps({ calls }) {
   return {
@@ -15,7 +15,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout
+      logout: authActionFactory(process.env.REACT_APP_API_ENDPOINT).logout
     },
     dispatch
   );
