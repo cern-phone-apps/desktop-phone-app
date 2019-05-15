@@ -1,24 +1,27 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import { meActionFactory } from 'dial-core';
 
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import ConnectionStatusModal from "./ConnectionStatusModal";
-import { setUserDoNotDisturb } from "calls/actions/status";
-import { getMe } from "auth/actions/me";
-import { bindActionCreators } from "redux";
+import { phoneService } from 'calls/providers/PhoneProvider/PhoneProvider';
+import { setUserDoNotDisturb } from 'calls/actions/status';
+import { bindActionCreators } from 'redux';
+import ConnectionStatusModal from './ConnectionStatusModal';
 
 function mapStateToProps({ calls }) {
   return {
     connected: calls.connection.connected,
     activeNumber: calls.numbers.activeNumber,
-    doNotDisturb: calls.status.doNotDisturb,
+    doNotDisturb: calls.status.doNotDisturb
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setUserDoNotDisturb,
-    getMe
-  }, dispatch);
+  return bindActionCreators(
+    {
+      setUserDoNotDisturb,
+      getMe: meActionFactory(process.env.REACT_APP_API_ENDPOINT).getMe
+    },
+    dispatch
+  );
 }
 
 export const ConnectionStatusModalContainer = connect(

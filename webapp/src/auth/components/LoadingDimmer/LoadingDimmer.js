@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Dimmer, Loader } from "semantic-ui-react";
-import { translate } from "react-i18next";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Dimmer, Loader } from 'semantic-ui-react';
+import { translate } from 'react-i18next';
 
 /**
  * Full screen loader
@@ -9,16 +9,14 @@ import { translate } from "react-i18next";
  * @returns {*}
  * @constructor
  */
-export const LoadingDimmer = ({ t }) => {
-  return (
-    <Dimmer active>
-      <Loader size="large">{t("loadingText")}</Loader>
-    </Dimmer>
-  );
-};
+export const LoadingDimmer = ({ t }) => (
+  <Dimmer active>
+    <Loader size="large">{t('loadingText')}</Loader>
+  </Dimmer>
+);
 
 LoadingDimmer.propTypes = {
   t: PropTypes.func.isRequired
 };
 
-export default translate("translations")(LoadingDimmer);
+export default translate('translations')(LoadingDimmer);

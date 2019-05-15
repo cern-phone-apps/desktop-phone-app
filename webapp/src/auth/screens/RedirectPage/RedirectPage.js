@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import qs from "qs";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import qs from 'qs';
 
-import { callsRoute } from "calls/routes";
-import LoadingDimmer from "auth/components/LoadingDimmer/LoadingDimmer";
-import * as loginRoutes from "auth/routes";
-import { errorMessage, infoMessage, logMessage } from "common/utils/logs";
+import { callsRoute } from 'calls/routes';
+import TranslatedLoadingDimmer from 'auth/components/LoadingDimmer/LoadingDimmer';
+import * as loginRoutes from 'auth/routes';
+import { errorMessage, infoMessage, logMessage } from 'common/utils/logs';
 
 class RedirectPage extends Component {
   static propTypes = {
@@ -17,35 +17,40 @@ class RedirectPage extends Component {
     getMe: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    loginInProgress: false
+  };
+
   componentDidMount = () => {
-    const { login, getMe } = this.props;
-    const queryParams = qs.parse(this.props.urlQuery.slice(1));
+    const { login, getMe, urlQuery } = this.props;
+    const queryParams = qs.parse(urlQuery.slice(1));
 
     if (queryParams.code) {
-      infoMessage("Login user with code...");
-      login(queryParams.code).then(result => {
-        logMessage(result);
-        if (result !== undefined && !result.error) {
-          infoMessage("User logged in successfully. Getting. profile...");
-          getMe();
-        }
-      }).catch((error) => {
-        errorMessage(error);
-      });
+      infoMessage('Login user with code...');
+      login(queryParams.code)
+        .then(result => {
+          logMessage(result);
+          if (result !== undefined && !result.error) {
+            infoMessage('User logged in successfully. Getting. profile...');
+            getMe();
+          }
+        })
+        .catch(error => {
+          errorMessage(error);
+        });
     }
   };
 
   render() {
-    const { isAuthenticated } = this.props;
-    if (this.props.loginInProgress) {
-      return <LoadingDimmer />;
+    const { loginInProgress, isAuthenticated } = this.props;
+    if (loginInProgress) {
+      return <TranslatedLoadingDimmer />;
     }
 
     if (isAuthenticated) {
-      return <Redirect exact={true} to={callsRoute.path} />;
-    } else {
-      return <Redirect exact={true} to={loginRoutes.loginRoute.path} />;
+      return <Redirect exact to={callsRoute.path} />;
     }
+    return <Redirect exact to={loginRoutes.loginRoute.path} />;
   }
 }
 

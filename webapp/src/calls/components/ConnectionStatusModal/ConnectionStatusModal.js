@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Button, Icon, Modal } from "semantic-ui-react";
-import DisconnectAndLogoutButton from "calls/components/DisconnectAndLogoutButton";
-import { actionMessage, logMessage } from "common/utils/logs";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Button, Icon, Modal } from 'semantic-ui-react';
+import DisconnectAndLogoutButton from 'calls/components/DisconnectAndLogoutButton/DisconnectAndLogoutButtonContainer';
+import { actionMessage, logMessage } from 'common/utils/logs';
 
 /**
  * Button that displays the connection status
@@ -12,28 +12,34 @@ import { actionMessage, logMessage } from "common/utils/logs";
  * @returns {*}
  * @constructor
  */
-const ConnectionIcon = ({ color, message, onClick }) => {
-  return (
-    <Button onClick={onClick} as={"a"} className={"flat"} title={message}>
-      <Icon name={"circle"} color={color} />
-    </Button>
-  );
+const ConnectionIcon = ({ color, message, onClick }) => (
+  <Button onClick={onClick} as="a" className="flat" title={message}>
+    <Icon name="circle" color={color} />
+  </Button>
+);
+
+ConnectionIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 function getUiProperties(connected, activeNumber, doNotDisturb) {
-  let color, message, callsMessage;
+  let color;
+  let message;
+  let callsMessage;
   if (connected) {
     message = `You are connected with number ${activeNumber}`;
     callsMessage = `You are able to make and receive calls`;
   } else {
-    message = "You are not connected to the telephony backend";
+    message = 'You are not connected to the telephony backend';
     callsMessage = `You won't be able to make or receive calls until you connect with a phone number of your choice`;
   }
 
   if (doNotDisturb) {
-    color = "red";
+    color = 'red';
   } else {
-    color = "green";
+    color = 'green';
   }
   return { color, message, callsMessage };
 }
@@ -53,7 +59,7 @@ function ConnectionStatusModalContent({
 
         <p>
           <Button onClick={onClick}>
-            {doNotDisturb ? "Disable Do not disturb" : "Enable Do not disturb"}
+            {doNotDisturb ? 'Disable Do not disturb' : 'Enable Do not disturb'}
           </Button>
         </p>
 
@@ -63,21 +69,13 @@ function ConnectionStatusModalContent({
             the following button to logout and login again.
           </p>
         ) : (
-          ""
+          ''
         )}
-        <DisconnectAndLogoutButton color={"red"} displayMessage={false} />
+        <DisconnectAndLogoutButton color="red" displayMessage={false} />
       </Modal.Description>
     </Modal.Content>
   );
 }
-
-ConnectionStatusModalContent.propTypes = {
-  message: PropTypes.any,
-  callsMessage: PropTypes.any,
-  onClick: PropTypes.func,
-  doNotDisturb: PropTypes.any,
-  connected: PropTypes.any
-};
 
 export class ConnectionStatusModal extends Component {
   static propTypes = {
@@ -94,9 +92,9 @@ export class ConnectionStatusModal extends Component {
 
   inlineStyle = {
     modal: {
-      marginTop: "0px !important",
-      marginLeft: "auto",
-      marginRight: "auto"
+      marginTop: '0px !important',
+      marginLeft: 'auto',
+      marginRight: 'auto'
     }
   };
 
@@ -117,7 +115,7 @@ export class ConnectionStatusModal extends Component {
   };
 
   dontDisturbAction = () => {
-    logMessage("doNotDisturb");
+    logMessage('doNotDisturb');
     this.setState({ loading: true });
     this.props.setUserDoNotDisturb(!this.props.doNotDisturb).then(() => {
       this.setState({ loading: false });
@@ -126,7 +124,7 @@ export class ConnectionStatusModal extends Component {
 
   render() {
     const { connected, activeNumber, doNotDisturb } = this.props;
-    let { color, message, callsMessage } = getUiProperties(
+    const { color, message, callsMessage } = getUiProperties(
       connected,
       activeNumber,
       doNotDisturb
@@ -134,8 +132,8 @@ export class ConnectionStatusModal extends Component {
 
     return (
       <Modal
-        size={"tiny"}
-        dimmer={"blurring"}
+        size="tiny"
+        dimmer="blurring"
         style={this.inlineStyle.modal}
         closeIcon
         trigger={
@@ -147,7 +145,7 @@ export class ConnectionStatusModal extends Component {
         }
       >
         <Modal.Header>
-          <Icon name={"circle"} color={color} /> {"Your connection status"}
+          <Icon name="circle" color={color} /> {'Your connection status'}
         </Modal.Header>
         <ConnectionStatusModalContent
           message={message}

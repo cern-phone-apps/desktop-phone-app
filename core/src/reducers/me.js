@@ -1,4 +1,4 @@
-import * as me from "auth/actions/me";
+import * as meActions from '../actions/me';
 
 const initialState = {
   email: null,
@@ -21,13 +21,13 @@ const initialState = {
  */
 export default (state = initialState, action) => {
   switch (action.type) {
-    case me.ME_REQUEST:
+    case meActions.ME_REQUEST:
       return {
         ...state,
         fetching: true,
         error: {}
       };
-    case me.ME_SUCCESS:
+    case meActions.ME_SUCCESS:
       return {
         ...state,
         email: action.payload.email,
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
         error: {},
         fetching: false
       };
-    case me.ME_FAILURE:
+    case meActions.ME_FAILURE:
       return {
         ...state,
         email: null,

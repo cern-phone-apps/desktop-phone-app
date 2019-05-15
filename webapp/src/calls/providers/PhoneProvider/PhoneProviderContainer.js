@@ -1,13 +1,13 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { bindActionCreators } from "redux";
-import * as connectionActionCreators from "calls/actions/connection";
-import * as callActionCreators from "calls/actions/call";
-import * as recentActionCreators from "calls/actions/recent";
-import * as authActionCreators from "auth/actions/auth";
-import { info, success, warning } from "common/actions/notifications";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import PhoneProvider from "calls/providers/PhoneProvider/PhoneProvider";
+import { bindActionCreators } from 'redux';
+import * as connectionActionCreators from 'calls/actions/connection';
+import * as callActionCreators from 'calls/actions/call';
+import * as recentActionCreators from 'calls/actions/recent';
+import { info, success, warning } from 'common/actions/notifications';
+import PhoneProvider, {
+  phoneService
+} from 'calls/providers/PhoneProvider/PhoneProvider';
 
 export function mapStateToProps({ calls, auth }) {
   return {
@@ -24,7 +24,6 @@ export function mapDispatchToProps(dispatch) {
       ...connectionActionCreators,
       ...callActionCreators,
       ...recentActionCreators,
-      ...authActionCreators,
       success,
       info,
       warning
