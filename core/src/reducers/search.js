@@ -1,4 +1,4 @@
-import * as searchActions from "calls/actions/search";
+import * as searchActions from '../actions/search';
 
 const initialState = {
   userSelected: false,
@@ -19,12 +19,12 @@ export function getUsersFormattedForSearch(usersArray) {
   }
 
   return usersArray.slice(0, 9).map(function(user, index) {
-    const division = user.division === "[]" ? "" : user.division;
-    const group = user.cernGroup === "[]" ? "" : `-${user.cernGroup}`;
-    const section = user.cernSection === "[]" ? "" : `-${user.cernSection}`;
-    const displayName = user.displayName;
+    const division = user.division === '[]' ? '' : user.division;
+    const group = user.cernGroup === '[]' ? '' : `-${user.cernGroup}`;
+    const section = user.cernSection === '[]' ? '' : `-${user.cernSection}`;
+    const { displayName } = user;
     return {
-      index: index,
+      index,
       title: displayName,
       description: `${division}${group}${section}`,
       username: user.username

@@ -16,7 +16,6 @@ export class ErrorMessage extends Component {
   };
 
   render() {
-    logMessage(`Displaying errors`);
     const { errors } = this.props;
 
     let results = errors.filter(error => error && error.statusCode);

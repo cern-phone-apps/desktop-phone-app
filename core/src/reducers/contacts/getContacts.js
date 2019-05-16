@@ -1,4 +1,4 @@
-import * as contactsActions from "calls/actions/contacts";
+import * as contactsActions from '../../actions/contacts';
 
 const INITIAL_STATE = {
   fetching: false,

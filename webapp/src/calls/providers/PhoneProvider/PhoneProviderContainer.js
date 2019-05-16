@@ -1,29 +1,30 @@
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
-import * as connectionActionCreators from 'calls/actions/connection';
-import * as callActionCreators from 'calls/actions/call';
-import * as recentActionCreators from 'calls/actions/recent';
+
+import { callActions, connectionActions, recentActions } from 'dial-core';
+
 import { info, success, warning } from 'common/actions/notifications';
-import PhoneProvider, {
-  phoneService
-} from 'calls/providers/PhoneProvider/PhoneProvider';
+import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider';
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+
 
 export function mapStateToProps({ calls, auth }) {
   return {
     recipient: calls.call ? calls.call.recipient : undefined,
     onCall: calls.call ? calls.call.onCall : false,
     token: auth.token,
-    doNotDisturb: calls.status.doNotDisturb
+    doNotDisturb: calls.status.doNotDisturb,
+    call: calls.call
   };
 }
 
 export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      ...connectionActionCreators,
-      ...callActionCreators,
-      ...recentActionCreators,
+      ...connectionActions,
+      ...callActions,
+      ...recentActions,
       success,
       info,
       warning
@@ -32,7 +33,7 @@ export function mapDispatchToProps(dispatch) {
   );
 }
 
-export default phoneService(
+export default withPhoneService(
   connect(
     mapStateToProps,
     mapDispatchToProps

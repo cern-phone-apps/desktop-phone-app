@@ -1,27 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { ConnectedRouter } from "react-router-redux";
-import createHistory from "history/createBrowserHistory";
-import { PersistGate } from "redux-persist/es/integration/react";
-import { I18nextProvider } from "react-i18next";
-import ReactPiwik from "react-piwik";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import { I18nextProvider } from 'react-i18next';
+import ReactPiwik from 'react-piwik';
 /** s
  * Local imports
  */
-import "semantic-ui-css/semantic.min.css";
-import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-import configureStore from "store";
-import i18n from "i18n";
-import App from "App";
-import PhoneProviderContainer from "calls/providers/PhoneProvider/PhoneProviderContainer";
+import 'semantic-ui-css/semantic.min.css';
+import './index.css';
+import configureStore from 'store';
+import i18n from 'i18n';
+import App from 'App';
+import PhoneProviderContainer from 'calls/providers/PhoneProvider/PhoneProviderContainer';
+import registerServiceWorker from './registerServiceWorker';
 // We need the PhoneProvider to be available in the whole app in order to make and receive calls
 
 /**
  * Set up Sentry and Piwik analytics
  */
-
 
 const piwik = new ReactPiwik({
   url: process.env.REACT_APP_PIWIK_URL,
@@ -32,7 +31,7 @@ const piwik = new ReactPiwik({
 /**
  * Set up the store and the history
  */
-const history = createHistory();
+const history = createBrowserHistory();
 const { store, persistor } = configureStore(history);
 
 ReactDOM.render(
@@ -48,6 +47,6 @@ ReactDOM.render(
       </PersistGate>
     </I18nextProvider>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 registerServiceWorker();

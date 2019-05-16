@@ -6,11 +6,11 @@ import {
   Header,
   Icon,
   Radio
-} from "semantic-ui-react";
-import PropTypes from "prop-types";
-import React from "react";
-import { errorMessage } from "common/utils/logs";
-import CallForwardingAddModalContainer from "settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModalContainer";
+} from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { errorMessage } from 'common/utils/logs';
+import CallForwardingAddModalContainer from 'settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModalContainer';
 
 export class CallForwardingForm extends React.Component {
   static propTypes = {
@@ -26,7 +26,7 @@ export class CallForwardingForm extends React.Component {
     forwardList: [],
     defaultDropdownValues: [],
     isFetching: true,
-    forwardStatus: "disabled",
+    forwardStatus: 'disabled',
     fetchTimes: 0
   };
 
@@ -44,7 +44,7 @@ export class CallForwardingForm extends React.Component {
    */
   selectDefaultDropdownSelection = () => {
     this.setState({
-      defaultDropdownValues: this.props.status["destination-list"]
+      defaultDropdownValues: this.props.status['destination-list']
     });
   };
 
@@ -53,45 +53,43 @@ export class CallForwardingForm extends React.Component {
     if (forwardingData && forwardingData.payload.result.success) {
       // Obtain values from the payload
       const { payload } = forwardingData;
-      const destinationList = payload.result["destination-list"];
-      const callForwardingStatus = payload.result["call-forwarding"];
-      const simultaneousRingingStatus = payload.result["simultaneous-ring"];
+      const destinationList = payload.result['destination-list'];
+      const callForwardingStatus = payload.result['call-forwarding'];
+      const simultaneousRingingStatus = payload.result['simultaneous-ring'];
       // Build dropdown options
       const remoteList = this.buildDropdownOptionsArray(destinationList);
       // Get radio button value
-      let forwardStatus = this.getRadioButtonValue(
+      const forwardStatus = this.getRadioButtonValue(
         callForwardingStatus,
         simultaneousRingingStatus
       );
 
       this.setState({
-        remoteList: remoteList,
-        forwardStatus: forwardStatus,
+        remoteList,
+        forwardStatus,
         isFetching: false,
         forwardList: [...remoteList, ...this.props.localForwardList]
       });
     } else if (forwardingData === undefined && this.state.fetchTimes < 2) {
-      errorMessage("Forwarding data was not loaded");
+      errorMessage('Forwarding data was not loaded');
       this.setState({ fetchTimes: (this.state.fetchTimes += 1) });
       this.fetchData();
     }
   };
 
   getRadioButtonValue(callForwardingStatus, simultaneousRingingStatus) {
-    let forwardStatus = "disabled";
+    let forwardStatus = 'disabled';
     if (callForwardingStatus) {
-      forwardStatus = "forward";
+      forwardStatus = 'forward';
     }
     if (simultaneousRingingStatus) {
-      forwardStatus = "simultaneous";
+      forwardStatus = 'simultaneous';
     }
     return forwardStatus;
   }
 
   buildDropdownOptionsArray(stringValue) {
-    return stringValue.map(value => {
-      return { text: value, value: value };
-    });
+    return stringValue.map(value => ({ text: value, value }));
   }
 
   /**
@@ -153,7 +151,7 @@ export class CallForwardingForm extends React.Component {
                   label="Disable Call Forwarding"
                   name="radioGroup"
                   value="disabled"
-                  checked={forwardStatus === "disabled"}
+                  checked={forwardStatus === 'disabled'}
                   onChange={this.handleRadioChangeAction}
                 />
               </Form.Field>
@@ -162,7 +160,7 @@ export class CallForwardingForm extends React.Component {
                   label="Forward to"
                   name="radioGroup"
                   value="forward"
-                  checked={forwardStatus === "forward"}
+                  checked={forwardStatus === 'forward'}
                   onChange={this.handleRadioChangeAction}
                 />
               </Form.Field>
@@ -171,18 +169,18 @@ export class CallForwardingForm extends React.Component {
                   label="Simultaneous ringing"
                   name="radioGroup"
                   value="simultaneous"
-                  checked={forwardStatus === "simultaneous"}
+                  checked={forwardStatus === 'simultaneous'}
                   onChange={this.handleRadioChangeAction}
                 />
               </Form.Field>
             </Grid.Column>
             <Grid.Column>
-              <Header as={"h5"}>Forward/Ringing list</Header>
+              <Header as="h5">Forward/Ringing list</Header>
               <Form.Group>
                 <Form.Field>
                   <Dropdown
                     multiple
-                    labeled={true}
+                    labeled
                     search
                     selection
                     value={defaultDropdownValues}
@@ -205,7 +203,7 @@ export class CallForwardingForm extends React.Component {
             <Grid.Column>
               <Form.Field>
                 <Button icon onClick={this.handleSave}>
-                  <Icon name={"save"} /> Save
+                  <Icon name="save" /> Save
                 </Button>
               </Form.Field>
             </Grid.Column>

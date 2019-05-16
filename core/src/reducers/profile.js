@@ -1,4 +1,4 @@
-import * as profileActions from 'calls/actions/profile'
+import * as profileActions from '../actions/profile';
 
 const initialState = {
   profile: {},
@@ -37,8 +37,8 @@ const search = (state = initialState, action) => {
         error: action.payload.error
       };
     default:
-      return state
+      return state;
   }
 };
 
-export default search
+export default search;

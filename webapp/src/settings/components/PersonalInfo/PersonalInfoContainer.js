@@ -1,16 +1,16 @@
-import { connect } from 'react-redux'
-import PersonalInfo from 'settings/components/PersonalInfo/PersonalInfo'
+import { connect } from 'react-redux';
+import PersonalInfo from 'settings/components/PersonalInfo/PersonalInfo';
 
-function mapStateToProps ({user}) {
+function mapStateToProps({ user }) {
   return {
-    username: user.me.username,
-    firstName: user.me.firstName,
-    lastName: user.me.lastName,
-    email: user.me.email
-  }
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email
+  };
 }
 
 export default connect(
   mapStateToProps,
   null
-)(PersonalInfo)
+)(PersonalInfo);

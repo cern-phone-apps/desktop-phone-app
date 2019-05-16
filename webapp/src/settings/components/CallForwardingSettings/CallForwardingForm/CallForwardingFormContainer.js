@@ -1,24 +1,23 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import {
-  addLocalForwardNumber,
-  getCallForwardingStatus
-} from "settings/actions/call_forwarding";
-import { CallForwardingForm } from "./CallForwardingForm";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { callForwardingActionFactory, callForwardingActions } from 'dial-core';
+import { CallForwardingForm } from './CallForwardingForm';
 
-function mapStateToProps({ settings }) {
+function mapStateToProps({ callForwarding }) {
   return {
-    localForwardList: settings.callForwarding.localForwardList,
-    fetchingStatus: settings.callForwarding.fetchingStatus,
-    status: settings.callForwarding.status,
+    localForwardList: callForwarding.localForwardList,
+    fetchingStatus: callForwarding.fetchingStatus,
+    status: callForwarding.status
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      addLocalForwardNumber,
-      getCallForwardingStatus
+      addLocalForwardNumber: callForwardingActions.addLocalForwardNumber,
+      getCallForwardingStatus: callForwardingActionFactory(
+        process.env.REACT_APP_API_ENDPOINT
+      ).getCallForwardingStatus
     },
     dispatch
   );

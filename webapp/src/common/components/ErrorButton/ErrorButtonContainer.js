@@ -1,6 +1,6 @@
-import { connect } from "react-redux";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import ErrorButton from "common/components/ErrorButton/ErrorButton";
+import { connect } from 'react-redux';
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import ErrorButton from 'common/components/ErrorButton/ErrorButton';
 
 function mapStateToProps({ calls, auth }) {
   return {
@@ -18,4 +18,4 @@ export const ErrorButtonContainer = connect(
   null
 )(ErrorButton);
 
-export default phoneService(ErrorButtonContainer);
+export default withPhoneService(ErrorButtonContainer);

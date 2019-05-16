@@ -1,19 +1,21 @@
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 
-import { connect } from "react-redux";
-import {selectUser, searchUsers} from "calls/actions/search";
-import { UserSearchForm } from "calls/components/search/UserSearchForm/UserSearchForm";
+import { connect } from 'react-redux';
+
+import { searchActions, searchActionFactory } from 'dial-core';
+
+import { UserSearchForm } from 'calls/components/search/UserSearchForm/UserSearchForm';
 
 function mapStateToProps() {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      selectUser,
-      searchUsers,
+      selectUser: searchActions.selectUser,
+      searchUsers: searchActionFactory(process.env.REACT_APP_API_ENDPOINT)
+        .searchUsers
     },
     dispatch
   );

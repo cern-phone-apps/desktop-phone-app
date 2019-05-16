@@ -1,10 +1,13 @@
-import { connect } from "react-redux";
-import OnCallDetails from "./OnCallDetails";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import { connect } from 'react-redux';
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import OnCallDetails from './OnCallDetails';
 
 function mapStateToProps({ calls }) {
   return {
-    recipient: calls.call.recipient
+    recipient: calls.call.recipient,
+    caller: calls.call.caller,
+    receivingCall: calls.call.receivingCall,
+    call: calls.call
   };
 }
 
@@ -13,4 +16,4 @@ export const OnCallDetailsContainer = connect(
   null
 )(OnCallDetails);
 
-export default phoneService(OnCallDetailsContainer);
+export default withPhoneService(OnCallDetailsContainer);

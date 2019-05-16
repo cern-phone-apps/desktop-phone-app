@@ -1,4 +1,4 @@
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import { UserPhoneNumberButton } from "calls/components/UserPhoneNumberButton/UserPhoneNumberButton";
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import { UserPhoneNumberButton } from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButton';
 
-export default phoneService(UserPhoneNumberButton);
+export default withPhoneService(UserPhoneNumberButton);

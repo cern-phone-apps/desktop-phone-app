@@ -1,4 +1,4 @@
-import * as dialpadActions from 'calls/actions/dialpad'
+import * as dialpadActions from '../actions/dialpad';
 
 const initialState = {
   display: false,
@@ -18,7 +18,6 @@ export default (state = initialState, action) => {
         display: action.newStatus
       };
     default:
-      return state
+      return state;
   }
-}
-
+};

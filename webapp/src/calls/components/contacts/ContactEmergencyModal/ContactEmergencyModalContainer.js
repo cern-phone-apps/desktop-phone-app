@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { closeEmergencyModal } from "calls/actions/contacts";
-import { bindActionCreators } from "redux";
-import ContactEmergencyModal from "calls/components/contacts/ContactEmergencyModal/ContactEmergencyModal";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import ContactEmergencyModal from 'calls/components/contacts/ContactEmergencyModal/ContactEmergencyModal';
+import { contactsActions } from 'dial-core';
 
 function mapStateToProps({ calls }) {
   return {
@@ -13,7 +13,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEmergencyModal
+      closeEmergencyModal: contactsActions.closeEmergencyModal
     },
     dispatch
   );

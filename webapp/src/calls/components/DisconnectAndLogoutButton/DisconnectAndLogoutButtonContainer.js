@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { phoneService } from 'calls/providers/PhoneProvider/PhoneProvider';
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import { bindActionCreators } from 'redux';
 import { authActionFactory } from 'dial-core';
 import { DisconnectAndLogoutButton } from './DisconnectAndLogoutButton';
@@ -26,4 +26,4 @@ export const DisconnectNumberButtonContainer = connect(
   mapDispatchToProps
 )(DisconnectAndLogoutButton);
 
-export default phoneService(DisconnectNumberButtonContainer);
+export default withPhoneService(DisconnectNumberButtonContainer);

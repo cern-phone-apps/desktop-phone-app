@@ -1,22 +1,23 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { addLocalForwardNumber } from "settings/actions/call_forwarding";
-import { CallForwardingAddModal } from "./CallForwardingAddModal";
-import { searchUsers } from "calls/actions/search";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { callForwardingActions, searchActionFactory } from 'dial-core';
 
-function mapStateToProps({ settings, user }) {
+import { CallForwardingAddModal } from './CallForwardingAddModal';
+
+function mapStateToProps({ callForwarding, user }) {
   return {
-    localForwardList: settings.callForwarding.localForwardList,
-    status: settings.callForwarding.status,
-    me: user.me
+    localForwardList: callForwarding.localForwardList,
+    status: callForwarding.status,
+    me: user
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      addLocalForwardNumber,
-      searchUsers
+      addLocalForwardNumber: callForwardingActions.addLocalForwardNumber,
+      searchUsers: searchActionFactory(process.env.REACT_APP_API_ENDPOINT)
+        .searchUsers
     },
     dispatch
   );

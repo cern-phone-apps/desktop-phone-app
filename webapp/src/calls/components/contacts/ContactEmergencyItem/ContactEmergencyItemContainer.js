@@ -1,13 +1,13 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { openEmergencyModal } from "calls/actions/contacts";
-import { bindActionCreators } from "redux";
-import ContactEmergencyItem from "calls/components/contacts/ContactEmergencyItem/ContactEmergencyItem";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import ContactEmergencyItem from 'calls/components/contacts/ContactEmergencyItem/ContactEmergencyItem';
+import { contactsActions } from 'dial-core';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      openEmergencyModal
+      openEmergencyModal: contactsActions.openEmergencyModal
     },
     dispatch
   );

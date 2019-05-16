@@ -1,4 +1,4 @@
-import * as callForwardingActions from "settings/actions/call_forwarding";
+import * as callForwardingActions from '../../actions/settings/call_forwarding';
 
 const initialState = {
   localForwardList: [],
