@@ -1,6 +1,6 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
-import CallModal from "./OutgoingCallModal";
+import CallModal from './OutgoingCallModal';
 
 function mapStateToProps({ calls }) {
   return {
