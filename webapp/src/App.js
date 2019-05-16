@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { Route, Switch } from 'react-router-dom';
 
-import MainPageContainer from 'common/screens/MainPage/MainPageContainer';
-import RedirectPageContainer from 'auth/screens/RedirectPage/RedirectPageContainer';
-import LoginPageContainer from 'auth/screens/LoginPage/LoginPageContainer';
+import RoutedMainPageContainer from 'common/screens/MainPage/MainPageContainer';
+import RoutedRedirectPageContainer from 'auth/screens/RedirectPage/RedirectPageContainer';
+import RoutedLoginPageContainer from 'auth/screens/LoginPage/LoginPageContainer';
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
-import { infoMessage } from 'common/utils/logs';
 
 const NoMatch = ({ location }) => (
   <div>
@@ -19,29 +18,29 @@ const NoMatch = ({ location }) => (
 );
 
 NoMatch.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
-class App extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route
-          exact
-          path={routes.mainRoute.path}
-          component={MainPageContainer}
-        />
-        <Route
-          path={loginRoutes.redirectRoute.path}
-          component={RedirectPageContainer}
-        />
-        <Route
-          path={loginRoutes.loginRoute.path}
-          component={LoginPageContainer}
-        />
-      </Switch>
-    );
-  }
+function App() {
+  return (
+    <Switch>
+      <Route
+        exact
+        path={routes.mainRoute.path}
+        component={RoutedMainPageContainer}
+      />
+      <Route
+        path={loginRoutes.redirectRoute.path}
+        component={RoutedRedirectPageContainer}
+      />
+      <Route
+        path={loginRoutes.loginRoute.path}
+        component={RoutedLoginPageContainer}
+      />
+    </Switch>
+  );
 }
 
 export default translate('translations')(App);

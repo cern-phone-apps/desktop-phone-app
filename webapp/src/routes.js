@@ -1,5 +1,5 @@
-import { callsRoute } from "calls/routes";
-import { callsRoutes } from "calls/routes/utils";
+import { callsRoute } from 'calls/routes';
+import { callsRoutes } from 'calls/routes/utils';
 
 /**
  * Sets the application's main route.
@@ -17,7 +17,7 @@ export const mainRoute = {
  * @param t Translate provider
  * @returns {...*[]} An array with all the application's routes.
  */
-export const mainRoutes = function(t) {
+export const mainRoutes = function getCallScreens(t) {
   const callsScreens = callsRoutes(t);
 
   return [...callsScreens];

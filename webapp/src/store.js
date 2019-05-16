@@ -1,40 +1,40 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import { persistReducer, persistStore } from "redux-persist";
-import { routerMiddleware } from "react-router-redux";
-import storage from "redux-persist/lib/storage";
-import { createBlacklistFilter } from "redux-persist-transform-filter";
+import { applyMiddleware, compose, createStore } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import { routerMiddleware } from 'react-router-redux';
+import storage from 'redux-persist/lib/storage';
+import { createBlacklistFilter } from 'redux-persist-transform-filter';
 
-import rootReducer from "./reducers";
-import apiMiddleware from "middleware";
+import apiMiddleware from 'middleware';
+import rootReducer from './reducers';
 
 const createCustomStore = history => {
   // We don't want to persist the connection status
-  const blacklistFilter = createBlacklistFilter("calls", [
-    "connection",
-    "search",
-    "call",
-    "dialpad",
-    "contacts"
+  const blacklistFilter = createBlacklistFilter('calls', [
+    'connection',
+    'search',
+    'call',
+    'dialpad',
+    'contacts'
   ]);
 
-  const blacklistLoginFilter = createBlacklistFilter("auth", [
-    "loginInProgress",
-    "error"
+  const blacklistLoginFilter = createBlacklistFilter('auth', [
+    'loginInProgress',
+    'error'
     // "loggedIn",
     // "token"
   ]);
 
-  const blacklistCommonFilter = createBlacklistFilter("common", [
-    "notifications",
-    "sidebar"
+  const blacklistCommonFilter = createBlacklistFilter('common', [
+    'notifications',
+    'sidebar'
   ]);
 
-  const blacklistSettingsFilter = createBlacklistFilter("settings", ["modal"]);
+  const blacklistSettingsFilter = createBlacklistFilter('settings', ['modal']);
 
   const persistConfig = {
-    key: "phone-webapp",
-    storage: storage,
-    blacklist: ["sidebar"],
+    key: 'phone-webapp',
+    storage,
+    blacklist: ['sidebar'],
     transforms: [
       blacklistFilter,
       blacklistLoginFilter,
@@ -56,7 +56,7 @@ const createCustomStore = history => {
 };
 
 export default history => {
-  let store = createCustomStore(history);
-  let persistor = persistStore(store);
+  const store = createCustomStore(history);
+  const persistor = persistStore(store);
   return { store, persistor };
 };
