@@ -1,10 +1,9 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import {setIsReceivingCall, rejectIncomingCall} from "calls/actions/call";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { callActions } from 'dial-core';
 
-import IncomingCallModal from "./IncomingCallModal";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import IncomingCallModal from './IncomingCallModal';
 /**
  * Mapping the props to the container
  * @param calls
@@ -14,8 +13,8 @@ function mapStateToProps({ calls }) {
   return {
     connected: calls.connection.connected,
     receivingCall: calls.call.receivingCall,
-    callerName: calls.call.recipient.name,
-    callerNumber: calls.call.recipient.phoneNumber
+    callerName: calls.call.caller ? calls.call.callerName : '',
+    callerNumber: calls.call.caller ? calls.call.caller.phoneNumber : ''
   };
 }
 
@@ -25,10 +24,13 @@ function mapStateToProps({ calls }) {
  * @returns {{CALL?: string, IS_CALLING?: string, OUTGOING_CALL_ACCEPTED?: string, OUTGOING_CALL_REJECTED?: string, CALL_FAILED?: string, CALL_MISSED?: string, IS_RECEIVING_CALL?: string, HANGUP_CALL?: string, INCOMING_CALL_ACCEPTED?: string, INCOMING_CALL_REJECTED?: string, makeCall?, isCalling?, isReceivingCall?, acceptOutgoingCall?, acceptIncomingCall?, rejectIncomingCall?, rejectOutgoingCall?, callFailed?, missCall?, hangupCall?}}
  */
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setIsReceivingCall,
-    rejectIncomingCall
-  }, dispatch);
+  return bindActionCreators(
+    {
+      setIsReceivingCall: callActions.setIsReceivingCall,
+      rejectIncomingCall: callActions.rejectIncomingCall
+    },
+    dispatch
+  );
 }
 
 /**
@@ -42,4 +44,4 @@ export const IncomingCallModalContainer = connect(
 /**
  * Default export is binds phoneService
  */
-export default phoneService(IncomingCallModalContainer);
+export default withPhoneService(IncomingCallModalContainer);

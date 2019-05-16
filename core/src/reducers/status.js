@@ -1,4 +1,4 @@
-import * as statusActions from "calls/actions/status";
+import * as statusActions from '../actions/status';
 
 const INITIAL_STATE = {
   doNotDisturb: false,
@@ -29,7 +29,7 @@ const user = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         fetching: false,
-        error: "Error updating do not disturb "
+        error: 'Error updating do not disturb '
       };
     default:
       return state;

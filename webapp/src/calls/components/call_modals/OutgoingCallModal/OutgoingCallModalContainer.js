@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import CallModal from "./OutgoingCallModal";
 
 function mapStateToProps({ calls }) {
@@ -14,4 +14,4 @@ export const CallModalContainer = connect(
   null
 )(CallModal);
 
-export default phoneService(CallModalContainer);
+export default withPhoneService(CallModalContainer);

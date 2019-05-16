@@ -1,7 +1,7 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { unSelectContact, getUserProfileById } from "calls/actions/contacts";
-import ContactProfileModal from "calls/components/contacts/ContactProfileModal/ContactProfileModal";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { contactsActions, contactsActionFactory } from 'dial-core';
+import ContactProfileModal from 'calls/components/contacts/ContactProfileModal/ContactProfileModal';
 
 function mapStateToProps({ calls }) {
   return {
@@ -13,14 +13,16 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      unSelectContact,
-      getUserProfileById
+      unSelectContact: contactsActions.unSelectContact,
+      getUserProfileById: contactsActionFactory(
+        process.env.REACT_APP_API_ENDPOINT
+      ).getUserProfileById
     },
     dispatch
   );
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ContactProfileModal);
+  mapStateToProps,
+  mapDispatchToProps
+)(ContactProfileModal);

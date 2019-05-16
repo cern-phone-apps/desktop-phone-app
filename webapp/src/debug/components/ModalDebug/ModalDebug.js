@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Menu, Modal, Icon, Button } from "semantic-ui-react";
 import { actionMessage, logMessage } from "common/utils/logs";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 
 const ModalTrigger = ({ onClick }) => {
   return (
@@ -82,4 +82,4 @@ class ModalDebug extends Component {
 
 ModalDebug.propTypes = {};
 
-export default phoneService(ModalDebug);
+export default withPhoneService(ModalDebug);

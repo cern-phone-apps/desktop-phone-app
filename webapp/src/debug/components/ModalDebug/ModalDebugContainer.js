@@ -1,9 +1,7 @@
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import * as callActionCreators from "calls/actions/status";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
-import ModalDebug from "./ModalDebug";
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import ModalDebug from './ModalDebug';
 
 function mapStateToProps({ calls }) {
   return {
@@ -13,13 +11,9 @@ function mapStateToProps({ calls }) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(callActionCreators, dispatch);
-}
-
 export const ModalDebugConnected = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(ModalDebug);
 
-export default phoneService(ModalDebugConnected);
+export default withPhoneService(ModalDebugConnected);

@@ -1,15 +1,14 @@
 import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux';
-
-import { dialpadActions, callActions } from 'dial-core';
+import { dialpadActions, searchActions, callActions } from 'dial-core';
 
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
-import { CallerDialpadForm } from './CallerDialpadForm';
+import { CallerDialpad } from './CallerDialpad';
 
 function mapStateToProps({ calls }) {
   return {
-    value: calls.dialpad.value
+    dialpadValue: calls.dialpad.value
   };
 }
 
@@ -17,15 +16,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       makeCall: callActions.makeCall,
-      updateDialpadValue: dialpadActions.updateDialpadValue
+      updateDialpadValue: dialpadActions.updateDialpadValue,
+      unSelectUser: searchActions.unSelectUser
     },
     dispatch
   );
 }
 
-export const CallerDialpad = connect(
+export const ConnectedDialpad = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CallerDialpadForm);
+)(CallerDialpad);
 
-export default withPhoneService(CallerDialpad);
+export default withPhoneService(ConnectedDialpad);

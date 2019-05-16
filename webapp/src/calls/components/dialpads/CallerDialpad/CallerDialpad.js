@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
-import { Grid, Icon, Segment } from "semantic-ui-react";
-import React, { Component } from "react";
-import Dialpad from "../Dialpad/Dialpad";
-import { buildRecipient} from "calls/utils/utils";
-import { logMessage } from "common/utils/logs";
-import { CallButton } from "./CallButton";
-import { formatPhoneNumber } from "calls/utils/utils";
+import PropTypes from 'prop-types';
+import { Grid, Icon, Segment } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { buildRecipient, formatPhoneNumber } from 'calls/utils/utils';
+import { logMessage } from 'common/utils/logs';
+
+import { CallButton } from './CallButton';
+import Dialpad from '../Dialpad/Dialpad';
 
 export class CallerDialpad extends Component {
   static propTypes = {
@@ -16,8 +16,7 @@ export class CallerDialpad extends Component {
   };
 
   makeCall = () => {
-
-    const {dialpadValue} = this.props;
+    const { dialpadValue } = this.props;
 
     const formattedNumber = formatPhoneNumber(dialpadValue);
 
@@ -31,26 +30,25 @@ export class CallerDialpad extends Component {
   };
 
   handleDialPadButtonClick = value => {
-    logMessage("handleDialPadButtonClick: ", value);
-    logMessage("handleDialPadButtonClick: ", this.props.dialpadValue);
+    logMessage('handleDialPadButtonClick: ', value);
+    logMessage('handleDialPadButtonClick: ', this.props.dialpadValue);
     this.props.updateDialpadValue(this.props.dialpadValue + value);
   };
-  render = () => {
-    return (
-      <Segment attached="bottom" className={"Dialpad"}>
-        <Dialpad handleButtonClick={this.handleDialPadButtonClick}>
-          <Grid.Row>
-            <Grid.Column />
-            <Grid.Column textAlign={"center"}>
-              <CallButton
-                clickHandler={this.makeCall}
-                text={<Icon name={"phone"} />}
-              />
-            </Grid.Column>
-            <Grid.Column />
-          </Grid.Row>
-        </Dialpad>
-      </Segment>
-    );
-  };
+
+  render = () => (
+    <Segment attached="bottom" className="Dialpad">
+      <Dialpad handleButtonClick={this.handleDialPadButtonClick}>
+        <Grid.Row>
+          <Grid.Column />
+          <Grid.Column textAlign="center">
+            <CallButton
+              clickHandler={this.makeCall}
+              text={<Icon name="phone" />}
+            />
+          </Grid.Column>
+          <Grid.Column />
+        </Grid.Row>
+      </Dialpad>
+    </Segment>
+  );
 }

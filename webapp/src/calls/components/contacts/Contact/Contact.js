@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Item, Icon } from "semantic-ui-react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Item, Icon } from 'semantic-ui-react';
 
-import styles from "./Contact.module.css";
-import { formatUserOrganization } from "calls/utils/formatters";
-import { logMessage } from "common/utils/logs";
+import { formatUserOrganization } from 'calls/utils/formatters';
+import { logMessage } from 'common/utils/logs';
+import styles from './Contact.module.css';
 
 class Contact extends Component {
   static propTypes = {
@@ -21,21 +21,21 @@ class Contact extends Component {
     const { contact } = this.props;
     logMessage(contact);
     return (
-      <Item className={``} onClick={this.selectContactAction}>
+      <Item className="" onClick={this.selectContactAction}>
         <div className={`ui tiny image ${styles.avatar}`}>
           <Icon
             name="user circle"
-            size={"big"}
-            color={"blue"}
-            className={"ui avatar"}
+            size="big"
+            color="blue"
+            className="ui avatar"
           />
         </div>
         <Item.Content>
-          <Item.Header className={``}>
-            {contact ? contact.displayName : ""}
+          <Item.Header className="">
+            {contact ? contact.displayName : ''}
           </Item.Header>
           <Item.Extra>
-            {contact ? formatUserOrganization(contact) : ""}
+            {contact ? formatUserOrganization(contact) : ''}
           </Item.Extra>
         </Item.Content>
       </Item>

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import ErrorMessage from "common/components/ErrorMessage/ErrorMessage";
 
 function mapStateToProps({ calls, auth }) {
@@ -18,4 +18,4 @@ export const ErrorMessageContainer = connect(
   null
 )(ErrorMessage);
 
-export default phoneService(ErrorMessageContainer);
+export default withPhoneService(ErrorMessageContainer);

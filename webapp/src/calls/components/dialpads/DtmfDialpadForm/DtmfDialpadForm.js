@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import { Grid, Form, Icon, Input } from "semantic-ui-react";
-import { DtmfDialpad } from "../DtmfDialpad/DtmfDialpad";
+import React, { Component } from 'react';
+import { Grid, Form, Icon, Input } from 'semantic-ui-react';
 import { logMessage } from "common/utils/logs";
 import PropTypes from "prop-types";
-import { phoneService } from "calls/providers/PhoneProvider/PhoneProvider";
+import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import { DtmfDialpad } from "../DtmfDialpad/DtmfDialpad";
 
 function DtmfDialpadField(props) {
   return (
     <Form>
       <Form.Field width={16}>
         <Input
-          className={"DialpadInput"}
+          className="DialpadInput"
           value={props.value}
-          placeholder={"Input a dtmf command..."}
+          placeholder="Input a dtmf command..."
           onChange={props.onChange}
-          icon={<Icon name="text telephone" inverted color={"blue"} circular />}
+          icon={<Icon name="text telephone" inverted color="blue" circular />}
         />
       </Form.Field>
     </Form>
@@ -32,23 +32,23 @@ export class DtmfDialpadForm extends Component {
   };
 
   state = {
-    dialpadValue: ""
+    dialpadValue: ''
   };
 
   handleChange = (e, { value }) => this.setState({ dialpadValue: value });
 
   handleDialPadButtonClick = value => {
-    let currentValue = this.state.dialpadValue;
-    logMessage("handleDialPadButtonClick: ", value);
+    const currentValue = this.state.dialpadValue;
+    logMessage('handleDialPadButtonClick: ', value);
     this.setState({ dialpadValue: currentValue + value });
   };
 
   sendDtmf = () => {
     const { phoneService } = this.props;
     const { dialpadValue } = this.state;
-    logMessage("Sending DTMF");
+    logMessage('Sending DTMF');
     phoneService.sendDtmfCommand(dialpadValue);
-    this.setState({ dialpadValue: "" });
+    this.setState({ dialpadValue: '' });
   };
 
   render() {
@@ -75,7 +75,7 @@ export class DtmfDialpadForm extends Component {
   }
 }
 
-export default phoneService(DtmfDialpadForm);
+export default withPhoneService(DtmfDialpadForm);
 //
 // DtmfDialpadForm.propTypes = {
 //   value: PropTypes.any,

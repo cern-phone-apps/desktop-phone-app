@@ -1,13 +1,13 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import CallForwardingBanner from "./CallForwardingBanner";
-import { openSettingsModal } from "settings/actions/modal";
-import { bindActionCreators } from "redux";
-import { getCallForwardingStatus } from "settings/actions/call_forwarding";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { openSettingsModal } from 'settings/actions/modal';
+import { bindActionCreators } from 'redux';
+import { callForwardingActionFactory } from 'dial-core';
+import CallForwardingBanner from './CallForwardingBanner';
 
-function mapStateToProps({ settings }) {
+function mapStateToProps({ callForwarding }) {
   return {
-    status: settings.callForwarding.status
+    status: callForwarding.status
   };
 }
 
@@ -15,7 +15,9 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       openSettingsModal,
-      getCallForwardingStatus
+      getCallForwardingStatus: callForwardingActionFactory(
+        process.env.REACT_APP_API_ENDPOINT
+      ).getCallForwardingStatus
     },
     dispatch
   );

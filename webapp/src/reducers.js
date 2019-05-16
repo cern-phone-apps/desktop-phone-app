@@ -1,9 +1,8 @@
 import { routerReducer } from 'react-router-redux/reducer';
 import { combineReducers } from 'redux';
 
-import { authReducer, meReducer } from 'dial-core';
+import { authReducer, meReducer, callsReducer, callForwardingReducer } from 'dial-core';
 
-import callsReducer from 'calls/reducers/index';
 import settings from 'settings/reducers/index';
 import common from './common/reducers/index';
 
@@ -15,6 +14,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   user: meReducer,
   common,
+  callForwarding: callForwardingReducer,
   settings,
   calls: callsReducer,
   router: routerReducer

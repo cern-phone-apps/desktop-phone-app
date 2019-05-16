@@ -1,9 +1,9 @@
-import * as contactsActions from "calls/actions/contacts";
+import * as contactsActions from '../../actions/contacts';
 
 const INITIAL_STATE = {
   adding: false,
   added: false,
-  errors: undefined,
+  errors: undefined
 };
 
 const contactsReducer = (state = INITIAL_STATE, action) => {

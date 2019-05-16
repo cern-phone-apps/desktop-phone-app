@@ -1,7 +1,5 @@
-import { logMessage } from "common/utils/logs";
-
-export const TOGGLE_DIALPAD = "@@dialpad/TOGGLE";
-export const DIALPAD_NUMBER_UPDATED = "@@dialpad/DIALPAD_NUMBER_UPDATED";
+export const TOGGLE_DIALPAD = '@@dialpad/TOGGLE';
+export const DIALPAD_NUMBER_UPDATED = '@@dialpad/DIALPAD_NUMBER_UPDATED';
 
 /**
  * Action that is triggered when the Keypad changes to visible to hidden or vice versa
@@ -17,7 +15,6 @@ export function toggleDialpad(newStatus) {
 }
 
 export function updateDialpadValue(newValue) {
-  logMessage(`updateDialpadValue: ${newValue}`);
   return {
     newValue,
     type: DIALPAD_NUMBER_UPDATED

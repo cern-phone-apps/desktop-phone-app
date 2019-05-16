@@ -1,4 +1,4 @@
-import * as contactsActions from "calls/actions/contacts";
+import * as contactsActions from '../../actions/contacts';
 
 const INITIAL_STATE = {
   selectedContact: undefined,
@@ -10,15 +10,15 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
     case contactsActions.SELECT_CONTACT:
       return {
         ...state,
-          selectedContact: action.contact,
-          modalOpen: true
+        selectedContact: action.contact,
+        modalOpen: true
       };
 
     case contactsActions.UNSELECT_CONTACT:
       return {
         ...state,
-          selectedContact: undefined,
-          modalOpen: false
+        selectedContact: undefined,
+        modalOpen: false
       };
     default:
       return state;

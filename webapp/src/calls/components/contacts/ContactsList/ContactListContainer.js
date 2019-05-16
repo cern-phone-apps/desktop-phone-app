@@ -1,8 +1,7 @@
-import { connect } from "react-redux";
-import ContactList from "./ContactList";
-import { bindActionCreators } from "redux";
-import { getUserContacts } from "calls/actions/contacts";
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { contactsActionFactory } from 'dial-core';
+import ContactList from './ContactList';
 
 function mapStateToProps({ calls }) {
   return {
@@ -11,12 +10,16 @@ function mapStateToProps({ calls }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    getUserContacts,
-  }, dispatch);
+  return bindActionCreators(
+    {
+      getUserContacts: contactsActionFactory(process.env.REACT_APP_API_ENDPOINT)
+        .getUserContacts
+    },
+    dispatch
+  );
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ContactList);
+  mapStateToProps,
+  mapDispatchToProps
+)(ContactList);
