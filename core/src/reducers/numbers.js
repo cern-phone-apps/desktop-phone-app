@@ -78,14 +78,14 @@ export default (state = initialState, action) => {
         error: undefined
       };
     case numbersActions.NUMBERS_SUCCESS:
-      if (action.payload.result.error) {
+      if (action.payload.error) {
         return handleNumbersFailure(state, action);
       }
 
       return {
         ...state,
         fetching: false,
-        numbers: action.payload.result,
+        numbers: action.payload,
         error: undefined
       };
     case numbersActions.NUMBERS_FAILURE:
