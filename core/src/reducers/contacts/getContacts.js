@@ -19,7 +19,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         fetching: false,
-        contacts: action.payload.result,
+        contacts: action.payload,
         errors: undefined
       };
 
