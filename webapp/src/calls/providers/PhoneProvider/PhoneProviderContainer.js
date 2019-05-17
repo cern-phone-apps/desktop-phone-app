@@ -6,13 +6,10 @@ import { callActions, connectionActions, recentActions } from 'dial-core';
 
 import { info, success, warning } from 'common/actions/notifications';
 import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider';
-import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
-
+import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 
 export function mapStateToProps({ calls, auth }) {
   return {
-    recipient: calls.call ? calls.call.recipient : undefined,
-    onCall: calls.call ? calls.call.onCall : false,
     token: auth.token,
     doNotDisturb: calls.status.doNotDisturb,
     call: calls.call

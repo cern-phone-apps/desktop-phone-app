@@ -1,4 +1,4 @@
-import React, { Children, Component } from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import {
   errorMessage,
@@ -8,41 +8,63 @@ import {
   toneInMessage,
   toneOutMessage
 } from 'common/utils/logs';
+
+const ringToneId = 'ringTone';
+const ringBackToneId = 'ringbackTone';
+const callInputId = 'callsAudioInput';
+
 /**
  * Interfaces between Telephony API and UI
  */
-export default class PhoneProvider extends Component {
+export default class PhoneProvider extends React.Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     // Calls attrs
-    onCall: PropTypes.bool.isRequired,
-    recipient: PropTypes.object,
     token: PropTypes.string,
     doNotDisturb: PropTypes.bool.isRequired,
+    call: PropTypes.shape({
+      recipient: PropTypes.shape({}),
+      caller: PropTypes.shape({}),
+      startTime: PropTypes.number,
+      onCall: PropTypes.bool
+    }),
     // Calls funcs
-    requestRegistration: PropTypes.func,
-    setConnectionFailure: PropTypes.func,
-    setRegistrationSuccess: PropTypes.func,
-    requestDisconnection: PropTypes.func,
-    setMakeCallRequest: PropTypes.func,
-    rejectOutgoingCall: PropTypes.func,
-    setIsCalling: PropTypes.func,
-    setIsReceivingCall: PropTypes.func,
-    setCallFailed: PropTypes.func,
+    requestRegistration: PropTypes.func.isRequired,
+    setRegistrationSuccess: PropTypes.func.isRequired,
+    requestDisconnection: PropTypes.func.isRequired,
+    setMakeCallRequest: PropTypes.func.isRequired,
+    setIsCalling: PropTypes.func.isRequired,
+    setIsReceivingCall: PropTypes.func.isRequired,
+    setCallFailed: PropTypes.func.isRequired,
     addRecentCall: PropTypes.func.isRequired,
-    acceptOutgoingCall: PropTypes.func.isRequired,
     setCallFinished: PropTypes.func.isRequired,
-    rejectIncomingCall: PropTypes.func.isRequired,
+    setCallMissed: PropTypes.func.isRequired,
+    setCallAccepted: PropTypes.func.isRequired,
+    setDisconnectionSuccess: PropTypes.func.isRequired,
+    setConnectionFailure: PropTypes.func.isRequired,
     // Notifications
-    success: PropTypes.func,
+    success: PropTypes.func.isRequired,
     info: PropTypes.func,
     warning: PropTypes.func
   };
 
-  static childContextTypes = {
-    phoneService: PropTypes.object.isRequired
+  static defaultProps = {
+    call: {},
+    token: ''
   };
 
+  static childContextTypes = {
+    phoneService: PropTypes.shape({
+      authenticateUser: PropTypes.func.isRequired,
+      makeCall: PropTypes.func.isRequired
+    }).isRequired
+  };
+
+  /**
+   * This method exsists in order to have a dynamic import of the Dial API.
+   * We can set a different path when we build the application in order to either use
+   * the DummyAPI or the production one
+   */
   static async loadDialApi() {
     logMessage(process.env.REACT_APP_TONE_API_PATH);
     const { Dial } = await import(process.env.REACT_APP_TONE_API_PATH);
@@ -50,16 +72,8 @@ export default class PhoneProvider extends Component {
   }
 
   state = {
-    phoneService: this,
-    phoneNumber: '',
-    startTime: ''
+    phoneService: this
   };
-
-  ringToneId = 'ringTone';
-
-  ringBackToneId = 'ringbackTone';
-
-  callInputId = 'callsAudioInput';
 
   registeredNotificationOpts = {
     // uid: 'once-please', // you can specify your own uid if required
@@ -84,17 +98,18 @@ export default class PhoneProvider extends Component {
   };
 
   getChildContext() {
-    return { phoneService: this.state.phoneService };
+    const { phoneService } = this.state;
+    return { phoneService };
   }
 
   componentDidMount() {
-    let dial = null;
+    let dialAPI = null;
     PhoneProvider.loadDialApi().then(Dial => {
-      this.audioElement = document.getElementById(this.callInputId);
-      dial = new Dial(this.audioElement);
+      this.audioElement = document.getElementById(callInputId);
+      dialAPI = new Dial(this.audioElement);
       this.setState(
         {
-          dial
+          dialAPI
         },
         () => {
           this.addListeners();
@@ -111,19 +126,15 @@ export default class PhoneProvider extends Component {
   };
 
   acceptIncomingCall = () => {
-    const { dial } = this.state;
+    const { dialAPI } = this.state;
     toneOutMessage(`Accepting incoming call`);
-    dial.answer();
-  };
-
-  acceptOutgoingCall = () => {
-    logMessage('Accepting call');
-    this.props.acceptOutgoingCall();
-    // TODO We need to stablish a connection between the clients
+    dialAPI.answer();
   };
 
   addListeners = () => {
-    this.notifier = this.state.dial.getNotifier();
+    const { dialAPI } = this.state;
+
+    this.notifier = dialAPI.getNotifier();
     if (this.notifier) {
       this.notifier.on('ToneEvent', event => {
         this.eventHandler(event);
@@ -138,12 +149,12 @@ export default class PhoneProvider extends Component {
    */
   authenticateUser = username => {
     const { token, requestRegistration } = this.props;
+    const { dialAPI } = this.state;
 
     logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
-    this.setState({ username });
     requestRegistration();
-    this.state.dial.authenticate(username, token);
+    dialAPI.authenticate(username, token);
     // const eToken = this.state.dial.authenticate(username, token);
     // encryptToken(eToken);
 
@@ -151,9 +162,9 @@ export default class PhoneProvider extends Component {
   };
 
   hangUpCurrentCallAction = () => {
-    const { dial } = this.state;
+    const { dialAPI } = this.state;
     toneOutMessage(`Hang up current call`);
-    return dial.hangUp();
+    return dialAPI.hangUp();
   };
 
   hangUpCallEvent = () => {
@@ -171,26 +182,26 @@ export default class PhoneProvider extends Component {
    */
   makeCall = ({ name, phoneNumber }) => {
     const { setMakeCallRequest, setIsCalling } = this.props;
-    const { dial, username } = this.state;
+    const { dialAPI } = this.state;
 
     // toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
-    logEvent(
-      'calls',
-      `make`,
-      `caller: ${username}. callee: ${name}. number: ${phoneNumber}`
-    );
+    // logEvent(
+    //   'calls',
+    //   `make`,
+    //   `caller: ${username}. callee: ${name}. number: ${phoneNumber}`
+    // );
     setMakeCallRequest({
       name,
       phoneNumber
     });
     this.playRingbacktone();
     setIsCalling();
-    return dial.call(phoneNumber);
+    return dialAPI.call(phoneNumber);
   };
 
   playRingbacktone = () => {
     document
-      .getElementById(this.ringBackToneId)
+      .getElementById(ringBackToneId)
       .play()
       .catch(() => {
         errorMessage('RingbackTone play() raised an error.');
@@ -201,7 +212,7 @@ export default class PhoneProvider extends Component {
     const { doNotDisturb } = this.props;
     if (!doNotDisturb) {
       document
-        .getElementById(this.ringToneId)
+        .getElementById(ringToneId)
         .play()
         .catch(() => {
           errorMessage('RingTone play() raised an error.');
@@ -210,17 +221,18 @@ export default class PhoneProvider extends Component {
   };
 
   sendDtmfCommand = tone => {
-    this.state.dial.sendDTMF(tone);
+    const { dialAPI } = this.state;
+    dialAPI.sendDTMF(tone);
   };
 
   stopRingbacktone = () => {
-    document.getElementById(this.ringBackToneId).pause();
+    document.getElementById(ringBackToneId).pause();
   };
 
   stopRingTone = () => {
     const { doNotDisturb } = this.props;
     if (!doNotDisturb) {
-      document.getElementById(this.ringToneId).pause();
+      document.getElementById(ringToneId).pause();
     }
   };
 
@@ -236,46 +248,24 @@ export default class PhoneProvider extends Component {
    * It performs all the actions needed by this action.
    */
   rejectIncomingCall = () => {
-    const { dial } = this.state;
-    dial.hangUp();
-  };
-
-  // rejectIncomingCall = () => {
-  //   const { rejectIncomingCall } = this.props;
-  //   const { dial } = this.state;
-
-  //   logMessage('Rejecting incoming call');
-
-  //   this.stopRingTone();
-  //   rejectIncomingCall();
-  //   return dial.hangUp();
-  // };
-
-  rejectOutgoingCall = () => {
-    const { rejectOutgoingCall } = this.props;
-
-    logMessage('Rejecting call');
-
-    this.stopRingTone();
-    rejectOutgoingCall();
+    const { dialAPI } = this.state;
+    dialAPI.hangUp();
   };
 
   /**
    * Logs the user out of TONE
    */
   unAuthenticateUser = () => {
-    const { setCallFinished } = this.props;
-    // logEvent("calls", `hangUp`, `caller: ${username}.`);
-    logEvent('calls', `unAuthenticate`, `user: ${this.state.username}.`);
+    const { setCallFinished, requestDisconnection, call: onCall } = this.props;
+    const { dialAPI, username } = this;
+    logEvent('calls', `unAuthenticate`, `user: ${username}.`);
     toneOutMessage(`UnAuthenticating user`);
 
-    this.setState({ username: undefined });
-
-    if (this.props.onCall) {
+    if (onCall) {
       setCallFinished();
     }
-    this.props.requestDisconnection(true);
-    return this.state.dial.stopAgent();
+    requestDisconnection(true);
+    return dialAPI.stopAgent();
   };
 
   addCallToRecentCalls = () => {
@@ -284,8 +274,6 @@ export default class PhoneProvider extends Component {
       addRecentCall,
       call: { recipient, caller, receivingCall, startTime, onCall }
     } = this.props;
-    logMessage(caller);
-    logMessage(receivingCall);
     addRecentCall(
       receivingCall ? caller : recipient,
       receivingCall,
@@ -296,8 +284,6 @@ export default class PhoneProvider extends Component {
 
   handleProgressEvent = () => {
     const { setIsCalling } = this.props;
-
-    console.log('Call in progress...');
     this.playRingbacktone();
     setIsCalling(true);
   };
@@ -365,11 +351,6 @@ export default class PhoneProvider extends Component {
   }
 
   handleInviteReceivedEvent(event) {
-    // const caller = event.data.session.remoteIdentity.uri.user;
-    // logMessage(caller);
-    // this.receiveCall(event.data);
-    // this.props.setRecipentPhoneNumber(caller);
-
     const { setIsReceivingCall } = this.props;
     this.playRingTone();
     // Retrieve the remote user information from the event data
@@ -388,9 +369,6 @@ export default class PhoneProvider extends Component {
     const { setCallAccepted } = this.props;
     this.stopRingbacktone();
     this.stopRingTone();
-    // this.setState({
-    //   startTime: Date.now()
-    // });
     setCallAccepted();
   }
 
@@ -431,16 +409,10 @@ export default class PhoneProvider extends Component {
       playPromise
         .then(() => {
           infoMessage('On a call. Audio track playing');
-          // this.setState({
-          //   trackAdded: true
-          // });
         })
         .catch(error => {
           errorMessage('Unable to play the audio track.');
-          // this.setState({
-          //   trackAdded: false,
-          //   error
-          // });
+          errorMessage(error);
         });
     }
   }
