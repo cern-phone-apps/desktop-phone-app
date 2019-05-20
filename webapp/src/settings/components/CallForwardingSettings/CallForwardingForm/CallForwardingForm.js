@@ -50,12 +50,12 @@ export class CallForwardingForm extends React.Component {
 
   fetchData = async () => {
     const forwardingData = await this.props.getCallForwardingStatus();
-    if (forwardingData && forwardingData.payload.result.success) {
+    if (forwardingData && forwardingData.payload) {
       // Obtain values from the payload
       const { payload } = forwardingData;
-      const destinationList = payload.result['destination-list'];
-      const callForwardingStatus = payload.result['call-forwarding'];
-      const simultaneousRingingStatus = payload.result['simultaneous-ring'];
+      const destinationList = payload['destination-list'];
+      const callForwardingStatus = payload['call-forwarding'];
+      const simultaneousRingingStatus = payload['simultaneous-ring'];
       // Build dropdown options
       const remoteList = this.buildDropdownOptionsArray(destinationList);
       // Get radio button value

@@ -18,7 +18,7 @@ export default function(apiEndpoint, type = 'web') {
   return {
     getMe: () => ({
       [RSAA]: {
-        endpoint: buildApiURL('/users/me/'),
+        endpoint: buildApiURL('/me/'),
         method: 'GET',
         credentials: 'include',
         headers: authHandlerClass.withAuth({
