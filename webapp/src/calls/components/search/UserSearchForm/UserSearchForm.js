@@ -19,6 +19,11 @@ export class UserSearchForm extends Component {
     isLoading: false
   };
 
+  constructor(props) {
+    super(props);
+    this.searchUsersDebounced = _.debounce(this.searchUsersDebounced, 500);
+  }
+
   handleResultSelect = (e, { result }) => {
     const { selectUser } = this.props;
     const { searchResults } = this.state;
@@ -29,25 +34,26 @@ export class UserSearchForm extends Component {
     selectUser(searchResults[result.id]);
   };
 
-  handleSearchChange = (e, { value }) => {
+  searchUsersDebounced = async value => {
     const { searchUsers } = this.props;
+
+    const result = await UserSearchUtils.searchUsersAndFormatResults(
+      value,
+      searchUsers,
+      UserSearchResultsFormatter.formatResults
+    );
+    this.setState(result);
+    return result;
+  };
+
+  handleSearchChange = async (e, { value }) => {
     this.setState({ isLoading: true, value });
-
-    setTimeout(async () => {
-      // If there is no input value, the component must be cleared
-      if (value.length < 1) {
-        return this.resetComponent();
-      }
-
-      if (value.length > 3) {
-        const result = await UserSearchUtils.searchUsersAndFormatResults(
-          value,
-          searchUsers,
-          UserSearchResultsFormatter.formatResults
-        );
-        this.setState(result);
-      }
-    }, 300);
+    if (value.length < 1) {
+      return this.resetComponent();
+    }
+    if (value.length > 3) {
+      this.searchUsersDebounced(value);
+    }
   };
 
   resetComponent = () =>
@@ -63,9 +69,7 @@ export class UserSearchForm extends Component {
             input={{ fluid: true }}
             loading={isLoading}
             onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-              leading: true
-            })}
+            onSearchChange={this.handleSearchChange}
             results={results}
             value={value}
           />
