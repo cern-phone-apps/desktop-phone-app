@@ -22,7 +22,7 @@ describe("connection actions", () => {
       errors,
       type: actions.CONNECT_FAILURE
     };
-    expect(actions.setConnectionFailure(errors)).toEqual(expectedAction);
+    expect(actions.setRegistrationFailure(errors)).toEqual(expectedAction);
   });
 
   it("should create an action to request disconnection to sip", () => {

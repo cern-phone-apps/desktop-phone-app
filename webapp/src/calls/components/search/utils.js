@@ -1,5 +1,5 @@
-import { formatUserOrganization } from "calls/utils/formatters";
-import { logMessage } from "common/utils/logs";
+import { formatUserOrganization } from 'calls/utils/formatters';
+import { logMessage } from 'common/utils/logs';
 
 export class UserSearchUtils {
   /**
@@ -17,8 +17,8 @@ export class UserSearchUtils {
     const result = await searchUsersPromise(value);
     if (result && !result.error) {
       return {
-        results: formatSearchResults(result.payload.result),
-        searchResults: result.payload.result,
+        results: formatSearchResults(result.payload),
+        searchResults: result.payload,
         isLoading: false
       };
     }
@@ -35,19 +35,17 @@ export class UserSearchResultsFormatter {
    * @returns {*}
    */
   static formatResults = results => {
-    const formattedResults = results.map((result, index) => {
-      return {
-        id: index,
-        title: result.displayName,
-        description: `${formatUserOrganization(result)} - ${result.username}`
-      };
-    });
+    const formattedResults = results.map((result, index) => ({
+      id: index,
+      title: result.displayName,
+      description: `${formatUserOrganization(result)} - ${result.username}`
+    }));
     logMessage(formattedResults);
     return formattedResults;
   };
 
   static formatResultsOneLinePerPhone = results => {
-    let searchResults = [];
+    const searchResults = [];
     let index = 1;
     results.map(user => {
       // logMessage(user);
@@ -64,7 +62,7 @@ export class UserSearchResultsFormatter {
               user
             )})`,
             title: phone.number,
-            icon: phone.phoneType === "mobile" ? "mobile" : "phone"
+            icon: phone.phoneType === 'mobile' ? 'mobile' : 'phone'
           };
         });
         return [...searchResults, ...formattedPhones];

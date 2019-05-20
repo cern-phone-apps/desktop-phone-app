@@ -41,7 +41,7 @@ export default class PhoneProvider extends React.Component {
     setCallMissed: PropTypes.func.isRequired,
     setCallAccepted: PropTypes.func.isRequired,
     setDisconnectionSuccess: PropTypes.func.isRequired,
-    setConnectionFailure: PropTypes.func.isRequired,
+    setRegistrationFailure: PropTypes.func.isRequired,
     // Notifications
     success: PropTypes.func.isRequired,
     info: PropTypes.func,
@@ -257,8 +257,7 @@ export default class PhoneProvider extends React.Component {
    */
   unAuthenticateUser = () => {
     const { setCallFinished, requestDisconnection, call: onCall } = this.props;
-    const { dialAPI, username } = this;
-    logEvent('calls', `unAuthenticate`, `user: ${username}.`);
+    const { dialAPI } = this.state;
     toneOutMessage(`UnAuthenticating user`);
 
     if (onCall) {
@@ -384,9 +383,9 @@ export default class PhoneProvider extends React.Component {
   }
 
   handleRegistationFailedEvent(event) {
-    const { setConnectionFailure } = this.props;
+    const { setRegistrationFailure } = this.props;
     if (event.error !== undefined) {
-      setConnectionFailure(event.error);
+      setRegistrationFailure(event.error);
     }
   }
 
