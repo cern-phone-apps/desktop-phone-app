@@ -26,7 +26,8 @@ jobs:
     - stage: unit_test
       name: "Unit Tests"
       script:
-        - npm test -- --coverage
+        - npm --version
+        # - npm test -- --coverage
       after_script:
         #
         # Code climate configuration
