@@ -8,13 +8,16 @@ import styles from './Contact.module.css';
 
 class Contact extends Component {
   static propTypes = {
-    contact: PropTypes.object.isRequired,
+    contact: PropTypes.shape({
+      displayName: PropTypes.string.isRequired
+    }).isRequired,
     selectContact: PropTypes.func.isRequired
   };
 
   selectContactAction = () => {
-    const { contact, selectContact } = this.props;
+    const { contact, selectContact, findUserById } = this.props;
     selectContact(contact);
+    findUserById(contact.personId);
   };
 
   render() {

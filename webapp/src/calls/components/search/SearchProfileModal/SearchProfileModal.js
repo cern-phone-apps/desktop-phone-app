@@ -1,55 +1,55 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
- // Button,
+  // Button,
   Dimmer,
   Header,
   Icon,
   Loader,
   Modal,
   Segment
-} from "semantic-ui-react";
-import { formatUserOrganization } from "calls/utils/formatters";
-import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
-import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
-import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
+} from 'semantic-ui-react';
+import { formatUserOrganization } from 'calls/utils/formatters';
+import UserPhoneNumberButtonContainer from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer';
+import ContactAddButtonContainer from 'calls/components/contacts/ContactAddButton/ContactAddButtonContainer';
+import UserProfileExtraInfo from 'calls/components/UserProfileExtraInfo/UserProfileExtraInfo';
 
-
-function SearchProfileModalHeader (props) {
-  return <Header>
-    <Icon name="user" color={"blue"}/>
-    <Header.Content>
-      <Header as="h5" floated={"right"}>
-        <ContactAddButtonContainer contact={props.contact}/>
-      </Header>
-      {props.contact ? props.contact.displayName : ""}
-      <Header.Subheader>
-        {props.contact ? formatUserOrganization(props.contact) : ""}
-      </Header.Subheader>
-    </Header.Content>
-  </Header>;
+function SearchProfileModalHeader(props) {
+  return (
+    <Header>
+      <Icon name="user" color={'blue'} />
+      <Header.Content>
+        <Header as="h5" floated={'right'}>
+          <ContactAddButtonContainer contact={props.contact} />
+        </Header>
+        {props.contact ? props.contact.displayName : ''}
+        <Header.Subheader>
+          {props.contact ? formatUserOrganization(props.contact) : ''}
+        </Header.Subheader>
+      </Header.Content>
+    </Header>
+  );
 }
 
 SearchProfileModalHeader.propTypes = { contact: PropTypes.any };
 
-function SearchProfileModalContent (props) {
-  return <Modal.Content>
-    {props.user && (
-      <UserProfileExtraInfo
-        mail={props.user.mail}
-        physicalDeliveryOfficeName={
-          props.user.physicalDeliveryOfficeName
-        }
-      />
-    )}
-    {!props.user ? (
-      <Segment basic>
-        <Dimmer active inverted>
-          <Loader inverted size={"large"}/>
-        </Dimmer>
-      </Segment>
-    ) : (
-      props.user.phones.map((phone, index) => {
+function SearchProfileModalContent(props) {
+  return (
+    <Modal.Content>
+      {props.user && (
+        <UserProfileExtraInfo
+          mail={props.user.mail}
+          physicalDeliveryOfficeName={props.user.physicalDeliveryOfficeName}
+        />
+      )}
+      {!props.user ? (
+        <Segment basic>
+          <Dimmer active inverted>
+            <Loader inverted size={'large'} />
+          </Dimmer>
+        </Segment>
+      ) : (
+        props.user.phones.map((phone, index) => {
         if (phone.number !== null) {
           return (
             <UserPhoneNumberButtonContainer
@@ -59,10 +59,11 @@ function SearchProfileModalContent (props) {
               recipientName={props.user.displayName}
             />
           );
-        } else return null;
+        } return null;
       })
-    )}
-  </Modal.Content>;
+      )}
+    </Modal.Content>
+  );
 }
 
 SearchProfileModalContent.propTypes = {
@@ -74,7 +75,7 @@ export class SearchProfileModal extends Component {
   static propTypes = {
     user: PropTypes.object,
     userSelected: PropTypes.bool.isRequired,
-    unSelectUser: PropTypes.func.isRequired,
+    unSelectUser: PropTypes.func.isRequired
   };
 
   handleClose = () => {
@@ -86,14 +87,14 @@ export class SearchProfileModal extends Component {
     const { userSelected, user } = this.props;
     return (
       <Modal
-        dimmer={`blurring`}
+        dimmer="blurring"
         size="tiny"
         open={userSelected}
         onClose={this.handleClose}
         closeIcon
       >
-        <SearchProfileModalHeader contact={user}/>
-        <SearchProfileModalContent user={user}/>
+        <SearchProfileModalHeader contact={user} />
+        <SearchProfileModalContent user={user} />
       </Modal>
     );
   }

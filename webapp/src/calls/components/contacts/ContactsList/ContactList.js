@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Item } from "semantic-ui-react";
-import ScrollableContent from "common/components/ScrollableContent/ScrollableContent";
-import ContactContainer from "calls/components/contacts/Contact/ContactContainer";
-import ContactProfileModalContainer from "calls/components/contacts/ContactProfileModal/ContactProfileModalContainer";
-import ContactEmergencyItemContainer from "calls/components/contacts/ContactEmergencyItem/ContactEmergencyItemContainer";
-import ContactEmergencyModalContainer from "calls/components/contacts/ContactEmergencyModal/ContactEmergencyModalContainer";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Item } from 'semantic-ui-react';
+import ScrollableContent from 'common/components/ScrollableContent/ScrollableContent';
+import ContactContainer from 'calls/components/contacts/Contact/ContactContainer';
+import ContactProfileModalContainer from 'calls/components/contacts/ContactProfileModal/ContactProfileModalContainer';
+import ContactEmergencyItemContainer from 'calls/components/contacts/ContactEmergencyItem/ContactEmergencyItemContainer';
+import ContactEmergencyModalContainer from 'calls/components/contacts/ContactEmergencyModal/ContactEmergencyModalContainer';
 
 class ContactList extends Component {
   static propTypes = {
@@ -29,9 +29,9 @@ class ContactList extends Component {
       <ScrollableContent>
         <Item.Group link>
           <ContactEmergencyItemContainer />
-          {contacts.map((item, index) => {
-            return <ContactContainer key={`recent-${index}`} contact={item} />;
-          })}
+          {contacts.map((item, index) => (
+            <ContactContainer key={`recent-${index}`} contact={item} />
+          ))}
         </Item.Group>
         <ContactProfileModalContainer />
         <ContactEmergencyModalContainer />

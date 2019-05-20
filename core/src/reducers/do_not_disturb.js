@@ -1,4 +1,4 @@
-import * as statusActions from '../actions/status';
+import * as meActions from '../actions/me';
 
 const INITIAL_STATE = {
   doNotDisturb: false,
@@ -14,18 +14,18 @@ const INITIAL_STATE = {
  */
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case statusActions.SET_DO_NOT_DISTURB_REQUEST:
+    case meActions.SET_DO_NOT_DISTURB_REQUEST:
       return {
         ...state,
         fetching: true
       };
-    case statusActions.SET_DO_NOT_DISTURB_SUCCESS:
+    case meActions.SET_DO_NOT_DISTURB_SUCCESS:
       return {
         ...state,
         fetching: false,
-        doNotDisturb: action.payload.result.doNotDisturb
+        doNotDisturb: action.payload.doNotDisturb
       };
-    case statusActions.SET_DO_NOT_DISTURB_FAILURE:
+    case meActions.SET_DO_NOT_DISTURB_FAILURE:
       return {
         ...state,
         fetching: false,

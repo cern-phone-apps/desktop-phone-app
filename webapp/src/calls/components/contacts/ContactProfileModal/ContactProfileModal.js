@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Dimmer,
   Header,
@@ -7,98 +7,83 @@ import {
   Loader,
   Modal,
   Segment
-} from "semantic-ui-react";
-import { formatUserOrganization } from "calls/utils/formatters";
-import UserPhoneNumberButtonContainer from "calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer";
-import ContactAddButtonContainer from "calls/components/contacts/ContactAddButton/ContactAddButtonContainer";
-import { UserProfileExtraInfo } from "calls/components/UserProfileExtraInfo/UserProfileExtraInfo";
+} from 'semantic-ui-react';
+import { formatUserOrganization } from 'calls/utils/formatters';
+import UserPhoneNumberButtonContainer from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer';
+import ContactAddButtonContainer from 'calls/components/contacts/ContactAddButton/ContactAddButtonContainer';
+import UserProfileExtraInfo from 'calls/components/UserProfileExtraInfo/UserProfileExtraInfo';
 
-function ContactProfileModalContent (props) {
-  return <Modal.Content>
-    {props.profile && (
+function ContactProfileModalContent({ profile }) {
+  return (
+    <Modal.Content>
       <UserProfileExtraInfo
-        mail={props.profile.mail}
-        physicalDeliveryOfficeName={
-          props.profile.physicalDeliveryOfficeName
-        }
+        mail={profile.mail}
+        physicalDeliveryOfficeName={profile.physicalDeliveryOfficeName}
       />
-    )}
-    {!props.profile ? (
-      <Segment basic>
-        <Dimmer active inverted>
-          <Loader inverted size={"large"}/>
-        </Dimmer>
-      </Segment>
-    ) : (
-      props.profile.phones.map((phone, index) => {
-        if (phone.number !== null) {
-          return (
-            <UserPhoneNumberButtonContainer
-              key={`button-${index}`}
-              phoneNumber={phone.number}
-              icon={phone.phoneType}
-              recipientName={props.profile.displayName}
-            />
-          );
-        } else return null;
-      })
-    )}
-  </Modal.Content>;
+      {profile.phones &&
+        profile.phones.map((phone, index) => {
+          if (phone.number !== null) {
+            return (
+              <UserPhoneNumberButtonContainer
+                key={`button-${index}`}
+                phoneNumber={phone.number}
+                icon={phone.phoneType}
+                recipientName={profile.displayName}
+              />
+            );
+          }
+          return null;
+        })}
+    </Modal.Content>
+  );
 }
 
 ContactProfileModalContent.propTypes = {
-  profile: PropTypes.any,
-  f: PropTypes.func
+  profile: PropTypes.shape({
+    phones: PropTypes.arrayOf.isRequired
+  })
 };
 
-function ContactProfileModalHeader (props) {
-  return <Header>
-    <Icon name="user" color={"blue"}/>
-    <Header.Content>
-      <Header as="h5" floated={"right"}>
-        <ContactAddButtonContainer contact={props.contact}/>
-      </Header>
-      {props.contact ? props.contact.displayName : ""}
-      <Header.Subheader>
-        {props.contact ? formatUserOrganization(props.contact) : ""}
-      </Header.Subheader>
-    </Header.Content>
-  </Header>;
+ContactProfileModalContent.defaultProps = {
+  profile: null
+};
+
+function ContactProfileModalHeader({ profile }) {
+  return (
+    <Header>
+      <Icon name="user" color="blue" />
+      <Header.Content>
+        <Header as="h5" floated="right">
+          <ContactAddButtonContainer contact={profile} />
+        </Header>
+        {profile ? profile.displayName : ''}
+        <Header.Subheader>
+          {profile ? formatUserOrganization(profile) : ''}
+        </Header.Subheader>
+      </Header.Content>
+    </Header>
+  );
 }
 
-ContactProfileModalHeader.propTypes = { contact: PropTypes.any };
+ContactProfileModalHeader.propTypes = {
+  profile: PropTypes.shape({
+    displayName: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export class ContactProfileModal extends Component {
   static propTypes = {
-    selectedContact: PropTypes.object,
     modalOpen: PropTypes.bool.isRequired,
     unSelectContact: PropTypes.func.isRequired,
-    getUserProfileById: PropTypes.func.isRequired
+    profile: PropTypes.shape({
+      number: PropTypes.string
+    }),
+    fetching: PropTypes.bool.isRequired
   };
 
-  state = {
-    profile: undefined,
-    fetching: true
+  static defaultProps = {
+    profile: null
   };
-
-  async componentDidUpdate(prevProps, prevState, snapshot) {
-    const { getUserProfileById, selectedContact } = this.props;
-
-    if (this.props.modalOpen) {
-      if (!this.state.fetching) {
-        this.setState({ fetching: true });
-      }
-      const result = await getUserProfileById(selectedContact.personId);
-      if (result && result.payload && result.payload.result) {
-        if (
-          !this.state.profile ||
-          result.payload.result.personId !== this.state.profile.personId
-        ) {
-          this.setState({ profile: result.payload.result, fetching: false });
-        }
-      }
-    }
-  }
 
   handleClose = () => {
     const { unSelectContact } = this.props;
@@ -106,17 +91,29 @@ export class ContactProfileModal extends Component {
   };
 
   render() {
-    const { modalOpen, selectedContact } = this.props;
+    const { modalOpen, profile, fetching } = this.props;
     return (
       <Modal
-        dimmer={`blurring`}
+        dimmer="blurring"
         size="tiny"
         open={modalOpen}
         onClose={this.handleClose}
         closeIcon
       >
-        <ContactProfileModalHeader contact={selectedContact}/>
-        <ContactProfileModalContent profile={this.state.profile}/>
+        {fetching ? (
+          <Modal.Content>
+            <Segment basic>
+              <Dimmer active inverted>
+                <Loader inverted size="large" />
+              </Dimmer>
+            </Segment>
+          </Modal.Content>
+        ) : (
+          <React.Fragment>
+            <ContactProfileModalHeader profile={profile} />
+            <ContactProfileModalContent profile={profile} />
+          </React.Fragment>
+        )}
       </Modal>
     );
   }

@@ -1,4 +1,4 @@
-import * as profileActions from '../actions/profile';
+import * as usersActions from '../actions/users';
 
 const initialState = {
   profile: {},
@@ -15,21 +15,21 @@ const initialState = {
  */
 const search = (state = initialState, action) => {
   switch (action.type) {
-    case profileActions.PROFILE_REQUEST:
+    case usersActions.PROFILE_REQUEST:
       return {
         ...state,
         profile: {},
         fetching: true,
         error: undefined
       };
-    case profileActions.PROFILE_SUCCESS:
+    case usersActions.PROFILE_SUCCESS:
       return {
         ...state,
         fetching: false,
-        profile: action.payload.result,
+        profile: action.payload,
         error: undefined
       };
-    case profileActions.PROFILE_FAILURE:
+    case usersActions.PROFILE_FAILURE:
       return {
         ...state,
         fetching: false,

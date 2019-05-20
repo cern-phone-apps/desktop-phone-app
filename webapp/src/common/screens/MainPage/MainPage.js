@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { translate } from "react-i18next";
-import { NavLink, Redirect, Route } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Icon, Menu, Segment, Sidebar } from "semantic-ui-react";
+import React, { Component } from 'react';
+import { translate } from 'react-i18next';
+import { NavLink, Redirect, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 
-import "./MainPage.css";
-import * as routes from "routes";
-import * as loginRoutes from "auth/routes";
-import Notifications from "common/components/Notifications/Notifications";
-import ModalDebugContainer from "debug/components/ModalDebug/ModalDebugContainer";
-import SettingsModalContainer from "settings/components/SettingsModal/SettingsModalContainer";
-import { logMessage } from "common/utils/logs";
+import './MainPage.css';
+import * as routes from 'routes';
+import * as loginRoutes from 'auth/routes';
+import Notifications from 'common/components/Notifications/Notifications';
+import ModalDebugContainer from 'debug/components/ModalDebug/ModalDebugContainer';
+import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
+import { logMessage } from 'common/utils/logs';
 
 function MainSidebar(props) {
   return (
@@ -25,11 +25,11 @@ function MainSidebar(props) {
       {props.renderSidebarItems}
       <Menu.Item
         onClick={props.onClick}
-        name={"settings"}
-        className={"SidebarSettingsButton"}
+        name="settings"
+        className="SidebarSettingsButton"
       >
-        <Icon name={"settings"} />
-        {"Settings"}
+        <Icon name="settings" />
+        {'Settings'}
       </Menu.Item>
       <ModalDebugContainer hideSidebarIfVisible={props.hideSidebarIfVisible} />
     </Sidebar>
@@ -45,7 +45,7 @@ MainSidebar.propTypes = {
 
 function MainPusher(props) {
   return (
-    <Sidebar.Pusher dimmed={props.dimmed} className={"MainPusher"}>
+    <Sidebar.Pusher dimmed={props.dimmed} className="MainPusher">
       {props.renderMainRoutes}
       <Notifications notifications={props.notifications} />
       <SettingsModalContainer
@@ -74,7 +74,7 @@ export class MainPage extends Component {
   };
 
   hideSidebarIfVisible = () => {
-    logMessage("Hiding Sidebar");
+    logMessage('Hiding Sidebar');
     return this.props.hideSidebar();
   };
 
@@ -156,4 +156,4 @@ export class MainPage extends Component {
   }
 }
 
-export default translate("translations")(MainPage);
+export default translate('translations')(MainPage);

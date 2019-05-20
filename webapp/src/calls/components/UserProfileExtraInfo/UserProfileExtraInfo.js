@@ -1,21 +1,24 @@
-import React from "react";
-import { Icon } from "semantic-ui-react";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Icon } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-export function UserProfileExtraInfo(props) {
+export default function UserProfileExtraInfo({
+  mail,
+  physicalDeliveryOfficeName
+}) {
   return (
     <ul>
       <li>
-        <Icon name={"mail"} /> {props.mail}
+        <Icon name="mail" /> {mail}
       </li>
       <li>
-        <Icon name={"pin"} /> {props.physicalDeliveryOfficeName}
+        <Icon name="pin" /> {physicalDeliveryOfficeName}
       </li>
     </ul>
   );
 }
 
 UserProfileExtraInfo.propTypes = {
-  mail: PropTypes.any,
-  physicalDeliveryOfficeName: PropTypes.any
+  mail: PropTypes.string.isRequired,
+  physicalDeliveryOfficeName: PropTypes.string.isRequired
 };

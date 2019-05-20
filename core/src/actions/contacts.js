@@ -31,9 +31,6 @@ const API_PATH = '/api/v1';
 export default function(apiEndpoint, type = 'web') {
   const buildApiURL = path => `${apiEndpoint}${API_PATH}${path}`;
 
-  const buildApiURLWithId = (path, personId) =>
-    `${apiEndpoint}${API_PATH}${path}?personId=${personId}`;
-
   let authHandlerClass;
   if (type === 'web') {
     authHandlerClass = JwtTokenHandlerWeb;
@@ -86,21 +83,6 @@ export default function(apiEndpoint, type = 'web') {
           REMOVE_CONTACTS_REQUEST,
           REMOVE_CONTACTS_SUCCESS,
           REMOVE_CONTACTS_FAILURE
-        ]
-      }
-    }),
-    getUserProfileById: personId => ({
-      [RSAA]: {
-        endpoint: buildApiURLWithId('/users/', personId),
-        method: 'GET',
-        credentials: 'include',
-        headers: authHandlerClass.withAuth({
-          'Content-Type': 'application/json'
-        }),
-        types: [
-          GET_CONTACTS_PROFILE_REQUEST,
-          GET_CONTACTS_PROFILE_SUCCESS,
-          GET_CONTACTS_PROFILE_FAILURE
         ]
       }
     })

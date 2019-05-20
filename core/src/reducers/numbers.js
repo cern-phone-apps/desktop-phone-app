@@ -66,7 +66,6 @@ function handleServerError(state, action) {
  * @returns {{fetching, numbers, error}} The state with all the user's phone numbers
  */
 export default (state = initialState, action) => {
-  console.log('NUMBERS REDUCER');
   switch (action.type) {
     case numbersActions.NUMBERS_REQUEST:
       if (action.error) {

@@ -4,7 +4,7 @@ import connection from './connection';
 import call from './call';
 import recent from './recent';
 import numbers from './numbers';
-import status from './status';
+import status from './do_not_disturb';
 import dialpad from './dialpad';
 import search from './search';
 import profile from './profile';

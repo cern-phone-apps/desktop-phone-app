@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { meActionFactory, statusActionFactory } from 'dial-core';
+import { meActionFactory } from 'dial-core';
 
-import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 import { bindActionCreators } from 'redux';
 import ConnectionStatusModal from './ConnectionStatusModal';
 
@@ -16,9 +16,8 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setUserDoNotDisturb: statusActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).setUserDoNotDisturb,
+      setUserDoNotDisturb: meActionFactory(process.env.REACT_APP_API_ENDPOINT)
+        .setUserDoNotDisturb,
       getMe: meActionFactory(process.env.REACT_APP_API_ENDPOINT).getMe
     },
     dispatch

@@ -1,4 +1,4 @@
-import * as recentActions from '../actions/recent';
+import * as recentActions from '../actions/recent_calls';
 
 const initialState = {
   lastRecentId: 0,
