@@ -46,7 +46,7 @@ export default function(apiEndpoint, type = 'web') {
 
     login: (code, type = 'web') => ({
       [RSAA]: {
-        endpoint: buildAuthURL('/login/'),
+        endpoint: buildAuthURL('/token/login/'),
         method: 'POST',
         body: JSON.stringify({ code, type }),
         credentials: 'include',
@@ -64,7 +64,7 @@ export default function(apiEndpoint, type = 'web') {
      */
     logout: () => ({
       [RSAA]: {
-        endpoint: buildAuthURL('/logout/'),
+        endpoint: buildAuthURL('/token/logout/'),
         method: 'DELETE',
         credentials: 'include',
         headers: handlerClass.withAuth({
@@ -82,7 +82,7 @@ export default function(apiEndpoint, type = 'web') {
      */
     refreshAccessToken: () => ({
       [RSAA]: {
-        endpoint: buildAuthURL('/refresh/'),
+        endpoint: buildAuthURL('/token/refresh/'),
         method: 'POST',
         credentials: 'include',
         headers: handlerClass.withRefresh({

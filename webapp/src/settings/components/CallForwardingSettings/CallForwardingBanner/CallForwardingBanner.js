@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import styles from "./CallForwardingBanner.module.css";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { Icon } from "semantic-ui-react";
+import styles from "./CallForwardingBanner.module.css";
 
 export class CallForwardingBanner extends Component {
   static propTypes = {
@@ -23,24 +23,22 @@ export class CallForwardingBanner extends Component {
 
   async fetchCallForwardingStatus() {
     const forwardingData = await this.props.getCallForwardingStatus();
-    if (forwardingData && forwardingData.payload.result.success) {
+    if (forwardingData && forwardingData.payload.success) {
       // Obtain values from the payload
       const { payload } = forwardingData;
-      const callForwardingStatus = payload.result["call-forwarding"];
-      const simultaneousRingingStatus = payload.result["simultaneous-ring"];
+      const callForwardingStatus = payload['call-forwarding'];
+      const simultaneousRingingStatus = payload['simultaneous-ring'];
       // Build dropdown options
       // Get radio button value
-      let status = this.isCallForwardingEnabled(
+      const status = this.isCallForwardingEnabled(
         callForwardingStatus,
         simultaneousRingingStatus
       );
       this.setState({ callForwardingEnabled: status });
-    } else {
-      if (this.state.fetchTimes < 2) {
+    } else if (this.state.fetchTimes < 2) {
         this.setState({ fetchTimes: this.state.fetchTimes + 1 });
         this.fetchCallForwardingStatus();
       }
-    }
   }
 
   openSettingsModalAction = () => {
@@ -66,7 +64,7 @@ export class CallForwardingBanner extends Component {
           onClick={this.openSettingsModalAction}
           className={`padded-item ${styles.callForwardingMessage}`}
         >
-          <Icon name={"warning sign"} /> {"Call Forwarding is enabled"}
+          <Icon name="warning sign" /> {"Call Forwarding is enabled"}
         </div>
       );
     }
@@ -75,4 +73,4 @@ export class CallForwardingBanner extends Component {
   }
 }
 
-export default translate("settings")(CallForwardingBanner);
+export default translate('settings')(CallForwardingBanner);

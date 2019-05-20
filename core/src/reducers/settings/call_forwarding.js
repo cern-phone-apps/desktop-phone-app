@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetchingStatus: false,
-        status: action.payload.result
+        status: action.payload
       };
 
     case callForwardingActions.CALL_FORWARDING_FAILURE:

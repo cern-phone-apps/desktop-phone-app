@@ -27,7 +27,7 @@ const contactsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         fetching: false,
-        errors: "Error fetching the contacts"
+        errors: 'Error fetching the contacts'
       };
     default:
       return state;
