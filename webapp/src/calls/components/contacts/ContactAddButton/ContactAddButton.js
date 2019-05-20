@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Icon } from "semantic-ui-react";
-import { logMessage } from "common/utils/logs";
-import PropTypes from "prop-types";
-import styles from "./ContactAddButton.module.css";
+import React, { Component } from 'react';
+import { Icon } from 'semantic-ui-react';
+import { logMessage } from 'common/utils/logs';
+import PropTypes from 'prop-types';
+import styles from './ContactAddButton.module.css';
 
 class ContactAddButton extends Component {
   static propTypes = {
@@ -23,8 +23,8 @@ class ContactAddButton extends Component {
     const { getUserContacts, contact } = this.props;
     this.setState({ loading: true });
     const newContacts = await getUserContacts();
-    if (newContacts && newContacts.payload && newContacts.payload.result) {
-      let ids = newContacts.payload.result.map(a => a.personId.toString());
+    if (newContacts && newContacts.payload && newContacts.payload) {
+      const ids = newContacts.payload.map(a => a.personId.toString());
       if (
         ids.includes(contact.personId) ||
         ids.includes(contact.personId.toString())
@@ -58,7 +58,7 @@ class ContactAddButton extends Component {
     const { loading, hasContact } = this.state;
 
     if (loading) {
-      return <Icon loading name="sync" size={"small"} />;
+      return <Icon loading name="sync" size="small" />;
     }
 
     if (hasContact) {
@@ -67,7 +67,7 @@ class ContactAddButton extends Component {
           name="star"
           className={styles.ContactAddButton}
           size="big"
-          color={"yellow"}
+          color="yellow"
           onClick={this.removeContactAction}
         />
       );
@@ -78,7 +78,7 @@ class ContactAddButton extends Component {
         name="star"
         className={styles.ContactAddButton}
         size="big"
-        color={"grey"}
+        color="grey"
         onClick={this.addContactAction}
       />
     );
