@@ -1,0 +1,30 @@
+PODS:
+  - React (0.58.5):
+    - React/Core (= 0.58.5)
+  - react-native-webrtc (1.69.0):
+    - React
+  - React/Core (0.58.5):
+    - yoga (= 0.58.5.React)
+  - yoga (0.58.5.React)
+
+DEPENDENCIES:
+  - React (from `../node_modules/react-native`)
+  - react-native-webrtc (from `../node_modules/react-native-webrtc`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  react-native-webrtc:
+    :path: "../node_modules/react-native-webrtc"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  React: 16c4fb7ce3fc30c041bce809ceae33bf57e7c142
+  react-native-webrtc: 31b6d3f1e3e2ce373aa43fd682b04367250f807d
+  yoga: 0885622311729a02c2bc02dca97167787a51488b
+
+PODFILE CHECKSUM: 96775942ac22c603c76692be3819ab1dd940a0d5
+
+COCOAPODS: 1.5.3
