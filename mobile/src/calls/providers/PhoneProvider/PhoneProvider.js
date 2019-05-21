@@ -12,7 +12,7 @@ import * as Sound from '../../utils/sound/Sound';
 export class PhoneProvider extends React.Component {
   static propTypes = {
     call: PropTypes.shape({
-      inCall: PropTypes.bool.isRequired
+      onCall: PropTypes.bool.isRequired
     }).isRequired,
     // Functions
     setDisconnectionSuccess: PropTypes.func,
@@ -92,7 +92,7 @@ export class PhoneProvider extends React.Component {
     const {
       requestDisconnection,
       setDisconnectionSuccess,
-      call: inCall
+      call: onCall
     } = this.props;
     const { dialAPI } = this.state;
 
@@ -100,7 +100,7 @@ export class PhoneProvider extends React.Component {
 
     this.setState({ phoneNumber: '' });
 
-    if (inCall === true) {
+    if (onCall === true) {
       logMessage('Hanging up current call');
       this.hangupCurrentCall();
     }
@@ -155,12 +155,12 @@ export class PhoneProvider extends React.Component {
     logMessage(`addCallToRecentCalls`);
     const {
       addRecentCall,
-      call: { recipient, caller, receivingCall, startTime, inCall }
+      call: { recipient, caller, receivingCall, startTime, onCall }
     } = this.props;
     addRecentCall(
       receivingCall ? caller : recipient,
       receivingCall,
-      !inCall,
+      !onCall,
       startTime
     );
   };

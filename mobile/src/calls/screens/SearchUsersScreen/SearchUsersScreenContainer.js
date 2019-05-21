@@ -2,13 +2,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_ENDPOINT } from 'react-native-dotenv';
 
-import { usersActionsFactory, contactsActionsFactory } from 'dial-core';
+import { usersActionFactory, contactsActionFactory } from 'dial-core';
 
 import SearchUsersScreen from './SearchUsersScreen';
 import withOnGoingCallBanner from '../../../common/utils/calls';
 
-const contactsActions = contactsActionsFactory(API_ENDPOINT);
-const usersActions = usersActionsFactory(API_ENDPOINT);
+const usersActions = usersActionFactory(API_ENDPOINT);
 
 export default connect(
   ({ users, contacts: { contacts } }) => ({
@@ -19,8 +18,8 @@ export default connect(
     bindActionCreators(
       {
         ...usersActions,
-        addUserContact: contactsActions.addUserContact,
-        getUserContacts: contactsActions.getUserContacts
+        addUserContact: contactsActionFactory(API_ENDPOINT).addUserContact,
+        getUserContacts: usersActionFactory(API_ENDPOINT).getUserContacts
       },
       dispatch
     )

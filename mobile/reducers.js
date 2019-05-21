@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import {
   authReducer,
+  meReducer,
   callsReducer,
-  usersReducer,
-  contactsReducer
+  callForwardingReducer
 } from 'dial-core';
 
 export default combineReducers({
-  calls: callsReducer,
   auth: authReducer,
-  users: usersReducer,
-  contacts: contactsReducer
+  user: meReducer,
+  callForwarding: callForwardingReducer,
+  calls: callsReducer
 });

@@ -44,7 +44,7 @@ export default function(apiEndpoint, type = 'web') {
       type: AUTH_START
     }),
 
-    login: (code, type = 'web') => ({
+    login: code => ({
       [RSAA]: {
         endpoint: buildAuthURL('/login/'),
         method: 'POST',

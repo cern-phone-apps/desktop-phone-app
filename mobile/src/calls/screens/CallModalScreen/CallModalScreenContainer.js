@@ -5,7 +5,7 @@ import CallModalScreen from './CallModalScreen';
 function mapStateToProps(state) {
   const { call } = state.calls;
   return {
-    inCall: call.inCall,
+    onCall: call.onCall,
     calling: call.calling,
     receivingCall: call.receivingCall
   };

@@ -3,7 +3,7 @@ import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
 
 import { authActions, authActionFactory, util } from 'dial-core';
 
-const { isAccessTokenExpired, getRefreshToken } = util.tokens;
+const { JwtTokenHandlerMobile } = util.tokens;
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
@@ -29,7 +29,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
 
     if (isRSAA(action)) {
       const state = getState();
-      const refreshToken = getRefreshToken(state);
+      const refreshToken = JwtTokenHandlerMobile.getRefreshToken(state);
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
@@ -38,7 +38,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         return rsaaMiddleware(next)(action);
       }
 
-      if (refreshToken && isAccessTokenExpired(state)) {
+      if (refreshToken && JwtTokenHandlerMobile.isAccessTokenExpired(state)) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
