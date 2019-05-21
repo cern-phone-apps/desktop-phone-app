@@ -1,0 +1,16 @@
+{
+  "name": "tone-api-mobile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "events": "^3.0.0",
+    "react-native-webrtc": "^1.69.0",
+    "sip.js": "^0.13.5"
+  }
+}

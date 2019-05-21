@@ -4,9 +4,10 @@
 
 # dependencies
 web/node_modules
+mobile/node_modules
 
 web/package-lock.json
-
+mobile/package-lock.json
 # testing
 coverage
 
