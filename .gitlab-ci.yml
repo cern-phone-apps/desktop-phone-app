@@ -61,7 +61,7 @@ unit_test:
   before_script:
     - cd webapp
     - git submodule update --init --recursive --remote
-    - npm ci
+    - npm install
   script:
   - npm run build
 #  - npm test -- --coverage
@@ -86,7 +86,7 @@ build_next:
   before_script:
   - cd webapp
   - git submodule update --init --recursive --remote
-  - npm ci
+  - npm install
   script:
   - npm run build
   artifacts:
