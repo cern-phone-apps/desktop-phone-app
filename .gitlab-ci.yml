@@ -138,14 +138,13 @@ generate_docker_image_next:
 
 generate_docker_image_test:
   stage: generate_docker_image
-  variables:
-    CONTEXT_DIR: webapp
   tags:
   - docker-image-build
   script: "echo building $CI_REGISTRY_IMAGE/test" # No empty scripts are allowed
   dependencies:
   - build_next # we'll need the built artifact to build the image
   variables:
+    CONTEXT_DIR: webapp
     TO: $CI_REGISTRY_IMAGE/test # Where to push resulting image
   except:
   - next # Not in next branch
