@@ -19,5 +19,5 @@ RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
 RUN addgroup nginx root
 USER nginx
 
-COPY webapp/build /usr/share/nginx/html
+COPY build /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
