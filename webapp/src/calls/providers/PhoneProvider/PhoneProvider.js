@@ -1,5 +1,8 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
+
+import { Dial } from 'tone-api-web';
+
 import {
   errorMessage,
   infoMessage,
@@ -60,17 +63,6 @@ export default class PhoneProvider extends React.Component {
     }).isRequired
   };
 
-  /**
-   * This method exsists in order to have a dynamic import of the Dial API.
-   * We can set a different path when we build the application in order to either use
-   * the DummyAPI or the production one
-   */
-  static async loadDialApi() {
-    logMessage(process.env.REACT_APP_TONE_API_PATH);
-    const { Dial } = await import(process.env.REACT_APP_TONE_API_PATH);
-    return Dial;
-  }
-
   state = {
     phoneService: this
   };
@@ -103,19 +95,15 @@ export default class PhoneProvider extends React.Component {
   }
 
   componentDidMount() {
-    let dialAPI = null;
-    PhoneProvider.loadDialApi().then(Dial => {
-      this.audioElement = document.getElementById(callInputId);
-      dialAPI = new Dial(this.audioElement);
-      this.setState(
-        {
-          dialAPI
-        },
-        () => {
-          this.addListeners();
-        }
-      );
-    });
+    this.audioElement = document.getElementById(callInputId);
+    this.setState(
+      {
+        dialAPI: new Dial(this.audioElement)
+      },
+      () => {
+        this.addListeners();
+      }
+    );
   }
 
   /**
