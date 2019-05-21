@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { translate } from "react-i18next";
-import { Message, Segment } from "semantic-ui-react";
-import { logMessage } from "common/utils/logs";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
+import { Message, Segment } from 'semantic-ui-react';
 
 export class ErrorMessage extends Component {
   static propTypes = {
@@ -12,28 +11,26 @@ export class ErrorMessage extends Component {
 
   styles = {
     margin: 0,
-    padding: "0 0 1em 0"
+    padding: '0 0 1em 0'
   };
 
   render() {
     const { errors } = this.props;
 
-    let results = errors.filter(error => error && error.statusCode);
+    const results = errors.filter(error => error && error.statusCode);
 
     if (results.length < 1) {
-      return "";
+      return '';
     }
     return (
       <Segment basic style={this.styles}>
         <Message color="red">
           <ul>
-            {results.map((element, index) => {
-              return (
+            {results.map((element, index) => (
                 <li key={`message${index}`}>
                   {element.message} ({element.statusCode})
                 </li>
-              );
-            })}
+              ))}
           </ul>
         </Message>
       </Segment>
@@ -41,4 +38,4 @@ export class ErrorMessage extends Component {
   }
 }
 
-export default translate("calls")(ErrorMessage);
+export default translate('calls')(ErrorMessage);

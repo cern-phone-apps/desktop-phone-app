@@ -9,7 +9,6 @@ import AppInfo from 'settings/components/AppInfo/AppInfo';
 import NotificationsSettings from 'settings/components/NotificationsSettings/NotificationsSettings';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import CallsSettings from 'settings/components/CallsSettings/CallsSettings';
-import { logMessage } from 'common/utils/logs';
 
 const ModalTrigger = ({ onClick }) => (
   <Menu.Item
