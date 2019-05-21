@@ -28,8 +28,8 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
   - .npm
-  - cache/Cypress
-  - node_modules
+  - webapp/cache/Cypress
+  - webapp/node_modules
 
 # this job installs NPM dependencies and Cypress
 # The image is based on node:XX images
@@ -54,7 +54,7 @@ cache:
 #  # run Cypress test in load balancing mode, pass id to tie jobs together
 #  - npm run cypress:run:ci
 
-
+# We test on all the branches
 unit_test:
   image: node:11.10
   stage: test
@@ -67,7 +67,7 @@ unit_test:
 #  - npm test -- --coverage
 
 #
-# The following phases are dedicated to deployment builds
+# BUILDING THE APPLICATION WITH THE PRODUCTION PARAMETERS
 #
 build_next:
   image: node:11.10
@@ -95,6 +95,34 @@ build_next:
   only:
   - next # production or next, the branch you want to publish
 
+build_test:
+  image: node:11.10
+  stage: build
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    REACT_APP_API_ENDPOINT: ${API_ENDPOINT}
+    REACT_APP_OAUTH_ENABLED: ${OAUTH_ENABLED}
+    REACT_APP_OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+    REACT_APP_OAUTH_AUTHORIZATION_URL: ${OAUTH_AUTHORIZATION_URL}
+    REACT_APP_OAUTH_REDIRECT_URL: ${OAUTH_REDIRECT_URL}
+    REACT_APP_SENTRY_DSN: ${SENTRY_DSN_NEXT}
+    REACT_APP_TONE_API_PATH: ${TONE_API_PATH}
+    REACT_APP_PIWIK_URL: ${PIWIK_URL}
+    REACT_APP_PIWIK_SITE_ID: ${PIWIK_SITE_ID}
+  before_script:
+  - cd webapp
+  - git submodule update --init --recursive --remote
+  - npm install
+  script:
+  - npm run build
+  artifacts:
+    paths:
+    - build # The application is built for production
+
+#
+# GENERATING THE DOCKER IMAGES
+#
+
 generate_docker_image_next:
   stage: generate_docker_image
   tags:
@@ -106,6 +134,17 @@ generate_docker_image_next:
     TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
   only:
   - next # production or next, the branch you want to publish
+
+generate_docker_image_test:
+  stage: generate_docker_image
+  tags:
+  - docker-image-build
+  script: "echo building $CI_REGISTRY_IMAGE/test" # No empty scripts are allowed
+  dependencies:
+  - build_next # we'll need the built artifact to build the image
+  variables:
+    TO: $CI_REGISTRY_IMAGE/test # Where to push resulting image
+
 
 redeploy_next:
   stage: redeploy
