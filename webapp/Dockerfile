@@ -1,5 +1,10 @@
 FROM nginx:stable-alpine
 
+# This Dockerfile is used for deployment in production
+# We need to do some tweaks to the default image to make it compatible with Openshift
+# - Change the port running to 8080
+# - Allow a random user to run the application
+
 # support running as arbitrary user which belogs to the root group
 RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx
 RUN chgrp -R root /var/cache/nginx
@@ -14,5 +19,5 @@ RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
 RUN addgroup nginx root
 USER nginx
 
-COPY --from=build /webapp/build /usr/share/nginx/html
+COPY /webapp/build /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
