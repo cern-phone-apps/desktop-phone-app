@@ -15,16 +15,7 @@
     "test": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient  react-scripts test --env=jsdom",
     "test-coverage": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient  react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
-    "precommit": "lint-staged",
-    "test:staged": "cross-env CI=true  REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests",
-    "cypress:open": "cypress open",
-    "cypress:verify": "cypress verify",
-    "cypress:version": "cypress version",
-    "cypress:run": "cypress run",
-    "cypress:run:ci": "cypress run --config video=false",
-    "cypress:headed": "cypress run --headed",
-    "cypress:canary": "cypress run --browser canary",
-    "cypress:run:record": "cypress run --record"
+    "test:staged": "cross-env CI=true  REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -88,9 +79,7 @@
     "uid": "0.0.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
     "cross-env": "^5.1.5",
-    "cypress": "^3.1.5",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint-config-airbnb": "^17.1.0",
