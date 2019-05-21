@@ -91,7 +91,7 @@ build_next:
   - npm run build
   artifacts:
     paths:
-    - build # The application is built for production
+    - webapp/build # The application is built for production
   only:
   - next # production or next, the branch you want to publish
 
@@ -117,7 +117,7 @@ build_test:
   - npm run build
   artifacts:
     paths:
-    - build # The application is built for production
+    - webapp/build # The application is built for production
   except:
   - next # Not in next branch
 
