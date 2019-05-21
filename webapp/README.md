@@ -7,10 +7,26 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ## Status
 
-[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/dial-webapp) 
+[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/dial-webapp)
 [![Dependency Status](https://david-dm.org/cern-dialtone/dial-webapp.svg)](https://david-dm.org/cern-dialtone/dial-webapp)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/test_coverage)](https://codeclimate.com/github/cern-dialtone/dial-webapp/test_coverage)
+
+## TODO
+
+- Add cypress again (It was removed in order to speed up builds and installs and to simplify the development)
+
+```javascript
+    "cypress:open": "cypress open",
+    "cypress:verify": "cypress verify",
+    "cypress:version": "cypress version",
+    "cypress:run": "cypress run",
+    "cypress:run:ci": "cypress run --config video=false",
+    "cypress:headed": "cypress run --headed",
+    "cypress:canary": "cypress run --browser canary",
+    "cypress:run:record": "cypress run --record"
+```
+- Enable husky again (https://github.com/typicode/husky)
 
 ## Development
 
@@ -27,7 +43,7 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ### Requirements
 
-- node v8.11.2
+- node v11.10
 - npm 6.5.0
 
 ### Install dependencies
@@ -103,7 +119,7 @@ npm run mock-server
 npm run start-ci
 ```
 
-Then, you can either open cypress with `npm run cypress:open` or run it 
+Then, you can either open cypress with `npm run cypress:open` or run it
 directly with `npm run cypress:run`.
 
 
@@ -415,7 +431,7 @@ In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and s
 
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
-The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine. 
+The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine.
 
 ## Formatting Code Automatically
 
@@ -1790,7 +1806,7 @@ Use the following [`launch.json`](https://code.visualstudio.com/docs/editor/debu
       "name": "Debug CRA Tests",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",      
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",
       "args": [
         "test",
         "--runInBand",
@@ -2104,7 +2120,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
     RewriteRule ^ index.html [QSA,L]
 ```
 
-It will get copied to the `build` folder when you run `npm run build`. 
+It will get copied to the `build` folder when you run `npm run build`.
 
 If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
@@ -2534,7 +2550,7 @@ To resolve this:
 1. Open an issue on the dependency's issue tracker and ask that the package be published pre-compiled.
   * Note: Create React App can consume both CommonJS and ES modules. For Node.js compatibility, it is recommended that the main entry point is CommonJS. However, they can optionally provide an ES module entry point with the `module` field in `package.json`. Note that **even if a library provides an ES Modules version, it should still precompile other ES6 features to ES5 if it intends to support older browsers**.
 
-2. Fork the package and publish a corrected version yourself. 
+2. Fork the package and publish a corrected version yourself.
 
 3. If the dependency is small enough, copy it to your `src/` folder and treat it as application code.
 
