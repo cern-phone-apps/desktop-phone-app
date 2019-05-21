@@ -4,11 +4,11 @@ import OnCallScreen from '../OnCallScreen/OnCallScreen';
 import MakingCallScreenContainer from '../MakingCallScreen/MakingCallScreenContainer';
 import ReceivingCallScreenContainer from '../ReceivingCallScreen/ReceivingCallScreenContainer';
 
-const CallModalScreen = ({ inCall, calling, receivingCall, navigation }) => {
-  if (!calling && !inCall && !receivingCall) {
+const CallModalScreen = ({ onCall, calling, receivingCall, navigation }) => {
+  if (!calling && !onCall && !receivingCall) {
     navigation.pop();
   }
-  if (inCall) {
+  if (onCall) {
     return <OnCallScreen />;
   }
 
@@ -25,7 +25,7 @@ const CallModalScreen = ({ inCall, calling, receivingCall, navigation }) => {
 };
 
 CallModalScreen.propTypes = {
-  inCall: PropTypes.bool.isRequired,
+  onCall: PropTypes.bool.isRequired,
   calling: PropTypes.bool.isRequired,
   receivingCall: PropTypes.bool.isRequired
 };
