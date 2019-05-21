@@ -9,8 +9,8 @@ stages:
 # to point at the folders we can list as paths in "cache" job settings
 variables:
   # Integration test variables
-  npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+  npm_config_cache: "$CI_PROJECT_DIR/webapp/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/webapp/cache/Cypress"
   # Testing variables
   REACT_APP_API_ENDPOINT: "http://localhost:7075"
   REACT_APP_OAUTH_ENABLED: "false"
@@ -27,7 +27,7 @@ variables:
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-  - .npm
+  - webapp/.npm
   - webapp/cache/Cypress
   - webapp/node_modules
 
@@ -55,12 +55,11 @@ cache:
 #  - npm run cypress:run:ci
 
 # We test on all the branches
-unit_test:
+unit_test_web:
   image: node:11.10
   stage: test
   before_script:
     - cd webapp
-    - git submodule update --init --recursive --remote
     - npm install
   script:
   - npm run build
@@ -69,11 +68,12 @@ unit_test:
 #
 # BUILDING THE APPLICATION WITH THE PRODUCTION PARAMETERS
 #
-build_next:
+# We obtain all the variables from the Gitlab CI Settings.
+#
+build_next_web:
   image: node:11.10
   stage: build
   variables:
-    GIT_SUBMODULE_STRATEGY: recursive
     REACT_APP_API_ENDPOINT: ${API_ENDPOINT}
     REACT_APP_OAUTH_ENABLED: ${OAUTH_ENABLED}
     REACT_APP_OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
@@ -85,21 +85,19 @@ build_next:
     REACT_APP_PIWIK_SITE_ID: ${PIWIK_SITE_ID}
   before_script:
   - cd webapp
-  - git submodule update --init --recursive --remote
   - npm install
   script:
   - npm run build
   artifacts:
     paths:
-    - build # The application is built for production
+    - webapp/build # The application is built for production
   only:
   - next # production or next, the branch you want to publish
 
-build_test:
+build_test_web:
   image: node:11.10
   stage: build
   variables:
-    GIT_SUBMODULE_STRATEGY: recursive
     REACT_APP_API_ENDPOINT: ${API_ENDPOINT}
     REACT_APP_OAUTH_ENABLED: ${OAUTH_ENABLED}
     REACT_APP_OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
@@ -111,18 +109,20 @@ build_test:
     REACT_APP_PIWIK_SITE_ID: ${PIWIK_SITE_ID}
   before_script:
   - cd webapp
-  - git submodule update --init --recursive --remote
   - npm install
   script:
   - npm run build
   artifacts:
     paths:
-    - build # The application is built for production
+    - webapp/build # The application is built for production
   except:
   - next # Not in next branch
 
 #
 # GENERATING THE DOCKER IMAGES
+#
+# With the artifacts from the previous phase, we build a new Docker image
+# The artifacts will be in /webapp/build
 #
 generate_docker_image_next:
   stage: generate_docker_image
@@ -130,7 +130,7 @@ generate_docker_image_next:
   - docker-image-build
   script: "echo building $CI_REGISTRY_IMAGE/next" # No empty scripts are allowed
   dependencies:
-  - build_next # we'll need the built artifact to build the image
+  - build_next_web # we'll need the built artifact to build the image
   variables:
     TO: $CI_REGISTRY_IMAGE/next # Where to push resulting image
   only:
@@ -140,9 +140,12 @@ generate_docker_image_test:
   stage: generate_docker_image
   tags:
   - docker-image-build
-  script: "echo building $CI_REGISTRY_IMAGE/test" # No empty scripts are allowed
+  script:
+    - pwd
+    - ls
+    - "echo building $CI_REGISTRY_IMAGE/test" # No empty scripts are allowed
   dependencies:
-  - build_next # we'll need the built artifact to build the image
+  - build_test_web # we'll need the built artifact to build the image
   variables:
     TO: $CI_REGISTRY_IMAGE/test # Where to push resulting image
   except:
