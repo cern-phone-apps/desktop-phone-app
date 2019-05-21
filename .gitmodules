@@ -1,3 +1,0 @@
-[submodule "external/dial-webapp-builds"]
-	path = webapp/src/external/dial-webapp-builds
-	url = ../../dialtone/dial-webapp-builds.git
