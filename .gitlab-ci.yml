@@ -118,11 +118,12 @@ build_test:
   artifacts:
     paths:
     - build # The application is built for production
+  except:
+  - next # Not in next branch
 
 #
 # GENERATING THE DOCKER IMAGES
 #
-
 generate_docker_image_next:
   stage: generate_docker_image
   tags:
@@ -144,7 +145,8 @@ generate_docker_image_test:
   - build_next # we'll need the built artifact to build the image
   variables:
     TO: $CI_REGISTRY_IMAGE/test # Where to push resulting image
-
+  except:
+  - next # Not in next branch
 
 redeploy_next:
   stage: redeploy
