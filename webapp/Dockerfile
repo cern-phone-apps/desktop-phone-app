@@ -22,5 +22,5 @@ USER nginx
 RUN pwd
 RUN ls
 
-COPY build /usr/share/nginx/html
+COPY webapp/build /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
