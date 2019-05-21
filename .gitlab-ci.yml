@@ -148,7 +148,6 @@ generate_docker_image_test:
   dependencies:
   - build_test_web # we'll need the built artifact to build the image
   variables:
-    CONTEXT_DIR: webapp
     TO: $CI_REGISTRY_IMAGE/test # Where to push resulting image
   except:
   - next # Not in next branch
