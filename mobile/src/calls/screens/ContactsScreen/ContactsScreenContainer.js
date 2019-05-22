@@ -2,18 +2,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { API_ENDPOINT } from 'react-native-dotenv';
 
-import {
-  callActions,
-  usersActionFactory,
-  contactsActionFactory
-} from 'dial-core';
+import { callActions, contactsActionFactory } from 'dial-core';
 import ContactsScreen from './ContactsScreen';
 import withOnGoingCallBanner from '../../../common/utils/calls';
 
 function mapStateToProps(state) {
-  const { contacts } = state;
+  const { calls } = state;
   return {
-    ...contacts
+    contacts: calls.contacts.getContacts.contacts
   };
 }
 
@@ -21,8 +17,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...callActions,
-      getUserContacts: usersActionFactory(API_ENDPOINT).getUserContacts,
-      removeUserContact: contactsActionFactory(API_ENDPOINT).removeUserContact
+      getUserContacts: contactsActionFactory(API_ENDPOINT, 'mobile')
+        .getUserContacts,
+      removeUserContact: contactsActionFactory(API_ENDPOINT, 'mobile')
+        .removeUserContact
     },
     dispatch
   );
