@@ -11,21 +11,21 @@ export default class ContactsScreen extends React.Component {
   static propTypes = {
     searching: PropTypes.bool.isRequired,
     contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // getUserContacts: PropTypes.func.isRequired,
-    // removeUserContact: PropTypes.func.isRequired
+    getUserContacts: PropTypes.func.isRequired,
+    removeUserContact: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    // const { getUserContacts } = this.props;
-    // getUserContacts();
+    const { getUserContacts } = this.props;
+    getUserContacts();
   }
 
   keyExtractor = item => item.personId.toString();
 
   renderItem = ({ item }) => {
-    // const { getUserContacts, removeUserContact } = this.props;
-    const getUserContacts = () => [];
-    const removeUserContact = () => {};
+    const { getUserContacts, removeUserContact } = this.props;
+    // const getUserContacts = () => [];
+    // const removeUserContact = () => {};
     return (
       <ListItem
         title={`${item.displayName} (${item.division})`}
