@@ -10,7 +10,7 @@ import usersActionFactory from './actions/users';
 import * as callActions from './actions/call';
 import * as dialpadActions from './actions/dialpad';
 import * as connectionActions from './actions/connection';
-import * as recentActions from './actions/recent_calls';
+import * as recentCallsActions from './actions/recent_calls';
 import * as searchActions from './actions/search';
 
 // Reducers
@@ -45,7 +45,7 @@ export {
   numbersActionFactory,
   numbersActions,
   numbersReducer,
-  recentActions,
+  recentCallsActions,
   searchActions,
   searchReducer,
   usersActionFactory
