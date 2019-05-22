@@ -10,7 +10,7 @@ export default class SearchUsersScreen extends React.Component {
   };
 
   static propTypes = {
-    searching: PropTypes.bool.isRequired,
+    searching: PropTypes.bool,
     searchUsers: PropTypes.func.isRequired,
     addUserContact: PropTypes.func.isRequired,
     getUserContacts: PropTypes.func.isRequired,
@@ -18,12 +18,13 @@ export default class SearchUsersScreen extends React.Component {
   };
 
   static defaultProps = {
-    contacts: []
+    contacts: [],
+    searching: false
   };
 
   state = {
     searchText: null,
-    searchResults: [],
+    searchResults: []
   };
 
   keyExtractor = item => item.personId;
@@ -40,8 +41,8 @@ export default class SearchUsersScreen extends React.Component {
     }
 
     const { searchUsers } = this.props;
-    searchUsers(searchText).then(({ payload: { result } }) => {
-      this.setState({ searchResults: result });
+    searchUsers(searchText).then(result => {
+      this.setState({ searchResults: result.payload });
     });
   };
 
@@ -84,7 +85,7 @@ export default class SearchUsersScreen extends React.Component {
   render() {
     const { searchText, searchResults } = this.state;
     const { searching } = this.props;
-
+    console.log(searchResults);
     return (
       <View style={{ flex: 1 }}>
         <View

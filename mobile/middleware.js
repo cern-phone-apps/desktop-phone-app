@@ -42,7 +42,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(API_ENDPOINT).refreshAccessToken()
+            authActionFactory(API_ENDPOINT, 'mobile').refreshAccessToken()
           );
         }
         return null;
