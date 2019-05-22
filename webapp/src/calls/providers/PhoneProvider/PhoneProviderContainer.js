@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 
-import { callActions, connectionActions, recentActions } from 'dial-core';
+import { callActions, connectionActions, recentCallsActions } from 'dial-core';
 
 import { info, success, warning } from 'common/actions/notifications';
 import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider';
@@ -21,7 +21,7 @@ export function mapDispatchToProps(dispatch) {
     {
       ...connectionActions,
       ...callActions,
-      ...recentActions,
+      ...recentCallsActions,
       success,
       info,
       warning
