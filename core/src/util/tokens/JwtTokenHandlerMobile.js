@@ -40,14 +40,16 @@ export default class JwtTokenHandlerMobile extends JwtTokenHandlerBase {
   static withAuth(headers = {}) {
     return state => ({
       ...headers,
-      Authorization: `Bearer ${JwtTokenHandlerMobile.getAccessToken(state)}`
+      Authorization: `Bearer ${JwtTokenHandlerMobile.getAccessToken(state)}`,
+      Cookie: '' // This line is needed or else the refresh will fail
     });
   }
 
   static withRefresh(headers = {}) {
     return state => ({
       ...headers,
-      Authorization: `Bearer ${JwtTokenHandlerMobile.getRefreshToken(state)}`
+      Authorization: `Bearer ${JwtTokenHandlerMobile.getRefreshToken(state)}`,
+      Cookie: '' // This line is needed or else the refresh will fail
     });
   }
 }

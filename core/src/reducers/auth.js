@@ -74,6 +74,7 @@ export default (state = initialState, action) => {
         loggedIn: true,
         loginInProgress: false,
         authInProgress: false,
+        accessToken: action.payload.access_token,
         error: {}
       };
     case authActions.LOGOUT_REQUEST:
@@ -82,6 +83,8 @@ export default (state = initialState, action) => {
         loggedIn: false,
         loginInProgress: false,
         authInProgress: false,
+        accessToken: undefined,
+        refreshToken: undefined,
         token: undefined
       };
     case authActions.LOGOUT_SUCCESS:
