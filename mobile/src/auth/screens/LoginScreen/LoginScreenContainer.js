@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      ...authActionFactory(API_ENDPOINT)
+      ...authActionFactory(API_ENDPOINT, 'mobile')
     },
     dispatch
   );

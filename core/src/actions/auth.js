@@ -49,7 +49,7 @@ export default function(apiEndpoint, type = 'web') {
         endpoint: buildAuthURL('/login/'),
         method: 'POST',
         body: JSON.stringify({ code, type }),
-        credentials: 'include',
+        credentials: type === 'web' ? 'include' : 'omit',
         headers: { 'Content-Type': 'application/json' },
         types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
       }
@@ -66,7 +66,7 @@ export default function(apiEndpoint, type = 'web') {
       [RSAA]: {
         endpoint: buildAuthURL('/logout/'),
         method: 'DELETE',
-        credentials: 'include',
+        credentials: type === 'web' ? 'include' : 'omit',
         headers: handlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -84,7 +84,7 @@ export default function(apiEndpoint, type = 'web') {
       [RSAA]: {
         endpoint: buildAuthURL('/refresh/'),
         method: 'POST',
-        credentials: 'include',
+        credentials: type === 'web' ? 'include' : 'omit',
         headers: handlerClass.withRefresh({
           'Content-Type': 'application/json'
         }),
