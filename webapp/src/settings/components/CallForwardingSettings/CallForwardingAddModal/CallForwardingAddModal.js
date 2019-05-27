@@ -1,13 +1,13 @@
-import { Button, Form, Header, Icon, Modal, Search } from "semantic-ui-react";
-import PropTypes from "prop-types";
-import React from "react";
-import _ from "lodash";
+import { Button, Form, Header, Icon, Modal, Search } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import _ from 'lodash';
 
 import {
   UserSearchResultsFormatter,
   UserSearchUtils
-} from "calls/components/search/utils";
-import { logMessage } from "common/utils/logs";
+} from 'calls/components/search/utils';
+import { logMessage } from 'common/utils/logs';
 
 /**
  * Renders the custom search result
@@ -16,16 +16,14 @@ import { logMessage } from "common/utils/logs";
  * @param description
  * @returns {*}
  */
-const resultRenderer = ({ title, icon, description }) => {
-  return (
-    <div className="content">
-      <div className="title">{title}</div>
-      <div className="description">
-        <Icon name={icon} /> {description}
-      </div>
+const resultRenderer = ({ title, icon, description }) => (
+  <div className="content">
+    <div className="title">{title}</div>
+    <div className="description">
+      <Icon name={icon} /> {description}
     </div>
-  );
-};
+  </div>
+);
 
 resultRenderer.propTypes = {
   title: PropTypes.string,
@@ -34,18 +32,26 @@ resultRenderer.propTypes = {
 
 export class CallForwardingAddModal extends React.Component {
   static propTypes = {
+    localListType: PropTypes.string.isRequired,
     localForwardList: PropTypes.array,
+    localRingingList: PropTypes.array,
     status: PropTypes.object,
     addLocalForwardNumber: PropTypes.func.isRequired,
+    addLocalRingingNumber: PropTypes.func.isRequired,
     searchUsers: PropTypes.func.isRequired,
     selectExistingNumber: PropTypes.func.isRequired
   };
 
   state = {
     modalOpen: false, // Whether the modal is open or not
-    value: "", // Value of the search field
-    phoneValue: "" // Value of the phone field
+    value: '', // Value of the search field
+    phoneValue: '' // Value of the phone field
   };
+
+  constructor(props) {
+    super(props);
+    this.searchUsersDebounced = _.debounce(this.searchUsersDebounced, 500);
+  }
 
   /**
    * Handles the modal open status
@@ -69,7 +75,7 @@ export class CallForwardingAddModal extends React.Component {
     this.setState({ [name]: value });
 
   addExistingNumber = number => {
-    logMessage("Number is already on the lists. We just add it");
+    logMessage('Number is already on the lists. We just add it');
     this.props.selectExistingNumber(number);
   };
 
@@ -79,26 +85,36 @@ export class CallForwardingAddModal extends React.Component {
    * remote list.
    */
   addSelectedNumber = () => {
-    const { localForwardList, addLocalForwardNumber, status } = this.props;
-    const remoteForwardList = status["destination-list"];
+    const {
+      localForwardList,
+      addLocalForwardNumber,
+      addLocalRingingNumber,
+      status,
+      localListType
+    } = this.props;
+    const { phoneValue } = this.state;
+    const remoteForwardList = status['destination-list'] || [];
 
     this.handleClose();
-    //If number is not already on the list...
+    // If number is not already on the list...
     if (
-      localForwardList.filter(option => option.value === this.state.phoneValue)
-        .length === 0 &&
-      remoteForwardList.filter(option => option === this.state.phoneValue)
-        .length === 0
+      localForwardList.filter(option => option.value === phoneValue).length ===
+        0 &&
+      remoteForwardList.filter(option => option === phoneValue).length === 0
     ) {
-      addLocalForwardNumber(this.state.phoneValue);
-    }else{
-      this.addExistingNumber(this.state.phoneValue)
+      if (localListType === 'forward') {
+        addLocalForwardNumber(phoneValue);
+      } else {
+        addLocalRingingNumber(phoneValue);
+      }
+    } else {
+      this.addExistingNumber(phoneValue);
     }
     this.resetComponent();
   };
 
   forwardMobile = () => {
-    logMessage("Forwarding to mobile...");
+    logMessage('Forwarding to mobile...');
     this.setState({ phoneValue: this.props.me.mobile });
   };
 
@@ -110,7 +126,7 @@ export class CallForwardingAddModal extends React.Component {
    * Sets the component in it's initial state
    */
   resetComponent = () =>
-    this.setState({ isLoading: false, results: [], value: "", phoneValue: "" });
+    this.setState({ isLoading: false, results: [], value: '', phoneValue: '' });
 
   /**
    * Handles the click action on a search result
@@ -120,31 +136,27 @@ export class CallForwardingAddModal extends React.Component {
   handleResultSelect = (e, { result }) =>
     this.setState({ phoneValue: result.title });
 
-  /**
-   * Handles a change on the search field
-   * @param e Event triggered
-   * @param value Value of the field
-   */
-  handleSearchChange = (e, { value }) => {
+  searchUsersDebounced = async value => {
     const { searchUsers } = this.props;
 
+    const result = await UserSearchUtils.searchUsersAndFormatResults(
+      value,
+      searchUsers,
+      UserSearchResultsFormatter.formatResultsOneLinePerPhone
+    );
+    console.log(result);
+    this.setState(result);
+    return result;
+  };
+
+  handleSearchChange = async (e, { value }) => {
     this.setState({ isLoading: true, value });
-
-    setTimeout(async () => {
-      // If there is no input value, the component must be cleared
-      if (this.state.value.length < 1) {
-        return this.resetComponent();
-      }
-
-      if (this.state.value.length > 3) {
-        const result = await UserSearchUtils.searchUsersAndFormatResults(
-          this.state.value,
-          searchUsers,
-          UserSearchResultsFormatter.formatResultsOneLinePerPhone
-        );
-        this.setState(result);
-      }
-    }, 300);
+    if (value.length < 1) {
+      return this.resetComponent();
+    }
+    if (value.length > 3) {
+      this.searchUsersDebounced(value);
+    }
   };
 
   /**
@@ -160,7 +172,7 @@ export class CallForwardingAddModal extends React.Component {
         open={modalOpen}
         trigger={
           <Button icon onClick={this.handleOpen}>
-            <Icon name={"add"} />
+            <Icon name="add" />
           </Button>
         }
         onClose={this.handleClose}
@@ -169,7 +181,7 @@ export class CallForwardingAddModal extends React.Component {
         <Header icon="phone" content="Add a new number" />
         <Modal.Content>
           <Form>
-            <Header as={"h3"}>Search a user</Header>
+            <Header as="h3">Search a user</Header>
             <Form.Field>
               <Search
                 fluid
@@ -190,7 +202,7 @@ export class CallForwardingAddModal extends React.Component {
               <Form.Input
                 placeholder="Phone number..."
                 value={phoneValue}
-                name={"phoneValue"}
+                name="phoneValue"
                 onChange={this.handleFieldChangeAction}
               />
             </Form.Field>
@@ -198,17 +210,17 @@ export class CallForwardingAddModal extends React.Component {
         </Modal.Content>
         <Modal.Actions>
           {this.props.me.mobile && (
-            <Button onClick={this.forwardMobile} className={`MobileButton`}>
+            <Button onClick={this.forwardMobile} className="MobileButton">
               <Icon name="mobile" /> Forward to mobile phone
             </Button>
           )}
-          <Button onClick={this.handleClose} className={`CancelButton`}>
+          <Button onClick={this.handleClose} className="CancelButton">
             <Icon name="remove" /> Cancel
           </Button>
           <Button
             color="green"
             onClick={this.addSelectedNumber}
-            className={`AddButton`}
+            className="AddButton"
           >
             <Icon name="checkmark" /> Add this number
           </Button>
@@ -217,3 +229,5 @@ export class CallForwardingAddModal extends React.Component {
     );
   }
 }
+
+export default CallForwardingAddModal;

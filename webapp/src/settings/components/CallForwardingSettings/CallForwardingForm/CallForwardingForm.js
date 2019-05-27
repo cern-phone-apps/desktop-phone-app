@@ -1,33 +1,38 @@
 import {
   Button,
-  Dropdown,
   Form,
   Grid,
-  Header,
   Icon,
-  Radio
+  Radio,
+  Segment,
+  Message
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { errorMessage } from 'common/utils/logs';
-import CallForwardingAddModalContainer from 'settings/components/CallForwardingSettings/CallForwardingAddModal/CallForwardingAddModalContainer';
+import SimRingingFieldsContainer from './SimultaneousRingingFields/SimultaneousRingingFieldsContainer';
+
+import CallForwardingFieldsContainer from './CallForwardingFields/CallForwardingFieldsContainer';
+import { getRadioButtonValue } from '../utils';
 
 export class CallForwardingForm extends React.Component {
   static propTypes = {
-    addLocalForwardNumber: PropTypes.func.isRequired,
-    localForwardList: PropTypes.array.isRequired,
     getCallForwardingStatus: PropTypes.func.isRequired,
-    fetchingStatus: PropTypes.bool.isRequired,
-    status: PropTypes.object.isRequired
+    disableCallForwarding: PropTypes.func.isRequired,
+    enableSimultaneousRinging: PropTypes.func.isRequired,
+    status: PropTypes.shape({
+      'destination-list': PropTypes.arrayOf(String).isRequired
+    }).isRequired,
+    activeNumber: PropTypes.string.isRequired,
+    personId: PropTypes.string.isRequired
   };
 
   state = {
-    remoteList: [],
-    forwardList: [],
-    defaultDropdownValues: [],
     isFetching: true,
     forwardStatus: 'disabled',
-    fetchTimes: 0
+    fetchTimes: 0,
+    ringingNumbers: [],
+    forwardNumbers: []
   };
 
   /**
@@ -36,180 +41,153 @@ export class CallForwardingForm extends React.Component {
    */
   componentDidMount() {
     this.fetchData();
-    this.selectDefaultDropdownSelection();
   }
 
-  /**
-   * Set the default values of the dropdown with the ones fetched from the backend.
-   */
-  selectDefaultDropdownSelection = () => {
-    this.setState({
-      defaultDropdownValues: this.props.status['destination-list']
-    });
-  };
-
   fetchData = async () => {
-    const forwardingData = await this.props.getCallForwardingStatus();
+    const { activeNumber, getCallForwardingStatus } = this.props;
+
+    let { fetchTimes } = this.state;
+    this.setState({
+      isFetching: true
+    });
+
+    const forwardingData = await getCallForwardingStatus(activeNumber);
+
     if (forwardingData && forwardingData.payload) {
       // Obtain values from the payload
       const { payload } = forwardingData;
-      const destinationList = payload['destination-list'];
       const callForwardingStatus = payload['call-forwarding'];
       const simultaneousRingingStatus = payload['simultaneous-ring'];
-      // Build dropdown options
-      const remoteList = this.buildDropdownOptionsArray(destinationList);
-      // Get radio button value
-      const forwardStatus = this.getRadioButtonValue(
+
+      // // Get radio button value
+      const forwardStatus = getRadioButtonValue(
         callForwardingStatus,
         simultaneousRingingStatus
       );
-
       this.setState({
-        remoteList,
         forwardStatus,
-        isFetching: false,
-        forwardList: [...remoteList, ...this.props.localForwardList]
+        isFetching: false
       });
-    } else if (forwardingData === undefined && this.state.fetchTimes < 2) {
+    } else if (forwardingData === undefined && fetchTimes < 2) {
       errorMessage('Forwarding data was not loaded');
-      this.setState({ fetchTimes: (this.state.fetchTimes += 1) });
+      this.setState({ fetchTimes: (fetchTimes += 1) });
       this.fetchData();
     }
   };
 
-  getRadioButtonValue(callForwardingStatus, simultaneousRingingStatus) {
-    let forwardStatus = 'disabled';
-    if (callForwardingStatus) {
-      forwardStatus = 'forward';
-    }
-    if (simultaneousRingingStatus) {
-      forwardStatus = 'simultaneous';
-    }
-    return forwardStatus;
-  }
-
-  buildDropdownOptionsArray(stringValue) {
-    return stringValue.map(value => ({ text: value, value }));
-  }
-
-  /**
-   * Updates the forward list with the values of the local forward list
-   * and the remote list
-   */
-  updateForwardList = () => {
-    this.setState({ isFetching: true });
-    this.setState({
-      forwardList: [...this.state.remoteList, ...this.props.localForwardList],
-      defaultDropdownValues: [
-        ...this.state.defaultDropdownValues,
-        this.props.localForwardList[0].value
-      ]
-    });
-    this.setState({ isFetching: false });
-  };
-
-  selectExistingNumber = number => {
-    this.setState({
-      forwardList: [...this.state.remoteList, ...this.props.localForwardList],
-      defaultDropdownValues: [...this.state.defaultDropdownValues, number]
-    });
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.localForwardList !== this.props.localForwardList) {
-      this.updateForwardList();
-    }
-  }
-
   // Form
-  handleRadioChangeAction = (e, { value }) =>
+  handleRadioChangeAction = (e, { value }) => {
+    console.log(value);
     this.setState({ forwardStatus: value });
-
-  handleDropdownChangeAction = (e, { value }) => {
-    this.setState({ defaultDropdownValues: value });
   };
 
-  handleSave = () => {};
+  handleFetchAgain = () => {
+    const { isFetching } = this.state;
+    if (!isFetching) {
+      this.fetchData();
+    } else {
+      console.log('Already fetching...');
+    }
+  };
+
+  handleSave = () => {
+    const {
+      activeNumber,
+      disableCallForwarding,
+      enableSimultaneousRinging,
+      personId
+    } = this.props;
+
+    const { forwardStatus, ringingNumbers, forwardNumbers } = this.state;
+
+    console.log('Saving Call Forwarding data....');
+    console.log(`Forward status: ${forwardStatus}`);
+    console.log(`Ringing numbers: ${ringingNumbers}`);
+    console.log(`Forward numbers: ${forwardNumbers}`);
+
+    if (forwardStatus === 'disabled') {
+      console.log(`Calling disableCallForwarding with ${activeNumber}`);
+      disableCallForwarding(activeNumber);
+    } else if (forwardStatus === 'simultaneous') {
+      enableSimultaneousRinging(activeNumber, personId, ringingNumbers);
+    }
+  };
 
   handleOpen = () => this.setState({ modalOpen: true });
 
+  updateRingingNumbers = numbers => {
+    this.setState({ ringingNumbers: numbers });
+  };
+
+  updateForwardNumbers = numbers => {
+    this.setState({ forwardNumbers: numbers });
+  };
+
   render() {
-    const {
-      forwardStatus,
-      defaultDropdownValues,
-      forwardList,
-      isFetching
-    } = this.state;
+    const { status } = this.props;
+    const { forwardStatus, isFetching } = this.state;
+
+    if (status && status.success === false) {
+      return (
+        <Message negative>
+          We&apos;re sorry, but Call Forwarding settings are not available{' '}
+          <Button
+            loading={isFetching}
+            onClick={this.handleFetchAgain}
+            icon="refresh"
+          />
+        </Message>
+      );
+    }
 
     return (
-      <Form>
-        <Grid columns={2} relaxed="very" divided>
-          <Grid.Row>
-            <Grid.Column>
-              <Form.Field>
-                <Radio
-                  label="Disable Call Forwarding"
-                  name="radioGroup"
-                  value="disabled"
-                  checked={forwardStatus === 'disabled'}
-                  onChange={this.handleRadioChangeAction}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Radio
-                  label="Forward to"
-                  name="radioGroup"
-                  value="forward"
-                  checked={forwardStatus === 'forward'}
-                  onChange={this.handleRadioChangeAction}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Radio
-                  label="Simultaneous ringing"
-                  name="radioGroup"
-                  value="simultaneous"
-                  checked={forwardStatus === 'simultaneous'}
-                  onChange={this.handleRadioChangeAction}
-                />
-              </Form.Field>
-            </Grid.Column>
-            <Grid.Column>
-              <Header as="h5">Forward/Ringing list</Header>
-              <Form.Group>
+      <Segment padded basic loading={isFetching}>
+        <Form>
+          <Grid columns={2} relaxed="very" divided>
+            <Grid.Row>
+              <Grid.Column>
                 <Form.Field>
-                  <Dropdown
-                    multiple
-                    labeled
-                    search
-                    selection
-                    value={defaultDropdownValues}
-                    options={forwardList}
-                    placeholder="Select Number"
-                    loading={isFetching}
-                    disabled={isFetching}
-                    onChange={this.handleDropdownChangeAction}
+                  <Radio
+                    label="Disable Call Forwarding"
+                    name="radioGroup"
+                    value="disabled"
+                    checked={forwardStatus === 'disabled'}
+                    onChange={this.handleRadioChangeAction}
                   />
                 </Form.Field>
-                <CallForwardingAddModalContainer
-                  selectExistingNumber={this.selectExistingNumber}
-                />
-              </Form.Group>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <Grid columns={2} relaxed="very" divided>
-          <Grid.Row>
-            <Grid.Column>
-              <Form.Field>
-                <Button icon onClick={this.handleSave}>
-                  <Icon name="save" /> Save
-                </Button>
-              </Form.Field>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Form>
+              </Grid.Column>
+            </Grid.Row>
+
+            <SimRingingFieldsContainer
+              forwardStatus={forwardStatus}
+              isFetching={isFetching}
+              onChange={this.handleRadioChangeAction}
+              saveAction={this.updateRingingNumbers}
+            />
+
+            <CallForwardingFieldsContainer
+              forwardStatus={forwardStatus}
+              disabled={isFetching}
+              isFetching={isFetching}
+              onChange={this.handleRadioChangeAction}
+              saveAction={this.updateForwardNumbers}
+            />
+          </Grid>
+          <Grid columns={1} relaxed="very" divided>
+            <Grid.Row>
+              <Grid.Column>
+                <Form.Field>
+                  <Button icon onClick={this.handleSave}>
+                    <Icon name="save" /> Save
+                  </Button>
+                </Form.Field>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Form>
+      </Segment>
     );
   }
 }
+
+export default CallForwardingForm;

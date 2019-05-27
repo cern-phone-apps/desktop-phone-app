@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 
-import PropTypes from "prop-types";
-import { translate } from "react-i18next";
-import { Icon } from "semantic-ui-react";
-import styles from "./CallForwardingBanner.module.css";
+import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
+import { Icon } from 'semantic-ui-react';
+import styles from './CallForwardingBanner.module.css';
 
 export class CallForwardingBanner extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     status: PropTypes.object,
-    getCallForwardingStatus: PropTypes.func.isRequired
+    getCallForwardingStatus: PropTypes.func.isRequired,
+    activeNumber: PropTypes.string.isRequired
   };
 
   state = {
@@ -21,8 +22,26 @@ export class CallForwardingBanner extends Component {
     this.fetchCallForwardingStatus();
   }
 
+  isCallForwardingEnabled = (
+    callForwardingStatus,
+    simultaneousRingingStatus
+  ) => {
+    let result = false;
+    if (callForwardingStatus || simultaneousRingingStatus) {
+      result = true;
+    }
+    return result;
+  };
+
+  openSettingsModalAction = () => {
+    const { openSettingsModal } = this.props;
+    openSettingsModal();
+  };
+
   async fetchCallForwardingStatus() {
-    const forwardingData = await this.props.getCallForwardingStatus();
+    const { activeNumber, getCallForwardingStatus } = this.props;
+
+    const forwardingData = await getCallForwardingStatus(activeNumber);
     if (forwardingData && forwardingData.payload.success) {
       // Obtain values from the payload
       const { payload } = forwardingData;
@@ -36,26 +55,10 @@ export class CallForwardingBanner extends Component {
       );
       this.setState({ callForwardingEnabled: status });
     } else if (this.state.fetchTimes < 2) {
-        this.setState({ fetchTimes: this.state.fetchTimes + 1 });
-        this.fetchCallForwardingStatus();
-      }
-  }
-
-  openSettingsModalAction = () => {
-    const { openSettingsModal } = this.props;
-    openSettingsModal();
-  };
-
-  isCallForwardingEnabled = (
-    callForwardingStatus,
-    simultaneousRingingStatus
-  ) => {
-    let result = false;
-    if (callForwardingStatus || simultaneousRingingStatus) {
-      result = true;
+      this.setState({ fetchTimes: this.state.fetchTimes + 1 });
+      this.fetchCallForwardingStatus();
     }
-    return result;
-  };
+  }
 
   render() {
     if (this.state.callForwardingEnabled) {
@@ -64,7 +67,7 @@ export class CallForwardingBanner extends Component {
           onClick={this.openSettingsModalAction}
           className={`padded-item ${styles.callForwardingMessage}`}
         >
-          <Icon name="warning sign" /> {"Call Forwarding is enabled"}
+          <Icon name="warning sign" /> {'Call Forwarding is enabled'}
         </div>
       );
     }

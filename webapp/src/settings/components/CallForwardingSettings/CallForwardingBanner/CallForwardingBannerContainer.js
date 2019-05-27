@@ -5,9 +5,10 @@ import { bindActionCreators } from 'redux';
 import { callForwardingActionFactory } from 'dial-core';
 import CallForwardingBanner from './CallForwardingBanner';
 
-function mapStateToProps({ callForwarding }) {
+function mapStateToProps({ callForwarding, calls }) {
   return {
-    status: callForwarding.status
+    status: callForwarding.status,
+    activeNumber: calls.numbers.activeNumber
   };
 }
 

@@ -1,23 +1,30 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { callForwardingActionFactory, callForwardingActions } from 'dial-core';
+import { callForwardingActionFactory } from 'dial-core';
 import { CallForwardingForm } from './CallForwardingForm';
 
-function mapStateToProps({ callForwarding }) {
+function mapStateToProps({ callForwarding, calls, user }) {
   return {
     localForwardList: callForwarding.localForwardList,
     fetchingStatus: callForwarding.fetchingStatus,
-    status: callForwarding.status
+    status: callForwarding.status,
+    activeNumber: calls.numbers.activeNumber,
+    personId: user.personId
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      addLocalForwardNumber: callForwardingActions.addLocalForwardNumber,
       getCallForwardingStatus: callForwardingActionFactory(
         process.env.REACT_APP_API_ENDPOINT
-      ).getCallForwardingStatus
+      ).getCallForwardingStatus,
+      disableCallForwarding: callForwardingActionFactory(
+        process.env.REACT_APP_API_ENDPOINT
+      ).disableCallForwarding,
+      enableSimultaneousRinging: callForwardingActionFactory(
+        process.env.REACT_APP_API_ENDPOINT
+      ).enableSimultaneousRinging
     },
     dispatch
   );
