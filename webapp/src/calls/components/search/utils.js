@@ -54,9 +54,9 @@ export class UserSearchResultsFormatter {
           phone => phone.number && phone.number !== undefined
         );
 
-        const formattedPhones = phones.map((phone, index2) => {
+        phones.map((phone, index2) => {
           index += 1;
-          return {
+          const result = {
             key: `phone-${index}`,
             description: `${user.displayName} (${formatUserOrganization(
               user
@@ -64,10 +64,16 @@ export class UserSearchResultsFormatter {
             title: phone.number,
             icon: phone.phoneType === 'mobile' ? 'mobile' : 'phone'
           };
+          searchResults.push(result);
+          return result;
         });
-        return [...searchResults, ...formattedPhones];
+        // console.log("returning formatted phones");
+
+        // console.log(formattedPhones);
+        return searchResults;
       }
-      return searchResults;
+      // console.log("resturniung searchResults");
+      // return searchResults;
     });
     // logMessage(searchResults);
 

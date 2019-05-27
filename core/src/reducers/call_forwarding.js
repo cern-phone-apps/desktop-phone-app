@@ -2,6 +2,7 @@ import * as callForwardingActions from '../actions/call_forwarding';
 
 const initialState = {
   localForwardList: [],
+  localRingingList: [],
   fetchingStatus: false,
   status: {}
 };
@@ -14,6 +15,15 @@ export default (state = initialState, action) => {
         localForwardList: [
           { text: action.number, value: action.number },
           ...state.localForwardList
+        ]
+      };
+
+    case callForwardingActions.ADD_LOCAL_RINGING_NUMBER:
+      return {
+        ...state,
+        localRingingList: [
+          { text: action.number, value: action.number },
+          ...state.localRingingList
         ]
       };
 

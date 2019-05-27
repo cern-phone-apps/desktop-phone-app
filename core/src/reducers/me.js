@@ -7,6 +7,7 @@ const initialState = {
   mobile: null,
   phone: null,
   username: null,
+  personId: null,
   error: {},
   fetching: false,
   doNotDisturb: false
@@ -37,6 +38,7 @@ export default (state = initialState, action) => {
         phone: action.payload.phone,
         username: action.payload.username,
         doNotDisturb: action.payload.doNotDisturb,
+        personId: action.payload.personId,
         error: {},
         fetching: false
       };
@@ -49,6 +51,7 @@ export default (state = initialState, action) => {
         mobile: null,
         phone: null,
         username: null,
+        personId: null,
         doNotDisturb: null,
         error: action.payload.error,
         fetching: false
