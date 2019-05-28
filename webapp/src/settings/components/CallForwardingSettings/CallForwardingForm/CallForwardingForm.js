@@ -132,6 +132,7 @@ export class CallForwardingForm extends React.Component {
         <Message negative>
           We&apos;re sorry, but Call Forwarding settings are not available{' '}
           <Button
+            disabled={isFetching}
             loading={isFetching}
             onClick={this.handleFetchAgain}
             icon="refresh"
@@ -167,7 +168,6 @@ export class CallForwardingForm extends React.Component {
 
             <CallForwardingFieldsContainer
               forwardStatus={forwardStatus}
-              disabled={isFetching}
               isFetching={isFetching}
               onChange={this.handleRadioChangeAction}
               saveAction={this.updateForwardNumbers}
