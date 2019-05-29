@@ -17,6 +17,8 @@ export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE';
 
 export const CLEAR_TOKEN = '@@auth/CLEAR_TOKEN';
 
+export const SET_TONE_TOKEN = '@@connection/SET_TONE_TOKEN';
+
 const API_PATH = '/auth/v1/token';
 
 /**
@@ -90,15 +92,22 @@ export default function(apiEndpoint, type = 'web') {
         }),
         types: [TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE]
       }
-    }),
-
-    /**
-     * Action triggered when a call is taking place.
-     *
-     * @returns {{type: string}} A dict
-     */
-    clearToken: () => ({
-      type: CLEAR_TOKEN
     })
+  };
+}
+
+/**
+ * Action triggered when a call is taking place.
+ *
+ * @returns {{type: string}} A dict
+ */
+export const clearAuthToken = () => ({
+  type: CLEAR_TOKEN
+});
+
+export function setToneToken(toneToken) {
+  return {
+    toneToken,
+    type: SET_TONE_TOKEN
   };
 }

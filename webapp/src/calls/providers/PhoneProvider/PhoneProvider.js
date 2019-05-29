@@ -23,7 +23,7 @@ export default class PhoneProvider extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     // Calls attrs
-    token: PropTypes.string,
+    authToken: PropTypes.string,
     doNotDisturb: PropTypes.bool.isRequired,
     call: PropTypes.shape({
       recipient: PropTypes.shape({}),
@@ -45,6 +45,8 @@ export default class PhoneProvider extends React.Component {
     setCallAccepted: PropTypes.func.isRequired,
     setDisconnectionSuccess: PropTypes.func.isRequired,
     setRegistrationFailure: PropTypes.func.isRequired,
+    addAdditionalCall: PropTypes.func.isRequired,
+    removeAdditionalCall: PropTypes.func.isRequired,
     // Notifications
     success: PropTypes.func.isRequired,
     info: PropTypes.func,
@@ -52,8 +54,7 @@ export default class PhoneProvider extends React.Component {
   };
 
   static defaultProps = {
-    call: {},
-    token: ''
+    call: {}
   };
 
   static childContextTypes = {
@@ -136,17 +137,29 @@ export default class PhoneProvider extends React.Component {
    * @returns {boolean|void|*}
    */
   authenticateUser = username => {
-    const { token, requestRegistration } = this.props;
+    const {
+      authToken,
+      requestRegistration,
+      setToneToken,
+      toneToken,
+      clearAuthToken
+    } = this.props;
     const { dialAPI } = this.state;
 
     logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     requestRegistration();
-    dialAPI.authenticate(username, token);
-    // const eToken = this.state.dial.authenticate(username, token);
-    // encryptToken(eToken);
-
-    // TODO The ideal thing here is to know if the authentication succeeded
+    let tempToken;
+    if (authToken) {
+      tempToken = authToken;
+    } else {
+      tempToken = toneToken;
+    }
+    const eToken = dialAPI.authenticate(username, tempToken);
+    if (authToken) {
+      clearAuthToken();
+      setToneToken(eToken);
+    }
   };
 
   hangUpCurrentCallAction = () => {
@@ -338,18 +351,32 @@ export default class PhoneProvider extends React.Component {
   }
 
   handleInviteReceivedEvent(event) {
-    const { setIsReceivingCall } = this.props;
-    this.playRingTone();
+    const { setIsReceivingCall, call: onCall, addAdditionalCall } = this.props;
+
+    if (onCall) {
+      addAdditionalCall();
+    } else {
+      this.playRingTone();
+    }
     // Retrieve the remote user information from the event data
     const { uri } = event.data.session.remoteIdentity;
     setIsReceivingCall(uri.user, null);
   }
 
   handleRejectedEvent() {
-    const { setCallMissed } = this.props;
+    const {
+      setCallMissed,
+      removeAdditionalCall,
+      call: additionalCalls
+    } = this.props;
+
     this.stopRingbacktone();
     this.stopRingTone();
     setCallMissed();
+
+    if (additionalCalls.length > 0) {
+      removeAdditionalCall();
+    }
   }
 
   handleAcceptedEvent() {

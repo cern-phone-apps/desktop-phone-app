@@ -78,8 +78,8 @@ export class Dial {
       try {
         this.startAgent(user,accessToken);
         this.tokenHash = SHA512(accessToken).toString();
-        console.log("hashed token:" + tokenHash);
-        return tokenHash;
+        console.log("hashed token:" + this.tokenHash);
+        return this.tokenHash;
       }
       catch (e) {
         console.error("Error authenticate:" + e + "\n");
