@@ -9,6 +9,7 @@ const initialState = {
   refreshToken: undefined,
   loginInProgress: false,
   requestingToken: false,
+  toneToken: '',
   error: null
 };
 
@@ -95,9 +96,12 @@ export default (state = initialState, action) => {
     case authActions.CLEAR_TOKEN:
       return {
         ...state,
-        token: undefined,
-        accessToken: undefined,
-        refreshToken: undefined
+        token: undefined
+      };
+    case authActions.SET_TONE_TOKEN:
+      return {
+        ...state,
+        toneToken: action.toneToken
       };
     default:
       return state;
