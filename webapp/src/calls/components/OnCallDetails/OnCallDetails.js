@@ -24,7 +24,6 @@ export class OnCallDetails extends Component {
     t: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired,
     caller: PropTypes.object,
-    caller: PropTypes.object,
     receivingCall: PropTypes.bool.isRequired
   };
 
