@@ -73,7 +73,7 @@ export class UserSearchResultsFormatter {
         return searchResults;
       }
       // console.log("resturniung searchResults");
-      // return searchResults;
+      return searchResults;
     });
     // logMessage(searchResults);
 

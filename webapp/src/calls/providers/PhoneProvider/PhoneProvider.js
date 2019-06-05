@@ -27,7 +27,6 @@ export default class PhoneProvider extends React.Component {
     doNotDisturb: PropTypes.bool.isRequired,
     call: PropTypes.shape({
       caller: PropTypes.shape({}),
-      caller: PropTypes.shape({}),
       startTime: PropTypes.number,
       onCall: PropTypes.bool
     }),
