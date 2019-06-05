@@ -9,7 +9,7 @@ describe("CalleeProfileNumber Component tests", () => {
         phoneNumber={"12345"}
         unSelectUser={unSelect}
         icon={"phone"}
-        recipientName={"example name"}
+        callerName={"example name"}
         phoneService={{}}
       />
     );
@@ -26,7 +26,7 @@ describe("CalleeProfileNumber Component tests", () => {
         phoneNumber={"12345"}
         unSelectUser={unSelect}
         icon={"phone"}
-        recipientName={"example name"}
+        callerName={"example name"}
         phoneService={{
           makeCall: makeCall
         }}

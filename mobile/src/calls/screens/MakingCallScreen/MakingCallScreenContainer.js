@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import MakingCallScreen from './MakingCallScreen';
 
 function mapStateToProps(state) {
-  const { calling, onCall, recipient } = state.calls.call;
+  const { calling, onCall, caller } = state.calls.call;
   return {
     onCall,
     calling,
-    recipient
+    caller
   };
 }
 

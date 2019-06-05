@@ -10,6 +10,11 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.4.0 - 2019-06-05
+### Added
+- Call forwarding and simulatenous ringing banner and settings.
+- Encrypted authentication token
+
 ## w0.3.1 - 2019-04-10
 ### Improved
 - User search refactored and simplified.

@@ -8,7 +8,7 @@ describe("calls reducer", () => {
       error: {},
       onCall: false,
       receivingCall: false,
-      recipient: {
+      caller: {
         incoming: false,
         missed: true,
         name: "",
@@ -29,7 +29,7 @@ describe("calls reducer", () => {
     ).toEqual({
       calling: true,
       onCall: false,
-      recipient: {
+      caller: {
         incoming: false,
         missed: false
       }
@@ -39,7 +39,7 @@ describe("calls reducer", () => {
         {},
         {
           type: actions.CALL,
-          recipient: {
+          caller: {
             name: "michael",
             phoneNumber: "123456",
             incoming: false,
@@ -50,7 +50,7 @@ describe("calls reducer", () => {
     ).toEqual({
       calling: true,
       onCall: false,
-      recipient: {
+      caller: {
         name: "michael",
         phoneNumber: "123456",
         incoming: false,
@@ -150,7 +150,7 @@ describe("calls reducer", () => {
     ).toEqual({
       onCall: false,
       receivingCall: true,
-      recipient: {
+      caller: {
         incoming: true,
         missed: true,
         name: undefined,
@@ -170,7 +170,7 @@ describe("calls reducer", () => {
     ).toEqual({
       onCall: true,
       receivingCall: false,
-      recipient: {
+      caller: {
         missed: false,
         startTime: expect.any(Number)
       }
@@ -188,7 +188,7 @@ describe("calls reducer", () => {
     ).toEqual({
       onCall: false,
       receivingCall: false,
-      recipient: {
+      caller: {
         missed: true,
         startTime: expect.any(Number)
       }
@@ -206,7 +206,7 @@ describe("calls reducer", () => {
     ).toEqual({
       onCall: false,
       calling: false,
-      recipient: {}
+      caller: {}
     });
   });
 

@@ -3,12 +3,12 @@ import { CALL_FAILED, HANGUP_CALL, INCOMING_CALL_ACCEPTED, INCOMING_CALL_REJECTE
 
 describe("call actions", () => {
   it("should create an action to make call", () => {
-    const recipient = "Finish docs";
+    const caller = "Finish docs";
     const expectedAction = {
       type: callActions.CALL,
-      recipient
+      caller
     };
-    expect(callActions.makeCall(recipient)).toEqual(expectedAction);
+    expect(callActions.makeCall(caller)).toEqual(expectedAction);
   });
 
   it("should create an action to is calling", () => {

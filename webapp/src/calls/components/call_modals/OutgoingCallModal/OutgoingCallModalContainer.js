@@ -4,8 +4,8 @@ import CallModal from './OutgoingCallModal';
 
 function mapStateToProps({ calls }) {
   return {
-    recipientName: calls.call.recipient.name,
-    phoneNumber: calls.call.recipient.phoneNumber
+    callerName: calls.call.tempCaller ? calls.call.tempCaller.name : '',
+    phoneNumber: calls.call.tempCaller ? calls.call.tempCaller.phoneNumber : ''
   };
 }
 

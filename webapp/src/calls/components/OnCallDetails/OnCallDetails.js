@@ -23,13 +23,12 @@ export class OnCallDetails extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired,
     phoneService: PropTypes.object.isRequired,
-    recipient: PropTypes.object,
+    caller: PropTypes.object,
     caller: PropTypes.object,
     receivingCall: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    recipient: {},
     caller: {}
   };
 
@@ -39,7 +38,7 @@ export class OnCallDetails extends Component {
   };
 
   render() {
-    const { t, recipient, receivingCall, caller, call } = this.props;
+    const { t, caller, call } = this.props;
     return (
       <Segment basic>
         <Segment textAlign="center">
@@ -47,7 +46,7 @@ export class OnCallDetails extends Component {
             <h3 className="ui center aligned header">{t('onCallWithText')}</h3>
             <h2 className="ui center aligned header">
               <Icon name="user" />{' '}
-              {receivingCall ? caller.name : recipient.name}
+              {caller ? caller.phoneNumber : caller.phoneNumber}
             </h2>
             <div className="ui center aligned basic segment">
               <Timer startTime={call.startTime} />

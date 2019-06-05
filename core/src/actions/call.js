@@ -7,16 +7,19 @@ export const CALL_RECEIVED = '@@call/CALL_RECEIVED';
 export const CALL_FINISHED = '@@call/CALL_FINISHED';
 export const CALL_ACCEPTED = '@@call/CALL_ACCEPTED';
 
+export const ADD_ADDITIONAL_CALL = '@@call/ADD_ADDITIONAL_CALL';
+export const REMOVE_ADDITIONAL_CALL = '@@call/REMOVE_ADDITIONAL_CALL';
+
 /**
- * Action that triggers a call to a selected recipient
+ * Action that triggers a call to a selected caller
  *
- * @param recipient A dict with name, phone number and start time of the call
- * @returns {{type: string, recipient: *}} A dict
+ * @param caller A dict with name, phone number and start time of the call
+ * @returns {{type: string, caller: *}} A dict
  */
-export function setMakeCallRequest(recipient) {
+export function setMakeCallRequest(caller) {
   return {
     type: CALL_REQUEST,
-    recipient
+    caller
   };
 }
 
@@ -50,8 +53,11 @@ export function setIsReceivingCall(callerNumber, callerName) {
  *
  * @returns {{type: string}} A dict
  */
-export function setCallAccepted() {
+export function setCallAccepted(receivingCall) {
+  const startTime = Date.now();
   return {
+    startTime,
+    receivingCall,
     type: CALL_ACCEPTED
   };
 }
@@ -92,8 +98,28 @@ export function setCallMissed() {
  * Action triggered when a call is hung up
  * @returns {{type: string}} A dict
  */
-export function setCallFinished() {
+export function setCallFinished(onCall = false, caller = null) {
   return {
+    onCall,
+    caller,
     type: CALL_FINISHED
+  };
+}
+
+/**
+ *
+ */
+export function addAdditionalCall() {
+  return {
+    type: ADD_ADDITIONAL_CALL
+  };
+}
+
+/**
+ *
+ */
+export function removeAdditionalCall() {
+  return {
+    type: REMOVE_ADDITIONAL_CALL
   };
 }

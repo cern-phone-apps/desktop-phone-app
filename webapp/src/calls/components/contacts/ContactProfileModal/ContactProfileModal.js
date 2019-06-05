@@ -28,7 +28,7 @@ function ContactProfileModalContent({ profile }) {
                 key={`button-${index}`}
                 phoneNumber={phone.number}
                 icon={phone.phoneType}
-                recipientName={profile.displayName}
+                callerName={profile.displayName}
               />
             );
           }

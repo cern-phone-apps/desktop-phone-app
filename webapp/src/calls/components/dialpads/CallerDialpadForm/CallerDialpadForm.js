@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Form, Icon, Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { buildRecipient, formatPhoneNumber } from 'calls/utils/utils';
+import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
 
 import CallerDialpadContainer from '../CallerDialpad/CallerDialpadContainer';
 
@@ -21,12 +21,12 @@ export class CallerDialpadForm extends Component {
 
     const formattedNumber = formatPhoneNumber(value);
 
-    const recipient = {
+    const caller = {
       name: value,
       phoneNumber: formattedNumber
     };
 
-    this.props.phoneService.makeCall(buildRecipient(recipient));
+    this.props.phoneService.makeCall(buildcaller(caller));
   };
 
   render = () => (

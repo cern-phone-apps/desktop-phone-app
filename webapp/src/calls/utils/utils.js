@@ -1,15 +1,15 @@
 /**
- * Creates a recipient
- * @param recipient
+ * Creates a caller
+ * @param caller
  * @returns {{name: *, incoming: *, phoneNumber: *, missed: *, startTime: *}}
  */
-export const buildRecipient = recipient => {
+export const buildcaller = caller => {
   return {
-    name: recipient.name,
-    incoming: recipient.incoming,
-    phoneNumber: recipient.phoneNumber,
-    missed: recipient.missed,
-    startTime: recipient.startTime
+    name: caller.name,
+    incoming: caller.incoming,
+    phoneNumber: caller.phoneNumber,
+    missed: caller.missed,
+    startTime: caller.startTime
   };
 };
 /**

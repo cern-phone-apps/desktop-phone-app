@@ -5,12 +5,12 @@ import { OutgoingCallModal } from "calls/components/call_modals/OutgoingCallModa
 describe("Outgoing Call Modal Tests", () => {
   it("renders OutgoingCallModal without crashing", () => {
     const phoneNumber = "123456";
-    const recipient = "John Doe";
+    const caller = "John Doe";
     const wrapper = shallow(
       <OutgoingCallModal
         phoneNumber={phoneNumber}
         phoneService={{}}
-        recipientName={recipient}
+        callerName={caller}
         t={key => key}
       />
     );
@@ -20,12 +20,12 @@ describe("Outgoing Call Modal Tests", () => {
 
   it("contains Texts", () => {
     const phoneNumber = "123456";
-    const recipient = "John Doe";
+    const caller = "John Doe";
     const wrapper = shallow(
       <OutgoingCallModal
         phoneNumber={phoneNumber}
         phoneService={{}}
-        recipientName={recipient}
+        callerName={caller}
         t={key => key}
       />
     );
@@ -34,14 +34,14 @@ describe("Outgoing Call Modal Tests", () => {
     expect(wrapper.debug()).toContain("callingText");
     expect(wrapper.debug()).toContain("phone");
     expect(wrapper.debug()).toContain(phoneNumber);
-    expect(wrapper.debug()).toContain(recipient);
+    expect(wrapper.debug()).toContain(caller);
   });
 
   it("can cancel a call", () => {
     const hangUpCurrentCallAction = jest.fn();
 
     const phoneNumber = "123456";
-    const recipient = "John Doe";
+    const caller = "John Doe";
     const phoneService = {
       hangUpCurrentCallAction: hangUpCurrentCallAction
     };
@@ -50,7 +50,7 @@ describe("Outgoing Call Modal Tests", () => {
       <OutgoingCallModal
         phoneNumber={phoneNumber}
         phoneService={phoneService}
-        recipientName={recipient}
+        callerName={caller}
         t={key => key}
       />
     );

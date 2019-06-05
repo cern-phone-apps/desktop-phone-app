@@ -26,7 +26,7 @@ export default class PhoneProvider extends React.Component {
     authToken: PropTypes.string,
     doNotDisturb: PropTypes.bool.isRequired,
     call: PropTypes.shape({
-      recipient: PropTypes.shape({}),
+      caller: PropTypes.shape({}),
       caller: PropTypes.shape({}),
       startTime: PropTypes.number,
       onCall: PropTypes.bool
@@ -99,7 +99,7 @@ export default class PhoneProvider extends React.Component {
     this.audioElement = document.getElementById(callInputId);
     this.setState(
       {
-        dialAPI: new Dial(this.audioElement)
+        toneAPI: new Dial(this.audioElement)
       },
       () => {
         this.addListeners();
@@ -115,15 +115,15 @@ export default class PhoneProvider extends React.Component {
   };
 
   acceptIncomingCall = () => {
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
     toneOutMessage(`Accepting incoming call`);
-    dialAPI.answer();
+    toneAPI.answer();
   };
 
   addListeners = () => {
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
 
-    this.notifier = dialAPI.getNotifier();
+    this.notifier = toneAPI.getNotifier();
     if (this.notifier) {
       this.notifier.on('ToneEvent', event => {
         this.eventHandler(event);
@@ -144,28 +144,42 @@ export default class PhoneProvider extends React.Component {
       toneToken,
       clearAuthToken
     } = this.props;
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
 
     logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     requestRegistration();
+    /**
+     * If there is an authToken, we use that token. Else, we use the already encrypted token provided by the api
+     */
     let tempToken;
     if (authToken) {
       tempToken = authToken;
     } else {
       tempToken = toneToken;
     }
-    const eToken = dialAPI.authenticate(username, tempToken);
-    if (authToken) {
-      clearAuthToken();
-      setToneToken(eToken);
+    try {
+      const eToken = toneAPI.authenticate(username, tempToken);
+      if (authToken) {
+        /**
+         * If the authToken was used, we clear the original auth token as we will use the encrypted token from now on.
+         */
+        clearAuthToken();
+        logMessage('eToken is');
+        logMessage(eToken);
+        setToneToken(eToken);
+      }
+    } catch (error) {
+      errorMessage(error);
+      // this.di();
+      this.props.logout();
     }
   };
 
   hangUpCurrentCallAction = () => {
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
     toneOutMessage(`Hang up current call`);
-    return dialAPI.hangUp();
+    return toneAPI.hangUp();
   };
 
   hangUpCallEvent = () => {
@@ -183,7 +197,7 @@ export default class PhoneProvider extends React.Component {
    */
   makeCall = ({ name, phoneNumber }) => {
     const { setMakeCallRequest, setIsCalling } = this.props;
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
 
     // toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
     // logEvent(
@@ -197,7 +211,7 @@ export default class PhoneProvider extends React.Component {
     });
     this.playRingbacktone();
     setIsCalling();
-    return dialAPI.call(phoneNumber);
+    return toneAPI.call(phoneNumber);
   };
 
   playRingbacktone = () => {
@@ -222,8 +236,8 @@ export default class PhoneProvider extends React.Component {
   };
 
   sendDtmfCommand = tone => {
-    const { dialAPI } = this.state;
-    dialAPI.sendDTMF(tone);
+    const { toneAPI } = this.state;
+    toneAPI.sendDTMF(tone);
   };
 
   stopRingbacktone = () => {
@@ -249,8 +263,8 @@ export default class PhoneProvider extends React.Component {
    * It performs all the actions needed by this action.
    */
   rejectIncomingCall = () => {
-    const { dialAPI } = this.state;
-    dialAPI.hangUp();
+    const { toneAPI } = this.state;
+    toneAPI.hangUp();
   };
 
   /**
@@ -258,28 +272,53 @@ export default class PhoneProvider extends React.Component {
    */
   unAuthenticateUser = () => {
     const { setCallFinished, requestDisconnection, call: onCall } = this.props;
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
     toneOutMessage(`UnAuthenticating user`);
 
     if (onCall) {
       setCallFinished();
     }
     requestDisconnection(true);
-    return dialAPI.stopAgent();
+    return toneAPI.stopAgent();
   };
 
-  addCallToRecentCalls = () => {
+  addCallToRecentCalls = (callerToAdd = null) => {
     logMessage(`addCallToRecentCalls`);
     const {
       addRecentCall,
-      call: { recipient, caller, receivingCall, startTime, onCall }
+      call: {
+        caller,
+        receivingCall,
+        startTime,
+        onCall,
+        additionalCalls,
+        missed
+      }
     } = this.props;
-    addRecentCall(
-      receivingCall ? caller : recipient,
-      receivingCall,
-      !onCall,
-      startTime
-    );
+
+    let tempCaller = caller;
+    let isMissed = onCall;
+    let incoming = false;
+
+    if (callerToAdd) {
+      tempCaller = callerToAdd;
+      // It's not the current onfoing call
+      if (additionalCalls > 0) {
+        isMissed = true;
+        incoming = true;
+      } else {
+        isMissed = missed;
+      }
+    } else {
+      isMissed = !onCall;
+    }
+
+    logMessage(tempCaller);
+    logMessage(`Receiving call: ${receivingCall}`);
+    logMessage(`Is missed? ${isMissed}`);
+    logMessage(startTime);
+
+    addRecentCall(callerToAdd, incoming, isMissed, startTime);
   };
 
   handleProgressEvent = () => {
@@ -351,8 +390,13 @@ export default class PhoneProvider extends React.Component {
   }
 
   handleInviteReceivedEvent(event) {
-    const { setIsReceivingCall, call: onCall, addAdditionalCall } = this.props;
-
+    const {
+      setIsReceivingCall,
+      call: { onCall },
+      addAdditionalCall
+    } = this.props;
+    logMessage(`handleInviteReceivedEvent with onCall: ${onCall}`);
+    logMessage(onCall);
     if (onCall) {
       addAdditionalCall();
     } else {
@@ -364,19 +408,10 @@ export default class PhoneProvider extends React.Component {
   }
 
   handleRejectedEvent() {
-    const {
-      setCallMissed,
-      removeAdditionalCall,
-      call: additionalCalls
-    } = this.props;
-
+    const { setCallMissed } = this.props;
     this.stopRingbacktone();
     this.stopRingTone();
     setCallMissed();
-
-    if (additionalCalls.length > 0) {
-      removeAdditionalCall();
-    }
   }
 
   handleAcceptedEvent() {
@@ -387,9 +422,28 @@ export default class PhoneProvider extends React.Component {
   }
 
   handleTerminatedEvent() {
-    const { setCallFinished, call: caller } = this.props;
-    this.addCallToRecentCalls(caller.missed);
-    setCallFinished();
+    const {
+      setCallFinished,
+      call: { additionalCalls, tempCaller, caller, onCall },
+      removeAdditionalCall
+    } = this.props;
+    logMessage(`additionalCalls`);
+    logMessage(additionalCalls);
+    if (additionalCalls > 0) {
+      removeAdditionalCall();
+      this.addCallToRecentCalls(tempCaller);
+      setCallFinished(true, caller);
+    } else {
+      let tempCallerToAdd = null;
+      if (!onCall) {
+        tempCallerToAdd = tempCaller;
+      } else {
+        tempCallerToAdd = caller;
+      }
+
+      this.addCallToRecentCalls(tempCallerToAdd);
+      setCallFinished();
+    }
   }
 
   handleUnregisteredEvent() {

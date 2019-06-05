@@ -4,7 +4,7 @@ import { createError } from '../util/errors';
 const initialState = {
   authInProgress: false,
   loggedIn: false,
-  token: undefined,
+  authToken: undefined,
   accessToken: undefined,
   refreshToken: undefined,
   loginInProgress: false,
@@ -49,14 +49,14 @@ export default (state = initialState, action) => {
         loginInProgress: false,
         authInProgress: false,
         requestingToken: false,
-        token: undefined,
+        authToken: undefined,
         error: createError(action)
       };
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
         loggedIn: action.payload.login,
-        token: JSON.stringify(action.payload.token),
+        authToken: JSON.stringify(action.payload.token),
         accessToken: action.payload.access_token,
         refreshToken: action.payload.refresh_token,
         loginInProgress: false,
@@ -86,7 +86,7 @@ export default (state = initialState, action) => {
         authInProgress: false,
         accessToken: undefined,
         refreshToken: undefined,
-        token: undefined
+        authToken: undefined
       };
     case authActions.LOGOUT_SUCCESS:
       return {
@@ -96,7 +96,7 @@ export default (state = initialState, action) => {
     case authActions.CLEAR_TOKEN:
       return {
         ...state,
-        token: undefined
+        authToken: undefined
       };
     case authActions.SET_TONE_TOKEN:
       return {
