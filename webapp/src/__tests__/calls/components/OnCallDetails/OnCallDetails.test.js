@@ -10,7 +10,7 @@ describe("NotConnectedScreen component", () => {
         t={key => key}
         phoneService={{}}
         receivingCall={false}
-        recipient={{}}
+        caller={{}}
       />
     );
 
@@ -26,7 +26,7 @@ describe("NotConnectedScreen component", () => {
         t={key => key}
         phoneService={{ hangUpCurrentCallAction: hangup }}
         receivingCall={false}
-        recipient={{}}
+        caller={{}}
       />
     );
 

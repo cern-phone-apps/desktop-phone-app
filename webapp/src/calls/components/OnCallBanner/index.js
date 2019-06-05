@@ -4,7 +4,7 @@ import OnCallBanner from "./OnCallBanner";
 
 function mapStateToProps ({calls}) {
   return {
-    recipient: calls.call.recipient,
+    caller: calls.call.caller,
   }
 }
 

@@ -8,7 +8,7 @@ export class OutgoingCallModal extends Component {
   static propTypes = {
     t: PropTypes.func.isRequired, // Translate service
     phoneService: PropTypes.object.isRequired, // Phone service
-    recipientName: PropTypes.string.isRequired,
+    callerName: PropTypes.string.isRequired,
     phoneNumber: PropTypes.string.isRequired
   };
 
@@ -21,7 +21,7 @@ export class OutgoingCallModal extends Component {
   };
 
   render() {
-    const { t, recipientName, phoneNumber } = this.props;
+    const { t, callerName, phoneNumber } = this.props;
     return (
       <Modal
         open={this.props.modalOpen}
@@ -35,7 +35,7 @@ export class OutgoingCallModal extends Component {
               <PhoneRingingIcon />
             </div>
             <h3 className="ui center aligned header">
-              {t("callingText")} {recipientName}
+              {t("callingText")} {callerName}
             </h3>
             <div className="ui center aligned basic segment">
               ({phoneNumber})

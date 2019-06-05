@@ -1,35 +1,35 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import { Menu, Modal, Icon, Button } from "semantic-ui-react";
-import { actionMessage, logMessage } from "common/utils/logs";
-import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Menu, Modal, Icon, Button } from 'semantic-ui-react';
+import { actionMessage, logMessage } from 'common/utils/logs';
+import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 
-const ModalTrigger = ({ onClick }) => {
-  return (
-    <Menu.Item onClick={onClick} name={"bug"} className={"SidebarDebugButton"}>
-      <Icon name={"bug"} />
-      {"Debug"}
-    </Menu.Item>
-  );
-};
+const ModalTrigger = ({ onClick }) => (
+  <Menu.Item onClick={onClick} name={'bug'} className={'SidebarDebugButton'}>
+    <Icon name={'bug'} />
+    {'Debug'}
+  </Menu.Item>
+);
 
 ModalTrigger.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-function ModalDebugContent (props) {
-  return <Modal.Content scrolling>
-    <Modal.Description>
-      <p>{`This is the Ddebug content`}</p>
-      <Button
-        disabled={!props.connected}
-        onClick={props.onClick}
-        className={"ReceiveCallDebugButton"}
-      >
-        Receive a call
-      </Button>
-    </Modal.Description>
-  </Modal.Content>;
+function ModalDebugContent(props) {
+  return (
+    <Modal.Content scrolling>
+      <Modal.Description>
+        <p>This is the Ddebug content</p>
+        <Button
+          disabled={!props.connected}
+          onClick={props.onClick}
+          className="ReceiveCallDebugButton"
+        >
+          Receive a call
+        </Button>
+      </Modal.Description>
+    </Modal.Content>
+  );
 }
 
 ModalDebugContent.propTypes = {
@@ -50,13 +50,13 @@ class ModalDebug extends Component {
 
   receiveCall = () => {
     const { phoneService, hideSidebarIfVisible } = this.props;
-    logMessage("Receiving call in some seconds");
+    logMessage('Receiving call in some seconds');
     actionMessage(`Calls: User clicks receive call button`);
     phoneService.eventHandler({
-      name: "inviteReceived",
+      name: 'inviteReceived',
       data: {
-        callerNumber: "555 444 333",
-        callerName: "John Doe"
+        callerNumber: '555 444 333',
+        callerName: 'John Doe'
       }
     });
     this.close();
@@ -73,10 +73,21 @@ class ModalDebug extends Component {
     const { connected } = this.props;
     const { open } = this.state;
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
-    return <Modal open={open} size={"small"} dimmer={"blurring"} closeIcon closeOnDimmerClick onClose={this.close} trigger={<ModalTrigger onClick={this.openModal} />} className={"ModalDebug"}>
-        <Modal.Header>{"Debug"}</Modal.Header>
+    return (
+      <Modal
+        open={open}
+        size="small"
+        dimmer="blurring"
+        closeIcon
+        closeOnDimmerClick
+        onClose={this.close}
+        trigger={<ModalTrigger onClick={this.openModal} />}
+        className="ModalDebug"
+      >
+        <Modal.Header>Debug</Modal.Header>
         <ModalDebugContent connected={connected} onClick={this.receiveCall} />
-      </Modal>;
+      </Modal>
+    );
   }
 }
 

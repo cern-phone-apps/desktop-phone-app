@@ -56,7 +56,7 @@ export class PhoneProvider extends React.Component {
     const dial = new Dial();
     this.setState(
       {
-        dialAPI: dial
+        toneAPI: dial
       },
       () => {
         this.addListeners();
@@ -65,8 +65,8 @@ export class PhoneProvider extends React.Component {
   }
 
   addListeners = () => {
-    const { dialAPI } = this.state;
-    this.notifier = dialAPI.getNotifier();
+    const { toneAPI } = this.state;
+    this.notifier = toneAPI.getNotifier();
     if (this.notifier) {
       this.notifier.on('ToneEvent', event => {
         this.eventHandler(event);
@@ -81,11 +81,11 @@ export class PhoneProvider extends React.Component {
    */
   registerUser = (phoneNumber, token) => {
     const { requestRegistration } = this.props;
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
 
     this.setState({ phoneNumber });
     requestRegistration();
-    dialAPI.authenticate(phoneNumber, token);
+    toneAPI.authenticate(phoneNumber, token);
   };
 
   disconnectUser = async () => {
@@ -94,7 +94,7 @@ export class PhoneProvider extends React.Component {
       setDisconnectionSuccess,
       call: onCall
     } = this.props;
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
 
     toneOutMessage(`UnAuthenticating user`);
 
@@ -107,7 +107,7 @@ export class PhoneProvider extends React.Component {
     await requestDisconnection(true);
 
     try {
-      dialAPI.stopAgent();
+      toneAPI.stopAgent();
     } catch (error) {
       errorMessage(`Agent is not connected`);
       setDisconnectionSuccess();
@@ -122,7 +122,7 @@ export class PhoneProvider extends React.Component {
    */
   makeCall = (name = 'Unknown', phoneNumber) => {
     const { setMakeCallRequest, setIsCalling } = this.props;
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
 
     toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
     setMakeCallRequest({
@@ -130,7 +130,7 @@ export class PhoneProvider extends React.Component {
       phoneNumber
     });
     try {
-      dialAPI.call(phoneNumber);
+      toneAPI.call(phoneNumber);
       return true;
     } catch (error) {
       errorMessage(error);
@@ -140,25 +140,25 @@ export class PhoneProvider extends React.Component {
   };
 
   hangupCurrentCall = () => {
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
     toneOutMessage(`Hang up current call`);
-    return dialAPI.hangUp();
+    return toneAPI.hangUp();
   };
 
   acceptIncomingCallAction = () => {
-    const { dialAPI } = this.state;
+    const { toneAPI } = this.state;
     toneOutMessage(`Accepting incoming call`);
-    dialAPI.answer();
+    toneAPI.answer();
   };
 
   addCallToRecentCalls = () => {
     logMessage(`addCallToRecentCalls`);
     const {
       addRecentCall,
-      call: { recipient, caller, receivingCall, startTime, onCall }
+      call: { caller, receivingCall, startTime, onCall }
     } = this.props;
     addRecentCall(
-      receivingCall ? caller : recipient,
+      caller,
       receivingCall,
       !onCall,
       startTime
@@ -214,12 +214,12 @@ export class PhoneProvider extends React.Component {
     this.setState({
       startTime: Date.now()
     });
-    setCallAccepted();
+    setCallAccepted(receivingCall=false);
   };
 
   rejectIncomingCall = () => {
-    const { dialAPI } = this.state;
-    dialAPI.hangUp();
+    const { toneAPI } = this.state;
+    toneAPI.hangUp();
   };
 
   handleRejectedEvent = () => {

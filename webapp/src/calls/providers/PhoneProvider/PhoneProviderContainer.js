@@ -6,7 +6,8 @@ import {
   callActions,
   connectionActions,
   recentCallsActions,
-  authActions
+  authActions,
+  authActionFactory
 } from 'dial-core';
 
 import { info, success, warning } from 'common/actions/notifications';
@@ -15,7 +16,7 @@ import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 
 export function mapStateToProps({ calls, auth }) {
   return {
-    authToken: auth.token,
+    authToken: auth.authToken,
     doNotDisturb: calls.status.doNotDisturb,
     call: calls.call,
     toneToken: auth.toneToken
@@ -26,6 +27,7 @@ export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...authActions,
+      logout: authActionFactory(process.env.REACT_APP_API_ENDPOINT).logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions,

@@ -4,7 +4,6 @@ import OnCallDetails from './OnCallDetails';
 
 function mapStateToProps({ calls }) {
   return {
-    recipient: calls.call.recipient,
     caller: calls.call.caller,
     receivingCall: calls.call.receivingCall,
     call: calls.call

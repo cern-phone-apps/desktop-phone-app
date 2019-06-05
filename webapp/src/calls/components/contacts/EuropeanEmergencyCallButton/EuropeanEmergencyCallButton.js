@@ -7,7 +7,7 @@ export class EuropeanEmergencyCallButton extends Component {
       <UserPhoneNumberButtonContainer
         phoneNumber={`112`}
         icon={`phone`}
-        recipientName={`European Emergency`}
+        callerName={`European Emergency`}
       />
     );
   }

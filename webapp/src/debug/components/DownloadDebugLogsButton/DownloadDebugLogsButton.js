@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
-import DetectRTC from "detectrtc";
-import { actionMessage, errorMessage, logMessage } from "common/utils/logs";
-import { stopStreams } from "settings/utils/devices";
-import * as PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { Button, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react';
+import DetectRTC from 'detectrtc';
+import { actionMessage, errorMessage, logMessage } from 'common/utils/logs';
+import { stopStreams } from 'settings/utils/devices';
+import * as PropTypes from 'prop-types';
 
 function DownloadDebugModalActions(props) {
   return (
     <Modal.Actions>
-      <Button color={"green"} onClick={props.onClick}>
+      <Button color="green" onClick={props.onClick}>
         Load Logs
       </Button>
 
@@ -34,16 +34,18 @@ DownloadDebugModalActions.propTypes = {
   onClick1: PropTypes.func
 };
 
-function DownloadDebugModalLogsContent (props) {
-  return <Modal.Content>
-    <Form>
-            <TextArea
-              placeholder="Log content"
-              style={{ minHeight: 100 }}
-              value={props.value}
-            />
-    </Form>
-  </Modal.Content>;
+function DownloadDebugModalLogsContent(props) {
+  return (
+    <Modal.Content>
+      <Form>
+        <TextArea
+          placeholder="Log content"
+          style={{ minHeight: 100 }}
+          value={props.value}
+        />
+      </Form>
+    </Modal.Content>
+  );
 }
 
 DownloadDebugModalLogsContent.propTypes = { value: PropTypes.any };
@@ -76,26 +78,24 @@ export class DownloadDebugLogsButton extends Component {
           this.generateLogs(ipDict);
         })
         .catch(() => {
-          errorMessage("User did not give microphone permission.");
+          errorMessage('User did not give microphone permission.');
           this.generateLogs(ipDict);
         });
     });
     this.setState({ logsLoaded: true });
   };
 
-  getIpAddress = (ip, publicAddress, ipv4) => {
-    return {
-      ip: {
-        address: ip,
-        public: publicAddress,
-        ipv4: ipv4
-      }
-    };
-  };
+  getIpAddress = (ip, publicAddress, ipv4) => ({
+    ip: {
+      address: ip,
+      public: publicAddress,
+      ipv4
+    }
+  });
 
   generateLogs(ipDict = {}) {
-    logMessage("Loading system info...");
-    let logs = JSON.parse(localStorage.getItem("logs"));
+    logMessage('Loading system info...');
+    const logs = JSON.parse(localStorage.getItem('logs'));
     logs.push(this.getSystemInformation(ipDict));
     this.setState({ logs: JSON.stringify(logs) });
   }
@@ -103,17 +103,17 @@ export class DownloadDebugLogsButton extends Component {
   getOSInformation = () => {
     const name = DetectRTC.osName;
     const version = DetectRTC.osVersion;
-    const displayResolution = DetectRTC.displayResolution;
-    const displayAspectRatio = DetectRTC.displayAspectRatio;
-    const isMobileDevice = DetectRTC.isMobileDevice;
+    const { displayResolution } = DetectRTC;
+    const { displayAspectRatio } = DetectRTC;
+    const { isMobileDevice } = DetectRTC;
 
     return {
       os: {
-        name: name,
-        version: version,
+        name,
+        version,
         resolution: displayResolution,
         aspectRatio: displayAspectRatio,
-        isMobileDevice: isMobileDevice
+        isMobileDevice
       }
     };
   };
@@ -121,13 +121,13 @@ export class DownloadDebugLogsButton extends Component {
   getBrowserInformation = () => {
     const browser = DetectRTC.browser.name;
     const browserVersion = DetectRTC.browser.fullVersion;
-    const isPromisesSupported = DetectRTC.isPromisesSupported;
+    const { isPromisesSupported } = DetectRTC;
 
     return {
       browser: {
         name: browser,
         version: browserVersion,
-        isPromisesSupported: isPromisesSupported
+        isPromisesSupported
       }
     };
   };
@@ -136,18 +136,18 @@ export class DownloadDebugLogsButton extends Component {
     const webrtcEnabled = DetectRTC.isWebRTCSupported;
     const ortcSupported = DetectRTC.isORTCSupported;
     const webSocketsSupported = DetectRTC.isWebSocketsSupported;
-    const isAudioContextSupported = DetectRTC.isAudioContextSupported;
-    const isSctpDataChannelsSupported = DetectRTC.isSctpDataChannelsSupported;
-    const isRtpDataChannelsSupported = DetectRTC.isRtpDataChannelsSupported;
+    const { isAudioContextSupported } = DetectRTC;
+    const { isSctpDataChannelsSupported } = DetectRTC;
+    const { isRtpDataChannelsSupported } = DetectRTC;
 
     return {
       webrtc: {
         enabled: webrtcEnabled,
         ortc: ortcSupported,
-        webSocketsSupported: webSocketsSupported,
-        isAudioContextSupported: isAudioContextSupported,
-        isSctpDataChannelsSupported: isSctpDataChannelsSupported,
-        isRtpDataChannelsSupported: isRtpDataChannelsSupported
+        webSocketsSupported,
+        isAudioContextSupported,
+        isSctpDataChannelsSupported,
+        isRtpDataChannelsSupported
       }
     };
   };
@@ -157,24 +157,24 @@ export class DownloadDebugLogsButton extends Component {
     const hasMicrophonePermissions =
       DetectRTC.isWebsiteHasMicrophonePermissions;
     const canChangeOutputDevice = DetectRTC.isSetSinkIdSupported;
-    const hasSpeakers = DetectRTC.hasSpeakers;
-    const hasMicrophone = DetectRTC.hasMicrophone;
+    const { hasSpeakers } = DetectRTC;
+    const { hasMicrophone } = DetectRTC;
 
-    let inputLabels = [];
-    DetectRTC.audioInputDevices.forEach(function(device) {
+    const inputLabels = [];
+    DetectRTC.audioInputDevices.forEach(device => {
       inputLabels.push(device.label);
     });
 
-    let outputLabels = [];
-    DetectRTC.audioInputDevices.forEach(function(device) {
+    const outputLabels = [];
+    DetectRTC.audioInputDevices.forEach(device => {
       outputLabels.push(device.label);
     });
 
     return {
       devices: {
-        getUserMediaAvailable: getUserMediaAvailable,
-        hasMicrophonePermissions: hasMicrophonePermissions,
-        canChangeOutputDevice: canChangeOutputDevice,
+        getUserMediaAvailable,
+        hasMicrophonePermissions,
+        canChangeOutputDevice,
         speakers: {
           available: hasSpeakers,
           count: DetectRTC.audioOutputDevices.length,
@@ -189,31 +189,29 @@ export class DownloadDebugLogsButton extends Component {
     };
   };
 
-  getSystemInformation = ipAddress => {
-    return {
-      system: {
-        ...this.getOSInformation(),
-        ...this.getBrowserInformation(),
-        ...this.getWebrtcInformation(),
-        ...this.getDevicesInformation(),
-        ...ipAddress
-      }
-    };
-  };
+  getSystemInformation = ipAddress => ({
+    system: {
+      ...this.getOSInformation(),
+      ...this.getBrowserInformation(),
+      ...this.getWebrtcInformation(),
+      ...this.getDevicesInformation(),
+      ...ipAddress
+    }
+  });
 
   render() {
     const { logsLoaded } = this.state;
     return (
       <Modal
         trigger={
-          <Button onClick={this.handleOpen} className={"flat"} icon={"bug"}/>
+          <Button onClick={this.handleOpen} className="flat" icon="bug" />
         }
         open={this.state.modalOpen}
         onClose={this.handleClose}
         size="small"
       >
-        <Header icon="browser" content="Logs"/>
-        <DownloadDebugModalLogsContent value={this.state.logs}/>
+        <Header icon="browser" content="Logs" />
+        <DownloadDebugModalLogsContent value={this.state.logs} />
         <DownloadDebugModalActions
           onClick={this.loadLogs}
           logsLoaded={logsLoaded}

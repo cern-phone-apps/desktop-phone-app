@@ -56,7 +56,7 @@ function SearchProfileModalContent(props) {
               key={`button-${index}`}
               phoneNumber={phone.number}
               icon={phone.phoneType}
-              recipientName={props.user.displayName}
+              callerName={props.user.displayName}
             />
           );
         } return null;

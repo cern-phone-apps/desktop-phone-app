@@ -1,29 +1,29 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Icon } from "semantic-ui-react";
-import { buildRecipient} from "calls/utils/utils";
+import { buildcaller} from "calls/utils/utils";
 import { formatPhoneNumber } from "calls/utils/utils";
 
 export class UserPhoneNumberButton extends Component {
   static propTypes = {
     phoneNumber: PropTypes.string.isRequired,
-    recipientName: PropTypes.string.isRequired,
+    callerName: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     phoneService: PropTypes.object.isRequired,
   };
 
   makeCall = () => {
-    const { phoneNumber, recipientName } = this.props;
+    const { phoneNumber, callerName } = this.props;
 
     const formattedNumber = formatPhoneNumber(phoneNumber);
 
-    const recipient = {
-      name: recipientName,
+    const caller = {
+      name: callerName,
       phoneNumber: formattedNumber,
       incoming: false,
       missed: false
     };
-    this.props.phoneService.makeCall(buildRecipient(recipient));
+    this.props.phoneService.makeCall(buildcaller(caller));
   };
 
   render() {

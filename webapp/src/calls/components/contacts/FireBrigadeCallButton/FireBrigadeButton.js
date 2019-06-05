@@ -7,7 +7,7 @@ export class FireBrigadeButton extends Component {
       <UserPhoneNumberButtonContainer
         phoneNumber={`74444`}
         icon={`phone`}
-        recipientName={`Fire Brigade`}
+        callerName={`Fire Brigade`}
       />
     );
   }

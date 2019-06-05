@@ -1,25 +1,23 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { translate } from "react-i18next";
-import { Button, Header, Icon, Modal } from "semantic-ui-react";
-import PhoneRingingIcon from "calls/components/PhoneRingingIcon/PhoneRingingIcon";
-import { logMessage } from "common/utils/logs";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
+import { Button, Header, Icon, Modal } from 'semantic-ui-react';
+import PhoneRingingIcon from 'calls/components/PhoneRingingIcon/PhoneRingingIcon';
+import { logMessage } from 'common/utils/logs';
 
-import styles from "./IncomingCallModal.css";
+import styles from './IncomingCallModal.css';
 
 /**
  * Displays the incoming call button banner. It is displayed when the
  * CallingModal is hidden.
  * @param {*} param0
  */
-const ModalTrigger = ({ onClick, callerName, callerNumber }) => {
-  return (
-    <div className={"padded-item CallingMessage"} onClick={onClick}>
-      <Icon name={"phone"} /> {"Receiving a call"} from {callerName} (
-      {callerNumber})
-    </div>
-  );
-};
+const ModalTrigger = ({ onClick, callerName, callerNumber }) => (
+  <div className="padded-item CallingMessage" onClick={onClick}>
+    <Icon name="phone" /> {'Receiving a call'} from {callerName} ({callerNumber}
+    )
+  </div>
+);
 
 ModalTrigger.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -35,7 +33,7 @@ ModalTrigger.propTypes = {
  */
 function RejectButton({ onClick }) {
   return (
-    <Button negative onClick={onClick} className={"RejectCallButton"}>
+    <Button negative onClick={onClick} className="RejectCallButton">
       Reject
     </Button>
   );
@@ -54,10 +52,10 @@ function AnswerButton({ onClick }) {
     <Button
       positive
       onClick={onClick}
-      icon={"phone"}
-      labelPosition={"right"}
-      content={"Answer"}
-      className={"AnswerCallButton"}
+      icon="phone"
+      labelPosition="right"
+      content="Answer"
+      className="AnswerCallButton"
     />
   );
 }
@@ -65,20 +63,20 @@ function AnswerButton({ onClick }) {
 AnswerButton.propTypes = { onClick: PropTypes.func };
 
 function CallingModalContent({
-                               callerName,
-                               callerNumber,
-                               onClickReject,
-                               onClickAnswer
-                             }) {
+  callerName,
+  callerNumber,
+  onClickReject,
+  onClickAnswer
+}) {
   return (
     <>
-      <Modal.Header>{"Receiving an incoming call"}</Modal.Header>
+      <Modal.Header>Receiving an incoming call</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <div className="ui center aligned basic segment">
             <PhoneRingingIcon />
-            <Header as={"h3"}>{callerName}</Header>
-            <Header as={"h4"}>({callerNumber})</Header>
+            <Header as="h3">{callerName}</Header>
+            <Header as="h4">({callerNumber})</Header>
           </div>
         </Modal.Description>
       </Modal.Content>
@@ -121,7 +119,7 @@ export class IncomingCallModal extends Component {
    * Action triggered when the modal is opened
    */
   onOpen = () => {
-    logMessage("Opening calling modal");
+    logMessage('Opening calling modal');
     this.props.phoneService.playRingTone();
   };
 
@@ -129,7 +127,7 @@ export class IncomingCallModal extends Component {
    * Action triggered when the modal is closed
    */
   onClose = () => {
-    logMessage("Closing calling modal");
+    logMessage('Closing calling modal');
     this.props.phoneService.stopRingTone();
     this.setState({ modalHidden: true });
   };
@@ -168,8 +166,8 @@ export class IncomingCallModal extends Component {
     if (connected && receivingCall) {
       return (
         <Modal
-          size={"tiny"}
-          dimmer={"blurring"}
+          size="tiny"
+          dimmer="blurring"
           open={receivingCall && !modalHidden}
           className={`${styles.CallingModal} CallingModal`}
           closeIcon
@@ -194,10 +192,9 @@ export class IncomingCallModal extends Component {
           />
         </Modal>
       );
-    } else {
-      return "";
     }
+    return null;
   }
 }
 
-export default translate("settings")(IncomingCallModal);
+export default translate('settings')(IncomingCallModal);
