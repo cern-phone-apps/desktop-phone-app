@@ -15,12 +15,25 @@ export const DISABLE_CALL_FORWARDING_SUCCESS =
 export const DISABLE_CALL_FORWARDING_FAILURE =
   '@@settings/DISABLE_CALL_FORWARDING_FAILURE';
 
-export const ENABLE_SIMULTANEOUS_RINGING_REQUEST =
-  '@@settings/ENABLE_SIMULTANEOUS_RINGING_REQUEST';
-export const ENABLE_SIMULTANEOUS_RINGING_SUCCESS =
-  '@@settings/ENABLE_SIMULTANEOUS_RINGING_SUCCESS';
-export const ENABLE_SIMULTANEOUS_RINGING_FAILURE =
-  '@@settings/ENABLE_SIMULTANEOUS_RINGING_FAILURE';
+export const DISABLE_CALL_FORWARDING_ACTIONS = {
+  REQUEST: '@@settings/DISABLE_CALL_FORWARDING_REQUEST',
+  SUCCESS: '@@settings/DISABLE_CALL_FORWARDING_SUCCESS',
+  FAILURE: '@@settings/DISABLE_CALL_FORWARDING_FAILURE'
+};
+
+export const ENABLE_SIMULTANEOUS_RINGING_ACTIONS = {
+  REQUEST: '@@settings/ENABLE_SIMULTANEOUS_RINGING_REQUEST',
+  SUCCESS: '@@settings/ENABLE_SIMULTANEOUS_RINGING_SUCCESS',
+  FAILURE: '@@settings/ENABLE_SIMULTANEOUS_RINGING_FAILURE'
+};
+
+export const ENABLE_CALL_FORWARDING_ACTIONS = {
+  REQUEST: '@@settings/ENABLE_CALL_FORWARDING_REQUEST',
+  SUCCESS: '@@settings/ENABLE_CALL_FORWARDING_SUCCESS',
+  FAILURE: '@@settings/ENABLE_CALL_FORWARDING_FAILURE'
+};
+
+export const CLEAR_LAST_OPERATION = '@@settings/CLEAR_LAST_OPERATION';
 
 const API_PATH = '/api/v1/call-forwarding';
 
@@ -35,6 +48,12 @@ export function addLocalRingingNumber(number) {
   return {
     number,
     type: ADD_LOCAL_RINGING_NUMBER
+  };
+}
+
+export function clearLastOperation() {
+  return {
+    type: CLEAR_LAST_OPERATION
   };
 }
 
@@ -76,25 +95,41 @@ export default function(apiEndpoint, type = 'web') {
         }),
         body: JSON.stringify({ extension }),
         types: [
-          DISABLE_CALL_FORWARDING_REQUEST,
-          DISABLE_CALL_FORWARDING_SUCCESS,
-          DISABLE_CALL_FORWARDING_FAILURE
+          DISABLE_CALL_FORWARDING_ACTIONS.REQUEST,
+          DISABLE_CALL_FORWARDING_ACTIONS.SUCCESS,
+          DISABLE_CALL_FORWARDING_ACTIONS.FAILURE
         ]
       }
     }),
-    enableSimultaneousRinging: (extension, personId, destinations) => ({
+    enableSimultaneousRinging: (extension, destinations) => ({
       [RSAA]: {
         endpoint: buildApiURL('/simultaneous-ring/enable/'),
-        method: 'DELETE',
+        method: 'POST',
         credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
-        body: JSON.stringify({ extension, personId, destinations }),
+        body: JSON.stringify({ extension, destinations }),
         types: [
-          ENABLE_SIMULTANEOUS_RINGING_REQUEST,
-          ENABLE_SIMULTANEOUS_RINGING_SUCCESS,
-          ENABLE_SIMULTANEOUS_RINGING_FAILURE
+          ENABLE_SIMULTANEOUS_RINGING_ACTIONS.REQUEST,
+          ENABLE_SIMULTANEOUS_RINGING_ACTIONS.SUCCESS,
+          ENABLE_SIMULTANEOUS_RINGING_ACTIONS.FAILURE
+        ]
+      }
+    }),
+    enableCallForwarding: (extension, destination) => ({
+      [RSAA]: {
+        endpoint: buildApiURL('/enable/'),
+        method: 'POST',
+        credentials: 'include',
+        headers: authHandlerClass.withAuth({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({ extension, destination }),
+        types: [
+          ENABLE_CALL_FORWARDING_ACTIONS.REQUEST,
+          ENABLE_CALL_FORWARDING_ACTIONS.SUCCESS,
+          ENABLE_CALL_FORWARDING_ACTIONS.FAILURE
         ]
       }
     })

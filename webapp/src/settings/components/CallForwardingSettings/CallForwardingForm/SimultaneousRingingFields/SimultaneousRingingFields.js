@@ -36,16 +36,11 @@ class SimRingingFields extends React.Component {
   };
 
   componentDidMount() {
-    console.log('Simultaneous Ringing Field -> componentDidMount');
-
     this.selectDefaultDropdownSelection();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { localRingingList, status } = this.props;
-
-    console.log('Simultaneous Ringing Field -> componentDidUpdate');
-
     if (prevProps.localRingingList !== localRingingList) {
       this.updateRingingList(true);
     }
@@ -61,7 +56,6 @@ class SimRingingFields extends React.Component {
    */
   selectDefaultDropdownSelection = () => {
     const { status } = this.props;
-    console.log('Simultaneous Ringing Field -> selectDefaultDropdownSelection');
     const defaultDropdownValues = status['destination-list'] || [];
     this.setState(
       {

@@ -4,7 +4,8 @@ const initialState = {
   localForwardList: [],
   localRingingList: [],
   fetchingStatus: false,
-  status: {}
+  status: {},
+  lastOperationResult: null
 };
 
 export default (state = initialState, action) => {
@@ -45,6 +46,24 @@ export default (state = initialState, action) => {
         ...state,
         fetchingStatus: false
       };
+
+    case callForwardingActions.ENABLE_CALL_FORWARDING_ACTIONS.SUCCESS:
+    case callForwardingActions.ENABLE_CALL_FORWARDING_ACTIONS.FAILURE:
+    case callForwardingActions.ENABLE_SIMULTANEOUS_RINGING_ACTIONS.SUCCESS:
+    case callForwardingActions.ENABLE_SIMULTANEOUS_RINGING_ACTIONS.FAILURE:
+    case callForwardingActions.DISABLE_CALL_FORWARDING_ACTIONS.SUCCESS:
+    case callForwardingActions.DISABLE_CALL_FORWARDING_ACTIONS.FAILURE:
+      return {
+        ...state,
+        lastOperationResult: action.payload
+      };
+
+    case callForwardingActions.CLEAR_LAST_OPERATION:
+      return {
+        ...state,
+        lastOperationResult: null
+      };
+
     default:
       return state;
   }

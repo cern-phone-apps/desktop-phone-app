@@ -20,11 +20,14 @@ export class CallForwardingForm extends React.Component {
     getCallForwardingStatus: PropTypes.func.isRequired,
     disableCallForwarding: PropTypes.func.isRequired,
     enableSimultaneousRinging: PropTypes.func.isRequired,
+    enableCallForwarding: PropTypes.func.isRequired,
     status: PropTypes.shape({
       'destination-list': PropTypes.arrayOf(String).isRequired
     }).isRequired,
     activeNumber: PropTypes.string.isRequired,
-    personId: PropTypes.string.isRequired
+    lastOperationResult: PropTypes.shape({
+      success: PropTypes.bool.isRequired
+    }).isRequired
   };
 
   state = {
@@ -32,7 +35,8 @@ export class CallForwardingForm extends React.Component {
     forwardStatus: 'disabled',
     fetchTimes: 0,
     ringingNumbers: [],
-    forwardNumbers: []
+    forwardNumbers: [],
+    messageVisible: false
   };
 
   /**
@@ -44,7 +48,13 @@ export class CallForwardingForm extends React.Component {
   }
 
   fetchData = async () => {
-    const { activeNumber, getCallForwardingStatus } = this.props;
+    const {
+      activeNumber,
+      getCallForwardingStatus,
+      clearLastOperation
+    } = this.props;
+
+    clearLastOperation();
 
     let { fetchTimes } = this.state;
     this.setState({
@@ -90,12 +100,17 @@ export class CallForwardingForm extends React.Component {
     }
   };
 
+  handleDismiss = () => {
+    const { clearLastOperation } = this.props;
+    clearLastOperation();
+  };
+
   handleSave = () => {
     const {
       activeNumber,
       disableCallForwarding,
       enableSimultaneousRinging,
-      personId
+      enableCallForwarding
     } = this.props;
 
     const { forwardStatus, ringingNumbers, forwardNumbers } = this.state;
@@ -109,11 +124,11 @@ export class CallForwardingForm extends React.Component {
       console.log(`Calling disableCallForwarding with ${activeNumber}`);
       disableCallForwarding(activeNumber);
     } else if (forwardStatus === 'simultaneous') {
-      enableSimultaneousRinging(activeNumber, personId, ringingNumbers);
+      enableSimultaneousRinging(activeNumber, ringingNumbers);
+    } else if (forwardStatus === 'forward') {
+      enableCallForwarding(activeNumber, forwardNumbers);
     }
   };
-
-  handleOpen = () => this.setState({ modalOpen: true });
 
   updateRingingNumbers = numbers => {
     this.setState({ ringingNumbers: numbers });
@@ -124,7 +139,7 @@ export class CallForwardingForm extends React.Component {
   };
 
   render() {
-    const { status } = this.props;
+    const { status, lastOperationResult } = this.props;
     const { forwardStatus, isFetching } = this.state;
 
     if (status && status.success === false) {
@@ -144,6 +159,22 @@ export class CallForwardingForm extends React.Component {
     return (
       <Segment padded basic loading={isFetching}>
         <Form>
+          {lastOperationResult && (
+            <Grid columns={1} relaxed="very">
+              <Grid.Row>
+                <Grid.Column>
+                  <Message
+                    onDismiss={this.handleDismiss}
+                    color={lastOperationResult.success ? 'green' : 'red'}
+                  >
+                    {lastOperationResult.success !== null
+                      ? lastOperationResult.message
+                      : 'Unable to set call forwarding. (API Error)'}
+                  </Message>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          )}
           <Grid columns={2} relaxed="very" divided>
             <Grid.Row>
               <Grid.Column>
@@ -176,11 +207,21 @@ export class CallForwardingForm extends React.Component {
           <Grid columns={1} relaxed="very" divided>
             <Grid.Row>
               <Grid.Column>
-                <Form.Field>
-                  <Button icon onClick={this.handleSave}>
-                    <Icon name="save" /> Save
-                  </Button>
-                </Form.Field>
+                <Form.Group>
+                  <Form.Field>
+                    <Button icon onClick={this.handleSave}>
+                      <Icon name="save" /> Save
+                    </Button>
+                  </Form.Field>
+                  <Form.Field>
+                    <Button
+                      disabled={isFetching}
+                      loading={isFetching}
+                      onClick={this.handleFetchAgain}
+                      icon="refresh"
+                    />
+                  </Form.Field>
+                </Form.Group>
               </Grid.Column>
             </Grid.Row>
           </Grid>

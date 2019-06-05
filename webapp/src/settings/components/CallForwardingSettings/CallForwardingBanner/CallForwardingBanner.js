@@ -40,7 +40,6 @@ export class CallForwardingBanner extends Component {
 
   async fetchCallForwardingStatus() {
     const { activeNumber, getCallForwardingStatus } = this.props;
-
     const forwardingData = await getCallForwardingStatus(activeNumber);
     if (forwardingData && forwardingData.payload.success) {
       // Obtain values from the payload
