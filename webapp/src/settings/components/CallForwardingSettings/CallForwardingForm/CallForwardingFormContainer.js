@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { callForwardingActionFactory } from 'dial-core';
+import { callForwardingActionFactory, callForwardingActions } from 'dial-core';
 import { CallForwardingForm } from './CallForwardingForm';
 
-function mapStateToProps({ callForwarding, calls, user }) {
+function mapStateToProps({ callForwarding, calls }) {
   return {
     localForwardList: callForwarding.localForwardList,
     fetchingStatus: callForwarding.fetchingStatus,
     status: callForwarding.status,
     activeNumber: calls.numbers.activeNumber,
-    personId: user.personId
+    lastOperationResult: callForwarding.lastOperationResult
   };
 }
 
@@ -24,7 +24,11 @@ function mapDispatchToProps(dispatch) {
       ).disableCallForwarding,
       enableSimultaneousRinging: callForwardingActionFactory(
         process.env.REACT_APP_API_ENDPOINT
-      ).enableSimultaneousRinging
+      ).enableSimultaneousRinging,
+      enableCallForwarding: callForwardingActionFactory(
+        process.env.REACT_APP_API_ENDPOINT
+      ).enableCallForwarding,
+      clearLastOperation: callForwardingActions.clearLastOperation
     },
     dispatch
   );

@@ -31,16 +31,11 @@ class CallForwardingFields extends React.Component {
   };
 
   componentDidMount() {
-    console.log('Simultaneous Ringing Field -> componentDidMount');
-
     this.selectDefaultDropdownSelection();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { localForwardList, status } = this.props;
-
-    console.log('Simultaneous Ringing Field -> componentDidUpdate');
-
     if (prevProps.localForwardList !== localForwardList) {
       this.updateForwardList(true);
     }
@@ -88,7 +83,7 @@ class CallForwardingFields extends React.Component {
           defaultDropdownValues: value
         },
         () => {
-          this.saveAction(value);
+          this.props.saveAction(value);
         }
       );
     } else {
