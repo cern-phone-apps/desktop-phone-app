@@ -10,6 +10,7 @@
     "babel-eslint": "^10.0.1",
     "debug": "^4.1.1",
     "dial-core": "file:../core",
+    "tone-api-mobile": "file:../tone-api/mobile",
     "eslint": "^5.16.0",
     "events": "3.0.0",
     "moment": "^2.24.0",
@@ -35,7 +36,7 @@
     "sip.js": "0.13.5"
   },
   "devDependencies": {
-    "babel-core": "^7.0.0-bridge.0",
+    "@babel/core": "^7.4.5",
     "babel-jest": "24.1.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.2.0",
