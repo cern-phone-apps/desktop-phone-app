@@ -10,8 +10,8 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreenContainer, // Redirects the user to either of the stacks
-      App: AppFullStack,
-      Auth: AuthStack
+      App: AppFullStack, // Application
+      Auth: AuthStack // Authentication
     },
     {
       initialRouteName: 'AuthLoading'

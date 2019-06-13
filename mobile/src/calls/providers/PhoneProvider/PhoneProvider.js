@@ -1,13 +1,24 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
-import { Dial } from '../../../../external/tone-webrtc-api/dial-api';
+import { Dial } from 'tone-api-mobile';
+import { Alert } from 'react-native';
 import {
   errorMessage,
   logMessage,
   toneInMessage,
   toneOutMessage
 } from '../../../common/utils/logging';
+
 import * as Sound from '../../utils/sound/Sound';
+
+const displayErrorAlert = (header = 'Error', message) => {
+  Alert.alert(header, message, [
+    {
+      text: 'Close',
+      style: 'cancel'
+    }
+  ]);
+};
 
 export class PhoneProvider extends React.Component {
   static propTypes = {
@@ -157,12 +168,7 @@ export class PhoneProvider extends React.Component {
       addRecentCall,
       call: { caller, receivingCall, startTime, onCall }
     } = this.props;
-    addRecentCall(
-      caller,
-      receivingCall,
-      !onCall,
-      startTime
-    );
+    addRecentCall(caller, receivingCall, !onCall, startTime);
   };
 
   /**
@@ -214,7 +220,7 @@ export class PhoneProvider extends React.Component {
     this.setState({
       startTime: Date.now()
     });
-    setCallAccepted(receivingCall=false);
+    setCallAccepted((receivingCall = false));
   };
 
   rejectIncomingCall = () => {
@@ -266,6 +272,12 @@ export class PhoneProvider extends React.Component {
       case 'registered':
         this.handleRegisteredEvent();
         break;
+      case 'registrationFailed':
+        displayErrorAlert(
+          'Error',
+          'Unable to register the selected number. Please, logout and try again in a few minutes.'
+        );
+        break;
       // The user is unregistered. He is no longer able to make/receive calls
       case 'unregistered':
         this.handleUnregisteredEvent();
@@ -300,7 +312,7 @@ export class PhoneProvider extends React.Component {
         break;
 
       default:
-        errorMessage(`Unhandled event: ${event.name}`);
+        displayErrorAlert(`Unhandled event: ${event.name}`);
     }
   };
 

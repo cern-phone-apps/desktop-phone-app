@@ -64,6 +64,9 @@ export const CallingStack = createStackNavigator({
     headerMode: 'none',
     navigationOptions: () => ({ header: null })
   },
+  /**
+   * This screen is displayed over the AppTabs to handle the incoming, outgoing and ongoing calls
+   */
   Calling: {
     screen: CallModalScreenContainer,
     navigationOptions: ({ navigation }) => ({

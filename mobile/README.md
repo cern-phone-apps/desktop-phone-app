@@ -4,6 +4,7 @@
 
 - Android 8.1
 - [React Native Debugger](https://github.com/jhen0409/react-native-debugger)
+- yarn (>1.16.0)
 
 ## Development
 
@@ -17,7 +18,7 @@ Need to be placed on external/tone-webrtc-api/dial-api
 ### Change the debugger port
 
 1. Open the development menu
-2. On "Dev Settings" change the "Debug server 
+2. On "Dev Settings" change the "Debug server
 host & port for device" to something like:
 `localhost:8081`
 
@@ -32,7 +33,7 @@ react-native link react-native-gesture-handler
 ## Run the app
 
 ```bash
-npm start
+yarn install
 react-native run-android
 ```
 
