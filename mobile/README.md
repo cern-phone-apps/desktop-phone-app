@@ -37,3 +37,14 @@ yarn install
 react-native run-android
 ```
 
+## Generate bundles and apk
+
+- https://facebook.github.io/react-native/docs/signed-apk-android
+
+```
+./gradlew bundleRelease
+```
+
+```
+./gradlew assembleRelease
+```
