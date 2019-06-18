@@ -1,21 +1,30 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { connectionActions, callActions, recentCallsActions } from 'dial-core';
-import { PhoneProvider} from './PhoneProvider';
+import {
+  connectionActions,
+  callActions,
+  recentCallsActions,
+  authActions,
+  authActionFactory
+} from 'dial-core';
+import { PhoneProvider } from './PhoneProvider';
 import { phoneService } from './PhoneService';
 
-function mapStateToProps(state) {
-  const { calls } = state;
+export function mapStateToProps({ calls, auth }) {
   return {
-    connected: calls.connection ? calls.connection.connected : false,
-    call: calls.call
+    authToken: auth.authToken,
+    doNotDisturb: calls.status.doNotDisturb,
+    call: calls.call,
+    toneToken: auth.toneToken
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
+      ...authActions,
+      logout: authActionFactory(process.env.REACT_APP_API_ENDPOINT).logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions

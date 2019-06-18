@@ -20,7 +20,7 @@ export class RegisterForm extends React.Component {
     const { phoneService, phoneNumber, token } = this.props;
     console.log(`Registering user ${phoneNumber}`);
 
-    phoneService.registerUser(phoneNumber, token);
+    phoneService.authenticateUser(phoneNumber, token);
   };
 
   /**
