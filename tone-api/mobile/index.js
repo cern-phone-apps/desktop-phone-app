@@ -1,6 +1,7 @@
 /**
  * dial-api.js for DIAL-TONE.
- * @version 0.5.0
+ * @version 0.8.0
+
  *
  * WebRTC API for audio calls through PC for TONE infrastructure.
  * DIAL-TONE (Distributed Infrastructure Architecture Leading to TONE)
@@ -9,6 +10,7 @@
  *
  * @author JoÃ£o Filipe Garrett PaixÃ£o FlorÃªncio <joao.florencio@cern.ch>
  */
+import SHA512 from "crypto-js/sha512";
 
 import * as SIP from "sip.js";
 
@@ -35,11 +37,7 @@ const reactFactory = (session, options) => {
   return new ReactSDH.SessionDescriptionHandler(logger, observer, options);
 };
 
-var WebRTC = require("react-native-webrtc");
 
-var {
-  MediaStream
-} = WebRTC;
 
 /**
  * Notifier class, extends EventEmitter. Responsible for sending events.
@@ -87,16 +85,21 @@ export class Dial {
    * with the user given and the CERN OAuth access token to be verified in TONE.
    * @param {!string} user The phone number the client wants to register.
    * @param {!string} accessToken A string with a cern OAuth2.0 token.
+   * @returns {string} Hex encoded string of the SHA512 hash of the token.
    */
   authenticate(user, accessToken) {
-    console.log(`Authenticate...`);
-    if (user) {
+    if (user && accessToken) {
       try {
-        this.startAgent(user, accessToken);
-      } catch (e) {
+        this.startAgent(user,accessToken);
+        this.tokenHash = SHA512(accessToken).toString();
+        console.log("hashed token:" + this.tokenHash);
+        return this.tokenHash;
+      }
+      catch (e) {
         console.error("Error authenticate:" + e + "\n");
       }
-    } else throw Error("Cannot authenticate. Token or User not set.");
+    }
+    else throw Error("Cannot authenticate. Token or User not set.");
   }
 
   /**
@@ -121,29 +124,32 @@ export class Dial {
    * @param {!string} callee Contact name.
    */
   call(callee) {
-    if (!this.ua) {
+    if(!this.ua){
       throw Error("Cannot launch call. User agent not set.");
     }
-    let fullURI = callee + "@" + this.uri;
-    let session = this.ua.invite(fullURI);
+    var options = {
+      'extraHeaders': [ 'X-Tone-hash:' + this.tokenHash ]
+    };
+    let fullURI = callee + '@' + this.uri;
+    let session = this.ua.invite(fullURI,options);
     this.setSession(session);
+    // this.agentLastTrigger = 'inviteSent';
   }
 
   /**
    * Answers an incoming call.
    * Assumes there is a previously received invite, if not returns an error.
-   * @param {!string} callee Contact name.
    */
   answer() {
-    if (!this.inviteReceived) {
+    if(!this.inviteReceived){
       throw Error("Cannot answer call. No invite received.");
     }
-    if (!this.session) {
+    if(!this.session){
       throw Error("Cannot answer call. Session not established.");
     }
     this.session.accept();
     this.onCall = true;
-    var event = Dial.buildEvent("inviteAccepted", { session: this.session });
+    var event = Dial.buildEvent('inviteAccepted', {'session':this.session});
     this.sendEvent(event);
   }
 
@@ -156,31 +162,33 @@ export class Dial {
       this.inviteReceived = false;
       this.session.terminate();
       this.session = null;
-    } else if (this.inviteReceived) {
+    }
+    else if(this.inviteReceived){
       this.session.reject();
-    } else throw Error("Hang up when not on a call and no invite.");
+    }
+    else throw Error("Hang up when not on a call and no invite.");
   }
 
   /**
    * Function to send DTMF tones.
-   * @param {string} tone The DTMF digits to send. It may be a string or an integer.
+   * @param {!string} tone The DTMF digits to send. It may be a string or an integer.
    */
-  sendDTMF(tone) {
+  sendDTMF(tone){
     if (this.onCall) {
       this.session.dtmf(tone);
-    } else throw Error("Trying to send DTMF digits when not on a call.");
+    }
+    else throw Error("Trying to send DTMF digits when not on a call.");
   }
 
   /**
    * Internal function, to be call upon user agent creation.
    * Returns an FQDN of the TONE server to connect to.
-   * @param {string} tone The DTMF digits to send. It may be a string or an integer.
    */
   discoverServer() {
     /*
       go discover a service! go!
     */
-    this.uri = "tone-0513-wpilot-fe-2.cern.ch";
+    this.uri = 'tone-0513-wpilot-fe-2.cern.ch';
   }
 
   /**
@@ -241,9 +249,9 @@ export class Dial {
       authorizationUser: user,
       password: "",
       hackWssInTransport: true,
-      register: true,
+      register: false,
       autostart: true,
-      hackIpInContact: true,
+      hackIpInContact: false,
       userAgentString: "sip.js-v0.11.2 IT-CS-TR"
     };
     console.log(this.config);
@@ -291,9 +299,9 @@ export class Dial {
    * Periodic keep-alive register start to be sent until unregistration.
    * @param {!string} accessToken The access token sent as an custom header ('X-Tone-token').
    */
-  startRegister(accessToken) {
+  startRegister(accessToken){
     var options = {
-      extraHeaders: ["X-Tone-token:" + accessToken]
+      'extraHeaders': [ 'X-Tone-token:' + accessToken ]
     };
     this.ua.register(options);
   }
@@ -431,6 +439,15 @@ export class Dial {
         this.sendEvent(event);
       }
     );
+    session.on('directionChanged', function () {
+      var event = Dial.buildEvent('directionChanged', {});
+      this.sendEvent(event);
+    }.bind(this));
+    session.on('referRequested', function(context) {
+      this.setSession(context.newSession);
+      var event = Dial.buildEvent('referRequested', {});
+      this.sendEvent(event);
+    }.bind(this));
 
     this.session = session;
     this.addTrackListener();

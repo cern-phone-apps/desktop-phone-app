@@ -61,26 +61,28 @@ const styles = StyleSheet.create({
   }
 });
 
-const ReceivingCallScreen = ({ caller, navigation, phoneService }) => {
+const ReceivingCallScreen = ({ tempCaller, navigation, phoneService }) => {
   const answerCall = () => {
     phoneService.acceptIncomingCallAction();
     navigation.navigate('AppTabs');
   };
 
   const rejectCall = () => {
-    phoneService.rejectIncomingCall(true);
+    phoneService.rejectIncomingCall();
     navigation.navigate('Recent');
   };
 
   return (
-    caller && (
+    tempCaller && (
       <View style={styles.layout}>
         <View style={styles.banner}>
           <Text style={styles.bannerText}>Receiving a Call</Text>
         </View>
         <View style={styles.content}>
-          {caller.name && <Text style={styles.name}>{caller.name}</Text>}
-          <Text style={styles.number}>{caller.phoneNumber}</Text>
+          {tempCaller.name && (
+            <Text style={styles.name}>{tempCaller.name}</Text>
+          )}
+          <Text style={styles.number}>{tempCaller.phoneNumber}</Text>
           <View style={styles.buttons}>
             <TouchableOpacity
               style={[styles.button, styles.answerButton]}
@@ -113,7 +115,7 @@ const ReceivingCallScreen = ({ caller, navigation, phoneService }) => {
 };
 
 ReceivingCallScreen.propTypes = {
-  caller: PropTypes.shape({
+  tempCaller: PropTypes.shape({
     name: PropTypes.string,
     phoneNumber: PropTypes.string
   }),
@@ -125,7 +127,7 @@ ReceivingCallScreen.propTypes = {
 };
 
 ReceivingCallScreen.defaultProps = {
-  caller: null
+  tempCaller: null
 };
 
 export default withPhoneService(ReceivingCallScreen);

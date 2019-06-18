@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
 export class HangupForm extends React.Component {
   static propTypes = {
     phoneService: PropTypes.shape({
-      hangupCurrentCall: PropTypes.func.isRequired
+      hangUpCurrentCallAction: PropTypes.func.isRequired
     }).isRequired
   };
 
   hangupCall = () => {
     const { phoneService } = this.props;
     console.log(`Hanging up call`);
-    phoneService.hangupCurrentCall();
+    phoneService.hangUpCurrentCallAction();
   };
 
   /**

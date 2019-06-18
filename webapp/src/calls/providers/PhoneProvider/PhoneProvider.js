@@ -141,7 +141,8 @@ export default class PhoneProvider extends React.Component {
       requestRegistration,
       setToneToken,
       toneToken,
-      clearAuthToken
+      clearAuthToken,
+      logout
     } = this.props;
     const { toneAPI } = this.state;
 
@@ -170,8 +171,7 @@ export default class PhoneProvider extends React.Component {
       }
     } catch (error) {
       errorMessage(error);
-      // this.di();
-      this.props.logout();
+      logout();
     }
   };
 
@@ -198,12 +198,6 @@ export default class PhoneProvider extends React.Component {
     const { setMakeCallRequest, setIsCalling } = this.props;
     const { toneAPI } = this.state;
 
-    // toneOutMessage(`Calling user ${name} with number ${phoneNumber}`);
-    // logEvent(
-    //   'calls',
-    //   `make`,
-    //   `caller: ${username}. callee: ${name}. number: ${phoneNumber}`
-    // );
     setMakeCallRequest({
       name,
       phoneNumber

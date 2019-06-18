@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "events": "^3.0.0",
+    "crypto-js": "^3.1.9-1",
     "react-native-webrtc": "^1.69.0",
     "sip.js": "^0.13.5"
   }
