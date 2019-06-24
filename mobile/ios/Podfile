@@ -18,6 +18,8 @@ target 'CERNPhoneApp' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
+  pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep'
+
   target 'CERNPhoneAppTests' do
     inherit! :search_paths
     # Pods for testing
