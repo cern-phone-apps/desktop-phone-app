@@ -1,9 +1,22 @@
 import { createStackNavigator } from 'react-navigation';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
-import withOnGoingCallBanner from '../../common/utils/calls';
 
 const SettingsStack = createStackNavigator({
-  Settings: withOnGoingCallBanner(SettingsScreen)
+  Settings: {
+    screen: SettingsScreen,
+    navigationOptions: () => {
+      return {
+        headerTitleStyle: {
+          color: 'white'
+        },
+        title: `Settings`,
+        headerStyle: {
+          backgroundColor: '#2196F3'
+        },
+        headerTintColor: 'white'
+      };
+    }
+  }
 });
 
 export default SettingsStack;
