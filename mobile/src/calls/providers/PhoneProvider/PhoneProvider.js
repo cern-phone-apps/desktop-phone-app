@@ -2,6 +2,8 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Dial } from 'tone-api-mobile';
 import { Alert } from 'react-native';
+import RNCallKeep from 'react-native-callkeep';
+
 import {
   errorMessage,
   logMessage,
@@ -18,6 +20,18 @@ const displayErrorAlert = (header = 'Error', message) => {
       style: 'cancel'
     }
   ]);
+};
+
+const options = {
+  ios: {
+    appName: 'CERN Phone App'
+  },
+  android: {
+    alertTitle: 'Permissions required',
+    alertDescription: 'This application needs to access your phone accounts',
+    cancelButton: 'Cancel',
+    okButton: 'ok'
+  }
 };
 
 export class PhoneProvider extends React.Component {
@@ -78,12 +92,27 @@ export class PhoneProvider extends React.Component {
    */
   componentDidMount() {
     const dial = new Dial();
+    RNCallKeep.setup(options);
+    RNCallKeep.setAvailable(true);
     this.setState(
       {
         toneAPI: dial
       },
       () => {
         this.addListeners();
+        RNCallKeep.addEventListener(
+          'didReceiveStartCallAction',
+          this.onNativeCall
+        );
+        RNCallKeep.addEventListener('answerCall', () => {
+          logMessage('Received answerCall event');
+          this.onAnswerCallAction();
+        });
+        RNCallKeep.addEventListener('endCall', this.hangUpCurrentCallAction);
+        RNCallKeep.addEventListener(
+          'didDisplayIncomingCall',
+          this.onIncomingCallDisplayed
+        );
       }
     );
   }
@@ -180,14 +209,25 @@ export class PhoneProvider extends React.Component {
       name,
       phoneNumber
     });
-    Sound.playRingbackTone();
+    // Sound.playRingbackTone();
     setIsCalling();
-    return toneAPI.call(phoneNumber);
+    RNCallKeep.startCall('12345', phoneNumber);
+    // return toneAPI.call(phoneNumber);
+  };
+
+  onNativeCall = ({ handle }) => {
+    const { toneAPI } = this.state;
+
+    // Your normal start call action
+    logMessage('Calling onNativeCall');
+    // RNCallKeep.startCall('12345', handle);
+    toneAPI.call(handle);
   };
 
   hangUpCurrentCallAction = () => {
     const { toneAPI } = this.state;
     toneOutMessage(`Hang up current call`);
+    RNCallKeep.endCall('12345');
     return toneAPI.hangUp();
   };
 
@@ -198,6 +238,18 @@ export class PhoneProvider extends React.Component {
     setCallFinished();
   };
 
+  onAnswerCallAction = ({ callUUID }) => {
+    // called when the user answer the incoming call
+    this.answer();
+  };
+
+  answer = () => {
+    const { toneAPI } = this.state;
+    toneOutMessage(`Accepting incoming call`);
+    RNCallKeep.setCurrentCallActive();
+    toneAPI.answer();
+  };
+
   sendDtmfCommand = tone => {
     const { toneAPI } = this.state;
     toneAPI.sendDTMF(tone);
@@ -206,7 +258,7 @@ export class PhoneProvider extends React.Component {
   receiveCall = ({ callerNumber, callerName }) => {
     const { setIsReceivingCall } = this.props;
     logMessage('Is receiving call');
-    Sound.playRingTone();
+    // Sound.playRingTone();
     setIsReceivingCall(callerNumber, callerName);
   };
 
@@ -217,14 +269,15 @@ export class PhoneProvider extends React.Component {
   rejectIncomingCall = () => {
     const { toneAPI } = this.state;
     logMessage('PhoneProvider -> rejectIncomingCall');
+    RNCallKeep.endCall();
     toneAPI.hangUp();
   };
 
-  acceptIncomingCallAction = () => {
-    const { toneAPI } = this.state;
-    toneOutMessage(`Accepting incoming call`);
-    toneAPI.answer();
-  };
+  // acceptIncomingCallAction = () => {
+  //   const { toneAPI } = this.state;
+  //   toneOutMessage(`Accepting incoming call`);
+  //   toneAPI.answer();
+  // };
 
   addCallToRecentCalls = (callerToAdd = null) => {
     logMessage(`addCallToRecentCalls`);
@@ -324,6 +377,7 @@ export class PhoneProvider extends React.Component {
       this.addCallToRecentCalls(tempCallerToAdd);
       setCallFinished();
     }
+    RNCallKeep.endCall('12345');
   };
 
   /**
@@ -342,11 +396,12 @@ export class PhoneProvider extends React.Component {
     if (onCall) {
       addAdditionalCall();
     } else {
-      Sound.playRingTone();
+      // Sound.playRingTone();
     }
     // Retrieve the remote user information from the event data
     const { uri } = event.data.session.remoteIdentity;
     setIsReceivingCall(uri.user, null);
+    RNCallKeep.displayIncomingCall('123456', '23456');
   };
 
   /**
@@ -354,14 +409,17 @@ export class PhoneProvider extends React.Component {
    */
   handleAcceptedEvent = () => {
     const { setCallAccepted } = this.props;
-    Sound.stop();
+    // Sound.stop();
     setCallAccepted();
+    RNCallKeep.setCurrentCallActive();
+
+    // RNCallKeep.startCall('12345', '65508');
   };
 
   handleRejectedEvent = () => {
     const { setCallMissed } = this.props;
 
-    Sound.stop();
+    // Sound.stop();
     setCallMissed();
   };
 
@@ -382,12 +440,18 @@ export class PhoneProvider extends React.Component {
 
   handleProgressEvent = () => {
     const { setIsCalling } = this.props;
-    Sound.playRingbackTone();
+    // Sound.playRingbackTone();
     setIsCalling(true);
   };
 
   handleCancelEvent = () => {
-    Sound.stop();
+    // Sound.stop();
+  };
+
+  onIncomingCallDisplayed = error => {
+    logMessage('Calling onIncomingCallDisplayed');
+    // You will get this event after RNCallKeep finishes showing incoming call UI
+    // You can check if there was an error while displaying
   };
 
   /**
