@@ -1,4 +1,4 @@
-package com.dialmobile;
+package ch.cern.dialmobile;
 
 import android.app.Application;
 
