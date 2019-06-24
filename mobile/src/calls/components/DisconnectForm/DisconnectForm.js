@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 
 import { withNavigation } from 'react-navigation';
 import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
@@ -28,15 +28,14 @@ export class DisconnectForm extends React.Component {
    */
   render() {
     return (
-      <View>
-        <Button
-          onPress={this.disconnectUserAction}
-          title="Disconnect"
-          type="clear"
-          buttonStyle={styles.button}
-          titleStyle={styles.buttonTitle}
-        />
-      </View>
+      <ListItem
+        onPress={this.disconnectUserAction}
+        key="disconnect"
+        title="Disconnect"
+        topDivider
+        pad={16}
+        leftIcon={{ name: 'logout', type: 'material-community' }}
+      />
     );
   }
 }
