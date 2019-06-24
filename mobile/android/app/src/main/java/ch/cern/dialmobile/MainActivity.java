@@ -1,4 +1,4 @@
-package com.dialmobile;
+package ch.cern.dialmobile;
 
 import com.facebook.react.ReactActivity;
 
@@ -16,7 +16,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "DialMobile";
+        return "CERNPhoneApp";
     }
 
     @Override
