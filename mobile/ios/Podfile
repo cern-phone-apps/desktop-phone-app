@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'DialMobile' do
+target 'CERNPhoneApp' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for DialMobile
+  # Pods for CERNPhoneApp
   pod 'React', :path => '../node_modules/react-native'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   pod 'react-native-webrtc', :path => '../node_modules/react-native-webrtc'
@@ -18,20 +18,20 @@ target 'DialMobile' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
-  target 'DialMobileTests' do
+  target 'CERNPhoneAppTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
 end
 
-target 'DialMobile-tvOS' do
+target 'CERNPhoneApp-tvOS' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for DialMobile-tvOS
+  # Pods for CERNPhoneApp-tvOS
 
-  target 'DialMobile-tvOSTests' do
+  target 'CERNPhoneApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
