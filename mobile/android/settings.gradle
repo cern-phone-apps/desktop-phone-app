@@ -1,4 +1,6 @@
 rootProject.name = 'CERNPhoneApp'
+include ':react-native-callkeep'
+project(':react-native-callkeep').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-callkeep/android')
 include ':react-native-sound'
 project(':react-native-sound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
 include ':react-native-webview'

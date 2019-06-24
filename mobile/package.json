@@ -10,13 +10,13 @@
     "babel-eslint": "^10.0.1",
     "debug": "^4.1.1",
     "dial-core": "file:../core",
-    "tone-api-mobile": "file:../tone-api/mobile",
     "eslint": "^5.16.0",
     "events": "3.0.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-native": "^0.59.7",
+    "react-native-callkeep": "^2.0.3",
     "react-native-dotenv": "^0.2.0",
     "react-native-easy-grid": "^0.2.1",
     "react-native-elements": "^1.1.0",
@@ -33,7 +33,8 @@
     "redux-persist": "^5.10.0",
     "redux-persist-transform-filter": "^0.0.18",
     "redux-thunk": "^2.3.0",
-    "sip.js": "0.13.5"
+    "sip.js": "0.13.5",
+    "tone-api-mobile": "file:../tone-api/mobile"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

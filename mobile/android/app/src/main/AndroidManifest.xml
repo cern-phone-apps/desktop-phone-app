@@ -16,6 +16,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- END react-native-webrtc -->
 
+    <!-- START react-native-callkeep -->
+    <uses-permission android:name="android.permission.BIND_TELECOM_CONNECTION_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- END react-native-callkeep -->
+
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -25,6 +33,15 @@
       android:theme="@style/AppTheme"
       android:networkSecurityConfig="@xml/network_security_config"
     >
+      <!-- START react-native-callkeep -->
+      <service android:name="io.wazo.callkeep.VoiceConnectionService"
+        android:label="Wazo"
+        android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+        <intent-filter>
+            <action android:name="android.telecom.ConnectionService" />
+        </intent-filter>
+      </service>
+      <!-- END react-native-callkeep -->
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

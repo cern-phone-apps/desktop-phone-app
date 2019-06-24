@@ -3,6 +3,7 @@ package ch.cern.dialmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.wazo.callkeep.RNCallKeepPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCallKeepPackage(),
             new RNSoundPackage(),
             new RNCWebViewPackage(),
             new VectorIconsPackage(),
