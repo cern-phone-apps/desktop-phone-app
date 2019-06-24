@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
 const ReceivingCallScreen = ({ tempCaller, navigation, phoneService }) => {
   const answerCall = () => {
-    phoneService.acceptIncomingCallAction();
+    phoneService.answer();
     navigation.navigate('AppTabs');
   };
 
@@ -122,7 +122,7 @@ ReceivingCallScreen.propTypes = {
   setCallFinished: PropTypes.func.isRequired,
   phoneService: PropTypes.shape({
     makeCall: PropTypes.func.isRequired,
-    acceptIncomingCallAction: PropTypes.func.isRequired
+    answer: PropTypes.func.isRequired
   }).isRequired
 };
 
