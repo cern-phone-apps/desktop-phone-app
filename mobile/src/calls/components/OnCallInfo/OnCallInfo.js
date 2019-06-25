@@ -33,8 +33,8 @@ function OnCallInfo({ remote }) {
     <View style={styles.container}>
       <Text style={styles.ongoingCall}>ONGOING CALL WITH</Text>
       <View style={styles.remoteInfo}>
-        <Text style={styles.remoteName}>{remote.name} Name Surname</Text>
-        <Text style={styles.remoteNumber}>65226</Text>
+        {remote.name && <Text style={styles.remoteName}>{remote.name}</Text>}
+        <Text style={styles.remoteNumber}>{remote.phoneNumber}</Text>
         <Timer />
       </View>
       <View
