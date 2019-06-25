@@ -255,7 +255,7 @@ export class PhoneProvider extends React.Component {
     setCallFinished();
   };
 
-  onAnswerCallAction = uuid => {
+  onAnswerCallAction = () => {
     // called when the user answers the incoming call
     this.answer();
   };
