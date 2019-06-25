@@ -11,8 +11,6 @@ import {
   toneOutMessage
 } from '../../../common/utils/logging';
 
-import * as Sound from '../../utils/sound/Sound';
-
 const displayErrorAlert = (header = 'Error', message) => {
   Alert.alert(header, message, [
     {
@@ -37,29 +35,36 @@ const options = {
 export class PhoneProvider extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    // tokens
     authToken: PropTypes.string,
-    doNotDisturb: PropTypes.bool.isRequired,
+    toneToken: PropTypes.string.isRequired,
+    // call info
     call: PropTypes.shape({
       caller: PropTypes.shape({}),
       startTime: PropTypes.number,
-      onCall: PropTypes.bool
+      onCall: PropTypes.bool,
+      receivingCall: PropTypes.bool.isRequired,
+      missed: PropTypes.bool.isRequired
     }),
-    // Functions
-    requestRegistration: PropTypes.func.isRequired,
+    // state setters
+    setToneToken: PropTypes.func.isRequired,
     setRegistrationSuccess: PropTypes.func.isRequired,
-    requestDisconnection: PropTypes.func.isRequired,
-    setMakeCallRequest: PropTypes.func.isRequired,
     setIsCalling: PropTypes.func.isRequired,
     setIsReceivingCall: PropTypes.func.isRequired,
-    setCallFailed: PropTypes.func.isRequired,
-    addRecentCall: PropTypes.func.isRequired,
     setCallFinished: PropTypes.func.isRequired,
+    setCallFailed: PropTypes.func.isRequired,
     setCallMissed: PropTypes.func.isRequired,
     setCallAccepted: PropTypes.func.isRequired,
+    setMakeCallRequest: PropTypes.func.isRequired,
     setDisconnectionSuccess: PropTypes.func.isRequired,
-    setRegistrationFailure: PropTypes.func.isRequired,
+    // actions
+    requestRegistration: PropTypes.func.isRequired,
+    requestDisconnection: PropTypes.func.isRequired,
+    addRecentCall: PropTypes.func.isRequired,
     addAdditionalCall: PropTypes.func.isRequired,
-    removeAdditionalCall: PropTypes.func.isRequired
+    removeAdditionalCall: PropTypes.func.isRequired,
+    clearAuthToken: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -203,7 +208,6 @@ export class PhoneProvider extends React.Component {
    */
   makeCall = (name = 'Unknown', phoneNumber) => {
     const { setMakeCallRequest, setIsCalling } = this.props;
-    const { toneAPI } = this.state;
 
     setMakeCallRequest({
       name,
@@ -212,7 +216,6 @@ export class PhoneProvider extends React.Component {
     // Sound.playRingbackTone();
     setIsCalling();
     RNCallKeep.startCall('12345', phoneNumber);
-    // return toneAPI.call(phoneNumber);
   };
 
   onNativeCall = ({ handle }) => {
@@ -448,7 +451,14 @@ export class PhoneProvider extends React.Component {
     // Sound.stop();
   };
 
-  onIncomingCallDisplayed = error => {
+  handleRegistrationFailedEvent = () => {
+    displayErrorAlert(
+      'Error',
+      'Unable to register the selected number. Please, logout and try again in a few minutes.'
+    );
+  };
+
+  onIncomingCallDisplayed = () => {
     logMessage('Calling onIncomingCallDisplayed');
     // You will get this event after RNCallKeep finishes showing incoming call UI
     // You can check if there was an error while displaying
@@ -464,53 +474,23 @@ export class PhoneProvider extends React.Component {
     toneInMessage(`Tone Event received: ${event.name}`);
     toneInMessage(event);
 
-    switch (event.name) {
-      // The user registered a phone number. He is able to make/receive calls
-      case 'registered':
-        this.handleRegisteredEvent();
-        break;
-      case 'registrationFailed':
-        displayErrorAlert(
-          'Error',
-          'Unable to register the selected number. Please, logout and try again in a few minutes.'
-        );
-        break;
-      // The user is unregistered. He is no longer able to make/receive calls
-      case 'unregistered':
-        this.handleUnregisteredEvent();
-        break;
-      // The call is finished
-      case 'terminated':
-        this.handleTerminatedEvent();
-        break;
-      case 'accepted':
-        this.handleAcceptedEvent();
-        break;
-      case 'rejected':
-        this.handleRejectedEvent();
-        break;
-      case 'inviteReceived':
-        this.handleInviteReceivedEvent(event);
-        break;
-      case 'failed':
-        this.handleFailedEvent();
-        break;
-      //
-      // case 'bye':
-      //   this.handleByeEvent();
-      //   break;
+    const handler = {
+      registered: this.handleRegisteredEvent,
+      registrationFailed: this.handlRegistrationFailedEvent,
+      unregistered: this.handleUnregisteredEvent,
+      terminated: this.handleTerminatedEvent,
+      accepted: this.handleAcceptedEvent,
+      rejected: this.handleRejectedEvent,
+      inviteReceived: this.handleInviteReceivedEvent,
+      failed: this.handleFailedEvent,
+      progress: this.handleProgressEvent,
+      cancel: this.handleCancelEvent
+    }[event.name];
 
-      case 'progress':
-        this.handleProgressEvent();
-        break;
-
-      case 'cancel':
-        this.handleCancelEvent();
-        break;
-
-      default:
-        errorMessage(`Unhandled event: ${event.name}`);
-      // displayErrorAlert(`Unhandled event: ${event.name}`);
+    if (handler) {
+      handler(event);
+    } else {
+      errorMessage(`Unhandled event: ${event.name}`);
     }
   };
 
