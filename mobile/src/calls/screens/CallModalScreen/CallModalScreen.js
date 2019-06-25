@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OnCallScreen from '../OnCallScreen/OnCallScreen';
 import MakingCallScreenContainer from '../MakingCallScreen/MakingCallScreenContainer';
 import ReceivingCallScreenContainer from '../ReceivingCallScreen/ReceivingCallScreenContainer';
 
-const CallModalScreen = ({ onCall, calling, receivingCall, navigation }) => {
-  if (!calling && !onCall && !receivingCall) {
+const CallModalScreen = ({ calling, receivingCall, navigation }) => {
+  if (!calling && !receivingCall) {
     navigation.pop();
-  }
-  if (onCall) {
-    return <OnCallScreen />;
   }
 
   if (receivingCall) {
@@ -25,7 +21,6 @@ const CallModalScreen = ({ onCall, calling, receivingCall, navigation }) => {
 };
 
 CallModalScreen.propTypes = {
-  onCall: PropTypes.bool.isRequired,
   calling: PropTypes.bool.isRequired,
   receivingCall: PropTypes.bool.isRequired
 };
