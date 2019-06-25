@@ -5,6 +5,8 @@ const initialState = {
   onCall: false,
   /** whether we're calling someone */
   calling: false,
+  /** UUID of the current call */
+  uuid: null,
   /** whether we're receiving a call */
   receivingCall: false,
   /** the identity of the caller/recipient (ongoing call) */
@@ -24,10 +26,11 @@ const initialState = {
  * @param {Object} state
  * @param {Object} recipient - recipient that we're trying to reach
  */
-function processCallOutgoing(state, recipient) {
+function processCallOutgoing(state, { recipient, uuid }) {
   return {
     ...state,
     calling: true,
+    uuid,
     onCall: false,
     missed: true,
     tempRemote: {
@@ -82,10 +85,11 @@ function processCallMissed(state) {
  * @param {Object} state
  * @param {Object} action
  */
-function processCallReceived(state, { callerName, callerNumber }) {
+function processCallReceived(state, { callerName, callerNumber, uuid }) {
   return {
     ...state,
     receivingCall: true,
+    uuid,
     tempRemote: {
       name: callerName,
       phoneNumber: callerNumber,
@@ -117,6 +121,7 @@ function processCallFinished(state, { remote, onCall }) {
   return {
     ...state,
     onCall,
+    uuid: null,
     calling: false,
     receivingCall: false,
     remote,
@@ -127,7 +132,7 @@ function processCallFinished(state, { remote, onCall }) {
 const call = (state = initialState, action) => {
   switch (action.type) {
     case callActions.CALL_REQUEST:
-      return processCallOutgoing(state, action.recipient);
+      return processCallOutgoing(state, action);
     case callActions.CALL_REJECTED:
       return processCallRejected(state, action.errors);
     case callActions.CALL_FAILED:

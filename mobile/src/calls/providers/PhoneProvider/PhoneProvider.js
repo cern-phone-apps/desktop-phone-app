@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Dial } from 'tone-api-mobile';
 import { Alert } from 'react-native';
 import RNCallKeep from 'react-native-callkeep';
+import uuid4 from 'uuid/v4';
 
 import {
   errorMessage,
@@ -50,7 +51,8 @@ export class PhoneProvider extends React.Component {
       startTime: PropTypes.number,
       onCall: PropTypes.bool,
       receivingCall: PropTypes.bool.isRequired,
-      missed: PropTypes.bool.isRequired
+      missed: PropTypes.bool.isRequired,
+      uuid: PropTypes.string
     }),
     // state setters
     setToneToken: PropTypes.func.isRequired,
@@ -214,14 +216,17 @@ export class PhoneProvider extends React.Component {
    */
   makeCall = (name = 'Unknown', phoneNumber) => {
     const { setMakeCallRequest, setIsCalling } = this.props;
+    const uuid = uuid4();
 
-    setMakeCallRequest({
-      name,
-      phoneNumber
-    });
-    // Sound.playRingbackTone();
+    setMakeCallRequest(
+      {
+        name,
+        phoneNumber
+      },
+      uuid
+    );
     setIsCalling();
-    RNCallKeep.startCall('12345', phoneNumber);
+    RNCallKeep.startCall(uuid, phoneNumber);
   };
 
   onNativeCall = ({ handle }) => {
@@ -234,9 +239,12 @@ export class PhoneProvider extends React.Component {
   };
 
   hangUpCurrentCallAction = () => {
+    const {
+      call: { uuid }
+    } = this.props;
     const { toneAPI } = this.state;
     toneOutMessage(`Hang up current call`);
-    RNCallKeep.endCall('12345');
+    RNCallKeep.endCall(uuid);
     return toneAPI.hangUp();
   };
 
@@ -247,8 +255,8 @@ export class PhoneProvider extends React.Component {
     setCallFinished();
   };
 
-  onAnswerCallAction = () => {
-    // called when the user answer the incoming call
+  onAnswerCallAction = uuid => {
+    // called when the user answers the incoming call
     this.answer();
   };
 
@@ -367,7 +375,7 @@ export class PhoneProvider extends React.Component {
   handleTerminatedEvent = () => {
     const {
       setCallFinished,
-      call: { additionalCalls, tempRemote, remote, onCall },
+      call: { additionalCalls, tempRemote, remote, onCall, uuid },
       removeAdditionalCall
     } = this.props;
     logMessage(`additionalCalls: ${additionalCalls}`);
@@ -379,7 +387,7 @@ export class PhoneProvider extends React.Component {
       this.addCallToRecentCalls(onCall ? remote : tempRemote);
       setCallFinished();
     }
-    RNCallKeep.endCall('12345');
+    RNCallKeep.endCall(uuid);
   };
 
   /**
@@ -397,13 +405,13 @@ export class PhoneProvider extends React.Component {
     logMessage(onCall);
     if (onCall) {
       addAdditionalCall();
-    } else {
-      // Sound.playRingTone();
     }
     // Retrieve the remote user information from the event data
     const { uri } = event.data.session.remoteIdentity;
-    setIsReceivingCall(uri.user, null);
-    RNCallKeep.displayIncomingCall('123456', '23456');
+    const phoneNumber = uri.user;
+    const uuid = uuid4();
+    setIsReceivingCall(phoneNumber, null, uuid);
+    RNCallKeep.displayIncomingCall(uuid, phoneNumber);
   };
 
   /**
