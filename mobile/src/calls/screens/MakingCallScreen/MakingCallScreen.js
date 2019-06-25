@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   }
 });
 
-function MakingCallScreen({ caller }) {
+function MakingCallScreen({ recipient }) {
   return (
     <View style={[styles.container]}>
       <View style={[styles.iconTextContainer]}>
@@ -28,7 +28,7 @@ function MakingCallScreen({ caller }) {
       </View>
       <View style={[styles.iconTextContainer]}>
         <Icon name="phone" size={30} />
-        <Text h4>{caller.phoneNumber}</Text>
+        <Text h4>{recipient.phoneNumber}</Text>
       </View>
       <HangupForm />
     </View>
@@ -36,7 +36,7 @@ function MakingCallScreen({ caller }) {
 }
 
 MakingCallScreen.propTypes = {
-  caller: PropTypes.shape({
+  recipient: PropTypes.shape({
     phoneNumber: PropTypes.string
   }).isRequired
 };

@@ -3,7 +3,7 @@ import OnCallInfo from './OnCallInfo';
 
 function mapStateToProps({ calls: { call } }) {
   return {
-    remote: call.caller
+    remote: call.remote
   };
 }
 

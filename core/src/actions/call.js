@@ -13,13 +13,13 @@ export const REMOVE_ADDITIONAL_CALL = '@@call/REMOVE_ADDITIONAL_CALL';
 /**
  * Action that triggers a call to a selected caller
  *
- * @param caller A dict with name, phone number and start time of the call
- * @returns {{type: string, caller: *}} A dict
+ * @param recipient A dict with name and phone number of the recipient
+ * @returns {{type: string, recipient: *}} A dict
  */
-export function setMakeCallRequest(caller) {
+export function setMakeCallRequest(recipient) {
   return {
     type: CALL_REQUEST,
-    caller
+    recipient
   };
 }
 
@@ -98,10 +98,10 @@ export function setCallMissed() {
  * Action triggered when a call is hung up
  * @returns {{type: string}} A dict
  */
-export function setCallFinished(onCall = false, caller = null) {
+export function setCallFinished(onCall = false, remote = null) {
   return {
     onCall,
-    caller,
+    remote,
     type: CALL_FINISHED
   };
 }

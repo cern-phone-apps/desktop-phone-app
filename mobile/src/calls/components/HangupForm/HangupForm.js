@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Icon } from 'react-native-elements';
 
 import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
+
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export class HangupForm extends React.Component {
+class HangupForm extends React.Component {
   static propTypes = {
     phoneService: PropTypes.shape({
       hangUpCurrentCallAction: PropTypes.func.isRequired

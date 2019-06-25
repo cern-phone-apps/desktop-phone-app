@@ -40,7 +40,13 @@ export class PhoneProvider extends React.Component {
     toneToken: PropTypes.string.isRequired,
     // call info
     call: PropTypes.shape({
-      caller: PropTypes.shape({}),
+      additionalCalls: PropTypes.number.isRequired,
+      remote: PropTypes.shape({}),
+      tempRemote: PropTypes.shape({
+        name: PropTypes.string,
+        phoneNumber: PropTypes.string,
+        incoming: PropTypes.bool
+      }),
       startTime: PropTypes.number,
       onCall: PropTypes.bool,
       receivingCall: PropTypes.bool.isRequired,
@@ -237,7 +243,7 @@ export class PhoneProvider extends React.Component {
   hangUpCallEvent = () => {
     // const { username } = this.state;
     const { setCallFinished } = this.props;
-    // logEvent("calls", `hangUp`, `caller: ${username}.`);
+    // logEvent("calls", `hangUp`, `remote: ${username}.`);
     setCallFinished();
   };
 
@@ -282,12 +288,12 @@ export class PhoneProvider extends React.Component {
   //   toneAPI.answer();
   // };
 
-  addCallToRecentCalls = (callerToAdd = null) => {
+  addCallToRecentCalls = (remoteToAdd = null) => {
     logMessage(`addCallToRecentCalls`);
     const {
       addRecentCall,
       call: {
-        caller,
+        remote,
         receivingCall,
         startTime,
         onCall,
@@ -296,13 +302,13 @@ export class PhoneProvider extends React.Component {
       }
     } = this.props;
 
-    let tempCaller = caller;
     let isMissed = onCall;
     let incoming = false;
+    let tempRemote;
 
-    if (callerToAdd) {
-      tempCaller = callerToAdd;
-      // It's not the current onfoing call
+    if (remoteToAdd) {
+      tempRemote = remoteToAdd;
+      // It's not the current ongoing call
       if (additionalCalls > 0) {
         isMissed = true;
         incoming = true;
@@ -310,15 +316,16 @@ export class PhoneProvider extends React.Component {
         isMissed = missed;
       }
     } else {
+      tempRemote = remote;
       isMissed = !onCall;
     }
 
-    logMessage(tempCaller);
+    logMessage(tempRemote);
     logMessage(`Receiving call: ${receivingCall}`);
     logMessage(`Is missed? ${isMissed}`);
     logMessage(startTime);
 
-    addRecentCall(callerToAdd, incoming, isMissed, startTime);
+    addRecentCall(remoteToAdd, incoming, isMissed, startTime);
   };
 
   /**
@@ -360,24 +367,16 @@ export class PhoneProvider extends React.Component {
   handleTerminatedEvent = () => {
     const {
       setCallFinished,
-      call: { additionalCalls, tempCaller, caller, onCall },
+      call: { additionalCalls, tempRemote, remote, onCall },
       removeAdditionalCall
     } = this.props;
-    logMessage(`additionalCalls`);
-    logMessage(additionalCalls);
+    logMessage(`additionalCalls: ${additionalCalls}`);
     if (additionalCalls > 0) {
       removeAdditionalCall();
-      this.addCallToRecentCalls(tempCaller);
-      setCallFinished(true, caller);
+      this.addCallToRecentCalls(tempRemote);
+      setCallFinished(true, remote);
     } else {
-      let tempCallerToAdd = null;
-      if (!onCall) {
-        tempCallerToAdd = tempCaller;
-      } else {
-        tempCallerToAdd = caller;
-      }
-
-      this.addCallToRecentCalls(tempCallerToAdd);
+      this.addCallToRecentCalls(onCall ? remote : tempRemote);
       setCallFinished();
     }
     RNCallKeep.endCall('12345');
