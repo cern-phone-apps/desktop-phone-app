@@ -16,10 +16,11 @@ export const REMOVE_ADDITIONAL_CALL = '@@call/REMOVE_ADDITIONAL_CALL';
  * @param recipient A dict with name and phone number of the recipient
  * @returns {{type: string, recipient: *}} A dict
  */
-export function setMakeCallRequest(recipient) {
+export function setMakeCallRequest(recipient, uuid) {
   return {
     type: CALL_REQUEST,
-    recipient
+    recipient,
+    uuid
   };
 }
 
@@ -40,11 +41,12 @@ export function setIsCalling(calling) {
  *
  * @returns {{type: string}} A dict
  */
-export function setIsReceivingCall(callerNumber, callerName) {
+export function setIsReceivingCall(callerNumber, callerName, uuid) {
   return {
     type: CALL_RECEIVED,
     callerNumber,
-    callerName
+    callerName,
+    uuid
   };
 }
 
