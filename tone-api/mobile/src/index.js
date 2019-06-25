@@ -1,6 +1,6 @@
 /**
  * dial-api.js for DIAL-TONE.
- * @version 0.8.0
+ * @version 0.8.5
 
  *
  * WebRTC API for audio calls through PC for TONE infrastructure.
@@ -9,6 +9,7 @@
  * universal client for all browsers and operating systems.
  *
  * @author JoÃ£o Filipe Garrett PaixÃ£o FlorÃªncio <joao.florencio@cern.ch>
+ * @adapted-to-react-native-by Rene Fernandez
  */
 import SHA512 from "crypto-js/sha512";
 
@@ -29,7 +30,7 @@ const reactFactory = (session, options) => {
     "sip.invitecontext.sessionDescriptionHandler",
     session.id
   );
-  console.log(logger);
+  // console.log(logger);
   var observer = new ReactSDObserver.SessionDescriptionHandlerObserver(
     session,
     options
