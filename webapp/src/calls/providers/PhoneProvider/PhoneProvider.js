@@ -417,24 +417,18 @@ export default class PhoneProvider extends React.Component {
   handleTerminatedEvent() {
     const {
       setCallFinished,
-      call: { additionalCalls, tempCaller, caller, onCall },
+      call: { additionalCalls, tempRemote, remote, onCall },
       removeAdditionalCall
     } = this.props;
     logMessage(`additionalCalls`);
     logMessage(additionalCalls);
     if (additionalCalls > 0) {
       removeAdditionalCall();
-      this.addCallToRecentCalls(tempCaller);
+      this.addCallToRecentCalls(tempRemote);
       setCallFinished(true, caller);
     } else {
-      let tempCallerToAdd = null;
-      if (!onCall) {
-        tempCallerToAdd = tempCaller;
-      } else {
-        tempCallerToAdd = caller;
-      }
-
-      this.addCallToRecentCalls(tempCallerToAdd);
+      let tempRemoteToAdd = onCall ? remote : tempRemote;
+      this.addCallToRecentCalls(tempRemoteToAdd);
       setCallFinished();
     }
   }

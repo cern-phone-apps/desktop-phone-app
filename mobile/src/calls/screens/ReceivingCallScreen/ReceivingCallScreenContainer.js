@@ -9,7 +9,7 @@ function mapStateToProps(state) {
   const { calls } = state;
   return {
     receivingCall: calls.call.receivingCall,
-    tempCaller: calls.call.tempCaller
+    tempCaller: calls.call.tempRemote
   };
 }
 

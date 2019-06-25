@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export function OnCallInfo({ remote }) {
+function OnCallInfo({ remote }) {
   return (
     <View style={styles.container}>
       <Text style={styles.ongoingCall}>ONGOING CALL WITH</Text>

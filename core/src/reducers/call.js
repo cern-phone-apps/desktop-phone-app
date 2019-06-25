@@ -1,28 +1,46 @@
 import * as callActions from '../actions/call';
 
 const initialState = {
+  /** whether we're on a call */
   onCall: false,
+  /** whether we're calling someone */
   calling: false,
+  /** whether we're receiving a call */
   receivingCall: false,
-  caller: null,
-  tempCaller: null,
+  /** the identity of the caller/recipient (ongoing call) */
+  remote: null,
+  /** the identity of the caller/recipient (queued call) */
+  tempRemote: null,
+  /** whether the call has been missed */
   missed: true,
+  /** error information */
   error: {},
+  /** number of queued up calls */
   additionalCalls: 0
 };
 
-function processCall(state, tempCaller) {
+/**
+ * Start an outgoing call
+ * @param {Object} state
+ * @param {Object} recipient - recipient that we're trying to reach
+ */
+function processCallOutgoing(state, recipient) {
   return {
     ...state,
     calling: true,
     onCall: false,
     missed: true,
-    tempCaller: {
-      ...tempCaller
+    tempRemote: {
+      ...recipient
     }
   };
 }
 
+/**
+ * Set call as rejected
+ * @param {Object} state
+ * @param {Object} errors - errors that led to rejection
+ */
 function processCallRejected(state, errors) {
   return {
     ...state,
@@ -32,6 +50,11 @@ function processCallRejected(state, errors) {
   };
 }
 
+/**
+ * Set call as failed
+ * @param {Object} state
+ * @param {Object} errors - errors that led to failure
+ */
 function processCallFailed(state, errors) {
   return {
     ...state,
@@ -40,57 +63,71 @@ function processCallFailed(state, errors) {
   };
 }
 
+/**
+ * Set call as missed (didn't answer)
+ * @param {Object} state
+ */
 function processCallMissed(state) {
   return {
     ...state,
     missed: true,
-    tempCaller: {
-      ...state.tempCaller
+    tempRemote: {
+      ...state.tempRemote
     }
   };
 }
 
-function processCallReceiving(state, action) {
+/**
+ * Handle an incoming call
+ * @param {Object} state
+ * @param {Object} action
+ */
+function processCallReceived(state, { callerName, callerNumber }) {
   return {
     ...state,
     receivingCall: true,
-    tempCaller: {
-      name: action.callerName,
-      phoneNumber: action.callerNumber,
+    tempRemote: {
+      name: callerName,
+      phoneNumber: callerNumber,
       incoming: true
     }
   };
 }
 
-function incomingCallAccepted(state, action) {
-  const { tempCaller } = state;
+/**
+ * Handle an accepted incoming call
+ * @param {Object} state
+ * @param {Object} action
+ */
+function incomingCallAccepted(state, { receivingCall, startTime }) {
+  const { tempRemote } = state;
   return {
     ...state,
     onCall: true,
     calling: false,
     missed: false,
-    receivingCall: action.receivingCall,
-    startTime: action.startTime,
-    caller: tempCaller,
-    tempCaller: null
+    receivingCall,
+    startTime,
+    remote: tempRemote,
+    tempRemote: null
   };
 }
 
-function processCallHangup(state, action) {
+function processCallFinished(state, { remote, onCall }) {
   return {
     ...state,
-    onCall: action.onCall,
+    onCall,
     calling: false,
     receivingCall: false,
-    caller: action.caller,
-    tempCaller: null
+    remote,
+    tempRemote: null
   };
 }
 
 const call = (state = initialState, action) => {
   switch (action.type) {
     case callActions.CALL_REQUEST:
-      return processCall(state, action.caller);
+      return processCallOutgoing(state, action.recipient);
     case callActions.CALL_REJECTED:
       return processCallRejected(state, action.errors);
     case callActions.CALL_FAILED:
@@ -98,11 +135,11 @@ const call = (state = initialState, action) => {
     case callActions.CALL_MISSED:
       return processCallMissed(state);
     case callActions.CALL_RECEIVED:
-      return processCallReceiving(state, action);
+      return processCallReceived(state, action);
     case callActions.CALL_ACCEPTED:
       return incomingCallAccepted(state, action);
     case callActions.CALL_FINISHED:
-      return processCallHangup(state, action);
+      return processCallFinished(state, action);
     case callActions.ADD_ADDITIONAL_CALL:
       return {
         ...state,
