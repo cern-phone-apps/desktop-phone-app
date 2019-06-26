@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View, Text, Linking } from 'react-native';
 import { Card, Button, Icon, Overlay } from 'react-native-elements';
-import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import RegisterForm from '../../components/RegisterForm/RegisterFormContainer';
 
 export default class RegisterScreen extends React.Component {
   static propTypes = {

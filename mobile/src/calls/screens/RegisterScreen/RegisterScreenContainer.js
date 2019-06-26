@@ -20,8 +20,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getUserPhoneNumbers: numbersActionFactory(API_ENDPOINT, 'mobile')
-        .getUserPhoneNumbers,
-      setActiveNumber: numbersActions.setActiveNumber
+        .getUserPhoneNumbers
     },
     dispatch
   );
