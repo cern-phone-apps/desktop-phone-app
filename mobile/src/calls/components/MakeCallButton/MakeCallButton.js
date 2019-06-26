@@ -27,11 +27,10 @@ class MakeCallButton extends Component {
   };
 
   makeCall = () => {
-    const { phoneService, phoneNumber, name, navigation } = this.props;
+    const { phoneService, phoneNumber, name } = this.props;
 
     logMessage(`Calling user ${phoneNumber}`);
     phoneService.makeCall(name, phoneNumber);
-    navigation.navigate('Calling');
   };
 
   render() {

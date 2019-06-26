@@ -21,11 +21,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const DialpadScreen = ({ receivingCall, navigation, disabled }) => {
-  if (receivingCall) {
-    navigation.navigate('Calling');
-  }
-
+const DialpadScreen = ({ disabled }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>CERN Phone Mobile</Text>
@@ -37,7 +33,6 @@ const DialpadScreen = ({ receivingCall, navigation, disabled }) => {
 };
 
 DialpadScreen.propTypes = {
-  receivingCall: PropTypes.bool.isRequired,
   disabled: PropTypes.bool
 };
 
