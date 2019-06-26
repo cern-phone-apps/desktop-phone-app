@@ -18,7 +18,7 @@ export function getUsersFormattedForSearch(usersArray) {
     return [];
   }
 
-  return usersArray.slice(0, 9).map(function(user, index) {
+  return usersArray.slice(0, 9).map((user, index) => {
     const division = user.division === '[]' ? '' : user.division;
     const group = user.cernGroup === '[]' ? '' : `-${user.cernGroup}`;
     const section = user.cernSection === '[]' ? '' : `-${user.cernSection}`;
