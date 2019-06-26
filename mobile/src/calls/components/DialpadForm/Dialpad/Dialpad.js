@@ -12,10 +12,13 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 10,
     textAlign: 'center'
+  },
+  disabled: {
+    opacity: 0.3
   }
 });
 
-const Dialpad = ({ updatePhoneNumber }) => {
+const Dialpad = ({ updatePhoneNumber, disabled }) => {
   const pad = [
     {
       key: '123',
@@ -63,12 +66,27 @@ const Dialpad = ({ updatePhoneNumber }) => {
             {row.columns.map(column => (
               <Col key={column.text}>
                 <TouchableOpacity
-                  onPress={() => updatePhoneNumber(column.text)}
+                  activeOpacity={disabled ? 1 : 0.7}
+                  onPress={() => !disabled && updatePhoneNumber(column.text)}
                   onLongPress={column.onLongPress}
                 >
                   <View>
-                    <Text style={styles.mainText}>{column.text}</Text>
-                    <Text style={styles.subText}>{column.subText}</Text>
+                    <Text
+                      style={[
+                        styles.mainText,
+                        disabled ? styles.disabled : null
+                      ]}
+                    >
+                      {column.text}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.subText,
+                        disabled ? styles.disabled : null
+                      ]}
+                    >
+                      {column.subText}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </Col>
@@ -81,7 +99,12 @@ const Dialpad = ({ updatePhoneNumber }) => {
 };
 
 Dialpad.propTypes = {
-  updatePhoneNumber: PropTypes.func.isRequired
+  updatePhoneNumber: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
+};
+
+Dialpad.defaultProps = {
+  disabled: false
 };
 
 export default Dialpad;

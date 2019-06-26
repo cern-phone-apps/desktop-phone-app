@@ -8,10 +8,10 @@ import {
 import { Icon } from 'react-native-elements';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withNavigation } from 'react-navigation';
 import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 import { logMessage } from '../../../common/utils/logging';
 import Dialpad from './Dialpad/Dialpad';
-import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   phoneNumberRow: {
@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     height: 70,
     backgroundColor: '#0fd859',
     borderRadius: 50
+  },
+  disabled: {
+    opacity: 0.3
   }
 });
 
@@ -47,7 +50,12 @@ class DialpadForm extends React.Component {
   static propTypes = {
     phoneService: PropTypes.shape({
       makeCall: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    disabled: PropTypes.bool
+  };
+
+  static defaultProps = {
+    disabled: false
   };
 
   state = {
@@ -89,6 +97,7 @@ class DialpadForm extends React.Component {
    */
   render() {
     const { phoneNumber } = this.state;
+    const { disabled } = this.props;
     return (
       <View>
         <View style={styles.phoneNumberRow}>
@@ -102,16 +111,24 @@ class DialpadForm extends React.Component {
           </View>
           <View style={styles.phoneNumberSideColumn}>
             <TouchableOpacity
-              onPress={() => this.deleteOneNumber()}
-              onLongPress={() => this.deleteWholeNumber()}
+              activeOpacity={disabled ? 1 : 0.3}
+              onPress={() => !disabled && this.deleteOneNumber()}
+              onLongPress={() => !disabled && this.deleteWholeNumber()}
             >
               <Icon name="backspace" />
             </TouchableOpacity>
           </View>
         </View>
-        <Dialpad updatePhoneNumber={this.updatePhoneNumber} />
+        <Dialpad
+          updatePhoneNumber={this.updatePhoneNumber}
+          disabled={disabled}
+        />
         <View style={styles.callButtonContainer}>
-          <TouchableOpacity style={styles.callButton} onPress={this.makeCall}>
+          <TouchableOpacity
+            activeOpacity={disabled ? 1 : 0.5}
+            style={[styles.callButton, disabled ? styles.disabled : null]}
+            onPress={() => !disabled && phoneNumber && this.makeCall()}
+          >
             <Icon name="phone" size={25} color="white" />
           </TouchableOpacity>
         </View>
