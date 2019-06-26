@@ -33,6 +33,7 @@ function processCallOutgoing(state, { recipient, uuid }) {
     uuid,
     onCall: false,
     missed: true,
+    receivingCall: false,
     tempRemote: {
       ...recipient
     }
@@ -103,14 +104,13 @@ function processCallReceived(state, { callerName, callerNumber, uuid }) {
  * @param {Object} state
  * @param {Object} action
  */
-function incomingCallAccepted(state, { receivingCall, startTime }) {
+function processCallAccepted(state, { startTime }) {
   const { tempRemote } = state;
   return {
     ...state,
     onCall: true,
     calling: false,
     missed: false,
-    receivingCall,
     startTime,
     remote: tempRemote,
     tempRemote: null
@@ -142,7 +142,7 @@ const call = (state = initialState, action) => {
     case callActions.CALL_RECEIVED:
       return processCallReceived(state, action);
     case callActions.CALL_ACCEPTED:
-      return incomingCallAccepted(state, action);
+      return processCallAccepted(state, action);
     case callActions.CALL_FINISHED:
       return processCallFinished(state, action);
     case callActions.ADD_ADDITIONAL_CALL:

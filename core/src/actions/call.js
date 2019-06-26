@@ -55,11 +55,10 @@ export function setIsReceivingCall(callerNumber, callerName, uuid) {
  *
  * @returns {{type: string}} A dict
  */
-export function setCallAccepted(receivingCall) {
+export function setCallAccepted() {
   const startTime = Date.now();
   return {
     startTime,
-    receivingCall,
     type: CALL_ACCEPTED
   };
 }
