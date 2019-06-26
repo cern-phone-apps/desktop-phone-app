@@ -85,10 +85,9 @@ class DialpadForm extends React.Component {
    */
   makeCall = () => {
     const { phoneNumber } = this.state;
-    const { phoneService, navigation } = this.props;
+    const { phoneService } = this.props;
     logMessage(`Calling user ${phoneNumber}`);
     phoneService.makeCall(undefined, phoneNumber);
-    navigation.navigate('Calling');
   };
 
   /**
