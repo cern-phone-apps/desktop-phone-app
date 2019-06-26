@@ -9,7 +9,7 @@ import SearchUsersScreen from './SearchUsersScreen';
 function mapStateToProps(state) {
   const { calls } = state;
   return {
-    searching: calls.search.serching,
+    searching: calls.search.searching,
     contacts: calls.contacts.getContacts.contacts
   };
 }
