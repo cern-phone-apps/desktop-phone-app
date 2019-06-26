@@ -146,33 +146,64 @@ export class Dial {
    * Answers an incoming call.
    * Assumes there is a previously received invite, if not returns an error.
    */
-  answer() {
+  answerCall(session) {
     if(!this.inviteReceived){
       throw Error("Cannot answer call. No invite received.");
     }
-    if(!this.session){
+    if(!session){
       throw Error("Cannot answer call. Session not established.");
     }
-    this.session.accept();
+    session.accept();
     this.onCall = true;
-    var event = Dial.buildEvent('inviteAccepted', {'session':this.session});
+    var event = Dial.buildEvent('inviteAccepted', {'session':session});
     this.sendEvent(event);
+  }
+
+  /**
+   * Answers an incoming call.
+   * Assumes there is a previously received invite, if not returns an error.
+   */
+  answerCallId(sessionId) {
+    return this.answerCall(this.sessionList[sessionId]);
+  }
+
+  /**
+   * Answers an incoming call.
+   * Assumes there is a previously received invite, if not returns an error.
+   */
+  answer() {
+    return this.answerCall(this.getMostRecentSession());
+  }
+
+  /**
+   * Call finishing by providing session object.
+   */
+  hangUpCall(session) {
+    if (session && session != undefined){
+      if(this.sessionOnCall(session) || this.onCall){
+        session.terminate();
+        delete this.sessionList[session.id];
+      }
+      else if(this.inviteReceived) {
+        session.reject();
+      }
+      else throw Error("Trying to hang up a non valid session.");
+    }
+    else throw Error("Trying to hang up a non valid session.");
+  }
+
+  /**
+   * Call finishing by providing session Id.
+   */
+  hangUpCallId(sessionId) {
+    return this.hangUpCall(this.sessionList[sessionId]);
   }
 
   /**
    * Call finishing. Flush the current session.
    */
-  hangUp() {
-    if (this.onCall) {
-      this.onCall = false;
-      this.inviteReceived = false;
-      this.session.terminate();
-      this.session = null;
-    }
-    else if(this.inviteReceived){
-      this.session.reject();
-    }
-    else throw Error("Hang up when not on a call and no invite.");
+  hangUp(){
+    return this.hangUpCall(this.getDefaultSession());
   }
 
   /**
@@ -181,7 +212,7 @@ export class Dial {
    */
   sendDTMF(tone){
     if (this.onCall) {
-      this.session.dtmf(tone);
+      this.getDefaultSession.dtmf(tone);
     }
     else throw Error("Trying to send DTMF digits when not on a call.");
   }
@@ -203,6 +234,10 @@ export class Dial {
    */
   isOnCall() {
     return this.onCall;
+  }
+
+  sessionOnCall(session){
+    return session.startTime != null;
   }
 
   /**
@@ -455,6 +490,40 @@ export class Dial {
     this.addTrackListener(session);
   }
 
+  getDefaultSession(){
+    var oldestTime = Number.MAX_SAFE_INTEGER;
+    var defaultSession = undefined;
+    for (var sessionId in this.sessionList) {
+      if (this.sessionList.hasOwnProperty(sessionId)) {
+         if(this.sessionList[sessionId].data.timestamp < oldestTime){
+           oldestTime = this.sessionList[sessionId].data.timestamp;
+           defaultSession = this.sessionList[sessionId];
+         }
+      }
+    }
+    return defaultSession;
+  }
+
+  getMostRecentSession(){
+    var oldestTime = Number.MIN_SAFE_INTEGER;
+    var defaultSession = undefined;
+    for (var sessionId in this.sessionList) {
+      if (this.sessionList.hasOwnProperty(sessionId)) {
+         if(this.sessionList[sessionId].data.timestamp > oldestTime){
+           oldestTime = this.sessionList[sessionId].data.timestamp;
+           defaultSession = this.sessionList[sessionId];
+         }
+      }
+    }
+    return defaultSession;
+  }
+
+  removeSession(session){
+    if(this.sessionList.hasOwnProperty(session.id)){
+      delete this.sessionList[session.id];
+    }
+  }
+
   setSession(session){
     if(session != null && session != undefined){
       session.data.timestamp = Date.now();
@@ -468,8 +537,9 @@ export class Dial {
    * Terminates the current Session gracefully.
    */
   terminateSession() {
-    if (this.session) {
-      this.session.terminate();
+    var session = this.getDefaultSession();
+    if( session!= undefined){
+      session.terminate();
     }
   }
 
