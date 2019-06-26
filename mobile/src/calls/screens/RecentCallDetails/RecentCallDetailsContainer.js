@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import RecentCallDetails from './RecentCallDetails';
-import withOnGoingCallBanner from '../../../common/utils/calls';
 
 function mapStateToProps(state) {
   const { calling } = state.calls.call;
@@ -9,6 +8,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(
-  withOnGoingCallBanner(RecentCallDetails)
-);
+export default connect(mapStateToProps)(RecentCallDetails);

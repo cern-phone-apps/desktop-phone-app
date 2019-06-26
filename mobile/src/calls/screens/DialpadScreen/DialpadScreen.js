@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import MakeCallForm from '../../components/DialpadForm/DialpadForm';
 import { withNavigation } from 'react-navigation';
+import MakeCallForm from '../../components/DialpadForm/DialpadForm';
 
 const styles = StyleSheet.create({
   container: {
