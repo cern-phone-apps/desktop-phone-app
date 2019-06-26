@@ -29,7 +29,7 @@ export default class SearchUsersScreen extends React.Component {
 
   keyExtractor = item => item.personId;
 
-  onPress = () => {
+  onPress = async () => {
     const { searchText } = this.state;
 
     if (!searchText) {
@@ -41,8 +41,9 @@ export default class SearchUsersScreen extends React.Component {
     }
 
     const { searchUsers } = this.props;
-    searchUsers(searchText).then(result => {
-      this.setState({ searchResults: result.payload });
+    const { payload } = await searchUsers(searchText);
+    this.setState({
+      searchResults: payload
     });
   };
 
@@ -85,7 +86,6 @@ export default class SearchUsersScreen extends React.Component {
   render() {
     const { searchText, searchResults } = this.state;
     const { searching } = this.props;
-    console.log(searchResults);
     return (
       <View style={{ flex: 1 }}>
         <View
