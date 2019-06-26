@@ -110,9 +110,10 @@ class DialpadForm extends React.Component {
           </View>
           <View style={styles.phoneNumberSideColumn}>
             <TouchableOpacity
-              activeOpacity={disabled ? 1 : 0.3}
-              onPress={() => !disabled && this.deleteOneNumber()}
-              onLongPress={() => !disabled && this.deleteWholeNumber()}
+              disabled={disabled}
+              activeOpacity={0.5}
+              onPress={this.deleteOneNumber}
+              onLongPress={this.deleteWholeNumber}
             >
               <Icon name="backspace" />
             </TouchableOpacity>
@@ -124,9 +125,10 @@ class DialpadForm extends React.Component {
         />
         <View style={styles.callButtonContainer}>
           <TouchableOpacity
-            activeOpacity={disabled ? 1 : 0.5}
+            disabled={disabled}
+            activeOpacity={0.5}
             style={[styles.callButton, disabled ? styles.disabled : null]}
-            onPress={() => !disabled && phoneNumber && this.makeCall()}
+            onPress={() => phoneNumber && this.makeCall()}
           >
             <Icon name="phone" size={25} color="white" />
           </TouchableOpacity>
