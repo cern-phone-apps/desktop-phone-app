@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import MakeCallForm from '../../components/DialpadForm/DialpadForm';
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const DialpadScreen = ({ receivingCall, navigation }) => {
+const DialpadScreen = ({ receivingCall, navigation, disabled }) => {
   if (receivingCall) {
     navigation.navigate('Calling');
   }
@@ -29,10 +30,19 @@ const DialpadScreen = ({ receivingCall, navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>CERN Phone Mobile</Text>
       <View style={styles.makeCallForm}>
-        <MakeCallForm />
+        <MakeCallForm disabled={disabled} />
       </View>
     </View>
   );
+};
+
+DialpadScreen.propTypes = {
+  receivingCall: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool
+};
+
+DialpadScreen.defaultProps = {
+  disabled: false
 };
 
 export default withNavigation(DialpadScreen);
