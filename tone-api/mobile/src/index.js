@@ -62,8 +62,10 @@ export class DialNotifier extends EventEmitter {}
 export class Dial {
   constructor() {
     console.debug("Dial initialized");
-    this.dialNotifier = new EventEmitter();
+    this.dialNotifier = new DialNotifier();
     this.discoverServer();
+
+    this.sessionList = {};
 
     this.messages = {
       10: "No network connection.",
@@ -91,9 +93,12 @@ export class Dial {
   authenticate(user, accessToken) {
     if (user && accessToken) {
       try {
-        this.startAgent(user,accessToken);
+        this.user = user;
+        this.token = accessToken;
         this.tokenHash = SHA512(accessToken).toString();
-        console.log("hashed token:" + this.tokenHash);
+        // console.log("hashed token:" + this.tokenHash);
+        //this.startAgent();
+        this.startAgent(); // TO DO HERE
         return this.tokenHash;
       }
       catch (e) {
@@ -213,10 +218,10 @@ export class Dial {
    * @param {string} user Contact SIP username.
    * @param {!string} password Contact SIP password.
    */
-  startAgent(user, accessToken) {
+  startAgent() {
     console.log(`Starting agent...`);
     this.config = {
-      uri: user + "@" + this.uri,
+      uri: this.user + "@" + this.uri,
       // allowLegacyNotifications: true,
       log: {
         level: "debug",
@@ -246,8 +251,8 @@ export class Dial {
         console.log(result);
         return result;
       },
-      contactName: user,
-      authorizationUser: user,
+      contactName: this.user,
+      authorizationUser: this.user,
       password: "",
       hackWssInTransport: true,
       register: false,
@@ -259,18 +264,22 @@ export class Dial {
 
     // @ts-ignore
     this.ua = new SIP.UA(this.config);
-    this.addListeners(accessToken);
+    this.addListeners();
   }
 
   /**
    * Adds listener handler behaviour for user-agent events.
    * These are not session events (related to a particular call/session)
-   * @param {!string} accessToken A string with a cern OAuth2.0 token to be used in Register requests.
    */
-  addListeners(accessToken) {
+  addListeners() {
     this.ua.on("registered", () => {
+      this.token = undefined;
       var event = Dial.buildEvent("registered", {});
       this.sendEvent(event);
+      if(!this.firstRegister){
+        this.startRegister(this.tokenHash);
+      }
+      this.firstRegister = true;
     });
     this.ua.on("unregistered", (response, cause) => {
       var event = Dial.buildEvent("unregistered", {}, cause, response);
@@ -291,7 +300,7 @@ export class Dial {
       this.sendEvent(event);
     });
     this.ua.transport.on("connected", () => {
-      this.startRegister(accessToken);
+      this.startRegister(this.token);
     });
   }
 
