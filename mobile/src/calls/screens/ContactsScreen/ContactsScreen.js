@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, Text } from 'react-native-elements';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 
 export default class ContactsScreen extends React.Component {
   static navigationOptions = {
@@ -9,7 +9,6 @@ export default class ContactsScreen extends React.Component {
   };
 
   static propTypes = {
-    searching: PropTypes.bool.isRequired,
     contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
     getUserContacts: PropTypes.func.isRequired,
     removeUserContact: PropTypes.func.isRequired
@@ -42,7 +41,7 @@ export default class ContactsScreen extends React.Component {
   };
 
   render() {
-    const { searching, contacts } = this.props;
+    const { contacts } = this.props;
 
     return (
       <View style={{ flex: 1 }}>
@@ -50,21 +49,17 @@ export default class ContactsScreen extends React.Component {
           keyExtractor={this.keyExtractor}
           data={contacts}
           renderItem={this.renderItem}
-          ListEmptyComponent={() =>
-            searching ? (
-              <ActivityIndicator size="large" style={{ paddingTop: 100 }} />
-            ) : (
-              <Text
-                style={{
-                  display: 'flex',
-                  alignSelf: 'center',
-                  marginTop: 10,
-                  marginBottom: 10
-                }}
-              >
-                Currently you do not have any contacts
-              </Text>
-            )
+          ListEmptyComponent={
+            <Text
+              style={{
+                display: 'flex',
+                alignSelf: 'center',
+                marginTop: 10,
+                marginBottom: 10
+              }}
+            >
+              Currently you do not have any contacts
+            </Text>
           }
         />
       </View>
