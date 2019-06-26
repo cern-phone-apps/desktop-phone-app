@@ -1,15 +1,17 @@
-import { AsyncStorage } from "react-native";
+/* eslint-disable no-console */
 
-let debug = require("debug");
+import { AsyncStorage } from 'react-native';
+
+const debug = require('debug');
 
 const clearLog = async () => {
-  await AsyncStorage.setItem("logs", JSON.stringify([]));
+  await AsyncStorage.setItem('logs', JSON.stringify([]));
 };
 
-const _retrieveData = async () => {
+const retrieveData = async () => {
   let existingEntries;
   try {
-    const value = await AsyncStorage.getItem("logs");
+    const value = await AsyncStorage.getItem('logs');
     if (value !== null) {
       // We have data!!
       // console.log(value);
@@ -24,87 +26,82 @@ const _retrieveData = async () => {
   return existingEntries;
 };
 
-const addEntry = entry => {
-  if (process.env.CI === true) {
-    return;
-  }
-  let existingEntries = _retrieveData().then(async (existingEntries) => {
-    try {
-      JSON.stringify(entry);
-    } catch (TypeError) {
-      entry = simpleStringify(entry);
-    }
-    existingEntries.push(entry);
-
-    try {
-      await AsyncStorage.setItem("logs", JSON.stringify(existingEntries));
-    } catch (error) {
-      console.log(error);
-      clearLog();
-    }
-  });
-};
-
 const simpleStringify = object => {
-  var simpleObject = {};
-  for (var prop in object) {
-    if (!object.hasOwnProperty(prop)) {
-      continue;
+  const simpleObject = Object.keys(object).reduce((result, key) => {
+    if (typeof object[key] === 'object') {
+      return result;
     }
-    if (typeof object[prop] == "object") {
-      continue;
+    if (typeof object[key] === 'function') {
+      return result;
     }
-    if (typeof object[prop] == "function") {
-      continue;
-    }
-    simpleObject[prop] = object[prop];
-  }
+    return { ...result, [key]: object[key] };
+  }, {});
   return JSON.stringify(simpleObject); // returns cleaned up JSON
 };
 
-clearLog();
+const addEntry = async entry => {
+  if (process.env.CI === true) {
+    return;
+  }
+  const existingEntries = await retrieveData();
 
+  try {
+    JSON.stringify(entry);
+    existingEntries.push(entry);
+  } catch (TypeError) {
+    existingEntries.push(simpleStringify(entry));
+  }
+
+  try {
+    await AsyncStorage.setItem('logs', JSON.stringify(existingEntries));
+  } catch (error) {
+    console.log(error);
+    clearLog();
+  }
+};
+
+// Overload console.log function
 (() => {
-  //saving the original console.log function
-  var preservedConsoleLog = console.log;
+  // saving the original console.log function
+  const preservedConsoleLog = console.log;
 
-  //overriding console.log function
-  console.log = function() {
-    //we can't just call to `preservedConsoleLog` function,
-    //that will throw an error (TypeError: Illegal invocation)
-    //because we need the function to be inside the
-    //scope of the `console` object so we going to use the
-    //`apply` function
-    var currentDate = "| " + new Date().toUTCString() + " ";
-    preservedConsoleLog.apply(console, [...arguments, currentDate]);
+  /**
+   * Variant of console.log that prints a timestamp after a message
+   * and logs to AsyncStorage in addition to the console
+   */
+  console.log = (...args) => {
+    const currentDate = `| ${new Date().toUTCString()} `;
+    preservedConsoleLog.apply(console, [...args, currentDate]);
 
-    addEntry([...arguments, currentDate]);
+    addEntry([...args, currentDate]);
   };
 })();
+
+clearLog();
 
 /**
  * Initializes the different application's logs methods
  * @type {Function}
  */
-let errorMessage = debug("APP:ERROR");
-let warnMessage = debug("APP:WARN");
-let infoMessage = debug("APP:INFO");
-let logMessage = debug("APP:LOG");
+const errorMessage = debug('APP:ERROR');
+const warnMessage = debug('APP:WARN');
+const infoMessage = debug('APP:INFO');
+const logMessage = debug('APP:LOG');
 
-let toneMessage = infoMessage.extend("TONE");
-let toneInMessage = toneMessage.extend("TONE_IN");
-let toneOutMessage = toneMessage.extend("TONE_OUT");
+const toneMessage = infoMessage.extend('TONE');
+const toneInMessage = toneMessage.extend('TONE_IN');
+const toneOutMessage = toneMessage.extend('TONE_OUT');
 
-let actionMessage = infoMessage.extend("ACTION");
+const actionMessage = infoMessage.extend('ACTION');
 
 /**
  * On production, only error and info will be available.
  * On development and test, logMessage is also available
  */
-if (process.env.NODE_ENV === "production") {
-  debug.enable("APP:ERROR,APP:INFO,APP:INFO:*");
+if (process.env.NODE_ENV === 'production') {
+  debug.enable('APP:ERROR,APP:INFO,APP:INFO:*');
 } else {
-  debug.enable("APP:*");
+  debug.enable('APP:*');
 }
 
 export {
