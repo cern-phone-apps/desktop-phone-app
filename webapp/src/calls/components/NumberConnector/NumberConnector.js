@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
-import { actionMessage, logMessage } from "common/utils/logs";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Button, Dimmer, Icon, Loader, Segment } from 'semantic-ui-react';
+import { actionMessage, logMessage } from 'common/utils/logs';
 
 const ButtonNumbersList = ({ numbers, connect }) => {
   return (
@@ -11,7 +11,7 @@ const ButtonNumbersList = ({ numbers, connect }) => {
           <Button
             fluid
             key={`number-${index}`}
-            className={"ConnectNumberButton"}
+            className={'ConnectNumberButton'}
             onClick={() => connect(item.phoneNumber)}
           >
             <Icon name="plug" />
@@ -60,7 +60,7 @@ export class NumberConnector extends Component {
 
     if (connecting) {
       return (
-        <Segment padded basic textAlign={"center"}>
+        <Segment padded basic textAlign={'center'}>
           <Dimmer active inverted>
             <Loader active inline="centered" content="Connecting..." />
           </Dimmer>
@@ -70,7 +70,7 @@ export class NumberConnector extends Component {
 
     if (numbers === undefined || numbers.length === 0) {
       return (
-        <Segment padded basic textAlign={"center"}>
+        <Segment padded basic textAlign={'center'}>
           <Dimmer active inverted>
             <Loader
               active
