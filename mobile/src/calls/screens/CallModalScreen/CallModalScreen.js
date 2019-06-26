@@ -1,7 +1,18 @@
 import React from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import MakingCallScreenContainer from '../MakingCallScreen/MakingCallScreenContainer';
 import ReceivingCallScreenContainer from '../ReceivingCallScreen/ReceivingCallScreenContainer';
+
+const styles = StyleSheet.create({
+  layout: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignContent: 'center',
+    flexDirection: 'column',
+    height: '100%'
+  }
+});
 
 const CallModalScreen = ({ calling, receivingCall, navigation }) => {
   if (!calling && !receivingCall) {
@@ -17,7 +28,11 @@ const CallModalScreen = ({ calling, receivingCall, navigation }) => {
   }
 
   // should be unreachable
-  return null;
+  return (
+    <View style={styles.layout}>
+      <ActivityIndicator size="large" />
+    </View>
+  );
 };
 
 CallModalScreen.propTypes = {

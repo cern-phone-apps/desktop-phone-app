@@ -10,7 +10,7 @@ export class RecentCallsScreen extends React.Component {
   };
 
   static propTypes = {
-    recentCalls: PropTypes.array.isRequired
+    recentCalls: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   keyExtractor = (item, index) => index.toString();

@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 const ReceivingCallScreen = ({ tempCaller, navigation, phoneService }) => {
   const answerCall = () => {
     phoneService.answer();
-    navigation.navigate('AppTabs');
+    navigation.navigate('Recent');
   };
 
   const rejectCall = () => {
