@@ -5,7 +5,6 @@ import { API_ENDPOINT } from 'react-native-dotenv';
 import { usersActionFactory, contactsActionFactory } from 'dial-core';
 
 import SearchUsersScreen from './SearchUsersScreen';
-import withOnGoingCallBanner from '../../../common/utils/calls';
 
 function mapStateToProps(state) {
   const { calls } = state;
@@ -31,4 +30,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withOnGoingCallBanner(SearchUsersScreen));
+)(SearchUsersScreen);

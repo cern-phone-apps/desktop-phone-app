@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 
 import { callActions } from 'dial-core';
 import { RecentCallsScreen } from './RecentCallsScreen';
-import withOnGoingCallBanner from '../../../common/utils/calls';
 
 function mapStateToProps(state) {
   const { calls } = state;
@@ -24,4 +23,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withOnGoingCallBanner(RecentCallsScreen));
+)(RecentCallsScreen);
