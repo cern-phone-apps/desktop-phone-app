@@ -4,7 +4,7 @@
  */
 
 import { AppRegistry, View, Text } from 'react-native';
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { name as appName } from './app.json';
@@ -25,18 +25,14 @@ const LoadingComponent = () => {
   );
 };
 
-class PhoneMobile extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <PersistGate loading={<LoadingComponent />} persistor={persistor}>
-          <PhoneProvider>
-            <App />
-          </PhoneProvider>
-        </PersistGate>
-      </Provider>
-    );
-  }
-}
+const PhoneMobile = () => (
+  <Provider store={store}>
+    <PersistGate loading={<LoadingComponent />} persistor={persistor}>
+      <PhoneProvider>
+        <App />
+      </PhoneProvider>
+    </PersistGate>
+  </Provider>
+);
 
 AppRegistry.registerComponent(appName, () => PhoneMobile);
