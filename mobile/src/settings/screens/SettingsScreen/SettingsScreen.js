@@ -18,17 +18,24 @@ export default class SettingsScreen extends React.Component {
         onPress: () => {
           navigation.navigate('Profile');
         }
+      },
+      {
+        title: 'Call Forwarding',
+        icon: 'phone-forwarded',
+        onPress: () => {
+          navigation.navigate('CallForwarding');
+        }
       }
     ];
 
     return (
       <View style={{ flex: 1 }}>
-        {list.map((item, i) => (
+        {list.map(({ title, icon, onPress }, index) => (
           <ListItem
-            key={i.toString()}
-            title={item.title}
-            leftIcon={{ name: item.icon, type: item.type }}
-            onPress={() => item.onPress()}
+            key={index.toString()}
+            title={title}
+            leftIcon={{ name: icon }}
+            onPress={onPress}
           />
         ))}
         <DisconnectForm />
