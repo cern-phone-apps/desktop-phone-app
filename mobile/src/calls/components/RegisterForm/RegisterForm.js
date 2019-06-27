@@ -35,6 +35,7 @@ export class RegisterForm extends React.Component {
         chevron
         leftIcon={{ name: 'phone', type: 'font-awesome' }}
         bottomDivider
+        topDivider
         onPress={this.registerUser}
       />
     );
