@@ -18,6 +18,18 @@ const SettingsStack = createStackNavigator({
         headerTintColor: 'white'
       };
     }
+  },
+  Profile: {
+    screen: ProfileContainer,
+    navigationOptions: () => {
+      return {
+        title: 'Profile',
+        headerStyle: {
+          backgroundColor: ColorPalette.primary
+        },
+        headerTintColor: 'white'
+      };
+    }
   }
 });
 
