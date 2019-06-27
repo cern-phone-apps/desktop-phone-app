@@ -12,6 +12,7 @@ import { withNavigation } from 'react-navigation';
 import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 import { logMessage } from '../../../common/utils/logging';
 import Dialpad from './Dialpad/Dialpad';
+import ColorPalette from '../../../styles/ColorPalette';
 
 const styles = StyleSheet.create({
   phoneNumberRow: {
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 70,
     height: 70,
-    backgroundColor: '#0fd859',
+    backgroundColor: ColorPalette.callBtnGreen,
     borderRadius: 50
   },
   disabled: {
