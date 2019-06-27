@@ -10,6 +10,7 @@ import SettingsStack from '../../settings/navigators/settings';
 import RegisterLoadingScreenContainer from '../screens/RegisterLoadingScreen/RegisterLoadingScreenContainer';
 import RegisterStack from './register';
 import ContactsStack from './contacts';
+import ColorPalette from '../../styles/ColorPalette';
 
 export const AppStack = createBottomTabNavigator(
   {
@@ -42,10 +43,10 @@ export const AppStack = createBottomTabNavigator(
       }
     }),
     tabBarOptions: {
-      activeTintColor: '#ffffff',
-      inactiveTintColor: '#c7c9c3',
+      activeTintColor: 'white',
+      inactiveTintColor: ColorPalette.primaryLight,
       style: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       }
     }
   }

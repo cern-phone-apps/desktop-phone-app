@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 import LoginScreenContainer from '../screens/LoginScreen/LoginScreenContainer';
 import LoginWebViewContainer from '../screens/LoginWebView/LoginWebViewContainer';
+import ColorPalette from '../../styles/ColorPalette';
 
 export default createStackNavigator({
   SignIn: {
@@ -11,7 +12,7 @@ export default createStackNavigator({
       },
       title: `Sign in`,
       headerStyle: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       },
       headerTintColor: 'white'
     })
@@ -24,7 +25,7 @@ export default createStackNavigator({
       },
       title: `Input your credentials`,
       headerStyle: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       },
       headerTintColor: 'white'
     })
