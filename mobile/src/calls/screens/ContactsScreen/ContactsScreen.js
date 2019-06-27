@@ -4,7 +4,6 @@ import { ListItem, Text } from 'react-native-elements';
 import { FlatList, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
-
 export default class ContactsScreen extends React.Component {
   static navigationOptions = {
     title: 'Contacts'
@@ -24,23 +23,23 @@ export default class ContactsScreen extends React.Component {
   keyExtractor = item => item.personId.toString();
 
   renderItem = ({ item }) => {
-    const { getUserContacts, removeUserContact } = this.props;
+    const { getUserContacts, removeUserContact, navigation } = this.props;
     // const getUserContacts = () => [];
     // const removeUserContact = () => {};
     return (
       <ListItem
-        onPress={() =>
-          this.props.navigation.navigate('UserDetails', { details: item })
-        }
+        onPress={() => navigation.navigate('UserDetails', { details: item })}
         title={`${item.displayName} (${item.division})`}
         leftAvatar={{ title: item.displayName[0] }}
-        rightIcon={(
+        rightIcon={
           <IconButton
             icon="clear"
             onPress={async () => {
               await removeUserContact(item.personId);
               getUserContacts();
-          }} />)}
+            }}
+          />
+        }
         bottomDivider
       />
     );
