@@ -169,6 +169,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-webrtc')
     implementation project(':react-native-callkeep')
     implementation project(':react-native-sound')
     implementation project(':react-native-webview')
