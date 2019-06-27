@@ -139,6 +139,7 @@ export class Dial {
     let fullURI = callee + '@' + this.uri;
     let session = this.ua.invite(fullURI,options);
     this.initializeSession(session);
+    return session.id;
     // this.agentLastTrigger = 'inviteSent';
   }
 
