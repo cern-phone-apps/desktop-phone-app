@@ -27,6 +27,9 @@ export default class ContactsScreen extends React.Component {
     // const removeUserContact = () => {};
     return (
       <ListItem
+        onPress={() =>
+          this.props.navigation.navigate('UserDetails', { details: item })
+        }
         title={`${item.displayName} (${item.division})`}
         leftIcon={{ name: 'user', type: 'font-awesome' }}
         rightIcon={{
