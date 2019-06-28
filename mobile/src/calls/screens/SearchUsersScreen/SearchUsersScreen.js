@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { Button, Icon, ListItem, SearchBar, Text } from 'react-native-elements';
+import { IconButton } from 'react-native-paper';
 
 export default class SearchUsersScreen extends React.Component {
   static navigationOptions = {
@@ -66,9 +67,8 @@ export default class SearchUsersScreen extends React.Component {
     const rightIcon = isAlreadyInUserContacts ? (
       <Icon type="feather" name="check" color="green" />
     ) : (
-      <Icon
-        type="feather"
-        name="plus"
+      <IconButton
+        icon="add"
         onPress={() => addUserContact(item).then(() => getUserContacts())}
       />
     );

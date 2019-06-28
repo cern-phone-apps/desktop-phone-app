@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, Text } from 'react-native-elements';
 import { FlatList, View } from 'react-native';
+import { IconButton } from 'react-native-paper';
 
 
 export default class ContactsScreen extends React.Component {
@@ -30,12 +31,13 @@ export default class ContactsScreen extends React.Component {
       <ListItem
         title={`${item.displayName} (${item.division})`}
         leftAvatar={{ title: item.displayName[0] }}
-        rightIcon={{
-          name: 'x',
-          type: 'feather',
-          onPress: () =>
-            removeUserContact(item.personId).then(() => getUserContacts())
-        }}
+        rightIcon={(
+          <IconButton
+            icon="clear"
+            onPress={async () => {
+              await removeUserContact(item.personId);
+              getUserContacts();
+          }} />)}
         bottomDivider
       />
     );
