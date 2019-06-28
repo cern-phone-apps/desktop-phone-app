@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ListItem, Text } from 'react-native-elements';
 import { FlatList, View } from 'react-native';
 
+
 export default class ContactsScreen extends React.Component {
   static navigationOptions = {
     title: 'Contacts'
@@ -28,10 +29,10 @@ export default class ContactsScreen extends React.Component {
     return (
       <ListItem
         title={`${item.displayName} (${item.division})`}
-        leftIcon={{ name: 'user', type: 'font-awesome' }}
+        leftAvatar={{ title: item.displayName[0] }}
         rightIcon={{
-          name: 'user-times',
-          type: 'font-awesome',
+          name: 'x',
+          type: 'feather',
           onPress: () =>
             removeUserContact(item.personId).then(() => getUserContacts())
         }}

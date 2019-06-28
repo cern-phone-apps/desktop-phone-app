@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'react-native-elements';
@@ -8,7 +7,9 @@ import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 
 export class DisconnectForm extends React.Component {
   static propTypes = {
-    phoneService: PropTypes.object.isRequired
+    phoneService: PropTypes.shape({
+      disconnectUser: PropTypes.func.isRequired
+    }).isRequired
   };
 
   /**
@@ -30,24 +31,12 @@ export class DisconnectForm extends React.Component {
     return (
       <ListItem
         onPress={this.disconnectUserAction}
-        key="disconnect"
-        title="Disconnect"
-        topDivider
-        pad={16}
-        leftIcon={{ name: 'logout', type: 'material-community' }}
+        key="changeNumber"
+        title="Change registered phone number"
+        leftIcon={{ name: 'phone' }}
       />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  button: {
-    marginTop: 10,
-    marginBottom: 10
-  },
-  buttonTitle: {
-    color: '#FF0000'
-  }
-});
 
 export default withNavigation(withPhoneService(DisconnectForm));

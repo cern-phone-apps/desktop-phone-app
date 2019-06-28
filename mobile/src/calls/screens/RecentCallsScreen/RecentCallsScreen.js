@@ -4,6 +4,8 @@ import { ListItem } from 'react-native-elements';
 import { FlatList, View } from 'react-native';
 import moment from 'moment';
 
+import ColorPalette from '../../../styles/ColorPalette';
+
 export class RecentCallsScreen extends React.Component {
   static navigationOptions = {
     title: 'Recent Calls'
@@ -31,12 +33,16 @@ export class RecentCallsScreen extends React.Component {
             ? {
                 name: 'arrow-downward',
                 type: 'ionicons',
-                color: item.missed ? 'red' : 'green'
+                color: item.missed
+                  ? ColorPalette.recentCallRed
+                  : ColorPalette.recentCallGreen
               }
             : {
                 name: 'arrow-upward',
                 type: 'ionicons',
-                color: item.missed ? 'red' : 'green'
+                color: item.missed
+                  ? ColorPalette.recentCallRed
+                  : ColorPalette.recentCallGreen
               }
         }
         rightIcon={{ name: 'phone', type: 'font-awesome' }}
