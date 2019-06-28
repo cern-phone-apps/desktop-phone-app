@@ -1,42 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { authActions } from 'dial-core';
 
 import { withNavigation } from 'react-navigation';
 import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 
-export class DisconnectForm extends React.Component {
-  static propTypes = {
-    phoneService: PropTypes.shape({
-      disconnectUser: PropTypes.func.isRequired
-    }).isRequired
-  };
+const disconnect = phoneService => async () => {
+  console.log('Disconnecting user');
+  await phoneService.disconnectUser();
+};
 
-  /**
-   * Register the user in the Telephony Backend
-   */
-  disconnectUserAction = async () => {
-    // const { phoneNumber } = this.state;
-    const { phoneService, navigation } = this.props;
-    console.log(`Disconnecting user`);
-    await phoneService.disconnectUser();
-    navigation.navigate('Register');
-  };
+export const DisconnectForm = ({
+  navigation,
+  phoneService,
+  resetActiveNumber
+}) => {
+  return (
+    <ListItem
+      onPress={async () => {
+        await resetActiveNumber();
+        await disconnect(phoneService)();
+        navigation.navigate('RegisterScreen');
+      }}
+      key="changeNumber"
+      title="Change registered phone number"
+      leftIcon={{ name: 'phone' }}
+    />
+  );
+};
 
-  /**
-   * Render the component
-   * @returns {*}
-   */
-  render() {
-    return (
-      <ListItem
-        onPress={this.disconnectUserAction}
-        key="changeNumber"
-        title="Change registered phone number"
-        leftIcon={{ name: 'phone' }}
-      />
-    );
-  }
+DisconnectForm.propTypes = {
+  phoneService: PropTypes.shape({
+    disconnectUser: PropTypes.func.isRequired
+  }).isRequired,
+  resetActiveNumber: PropTypes.func.isRequired
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      resetActiveNumber: authActions.resetActiveNumber
+    },
+    dispatch
+  );
 }
 
-export default withNavigation(withPhoneService(DisconnectForm));
+export default withNavigation(
+  withPhoneService(
+    connect(
+      null,
+      mapDispatchToProps
+    )(DisconnectForm)
+  )
+);

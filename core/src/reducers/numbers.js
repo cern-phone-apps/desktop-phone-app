@@ -3,7 +3,6 @@ import * as numbersActions from '../actions/numbers';
 const initialState = {
   fetching: false,
   error: undefined,
-  activeNumber: undefined,
   numbers: []
 };
 
@@ -90,11 +89,6 @@ export default (state = initialState, action) => {
       };
     case numbersActions.NUMBERS_FAILURE:
       return handleNumbersFailure(state, action);
-    case numbersActions.NUMBERS_SET_ACTIVE:
-      return {
-        ...state,
-        activeNumber: action.phoneNumber
-      };
     default:
       return state;
   }

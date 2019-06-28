@@ -10,7 +10,9 @@ const initialState = {
   loginInProgress: false,
   requestingToken: false,
   toneToken: '',
-  error: null
+  error: null,
+  /** the user's number that is currently active */
+  activeNumber: undefined
 };
 
 /**
@@ -102,6 +104,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         toneToken: action.toneToken
+      };
+    case authActions.SET_ACTIVE_NUMBER:
+      return {
+        ...state,
+        activeNumber: action.phoneNumber
+      };
+    case authActions.RESET_ACTIVE_NUMBER:
+      return {
+        ...state,
+        activeNumber: null
       };
     default:
       return state;

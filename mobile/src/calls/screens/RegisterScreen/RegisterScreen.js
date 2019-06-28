@@ -9,11 +9,10 @@ export default class RegisterScreen extends React.Component {
     connected: PropTypes.bool.isRequired,
     numbers: PropTypes.arrayOf(PropTypes.object),
     getUserPhoneNumbers: PropTypes.func.isRequired,
-    token: PropTypes.string
+    setActiveNumber: PropTypes.func.isRequired
   };
 
   static defaultProps = {
-    token: '',
     numbers: []
   };
 
@@ -41,12 +40,18 @@ export default class RegisterScreen extends React.Component {
   keyExtractor = (item, index) => index.toString();
 
   renderItem = ({ item }) => {
-    const { token } = this.props;
-    return <RegisterForm phoneNumber={item.phoneNumber} token={token} />;
+    const { setActiveNumber } = this.props;
+    return (
+      <RegisterForm
+        phoneNumber={item.phoneNumber}
+        onSelect={() => setActiveNumber(item.phoneNumber)}
+      />
+    );
   };
 
   render = () => {
     const { numbers } = this.props;
+    const { overlayVisible } = this.state;
 
     return (
       <View
@@ -56,7 +61,7 @@ export default class RegisterScreen extends React.Component {
         }}
       >
         <Overlay
-          isVisible={this.state.overlayVisible}
+          isVisible={overlayVisible}
           onBackdropPress={() => this.setState({ overlayVisible: false })}
         >
           <View

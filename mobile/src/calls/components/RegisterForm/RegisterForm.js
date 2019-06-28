@@ -2,25 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'react-native-elements';
 
-import { phoneService } from '../../providers/PhoneProvider/PhoneService';
+import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 
 export class RegisterForm extends React.Component {
   static propTypes = {
     phoneService: PropTypes.shape({
-      disconnectUser: PropTypes.func.isRequired
+      authenticateUser: PropTypes.func.isRequired
     }).isRequired,
     phoneNumber: PropTypes.string.isRequired,
-    token: PropTypes.string.isRequired
+    onSelect: PropTypes.func.isRequired
   };
 
   /**
    * Register the user in the Telephony Backend
    */
   registerUser = () => {
-    const { phoneService, phoneNumber, token } = this.props;
-    console.log(`Registering user ${phoneNumber}`);
-
-    phoneService.authenticateUser(phoneNumber, token);
+    const { phoneService, phoneNumber, onSelect } = this.props;
+    phoneService.authenticateUser(phoneNumber);
+    onSelect();
   };
 
   /**
@@ -42,4 +41,4 @@ export class RegisterForm extends React.Component {
   }
 }
 
-export default phoneService(RegisterForm);
+export default withPhoneService(RegisterForm);

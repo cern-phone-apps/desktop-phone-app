@@ -16,6 +16,8 @@ export const TOKEN_RECEIVED = '@@auth/TOKEN_RECEIVED';
 export const TOKEN_FAILURE = '@@auth/TOKEN_FAILURE';
 
 export const CLEAR_TOKEN = '@@auth/CLEAR_TOKEN';
+export const SET_ACTIVE_NUMBER = '@@auth/SET_ACTIVE_NUMBER';
+export const RESET_ACTIVE_NUMBER = '@@auth/RESET_ACTIVE_NUMBER';
 
 export const SET_TONE_TOKEN = '@@connection/SET_TONE_TOKEN';
 
@@ -109,5 +111,18 @@ export function setToneToken(toneToken) {
   return {
     toneToken,
     type: SET_TONE_TOKEN
+  };
+}
+
+export function setActiveNumber(phoneNumber) {
+  return {
+    phoneNumber,
+    type: SET_ACTIVE_NUMBER
+  };
+}
+
+export function resetActiveNumber() {
+  return {
+    type: RESET_ACTIVE_NUMBER
   };
 }

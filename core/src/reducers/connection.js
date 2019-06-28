@@ -2,7 +2,6 @@ import * as connectionActions from '../actions/connection';
 
 const initialState = {
   connected: false,
-  activeNumber: '',
   connecting: false,
   disconnecting: false,
   error: {}

@@ -2,17 +2,15 @@ import { API_ENDPOINT } from 'react-native-dotenv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { numbersActions, numbersActionFactory } from 'dial-core';
+import { numbersActionFactory, authActions } from 'dial-core';
 import RegisterScreen from './RegisterScreen';
 
 function mapStateToProps(state) {
   const { connection, numbers } = state.calls;
-  const { auth } = state;
 
   return {
     connected: connection ? connection.connected : false,
-    numbers: numbers.numbers,
-    token: auth.token
+    numbers: numbers.numbers
   };
 }
 
@@ -21,7 +19,7 @@ function mapDispatchToProps(dispatch) {
     {
       getUserPhoneNumbers: numbersActionFactory(API_ENDPOINT, 'mobile')
         .getUserPhoneNumbers,
-      setActiveNumber: numbersActions.setActiveNumber
+      setActiveNumber: authActions.setActiveNumber
     },
     dispatch
   );

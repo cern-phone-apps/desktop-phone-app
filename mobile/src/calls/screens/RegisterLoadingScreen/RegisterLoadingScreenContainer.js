@@ -1,11 +1,19 @@
 import { connect } from 'react-redux';
-import { RegisterLoadingScreen } from './RegisterLoadingScreen';
+import RegisterLoadingScreen from './RegisterLoadingScreen';
+import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 
 function mapStateToProps(state) {
-  const { connection } = state.calls;
+  const {
+    calls: { connection },
+    auth: { activeNumber, toneToken }
+  } = state;
   return {
-    connected: connection ? connection.connected : false
+    connected: connection ? connection.connected : false,
+    activeNumber,
+    token: toneToken
   };
 }
 
-export default connect(mapStateToProps)(RegisterLoadingScreen);
+export default connect(mapStateToProps)(
+  withPhoneService(RegisterLoadingScreen)
+);

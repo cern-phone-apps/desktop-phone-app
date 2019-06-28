@@ -6,7 +6,7 @@ import LogoutMenuContainer from '../../auth/components/LogoutMenu/LogoutMenuCont
 import ColorPalette from '../../styles/ColorPalette';
 
 const RegisterStack = createStackNavigator({
-  Register: {
+  RegisterScreen: {
     screen: RegisterScreenContainer,
     navigationOptions: () => {
       return {

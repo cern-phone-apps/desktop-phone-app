@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import { bindActionCreators } from 'redux';
 
-import { numbersActionFactory, numbersActions } from 'dial-core';
+import { numbersActionFactory, authActions } from 'dial-core';
 
 import NumberConnector from './NumberConnector';
 
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
       getUserPhoneNumbers: numbersActionFactory(
         process.env.REACT_APP_API_ENDPOINT
       ).getUserPhoneNumbers,
-      setActiveNumber: numbersActions.setActiveNumber
+      setActiveNumber: authActions.setActiveNumber
     },
     dispatch
   );

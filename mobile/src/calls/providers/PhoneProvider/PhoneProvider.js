@@ -81,8 +81,7 @@ export class PhoneProvider extends React.Component {
   };
 
   state = {
-    phoneService: this,
-    currentCallId: ''
+    phoneService: this
   };
 
   static childContextTypes = {
@@ -212,8 +211,8 @@ export class PhoneProvider extends React.Component {
       toneAPI.stopAgent();
     } catch (error) {
       errorMessage(`Agent is not connected`);
-      setDisconnectionSuccess();
     }
+    await setDisconnectionSuccess();
   };
 
   /**
@@ -386,7 +385,7 @@ export class PhoneProvider extends React.Component {
   handleTerminatedEvent = () => {
     const {
       setCallFinished,
-      call: { additionalCalls, tempRemote, remote, onCall, uuid },
+      call: { additionalCalls, tempRemote, remote, onCall },
       removeAdditionalCall
     } = this.props;
     logMessage(`additionalCalls: ${additionalCalls}`);

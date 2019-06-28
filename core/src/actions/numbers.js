@@ -37,10 +37,3 @@ export default function(apiEndpoint, type = 'web') {
     })
   };
 }
-
-export function setActiveNumber(phoneNumber) {
-  return {
-    phoneNumber,
-    type: NUMBERS_SET_ACTIVE
-  };
-}
