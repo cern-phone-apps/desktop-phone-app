@@ -1,7 +1,5 @@
-import {
-  createBottomTabNavigator,
-  createSwitchNavigator
-} from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import DialpadStack from './call';
@@ -12,7 +10,7 @@ import RegisterStack from './register';
 import ContactsStack from './contacts';
 import ColorPalette from '../../styles/ColorPalette';
 
-export const AppStack = createBottomTabNavigator(
+export const AppStack = createMaterialBottomTabNavigator(
   {
     Call: DialpadStack,
     Recent: RecentStack,
@@ -42,12 +40,10 @@ export const AppStack = createBottomTabNavigator(
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       }
     }),
-    tabBarOptions: {
-      activeTintColor: 'white',
-      inactiveTintColor: ColorPalette.primaryLight,
-      style: {
-        backgroundColor: ColorPalette.primary
-      }
+    activeColor: ColorPalette.menuActive,
+    inactiveColor: ColorPalette.primaryLight,
+    barStyle: {
+      backgroundColor: ColorPalette.primary
     }
   }
 );
