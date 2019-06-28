@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import DisconnectForm from '../../../calls/components/DisconnectForm/DisconnectForm';
+import LogoutListComponentContainer from '../../components/logout/LogoutListComponentContainer';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -9,14 +10,14 @@ export default class SettingsScreen extends React.Component {
   };
 
   render() {
+    const { navigation } = this.props;
     const list = [
       {
-        title: 'Appointments',
-        icon: 'av-timer'
-      },
-      {
-        title: 'Trips',
-        icon: 'flight-takeoff'
+        title: 'Profile',
+        icon: 'person',
+        onPress: () => {
+          navigation.navigate('Profile');
+        }
       }
     ];
 
@@ -26,10 +27,12 @@ export default class SettingsScreen extends React.Component {
           <ListItem
             key={i.toString()}
             title={item.title}
-            leftIcon={{ name: item.icon }}
+            leftIcon={{ name: item.icon, type: item.type }}
+            onPress={() => item.onPress()}
           />
         ))}
         <DisconnectForm />
+        <LogoutListComponentContainer />
       </View>
     );
   }

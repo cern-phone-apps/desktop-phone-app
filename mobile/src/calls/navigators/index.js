@@ -1,8 +1,5 @@
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-  createSwitchNavigator
-} from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import DialpadStack from './call';
@@ -11,9 +8,9 @@ import SettingsStack from '../../settings/navigators/settings';
 import RegisterLoadingScreenContainer from '../screens/RegisterLoadingScreen/RegisterLoadingScreenContainer';
 import RegisterStack from './register';
 import ContactsStack from './contacts';
-import CallModalScreenContainer from '../screens/CallModalScreen/CallModalScreenContainer';
+import ColorPalette from '../../styles/ColorPalette';
 
-export const AppStack = createBottomTabNavigator(
+export const AppStack = createMaterialBottomTabNavigator(
   {
     Call: DialpadStack,
     Recent: RecentStack,
@@ -21,7 +18,6 @@ export const AppStack = createBottomTabNavigator(
     Settings: SettingsStack
   },
   {
-    hiddenTabs: ['Calling'],
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
@@ -44,41 +40,18 @@ export const AppStack = createBottomTabNavigator(
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       }
     }),
-    tabBarOptions: {
-      activeTintColor: '#ffffff',
-      inactiveTintColor: '#c7c9c3',
-      style: {
-        backgroundColor: '#2196F3'
-      }
+    activeColor: ColorPalette.menuActive,
+    inactiveColor: ColorPalette.primaryLight,
+    barStyle: {
+      backgroundColor: ColorPalette.primary
     }
   }
 );
 
-/**
- * CallingScreen and AppTabs need to be at the same level if we want to hide the
- * tabs when we make a call.
- */
-export const CallingStack = createStackNavigator({
-  AppTabs: {
-    screen: AppStack,
-    headerMode: 'none',
-    navigationOptions: () => ({ header: null })
-  },
-  /**
-   * This screen is displayed over the AppTabs to handle the incoming and outgoing calls
-   */
-  Calling: {
-    screen: CallModalScreenContainer,
-    navigationOptions: () => ({
-      mode: 'modal'
-    })
-  }
-});
-
 export const AppFullStack = createSwitchNavigator(
   {
     RegisterLoading: RegisterLoadingScreenContainer,
-    AppRegistered: CallingStack,
+    AppRegistered: AppStack,
     Register: RegisterStack
   },
   {

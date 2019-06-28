@@ -5,8 +5,10 @@ import ConnectedScreen from './DialpadScreen';
 function mapStateToProps(state) {
   const { call } = state.calls;
   return {
-    receivingCall: call.receivingCall,
-    disabled: call.onCall
+    onCall: call.onCall,
+    disabled: call.onCall,
+    calling: call.calling,
+    recipient: call.tempRemote
   };
 }
 

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem, Text } from 'react-native-elements';
 import { FlatList, View } from 'react-native';
+import { IconButton } from 'react-native-paper';
+
 
 export default class ContactsScreen extends React.Component {
   static navigationOptions = {
@@ -31,13 +33,14 @@ export default class ContactsScreen extends React.Component {
           this.props.navigation.navigate('UserDetails', { details: item })
         }
         title={`${item.displayName} (${item.division})`}
-        leftIcon={{ name: 'user', type: 'font-awesome' }}
-        rightIcon={{
-          name: 'user-times',
-          type: 'font-awesome',
-          onPress: () =>
-            removeUserContact(item.personId).then(() => getUserContacts())
-        }}
+        leftAvatar={{ title: item.displayName[0] }}
+        rightIcon={(
+          <IconButton
+            icon="clear"
+            onPress={async () => {
+              await removeUserContact(item.personId);
+              getUserContacts();
+          }} />)}
         bottomDivider
       />
     );

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
 
+import { IconButton } from 'react-native-paper';
 import { createStackNavigator } from 'react-navigation';
 import ContactsScreenContainer from '../screens/ContactsScreen/ContactsScreenContainer';
 import SearchUsersScreenContainer from '../screens/SearchUsersScreen/SearchUsersScreenContainer';
 import UserDetailsScreenContainer from '../screens/ContactsScreen/UserDetailsScreenContainer';
+import ColorPalette from '../../styles/ColorPalette';
+
 
 export default createStackNavigator({
   Contacts: {
@@ -16,14 +19,13 @@ export default createStackNavigator({
         },
         title: `Contacts`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white',
         headerRight: (
-          <Icon
-            type="ionicon"
-            name="ios-add-circle-outline"
-            color="#c7c9c3"
+          <IconButton
+            icon="add"
+            color={ColorPalette.menuActive}
             onPress={() => navigation.navigate('SearchUsers')}
           />
         ),
@@ -41,7 +43,7 @@ export default createStackNavigator({
       },
       title: 'Search for users',
       headerStyle: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       },
       headerTintColor: 'white'
     })

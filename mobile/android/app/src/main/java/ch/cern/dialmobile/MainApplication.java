@@ -3,6 +3,7 @@ package ch.cern.dialmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oney.WebRTCModule.WebRTCModulePackage;
 import io.wazo.callkeep.RNCallKeepPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -16,7 +17,6 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-import com.oney.WebRTCModule.WebRTCModulePackage;  // <--- Add this line
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,12 +30,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new WebRTCModulePackage(),
             new RNCallKeepPackage(),
             new RNSoundPackage(),
             new RNCWebViewPackage(),
             new VectorIconsPackage(),
-            new RNGestureHandlerPackage(),
-          new WebRTCModulePackage()                  // <--- Add this line
+            new RNGestureHandlerPackage()
       );
     }
 
