@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
 
+import { IconButton } from 'react-native-paper';
 import { createStackNavigator } from 'react-navigation';
 import ContactsScreenContainer from '../screens/ContactsScreen/ContactsScreenContainer';
 import SearchUsersScreenContainer from '../screens/SearchUsersScreen/SearchUsersScreenContainer';
@@ -20,9 +21,8 @@ export default createStackNavigator({
         },
         headerTintColor: 'white',
         headerRight: (
-          <Icon
-            type="feather"
-            name="plus"
+          <IconButton
+            icon="add"
             color={ColorPalette.menuActive}
             onPress={() => navigation.navigate('SearchUsers')}
           />
