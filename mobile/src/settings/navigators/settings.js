@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import ColorPalette from '../../styles/ColorPalette';
 import ProfileContainer from '../components/profile/ProfileContainer';
+import RegisterScreenContainer from '../../calls/screens/RegisterScreen/RegisterScreenContainer';
 
 const SettingsStack = createStackNavigator({
   Settings: {
@@ -24,6 +25,19 @@ const SettingsStack = createStackNavigator({
     navigationOptions: () => {
       return {
         title: 'Profile',
+        headerStyle: {
+          backgroundColor: ColorPalette.primary
+        },
+        headerTintColor: 'white'
+      };
+    }
+  },
+
+  RegisterNumber: {
+    screen: RegisterScreenContainer,
+    navigationOptions: () => {
+      return {
+        title: 'Select your number',
         headerStyle: {
           backgroundColor: ColorPalette.primary
         },
