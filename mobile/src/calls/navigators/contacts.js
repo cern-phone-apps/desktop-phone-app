@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
 import ContactsScreenContainer from '../screens/ContactsScreen/ContactsScreenContainer';
 import SearchUsersScreenContainer from '../screens/SearchUsersScreen/SearchUsersScreenContainer';
+import UserDetailsScreenContainer from '../screens/ContactsScreen/UserDetailsScreenContainer';
 
 export default createStackNavigator({
   Contacts: {
@@ -39,6 +40,19 @@ export default createStackNavigator({
         color: 'white'
       },
       title: 'Search for users',
+      headerStyle: {
+        backgroundColor: '#2196F3'
+      },
+      headerTintColor: 'white'
+    })
+  },
+  UserDetails: {
+    screen: UserDetailsScreenContainer,
+    navigationOptions: () => ({
+      headerTitleStyle: {
+        color: 'white'
+      },
+      title: 'User Details',
       headerStyle: {
         backgroundColor: '#2196F3'
       },
