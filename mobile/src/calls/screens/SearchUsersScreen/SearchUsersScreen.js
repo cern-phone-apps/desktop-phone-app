@@ -46,6 +46,7 @@ export default class SearchUsersScreen extends React.Component {
     this.setState({
       searchResults: payload
     });
+    console.log(payload);
   };
 
   onChangeText = searchText => {
