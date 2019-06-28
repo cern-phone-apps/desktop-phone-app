@@ -1,5 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
 import DialpadScreenContainer from '../screens/DialpadScreen/DialpadScreenContainer';
+import ColorPalette from '../../styles/ColorPalette';
 
 const DialpadStack = createStackNavigator({
   Dialpad: {
@@ -11,7 +12,7 @@ const DialpadStack = createStackNavigator({
         },
         title: `Dialer`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white'
       };
