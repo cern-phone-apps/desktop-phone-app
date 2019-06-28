@@ -2,16 +2,20 @@
   "name": "tone-api-mobile",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon -e js --watch src --exec \"rm -rf ../../mobile/node_modules/tone-api-mobile && cp -R . ../../mobile/node_modules/tone-api-mobile\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "events": "^3.0.0",
     "crypto-js": "^3.1.9-1",
+    "events": "^3.0.0",
     "react-native-webrtc": "^1.69.0",
     "sip.js": "^0.13.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

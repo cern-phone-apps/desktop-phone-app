@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Icon, Text } from 'react-native-elements';
+import { Icon, Text } from 'react-native-elements';
 import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 import MakeCallButton from '../../components/MakeCallButton/MakeCallButton';
-import { logMessage } from '../../../common/utils/logging';
-import PropTypes from 'prop-types';
-import { redirectToCalling } from '../../navigators/utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,12 +20,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  iconItem: {
-    flex: 0.3,
-    height: 40,
-    width: 40,
-    backgroundColor: '#FFF000'
   }
 });
 
@@ -54,27 +45,10 @@ function getDuration(recentCall) {
  * We use this to set the Navigation title
  */
 class RecentCallDetails extends Component {
-  static propTypes = {
-    calling: PropTypes.bool
-  };
-
-  static defaultProps = {
-    calling: false
-  };
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam('phoneNumber', 'Recent Call Details')
     };
-  };
-
-  componentDidUpdate = () => {
-    logMessage('Updating RecentCallDetails');
-    const { calling, navigation } = this.props;
-
-    if (calling) {
-      redirectToCalling(navigation);
-    }
   };
 
   render() {

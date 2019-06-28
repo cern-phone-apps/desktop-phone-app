@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Icon, Text } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import MakeCallForm from '../../components/DialpadForm/DialpadForm';
+import HangupButton from '../../components/HangupButton/HangupButton';
+import OnCallInfoContainer from '../../components/OnCallInfo/OnCallInfoContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +24,40 @@ const styles = StyleSheet.create({
   }
 });
 
-const DialpadScreen = ({ receivingCall, navigation, disabled }) => {
-  if (receivingCall) {
-    navigation.navigate('Calling');
+const callingStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 10
+  },
+  iconTextContainer: {
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
+
+const DialpadScreen = ({ disabled, calling, recipient, onCall }) => {
+  if (onCall) {
+    return <OnCallInfoContainer />;
+  }
+
+  if (calling) {
+    return (
+      <View style={[callingStyles.container]}>
+        <View style={[callingStyles.iconTextContainer]}>
+          <Text h2>Calling...</Text>
+        </View>
+        <View style={[callingStyles.iconTextContainer]}>
+          <Icon name="phone" size={30} />
+          <Text h4>{recipient.phoneNumber}</Text>
+        </View>
+        <HangupButton />
+      </View>
+    );
   }
 
   return (
@@ -37,7 +71,6 @@ const DialpadScreen = ({ receivingCall, navigation, disabled }) => {
 };
 
 DialpadScreen.propTypes = {
-  receivingCall: PropTypes.bool.isRequired,
   disabled: PropTypes.bool
 };
 
