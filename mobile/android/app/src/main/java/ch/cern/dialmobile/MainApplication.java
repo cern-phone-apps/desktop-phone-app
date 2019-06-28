@@ -17,7 +17,6 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-import com.oney.WebRTCModule.WebRTCModulePackage;  // <--- Add this line
 
 public class MainApplication extends Application implements ReactApplication {
 
