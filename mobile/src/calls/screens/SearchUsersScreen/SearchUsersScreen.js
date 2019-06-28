@@ -64,10 +64,10 @@ export default class SearchUsersScreen extends React.Component {
     );
 
     const rightIcon = isAlreadyInUserContacts ? (
-      <Icon type="font-awesome" name="check-square" color="green" />
+      <Icon type="feather" name="check" color="green" />
     ) : (
       <Icon
-        type="font-awesome"
+        type="feather"
         name="plus"
         onPress={() => addUserContact(item).then(() => getUserContacts())}
       />
@@ -76,7 +76,7 @@ export default class SearchUsersScreen extends React.Component {
     return (
       <ListItem
         title={`${item.displayName} (${item.division})`}
-        leftIcon={{ name: 'user', type: 'font-awesome' }}
+        leftAvatar={{ title: item.displayName[0] }}
         rightIcon={rightIcon}
         bottomDivider
       />

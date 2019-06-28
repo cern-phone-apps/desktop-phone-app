@@ -21,9 +21,9 @@ export default createStackNavigator({
         headerTintColor: 'white',
         headerRight: (
           <Icon
-            type="ionicon"
-            name="ios-add-circle-outline"
-            color="#c7c9c3"
+            type="feather"
+            name="plus"
+            color={ColorPalette.menuActive}
             onPress={() => navigation.navigate('SearchUsers')}
           />
         ),
