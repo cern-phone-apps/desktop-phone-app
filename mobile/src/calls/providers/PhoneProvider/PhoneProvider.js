@@ -81,7 +81,8 @@ export class PhoneProvider extends React.Component {
   };
 
   state = {
-    phoneService: this
+    phoneService: this,
+    currentCallId: ''
   };
 
   static childContextTypes = {
@@ -106,7 +107,6 @@ export class PhoneProvider extends React.Component {
   componentDidMount() {
     const dial = new Dial();
     RNCallKeep.setup(options);
-    RNCallKeep.setAvailable(true);
     this.setState(
       {
         toneAPI: dial
@@ -138,6 +138,14 @@ export class PhoneProvider extends React.Component {
         this.eventHandler(event);
       });
     }
+  };
+
+  getCurrentCallId = () => {
+    if (!this.currentCallId) {
+      this.currentCallId = uuid4();
+    }
+
+    return this.currentCallId;
   };
 
   /**
@@ -216,17 +224,19 @@ export class PhoneProvider extends React.Component {
    */
   makeCall = (name = 'Unknown', phoneNumber) => {
     const { setMakeCallRequest, setIsCalling } = this.props;
-    const uuid = uuid4();
+    const { toneAPI } = this.state;
 
+    logMessage('makeCall has been called');
     setMakeCallRequest(
       {
         name,
         phoneNumber
       },
-      uuid
+      this.getCurrentCallId()
     );
     setIsCalling();
-    RNCallKeep.startCall(uuid, phoneNumber);
+    // RNCallKeep.startCall(this.getCurrentCallId(), phoneNumber);
+    toneAPI.call(phoneNumber);
   };
 
   onNativeCall = ({ handle }) => {
@@ -286,7 +296,7 @@ export class PhoneProvider extends React.Component {
   rejectIncomingCall = () => {
     const { toneAPI } = this.state;
     logMessage('PhoneProvider -> rejectIncomingCall');
-    RNCallKeep.endCall();
+    RNCallKeep.endCall(this.getCurrentCallId());
     toneAPI.hangUp();
   };
 
@@ -343,6 +353,7 @@ export class PhoneProvider extends React.Component {
   handleRegisteredEvent = () => {
     const { setRegistrationSuccess } = this.props;
     setRegistrationSuccess();
+    RNCallKeep.setAvailable(true);
   };
 
   /**
@@ -387,7 +398,7 @@ export class PhoneProvider extends React.Component {
       this.addCallToRecentCalls(onCall ? remote : tempRemote);
       setCallFinished();
     }
-    RNCallKeep.endCall(uuid);
+    RNCallKeep.endCall(this.getCurrentCallId());
   };
 
   /**
@@ -409,9 +420,8 @@ export class PhoneProvider extends React.Component {
     // Retrieve the remote user information from the event data
     const { uri } = event.data.session.remoteIdentity;
     const phoneNumber = uri.user;
-    const uuid = uuid4();
-    setIsReceivingCall(phoneNumber, null, uuid);
-    RNCallKeep.displayIncomingCall(uuid, phoneNumber);
+    setIsReceivingCall(phoneNumber, null, this.getCurrentCallId());
+    RNCallKeep.displayIncomingCall(this.getCurrentCallId(), phoneNumber);
   };
 
   /**
