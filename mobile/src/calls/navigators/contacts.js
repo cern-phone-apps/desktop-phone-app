@@ -56,7 +56,7 @@ export default createStackNavigator({
       },
       title: 'User Details',
       headerStyle: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       },
       headerTintColor: 'white'
     })
