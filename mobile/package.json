@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.2",
     "babel-eslint": "^10.0.1",
     "debug": "^4.1.1",
     "dial-core": "file:../core",
@@ -15,7 +16,7 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-native": "^0.59.7",
+    "react-native": "^0.59.9",
     "react-native-callkeep": "^2.0.3",
     "react-native-dotenv": "^0.2.0",
     "react-native-easy-grid": "^0.2.1",
