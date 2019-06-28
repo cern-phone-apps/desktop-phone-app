@@ -12,30 +12,40 @@ export default class UserDetailsScreen extends React.Component {
     this.props.findUserById(details.personId);
   }
 
-  DisplayName(name) {
-    if (name.length > 20)
-      return (<Text h4 style={{height: 50}}>{name}</Text>);
-    else
-      return (<Text h3 style={{height: 50}}>{name}</Text>);
+  renderDetails(iconName, value) {
+    return (
+      <View style={{ flexDirection: 'row', width: '100%', height: 30, marginTop: 50 }}>
+      <View style={{ left: 0, width: '25%', height: 30 }}>
+        <Icon name={iconName} type="entypo" size={30} />
+      </View>
+      <View style={{ right: 0, width: '75%', height: 30 }}>
+        <Text h5>{value}</Text>
+      </View>
+    </View>
+    );
   }
 
   render() {
     const { details } = this.props.navigation.state.params;
     const { profile } = this.props;
+    const { physicalDeliveryOfficeName, phones, mail } = profile;
     return (
-      <View style={{ flex: 1, flexDirection: 'row', width: '100%' }}>
-        <View style={{ left: 0, width: '25%' }}>
-          <Icon name="ios-contact" type="ionicon" size={100} />
-          <Icon name="mail" type="entypo" size={30} />
-          <Icon name="location-pin" type="entypo" size={30} />
-        </View>
-        <View style={{ right: 0, width: '75%' }}>
-          {this.DisplayName(details.displayName)}
-          <Text h5>
-            {details.division}-{details.cernGroup}-{details.cernSection}
-          </Text>
-          <Text h5 style={{ marginTop: 50 }}>{profile.mail}</Text>
+      <View>
+        <View style={{ flexDirection: 'row', width: '100%', height: 100 }}>
+          <View style={{ left: 0, width: '25%', height: 100 }}>
+              <Icon name="ios-contact" type="ionicon" size={100} />
           </View>
+          <View style={{ right: 0, width: '75%', height: 100 }}>
+          <Text h3>{details.displayName}</Text>
+            <Text h5>
+              {details.division}-{details.cernGroup}-{details.cernSection}
+            </Text>
+          </View>
+        </View>
+        {this.renderDetails("mail", mail)}
+        {this.renderDetails("location-pin", physicalDeliveryOfficeName)}
+        {this.renderDetails("phone", (phones) ? phones[phones.length-1].number : "not found")}
+        {this.renderDetails("mobile", (phones) ? (phones[phones.length-1].number).substr(phones[phones.length-1].number.length-5, 5) : "not found")}
       </View>
     );
   }
