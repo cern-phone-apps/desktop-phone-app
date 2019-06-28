@@ -36,8 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSoundPackage(),
             new RNCWebViewPackage(),
             new VectorIconsPackage(),
-            new RNGestureHandlerPackage(),
-          new WebRTCModulePackage()                  // <--- Add this line
+            new RNGestureHandlerPackage()
       );
     }
 
