@@ -20,12 +20,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  iconItem: {
-    flex: 0.3,
-    height: 40,
-    width: 40,
-    backgroundColor: '#FFF000'
   }
 });
 

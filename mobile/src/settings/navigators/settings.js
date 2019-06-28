@@ -1,5 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
+import ColorPalette from '../../styles/ColorPalette';
+import ProfileContainer from '../components/profile/ProfileContainer';
 
 const SettingsStack = createStackNavigator({
   Settings: {
@@ -11,7 +13,19 @@ const SettingsStack = createStackNavigator({
         },
         title: `Settings`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
+        },
+        headerTintColor: 'white'
+      };
+    }
+  },
+  Profile: {
+    screen: ProfileContainer,
+    navigationOptions: () => {
+      return {
+        title: 'Profile',
+        headerStyle: {
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white'
       };

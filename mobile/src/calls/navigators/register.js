@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation';
 
 import RegisterScreenContainer from '../screens/RegisterScreen/RegisterScreenContainer';
 import LogoutMenuContainer from '../../auth/components/LogoutMenu/LogoutMenuContainer';
+import ColorPalette from '../../styles/ColorPalette';
 
 const RegisterStack = createStackNavigator({
   Register: {
@@ -14,7 +15,7 @@ const RegisterStack = createStackNavigator({
         },
         title: `Select your number`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white',
         headerRight: <LogoutMenuContainer />

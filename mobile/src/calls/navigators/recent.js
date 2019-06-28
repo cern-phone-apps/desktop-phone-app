@@ -4,6 +4,7 @@ import React from 'react';
 import RecentCallsScreenContainer from '../screens/RecentCallsScreen/RecentCallsScreenContainer';
 import RecentCallDetailsContainer from '../screens/RecentCallDetails/RecentCallDetailsContainer';
 import RecentCallsMenuContainer from '../components/RecentCallsMenu/RecentCallsMenuContainer';
+import ColorPalette from '../../styles/ColorPalette';
 
 const RecentStack = createStackNavigator({
   Recent: {
@@ -15,7 +16,7 @@ const RecentStack = createStackNavigator({
         },
         title: `Recent Calls`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white',
         headerRight: <RecentCallsMenuContainer />
@@ -33,7 +34,7 @@ const RecentStack = createStackNavigator({
         },
         // title: `Recent Call Details`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white'
       };

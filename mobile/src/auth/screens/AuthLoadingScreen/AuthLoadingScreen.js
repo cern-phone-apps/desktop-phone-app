@@ -7,7 +7,8 @@ import { ActivityIndicator, StatusBar, View } from 'react-native';
  */
 export class AuthLoadingScreen extends React.Component {
   static propTypes = {
-    loggedIn: PropTypes.bool.isRequired
+    loggedIn: PropTypes.bool.isRequired,
+    getMe: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -17,9 +18,13 @@ export class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   redirectToApp = async () => {
-    const { loggedIn, navigation } = this.props;
+    const { loggedIn, navigation, getMe } = this.props;
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
+    if (loggedIn) {
+      console.log('Obtaining user information');
+      getMe();
+    }
     navigation.navigate(loggedIn ? 'App' : 'Auth');
   };
 
