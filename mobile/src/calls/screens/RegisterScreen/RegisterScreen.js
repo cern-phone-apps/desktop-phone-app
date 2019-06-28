@@ -51,7 +51,8 @@ export default class RegisterScreen extends React.Component {
     return (
       <View
         style={{
-          backgroundColor: '#ebece7'
+          flex: 1,
+          backgroundColor: 'white'
         }}
       >
         <Overlay
@@ -92,50 +93,48 @@ export default class RegisterScreen extends React.Component {
             />
           </View>
         </Overlay>
-        <Card
-          title={
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderBottomColor: '#d4d4d4',
-                borderBottomWidth: 1,
-                paddingBottom: 5
-              }}
-            >
-              <Icon name="info-circle" type="font-awesome" />
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: 'bold'
-                }}
-              >
-                {' '}
-                About Certificates
-              </Text>
-            </View>
-          }
-        >
-          <Text style={{ marginTop: 5 }}>
-            Please, install the CERN certificates and come back to this screen
-            if you haven&apos;t done it yet.
-          </Text>
-          <Button
-            title="More info"
-            onPress={() => this.setState({ overlayVisible: true })}
-            type="clear"
-          />
-        </Card>
+
         <FlatList
-          style={{
-            marginTop: 20,
-            backgroundColor: '#ebece7'
-          }}
           keyExtractor={this.keyExtractor}
           data={numbers}
           renderItem={this.renderItem}
         />
+        <View style={{ flex: 1, backgroundColor: '000' }}>
+          <Card
+            title={
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderBottomColor: '#d4d4d4',
+                  borderBottomWidth: 1
+                }}
+              >
+                <Icon name="info-circle" type="font-awesome" />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {' '}
+                  About Certificates
+                </Text>
+              </View>
+            }
+          >
+            <Text style={{ marginTop: 5 }}>
+              Please, install the CERN certificates and come back to this screen
+              if you haven&apos;t done it yet.
+            </Text>
+            <Button
+              title="More info"
+              onPress={() => this.setState({ overlayVisible: true })}
+              type="clear"
+            />
+          </Card>
+        </View>
       </View>
     );
   };

@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import DisconnectForm from '../../../calls/components/DisconnectForm/DisconnectForm';
+import LogoutListComponentContainer from '../../components/logout/LogoutListComponentContainer';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -31,6 +32,7 @@ export default class SettingsScreen extends React.Component {
           />
         ))}
         <DisconnectForm />
+        <LogoutListComponentContainer />
       </View>
     );
   }

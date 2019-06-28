@@ -27,13 +27,13 @@ const disconnectUserAction = async (logout, navigation, phoneService) => {
 };
 
 const logoutFunc = (logout, navigation, phoneService) => {
-  Alert.alert('Logout', 'Are you sure you want to logout?', [
+  Alert.alert('Log out?', 'Are you sure you want to log out?', [
     {
       text: 'Cancel',
       style: 'cancel'
     },
     {
-      text: 'Accept',
+      text: 'Log Out',
       onPress: () => {
         disconnectUserAction(logout, navigation, phoneService);
       }
@@ -47,7 +47,7 @@ const LogoutMenu = ({ logout, navigation, phoneService }) => (
     HeaderButtonComponent={IoniconsHeaderButton}
   >
     <Item
-      title="Logout"
+      title="Log out"
       onPress={() => logoutFunc(logout, navigation, phoneService)}
       show="never"
     />
