@@ -6,6 +6,8 @@ import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
 import MainHeader from "calls/components/MainHeader";
 import DtmfDialpadForm from "calls/components/dialpads/DtmfDialpadForm/DtmfDialpadForm";
 import styles from "calls/screens/CallsScreen/ConnectedScreen/ConnectedScreen.module.css";
+import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
+
 
 export class OnCallScreen extends Component {
   styles = { height: "100%" };
@@ -22,6 +24,8 @@ export class OnCallScreen extends Component {
         <RightColumn>
           <div className={styles.innerContainer}>
             <MainHeader />
+            <IncomingCallModalContainer />
+
             {this.renderMainContent()}
           </div>
         </RightColumn>

@@ -7,6 +7,7 @@ import MainHeaderContainer from 'calls/components/MainHeader';
 import CallerTabsSelectorContainer from 'calls/components/CallerTabsSelector/CallerTabsSelectorContainer';
 import CallForwardingBannerContainer from 'settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBannerContainer';
 import styles from './ConnectedScreen.module.css';
+import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 
 export const ConnectedScreen = ({ calling }) => (
   <Grid.Column
@@ -18,6 +19,7 @@ export const ConnectedScreen = ({ calling }) => (
     <RightColumn className={styles.container}>
       <div className={styles.innerContainer}>
         <MainHeaderContainer />
+        <IncomingCallModalContainer />
         <CallForwardingBannerContainer />
         <div>
           <div>

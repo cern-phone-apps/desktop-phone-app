@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import { OnCallScreen } from "./OnCallScreen";
+import { connect } from 'react-redux';
+import { OnCallScreen } from './OnCallScreen';
 
 function mapStateToProps({ calls }) {
   return {
