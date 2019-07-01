@@ -115,6 +115,10 @@ export class IncomingCallModal extends Component {
     callerName: undefined
   };
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // TODO Make a call to the backend to retrieve the owner of the number
+  }
+
   /**
    * Action triggered when the modal is opened
    */
@@ -150,10 +154,6 @@ export class IncomingCallModal extends Component {
     phoneService.acceptIncomingCall();
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // TODO Make a call to the backend to retrieve the owner of the number
-  }
-
   render() {
     const { connected, receivingCall, callerName, callerNumber } = this.props;
     const { modalHidden } = this.state;
@@ -162,6 +162,8 @@ export class IncomingCallModal extends Component {
     if (modalHidden && receivingCall) {
       shouldDisplayBanner = true;
     }
+
+    console.log(`Should display banner?: ${shouldDisplayBanner}`);
 
     if (connected && receivingCall) {
       return (

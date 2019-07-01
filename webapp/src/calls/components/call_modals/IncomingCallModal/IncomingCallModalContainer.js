@@ -13,12 +13,8 @@ function mapStateToProps({ calls }) {
   return {
     connected: calls.connection.connected,
     receivingCall: calls.call.receivingCall,
-    callerName: calls.call.tempRemote
-      ? calls.call.tempRemote.callerName
-      : '',
-    callerNumber: calls.call.tempRemote
-      ? calls.call.tempRemote.phoneNumber
-      : ''
+    callerName: calls.call.tempRemote ? calls.call.tempRemote.callerName : '',
+    callerNumber: calls.call.tempRemote ? calls.call.tempRemote.phoneNumber : ''
   };
 }
 

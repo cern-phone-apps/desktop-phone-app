@@ -7,7 +7,6 @@ import NotConnectedScreen from 'calls/screens/CallsScreen/NotConnectedScreen/Not
 import ConnectedScreen from 'calls/screens/CallsScreen/ConnectedScreen';
 import OnCallScreen from 'calls/screens/CallsScreen/OnCallScreen';
 import CallsSidebarContainer from 'calls/components/CallsSidebar/CallsSidebarContainer';
-import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 
 export function CallsScreen({ connected, onCall }) {
   return (
@@ -16,7 +15,6 @@ export function CallsScreen({ connected, onCall }) {
       {connected && onCall && <OnCallScreen />}
       {connected && !onCall && <ConnectedScreen />}
       {!connected && <NotConnectedScreen />}
-      <IncomingCallModalContainer />
     </Grid>
   );
 }
