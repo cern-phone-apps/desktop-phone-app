@@ -111,6 +111,7 @@ function processCallAccepted(state, { startTime }) {
     onCall: true,
     calling: false,
     missed: false,
+    receivingCall: false,
     startTime,
     remote: tempRemote,
     tempRemote: null
