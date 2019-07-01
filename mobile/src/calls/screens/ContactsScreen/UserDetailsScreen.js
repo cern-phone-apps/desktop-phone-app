@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, Icon } from 'react-native-elements';
 import { View } from 'react-native';
 import MakeCallButton from '../../components/MakeCallButton/MakeCallButton';
+import { ActivityIndicator } from 'react-native-paper';
 
 export default class UserDetailsScreen extends React.Component {
   static navigationOptions = {
@@ -26,10 +27,7 @@ export default class UserDetailsScreen extends React.Component {
     );
   }
 
-  render() {
-    const { details } = this.props.navigation.state.params;
-    const { profile } = this.props;
-    const { physicalDeliveryOfficeName, phones, mail } = profile;
+  waitingForData(details, profile, physicalDeliveryOfficeName, phones, mail) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '100%'}}>
         <View style={{ flexDirection: 'row', width: '100%', height: 100 }}>
@@ -50,5 +48,16 @@ export default class UserDetailsScreen extends React.Component {
         {(phones && phones[0] && phones[0].number) ? this.renderDetails("mobile", phones[0].number) : null}
       </View>
     );
+  }
+
+  render() {
+    const { details } = this.props.navigation.state.params;
+    const { profile } = this.props;
+    const { physicalDeliveryOfficeName, phones, mail } = profile;
+
+    if (phones && phones[0] && phones[1].number)
+      return (this.waitingForData(details, profile, physicalDeliveryOfficeName, phones, mail));
+    else
+      return (<ActivityIndicator size='large' style={{ top: '25%' }}/>);
   }
 }
