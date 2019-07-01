@@ -58,6 +58,8 @@ export default class UserDetailsScreen extends React.Component {
     if (phones && phones[0] && phones[1].number)
       return (this.waitingForData(details, profile, physicalDeliveryOfficeName, phones, mail));
     else
-      return (<ActivityIndicator size='large' style={{ top: '25%' }}/>);
+      return (<View style={{flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '100%'}}>
+                <ActivityIndicator size='large'/>
+              </View>);
   }
 }
