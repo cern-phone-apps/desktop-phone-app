@@ -4,7 +4,6 @@ import { translate } from 'react-i18next';
 import { Route, Switch } from 'react-router-dom';
 
 import RoutedMainPageContainer from 'common/screens/MainPage/MainPageContainer';
-import RoutedRedirectPageContainer from 'auth/screens/RedirectPage/RedirectPageContainer';
 import RoutedLoginPageContainer from 'auth/screens/LoginPage/LoginPageContainer';
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
@@ -30,10 +29,6 @@ function App() {
         exact
         path={routes.mainRoute.path}
         component={RoutedMainPageContainer}
-      />
-      <Route
-        path={loginRoutes.redirectRoute.path}
-        component={RoutedRedirectPageContainer}
       />
       <Route
         path={loginRoutes.loginRoute.path}

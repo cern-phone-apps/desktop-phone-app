@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
-import { Header, Segment } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import { Header, Segment, Button } from 'semantic-ui-react';
 
 import { translate } from 'react-i18next';
 import './LoginPage.css';
@@ -27,36 +27,47 @@ export class LoginPage extends Component {
 
   componentDidMount = () => {
     document.body.className = 'loginStyle';
+    const { login, getMe } = this.props;
 
     const code = ipcRenderer.sendSync('synchronous-message', 'code');
     console.log(`code is: ${code}`);
 
     if (code) {
       this.setState({ code });
+
+      console.log('Login user with code...');
+      login(code)
+        .then(result => {
+          if (result.error) {
+            console.error(
+              `Unable to authenticate with the given code: ${code}`
+            );
+            ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
+          }
+
+          console.log(result);
+          if (result !== undefined && !result.error) {
+            console.log('User logged in successfully. Getting. profile...');
+            getMe();
+            ipcRenderer.sendSync('synchronous-message', 'user-authenticated');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
+        });
     } else {
       ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
     }
   };
 
   render() {
-    const { code } = this.state;
-    // if (code) {
-    //   return (
-    //     <Redirect
-    //       exact
-    //       to={{
-    //         pathname: '/redirect',
-    //         state: { code }
-    //       }}
-    //     />
-    //   );
-    // }
-
-    if (this.props.isAuthenticated) {
+    const { isAuthenticated, loginInProgress } = this.props;
+    if (isAuthenticated) {
       return <Redirect exact to={routes.callsRoute.path} />;
     }
 
-    if (this.props.loginInProgress) {
+    if (loginInProgress) {
       return <LoadingDimmer />;
     }
 
@@ -75,14 +86,16 @@ export class LoginPage extends Component {
               <Segment textAlign="center" raised attached>
                 <h4>Login with your CERN account</h4>
                 {/* <LoginButton /> */}
-                <Link
-                  to={{
-                    pathname: '/redirect',
-                    state: { code }
-                  }}
+                <Button
+                  onClick={() =>
+                    ipcRenderer.sendSync(
+                      'synchronous-message',
+                      'user-unauthenticated'
+                    )
+                  }
                 >
-                  Login
-                </Link>
+                  Logout
+                </Button>
               </Segment>
             </ErrorBoundary>
           </div>
