@@ -11,7 +11,7 @@ export const PROFILE_FAILURE = '@@search/PROFILE_FAILURE';
 
 const API_PATH = '/api/v1';
 
-export default function(apiEndpoint, type = 'web') {
+export default function(apiEndpoint, type = 'mobile') {
   const buildApiURL = (path, name) => `${apiEndpoint}${API_PATH}${path}${name}`;
 
   let authHandlerClass;

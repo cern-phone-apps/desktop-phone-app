@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import qs from 'qs';
 
 import { callsRoute } from 'calls/routes';
 import TranslatedLoadingDimmer from 'auth/components/LoadingDimmer/LoadingDimmer';
 import * as loginRoutes from 'auth/routes';
 import { errorMessage, infoMessage, logMessage } from 'common/utils/logs';
+
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
 
 class RedirectPage extends Component {
   static propTypes = {
@@ -22,21 +24,31 @@ class RedirectPage extends Component {
   };
 
   componentDidMount = () => {
-    const { login, getMe, urlQuery } = this.props;
-    const queryParams = qs.parse(urlQuery.slice(1));
+    const { login, getMe } = this.props;
+    const { code } = this.props.location.state;
+    // const queryParams = qs.parse(urlQuery.slice(1));
 
-    if (queryParams.code) {
+    if (code) {
       infoMessage('Login user with code...');
-      login(queryParams.code)
+      login(code)
         .then(result => {
+          if (result.error) {
+            console.error(
+              `Unable to authenticate with the given code: ${code}`
+            );
+            ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
+          }
+
           logMessage(result);
           if (result !== undefined && !result.error) {
             infoMessage('User logged in successfully. Getting. profile...');
             getMe();
+            ipcRenderer.sendSync('synchronous-message', 'user-authenticated');
           }
         })
         .catch(error => {
           errorMessage(error);
+          ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
         });
     }
   };

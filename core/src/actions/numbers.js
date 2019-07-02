@@ -15,7 +15,7 @@ const API_PATH = '/api/v1';
  * @param name username of the user to search
  * @returns {{}} The RSAA action
  */
-export default function(apiEndpoint, type = 'web') {
+export default function(apiEndpoint, type = 'mobile') {
   const buildCallsApiEndpoint = path => `${apiEndpoint}${API_PATH}${path}`;
   let authHandlerClass;
   if (type === 'web') {

@@ -29,7 +29,7 @@ const API_PATH = '/auth/v1/token';
  * @returns {{}} A RSAA request with REQUEST, SUCCESS and FAILURE statuses.
  */
 
-export default function(apiEndpoint, type = 'web') {
+export default function(apiEndpoint, type = 'mobile') {
   const buildAuthURL = path => `${apiEndpoint}${API_PATH}${path}`;
   let handlerClass;
   if (type === 'web') {
