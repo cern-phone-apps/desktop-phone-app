@@ -11,7 +11,7 @@ export const SET_DO_NOT_DISTURB_FAILURE = '@@status/SET_DO_NOT_DISTURB_SUCCESS';
 
 const API_PATH = '/api/v1';
 
-export default function(apiEndpoint, type = 'web') {
+export default function(apiEndpoint, type = 'mobile') {
   const buildApiURL = path => `${apiEndpoint}${API_PATH}${path}`;
   let authHandlerClass;
   if (type === 'web') {

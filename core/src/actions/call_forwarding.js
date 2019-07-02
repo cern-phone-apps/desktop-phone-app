@@ -57,7 +57,7 @@ export function clearLastOperation() {
   };
 }
 
-export default function(apiEndpoint, type = 'web') {
+export default function(apiEndpoint, type = 'mobile') {
   const buildApiURLWithParam = (path, extension) =>
     `${apiEndpoint}${API_PATH}${path}${extension}`;
 

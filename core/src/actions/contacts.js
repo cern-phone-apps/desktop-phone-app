@@ -28,7 +28,7 @@ export const CLOSE_EMERGENCY_MODAL = '@@contacts/CLOSE_EMERGENCY_MODAL';
 
 const API_PATH = '/api/v1';
 
-export default function(apiEndpoint, type = 'web') {
+export default function(apiEndpoint, type = 'mobile') {
   const buildApiURL = path => `${apiEndpoint}${API_PATH}${path}`;
 
   let authHandlerClass;
