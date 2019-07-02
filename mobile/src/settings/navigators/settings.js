@@ -53,12 +53,9 @@ const SettingsStack = createStackNavigator({
     screen: CallForwardingScreenContainer,
     navigationOptions: () => {
       return {
-        headerTitleStyle: {
-          color: 'white'
-        },
         title: `Call Forwarding Settings`,
         headerStyle: {
-          backgroundColor: '#2196F3'
+          backgroundColor: ColorPalette.primary
         },
         headerTintColor: 'white'
       };
@@ -72,12 +69,9 @@ const SettingsStack = createStackNavigator({
       />
     ),
     navigationOptions: () => ({
-      headerTitleStyle: {
-        color: 'white'
-      },
       title: 'Search for users',
       headerStyle: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       },
       headerTintColor: 'white'
     })

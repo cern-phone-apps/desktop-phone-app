@@ -55,12 +55,9 @@ export default createStackNavigator({
   UserDetails: {
     screen: UserDetailsScreenContainer,
     navigationOptions: () => ({
-      headerTitleStyle: {
-        color: 'white'
-      },
       title: 'User Details',
       headerStyle: {
-        backgroundColor: '#2196F3'
+        backgroundColor: ColorPalette.primary
       },
       headerTintColor: 'white'
     })

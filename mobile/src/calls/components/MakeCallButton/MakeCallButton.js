@@ -6,11 +6,13 @@ import { withNavigation } from 'react-navigation';
 
 import { withPhoneService } from '../../providers/PhoneProvider/PhoneService';
 import { logMessage } from '../../../common/utils/logging';
+import ColorPalette from '../../../styles/ColorPalette';
 
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: ColorPalette.primary
   }
 });
 
