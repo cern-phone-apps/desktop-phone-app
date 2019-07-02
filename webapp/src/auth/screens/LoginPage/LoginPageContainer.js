@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LoginPage from 'auth/screens/LoginPage/LoginPage';
+import { authActionFactory, meActionFactory } from 'dial-core';
+import { bindActionCreators } from 'redux';
 
 function mapStateToProps({ auth }) {
   return {
@@ -10,6 +12,19 @@ function mapStateToProps({ auth }) {
   };
 }
 
-export const LoginPageContainer = connect(mapStateToProps)(LoginPage);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      getMe: meActionFactory(process.env.REACT_APP_API_ENDPOINT).getMe,
+      login: authActionFactory(process.env.REACT_APP_API_ENDPOINT).login
+    },
+    dispatch
+  );
+}
+
+export const LoginPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);
 
 export default withRouter(LoginPageContainer);
