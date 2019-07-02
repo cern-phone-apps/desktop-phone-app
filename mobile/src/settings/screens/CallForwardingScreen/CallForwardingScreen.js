@@ -3,6 +3,7 @@ import { ActivityIndicator, View, StyleSheet, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { RadioButton, List, IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
+import { withNavigation } from 'react-navigation';
 
 import { errorMessage } from '../../../common/utils/logging';
 
@@ -22,31 +23,32 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function CallForwardingScreen(props) {
+function CallForwardingScreen(props) {
   const [callForwadingEnabled, toggleCallForwarding] = useState(false);
-  const [callForwadingMode, setCallForwardingMode] = useState(null);
+  const [callForwadingMode, setCallForwardingMode] = useState(modes.FORWARD_TO);
   const [isFetching, setIsFetching] = useState(false);
+  const [dataFetched, setDataFetched] = useState(false);
   const {
     getCallForwardingStatus,
+    disableCallForwarding,
+    enableSimultaneousRinging,
+    enableCallForwarding,
     activeNumber,
-    callForwardingStatus,
-    simultaneousRingingStatus,
-    destinationList
+    destinationList,
+    navigation
   } = props;
 
   const fetchData = async () => {
     setIsFetching(true);
     const forwardingData = await getCallForwardingStatus(activeNumber);
     if (forwardingData && forwardingData.payload) {
+      const callForwardingStatus = forwardingData.payload['call-forwarding'];
+      const simultaneousRingingStatus =
+        forwardingData.payload['simultaneous-ring'];
       const forwardingEnabled =
         callForwardingStatus || simultaneousRingingStatus;
       toggleCallForwarding(forwardingEnabled);
       if (forwardingEnabled) {
-        setCallForwardingMode(
-          simultaneousRingingStatus ? modes.SIMULTANEOUS : modes.FORWARD_TO
-        );
-      } else {
-        setCallForwardingMode(null);
         setCallForwardingMode(
           simultaneousRingingStatus ? modes.SIMULTANEOUS : modes.FORWARD_TO
         );
@@ -57,15 +59,32 @@ export default function CallForwardingScreen(props) {
     }
   };
 
+  const save = (list = null) => {
+    const newList = list || destinationList;
+    if (!callForwadingEnabled) {
+      disableCallForwarding(activeNumber);
+    } else if (callForwadingMode === modes.FORWARD_TO) {
+      enableCallForwarding(activeNumber, newList);
+    } else {
+      enableSimultaneousRinging(activeNumber, newList);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
+    if (dataFetched) {
+      save();
+    }
+  }, [callForwadingEnabled, callForwadingMode]);
+
+  useEffect(() => {
+    if (!dataFetched) {
+      fetchData();
+      setDataFetched(true);
+    }
   }, []);
 
   const onChange = val => {
     toggleCallForwarding(val);
-    if (!val) {
-      setCallForwardingMode(null);
-    }
   };
 
   const onChangeMode = mode => {
@@ -73,7 +92,8 @@ export default function CallForwardingScreen(props) {
   };
 
   const onDeleteNumber = number => {
-    console.log(`delete ${number}!`);
+    const newList = destinationList.filter(n => n === number);
+    save(newList);
   };
 
   if (isFetching) {
@@ -97,12 +117,12 @@ export default function CallForwardingScreen(props) {
           value={callForwadingMode}
         >
           <View style={styles.radioBtn}>
-            <RadioButton value={modes.SIMULTANEOUS} />
-            <Text>Simultaneous ringing</Text>
-          </View>
-          <View style={styles.radioBtn}>
             <RadioButton value={modes.FORWARD_TO} />
             <Text>Forward to</Text>
+          </View>
+          <View style={styles.radioBtn}>
+            <RadioButton value={modes.SIMULTANEOUS} />
+            <Text>Simultaneous ringing</Text>
           </View>
         </RadioButton.Group>
       )}
@@ -124,7 +144,7 @@ export default function CallForwardingScreen(props) {
         <List.Item
           key="add-number"
           title="Add number"
-          onPress={() => console.log('Add number!')}
+          onPress={() => navigation.navigate('SearchUsers')}
           left={() => <IconButton icon="add" />}
         />
       </List.Section>
@@ -135,7 +155,10 @@ export default function CallForwardingScreen(props) {
 CallForwardingScreen.propTypes = {
   getCallForwardingStatus: PropTypes.func.isRequired,
   activeNumber: PropTypes.string.isRequired,
-  callForwardingStatus: PropTypes.bool.isRequired,
-  simultaneousRingingStatus: PropTypes.bool.isRequired,
-  destinationList: PropTypes.arrayOf(PropTypes.string).isRequired
+  destinationList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  disableCallForwarding: PropTypes.func.isRequired,
+  enableSimultaneousRinging: PropTypes.func.isRequired,
+  enableCallForwarding: PropTypes.func.isRequired
 };
+
+export default withNavigation(CallForwardingScreen);

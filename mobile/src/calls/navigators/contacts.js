@@ -1,13 +1,12 @@
 import React from 'react';
-import { Icon } from 'react-native-elements';
 
 import { IconButton } from 'react-native-paper';
 import { createStackNavigator } from 'react-navigation';
 import ContactsScreenContainer from '../screens/ContactsScreen/ContactsScreenContainer';
-import SearchUsersScreenContainer from '../screens/SearchUsersScreen/SearchUsersScreenContainer';
+import SearchUsersScreenContainer from '../screens/SearchUsersScreen/SearchUsersScreenContactsContainer';
 import UserDetailsScreenContainer from '../screens/ContactsScreen/UserDetailsScreenContainer';
+import { contactsFormatter } from '../../common/utils/formatters';
 import ColorPalette from '../../styles/ColorPalette';
-
 
 export default createStackNavigator({
   Contacts: {
@@ -36,7 +35,12 @@ export default createStackNavigator({
     }
   },
   SearchUsers: {
-    screen: SearchUsersScreenContainer,
+    screen: props => (
+      <SearchUsersScreenContainer
+        {...props}
+        formatSearchResults={contactsFormatter}
+      />
+    ),
     navigationOptions: () => ({
       headerTitleStyle: {
         color: 'white'

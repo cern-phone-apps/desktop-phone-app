@@ -9,8 +9,8 @@ import SearchUsersScreen from './SearchUsersScreen';
 function mapStateToProps(state) {
   const { calls } = state;
   return {
-    searching: calls.search.searching,
-    contacts: calls.contacts.getContacts.contacts
+    searching: calls.search.serching,
+    selection: calls.contacts.getContacts.contacts
   };
 }
 
@@ -18,9 +18,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       searchUsers: usersActionFactory(API_ENDPOINT, 'mobile').searchUsers,
-      addUserContact: contactsActionFactory(API_ENDPOINT, 'mobile')
-        .addUserContact,
-      getUserContacts: contactsActionFactory(API_ENDPOINT, 'mobile')
+      addUser: contactsActionFactory(API_ENDPOINT, 'mobile').addUserContact,
+      getSelectedUsers: contactsActionFactory(API_ENDPOINT, 'mobile')
         .getUserContacts
     },
     dispatch

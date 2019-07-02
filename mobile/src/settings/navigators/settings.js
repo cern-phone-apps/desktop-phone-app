@@ -1,9 +1,12 @@
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import ColorPalette from '../../styles/ColorPalette';
 import ProfileContainer from '../components/profile/ProfileContainer';
 import RegisterScreenContainer from '../../calls/screens/RegisterScreen/RegisterScreenContainer';
 import CallForwardingScreenContainer from '../screens/CallForwardingScreen/CallForwardingScreenContainer';
+import SearchUsersScreenContainer from '../../calls/screens/SearchUsersScreen/SearchUsersScreenForwardingContainer';
+import { formatResultsOneLinePerPhone } from '../../common/utils/formatters';
 
 const SettingsStack = createStackNavigator({
   Settings: {
@@ -60,6 +63,24 @@ const SettingsStack = createStackNavigator({
         headerTintColor: 'white'
       };
     }
+  },
+  SearchUsers: {
+    screen: props => (
+      <SearchUsersScreenContainer
+        {...props}
+        formatSearchResults={formatResultsOneLinePerPhone}
+      />
+    ),
+    navigationOptions: () => ({
+      headerTitleStyle: {
+        color: 'white'
+      },
+      title: 'Search for users',
+      headerStyle: {
+        backgroundColor: '#2196F3'
+      },
+      headerTintColor: 'white'
+    })
   }
 });
 

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ActivityIndicator, FlatList, View } from 'react-native';
-import { Button, Icon, ListItem, SearchBar, Text } from 'react-native-elements';
-import { IconButton } from 'react-native-paper';
+import { Button, ListItem, SearchBar, Text } from 'react-native-elements';
 
 export default class SearchUsersScreen extends React.Component {
   static navigationOptions = {
@@ -13,14 +12,16 @@ export default class SearchUsersScreen extends React.Component {
   static propTypes = {
     searching: PropTypes.bool,
     searchUsers: PropTypes.func.isRequired,
-    addUserContact: PropTypes.func.isRequired,
-    getUserContacts: PropTypes.func.isRequired,
-    contacts: PropTypes.arrayOf(PropTypes.object)
+    addUser: PropTypes.func.isRequired,
+    getSelectedUsers: PropTypes.func.isRequired,
+    selection: PropTypes.arrayOf(PropTypes.object),
+    formatSearchResults: PropTypes.func
   };
 
   static defaultProps = {
-    contacts: [],
-    searching: false
+    selection: [],
+    searching: false,
+    formatSearchResults: result => result
   };
 
   state = {
@@ -28,11 +29,11 @@ export default class SearchUsersScreen extends React.Component {
     searchResults: []
   };
 
-  keyExtractor = item => item.personId;
+  keyExtractor = item => item.id;
 
   onPress = async () => {
     const { searchText } = this.state;
-
+    const { searchUsers } = this.props;
     if (!searchText) {
       this.setState({ searchResults: [] });
       return;
@@ -41,12 +42,8 @@ export default class SearchUsersScreen extends React.Component {
       return;
     }
 
-    const { searchUsers } = this.props;
-    const { payload } = await searchUsers(searchText);
-    this.setState({
-      searchResults: payload
-    });
-    console.log(payload);
+    const result = await searchUsers(searchText);
+    this.setState({ searchResults: result.payload });
   };
 
   onChangeText = searchText => {
@@ -60,33 +57,16 @@ export default class SearchUsersScreen extends React.Component {
   };
 
   renderItem = ({ item }) => {
-    const { addUserContact, getUserContacts, contacts } = this.props;
-    const isAlreadyInUserContacts = !!contacts.find(
-      contact => parseInt(contact.personId, 10) === parseInt(item.personId, 10)
-    );
-
-    const rightIcon = isAlreadyInUserContacts ? (
-      <Icon type="feather" name="check" color="green" />
-    ) : (
-      <IconButton
-        icon="add"
-        onPress={() => addUserContact(item).then(() => getUserContacts())}
-      />
-    );
-
-    return (
-      <ListItem
-        title={`${item.displayName} (${item.division})`}
-        leftAvatar={{ title: item.displayName[0] }}
-        rightIcon={rightIcon}
-        bottomDivider
-      />
-    );
+    return <ListItem {...item} />;
   };
 
   render() {
     const { searchText, searchResults } = this.state;
-    const { searching } = this.props;
+    const { searching, formatSearchResults } = this.props;
+    const formattedSearchResults = formatSearchResults(
+      searchResults,
+      this.props
+    );
     return (
       <View style={{ flex: 1 }}>
         <View
@@ -125,7 +105,7 @@ export default class SearchUsersScreen extends React.Component {
         <View>
           <FlatList
             keyExtractor={this.keyExtractor}
-            data={searchResults}
+            data={formattedSearchResults}
             renderItem={this.renderItem}
             refreshing={searching}
             ListEmptyComponent={() =>

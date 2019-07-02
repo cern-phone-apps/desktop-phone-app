@@ -47,7 +47,7 @@ export default class RegisterScreen extends React.Component {
 
   render = () => {
     const { numbers } = this.props;
-
+    const { overlayVisible } = this.state;
     return (
       <View
         style={{
@@ -56,7 +56,7 @@ export default class RegisterScreen extends React.Component {
         }}
       >
         <Overlay
-          isVisible={this.state.overlayVisible}
+          isVisible={overlayVisible}
           onBackdropPress={() => this.setState({ overlayVisible: false })}
         >
           <View
