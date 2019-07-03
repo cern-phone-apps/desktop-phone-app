@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { I18nextProvider } from 'react-i18next';
 import ReactPiwik from 'react-piwik';
@@ -31,7 +31,9 @@ const piwik = new ReactPiwik({
 /**
  * Set up the store and the history
  */
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
+const history = createHashHistory();
+
 const { store, persistor } = configureStore(history);
 
 ReactDOM.render(

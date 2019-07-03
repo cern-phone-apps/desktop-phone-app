@@ -1,4 +1,4 @@
-import * as sidebarActions from "common/actions/sidebar";
+import * as sidebarActions from 'common/actions/sidebar';
 
 const initialState = {
   isVisible: false,
@@ -7,7 +7,7 @@ const initialState = {
   displayTime: 500
 };
 
-function setSidebarIsDisplaying (state) {
+function setSidebarIsDisplaying(state) {
   return {
     ...state,
     isVisible: true,
@@ -16,7 +16,7 @@ function setSidebarIsDisplaying (state) {
   };
 }
 
-function setSidebarFinishedDisplaying (state) {
+function setSidebarFinishedDisplaying(state) {
   return {
     ...state,
     isDisplaying: false

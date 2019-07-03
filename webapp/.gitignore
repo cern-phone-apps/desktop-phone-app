@@ -35,3 +35,4 @@ cypress/screenshots/
 
 \mockserver/rest/*/*/*/mock/response.txt
 mockserver/rest/*/*/*/mock/response.txt
+dist/
