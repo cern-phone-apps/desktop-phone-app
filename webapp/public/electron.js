@@ -14,6 +14,8 @@ const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
 const notifier = require('node-notifier');
 
+const { checkForUpdates } = require('./updater');
+
 let mainWindow;
 let authWindow;
 let code;
@@ -85,6 +87,13 @@ const menu = Menu.buildFromTemplate([
     label: 'Sample',
     submenu: [
       { label: 'About App', selector: 'orderFrontStandardAboutPanel:' },
+      {
+        label: 'Update',
+        accelerator: 'CmdOrCtrl+U',
+        click: menuItem => {
+          checkForUpdates(menuItem);
+        }
+      },
       {
         label: 'Logout',
         accelerator: 'CmdOrCtrl+O',
@@ -201,15 +210,14 @@ const createWindow = () => {
   });
 
   mainWindow.on('close', e => {
-    if (!forceQuit) {
-      e.preventDefault();
-      mainWindow.hide();
-      if (os.platform() === 'darwin') {
-        app.dock.hide();
-      }
-
-      sendAppHideNotification();
-    }
+    // if (!forceQuit) {
+    //   e.preventDefault();
+    //   mainWindow.hide();
+    //   if (os.platform() === 'darwin') {
+    //     app.dock.hide();
+    //   }
+    //   sendAppHideNotification();
+    // }
   });
 };
 
@@ -255,7 +263,9 @@ const handleAppCertificateError = (
 };
 
 const hide = () => {
-  mainWindow.hide();
+  if (mainWindow) {
+    mainWindow.hide();
+  }
   if (os.platform() === 'darwin') {
     app.dock.hide();
   }
@@ -288,11 +298,12 @@ const handleAppReady = () => {
       console.log('empty dict');
     }
 
+    Menu.setApplicationMenu(menu);
+    createTray();
+
     if (!isEmpty(data) && data.authenticated === true) {
       code = data;
       createWindow();
-      Menu.setApplicationMenu(menu);
-      createTray();
     } else {
       createAuthWindow();
     }
@@ -326,13 +337,15 @@ app.on('activate-with-no-open-windows', () => {
 // You can use 'before-quit' instead of (or with) the close event
 app.on('before-quit', e => {
   // Handle menu-item or keyboard shortcut quit here
-  if (!forceQuit) {
-    e.preventDefault();
-    mainWindow.hide();
-    if (os.platform() === 'darwin') {
-      app.dock.hide();
-    }
-  }
+  // if (!forceQuit) {
+  //   e.preventDefault();
+  //   if (mainWindow) {
+  //     mainWindow.hide();
+  //   }
+  //   if (os.platform() === 'darwin') {
+  //     app.dock.hide();
+  //   }
+  // }
 });
 
 const appHandleLoadPage = (event, arg) => {
