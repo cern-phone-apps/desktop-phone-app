@@ -1,3 +1,4 @@
 .DS_Store
 .idea/*
 mobile/android/gradle.properties
+webapp/electron-builder.env
