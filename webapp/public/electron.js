@@ -84,7 +84,7 @@ function unauthenticateUser() {
 
 const menu = Menu.buildFromTemplate([
   {
-    label: 'Sample',
+    label: 'App',
     submenu: [
       { label: 'About App', selector: 'orderFrontStandardAboutPanel:' },
       {
