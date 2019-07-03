@@ -7,7 +7,6 @@ import { translate } from 'react-i18next';
 import './LoginPage.css';
 import * as routes from 'calls/routes';
 import LoadingDimmer from 'auth/components/LoadingDimmer/LoadingDimmer';
-import LoginButton from 'auth/components/LoginButton/LoginButton';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
 

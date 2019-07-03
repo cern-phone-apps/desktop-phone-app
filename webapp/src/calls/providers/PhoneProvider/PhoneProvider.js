@@ -12,6 +12,9 @@ import {
   toneOutMessage
 } from 'common/utils/logs';
 
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
+
 const ringToneId = 'ringTone';
 const ringBackToneId = 'ringbackTone';
 const callInputId = 'callsAudioInput';
@@ -398,6 +401,7 @@ export default class PhoneProvider extends React.Component {
     // Retrieve the remote user information from the event data
     const { uri } = event.data.session.remoteIdentity;
     setIsReceivingCall(uri.user, null);
+    ipcRenderer.sendSync('synchronous-message', 'receiveCall');
   }
 
   handleRejectedEvent() {
