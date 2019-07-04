@@ -14,6 +14,10 @@ import { info, success, warning } from 'common/actions/notifications';
 import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider';
 import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 
+import config from 'config';
+
+const apiEndpoint = config.api.ENDPOINT;
+
 export function mapStateToProps({ calls, auth }) {
   return {
     authToken: auth.authToken,
@@ -27,7 +31,7 @@ export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...authActions,
-      logout: authActionFactory(process.env.REACT_APP_API_ENDPOINT).logout,
+      logout: authActionFactory(apiEndpoint).logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions,

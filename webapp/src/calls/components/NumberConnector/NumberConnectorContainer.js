@@ -4,7 +4,10 @@ import { bindActionCreators } from 'redux';
 
 import { numbersActionFactory, numbersActions } from 'dial-core';
 
+import config from 'config';
 import NumberConnector from './NumberConnector';
+
+const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ calls }) {
   return {
@@ -16,9 +19,8 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserPhoneNumbers: numbersActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).getUserPhoneNumbers,
+      getUserPhoneNumbers: numbersActionFactory(apiEndpoint)
+        .getUserPhoneNumbers,
       setActiveNumber: numbersActions.setActiveNumber
     },
     dispatch
