@@ -6,6 +6,7 @@
   "author": "CERN",
   "description": "CERN Phone Application to place and receive calls.",
   "main": "public/electron.js",
+  "repository": "https://github.com/cern-dialtone/dial-clients.git",
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
@@ -24,11 +25,10 @@
     "electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
-    "electron-pack": "build -mlw",
-    "electron-pack-mac": "build -m",
-    "electron-pack-next": "REACT_APP_NEXT=true electron-builder --config electron-builder-next.json build -mlw",
-    "preelectron-pack-next": "REACT_APP_NEXT=true yarn build",
-    "publish-pre": "build -mlw --publish always"
+    "electron-pack": "yarn build && build -mlw",
+    "electron-pack-mac": "yarn build && build -m",
+    "publish": "yarn build && build -mlw --publish always",
+    "electron-pack-next": "REACT_APP_NEXT=true yarn build && REACT_APP_NEXT=true electron-builder --config electron-builder-next.json build -mlw"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -65,6 +65,7 @@
     "dial-core": "file:../core",
     "electron-is-dev": "^1.1.0",
     "electron-json-storage": "^4.1.6",
+    "electron-updater": "^4.0.14",
     "global": "^4.4.0",
     "history": "^4.7.2",
     "i18next": "^10.6.0",
@@ -133,8 +134,21 @@
     "asarUnpack": [
       "./node_modules/node-notifier/vendor/**"
     ],
+    "publish": [
+      {
+        "provider": "github",
+        "repo": "dial-clients"
+      }
+    ],
     "mac": {
-      "category": "public.app-category.social-networking"
+      "category": "public.app-category.social-networking",
+      "target": "zip"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
     },
     "appImage": {
       "category": "Office"
