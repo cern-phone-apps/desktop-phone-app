@@ -1,0 +1,42 @@
+{
+  "appId": "ch.cern.phonewebapp",
+  "productName": "CERN Phone App Next",
+  "asarUnpack": [
+    "./node_modules/node-notifier/vendor/**"
+  ],
+  "publish": [
+    {
+      "provider": "github",
+      "repo": "dial-clients"
+    }
+  ],
+  "mac": {
+    "category": "public.app-category.social-networking",
+    "target": "zip"
+  },
+  "win": {
+    "target": "nsis"
+  },
+  "linux": {
+    "target": "AppImage"
+  },
+  "appImage": {
+    "category": "Office"
+  },
+  "files": [
+    "build/**/*",
+    "node_modules/**/*"
+  ],
+  "directories": {
+    "buildResources": "assets-next"
+  },
+  "extraFiles": [
+    {
+      "from": "static",
+      "to": "resources",
+      "filter": [
+        "**/*"
+      ]
+    }
+  ]
+}
