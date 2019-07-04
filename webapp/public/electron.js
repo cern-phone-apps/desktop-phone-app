@@ -15,6 +15,7 @@ const storage = require('electron-json-storage');
 const notifier = require('node-notifier');
 
 const { checkForUpdates } = require('./updater');
+const openAboutWindow = require('about-window').default;
 
 let mainWindow;
 let authWindow;
@@ -82,13 +83,30 @@ function unauthenticateUser() {
   });
 }
 
+const appImagePath = isDev
+  ? path.join(__dirname, '/../static/icon.png')
+  : path.join(process.resourcesPath, 'icon.png');
+
 const menu = Menu.buildFromTemplate([
   {
     label: 'App',
     submenu: [
-      { label: 'About App', selector: 'orderFrontStandardAboutPanel:' },
       {
-        label: 'Update',
+        label: 'About App',
+        accelerator: 'CmdOrCtrl+A',
+        click: () =>
+          openAboutWindow({
+            icon_path: appImagePath,
+            product_name: 'CERN Phone App',
+            package_json_dir: path.join(__dirname, '../'),
+            use_version_info: true,
+            license: 'GNU GENERAL PUBLIC (v3)',
+            bug_link_text:
+              'https://github.com/cern-dialtone/dial-clients/issues'
+          })
+      },
+      {
+        label: 'Check for updates...',
         accelerator: 'CmdOrCtrl+U',
         click: menuItem => {
           checkForUpdates(menuItem);
@@ -210,14 +228,14 @@ const createWindow = () => {
   });
 
   mainWindow.on('close', e => {
-    // if (!forceQuit) {
-    //   e.preventDefault();
-    //   mainWindow.hide();
-    //   if (os.platform() === 'darwin') {
-    //     app.dock.hide();
-    //   }
-    //   sendAppHideNotification();
-    // }
+    if (!forceQuit) {
+      e.preventDefault();
+      mainWindow.hide();
+      if (os.platform() === 'darwin') {
+        app.dock.hide();
+      }
+      sendAppHideNotification();
+    }
   });
 };
 
@@ -337,15 +355,15 @@ app.on('activate-with-no-open-windows', () => {
 // You can use 'before-quit' instead of (or with) the close event
 app.on('before-quit', e => {
   // Handle menu-item or keyboard shortcut quit here
-  // if (!forceQuit) {
-  //   e.preventDefault();
-  //   if (mainWindow) {
-  //     mainWindow.hide();
-  //   }
-  //   if (os.platform() === 'darwin') {
-  //     app.dock.hide();
-  //   }
-  // }
+  if (!forceQuit) {
+    e.preventDefault();
+    if (mainWindow) {
+      mainWindow.hide();
+    }
+    if (os.platform() === 'darwin') {
+      app.dock.hide();
+    }
+  }
 });
 
 const appHandleLoadPage = (event, arg) => {
