@@ -2,3 +2,4 @@
 .idea/*
 mobile/android/gradle.properties
 webapp/electron-builder.env
+webapp/src/config.js

@@ -5,10 +5,14 @@ import { bindActionCreators } from 'redux';
 import TranslatedLogoutButton from 'auth/components/LogoutButton/LogoutButton';
 import { authActionFactory } from 'dial-core';
 
+import config from 'config';
+
+const apiEndpoint = config.api.ENDPOINT;
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: authActionFactory(process.env.REACT_APP_API_ENDPOINT).logout
+      logout: authActionFactory(apiEndpoint).logout
     },
     dispatch
   );

@@ -3,7 +3,11 @@ import { authActions, authActionFactory, util } from 'dial-core';
 
 import { logMessage } from 'common/utils/logs';
 
-const { JwtTokenHandlerWeb } = util.tokens;
+import config from 'config';
+
+const { JwtTokenHandlerMobile } = util.tokens;
+
+const apiEndpoint = config.api.ENDPOINT;
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
@@ -29,7 +33,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
     );
 
     if (isRSAA(action)) {
-      const refreshToken = JwtTokenHandlerWeb.getRefreshToken();
+      const refreshToken = JwtTokenHandlerMobile.getRefreshToken();
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
@@ -38,15 +42,13 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
         return rsaaMiddleware(next)(action);
       }
 
-      if (refreshToken && JwtTokenHandlerWeb.isAccessTokenExpired()) {
+      if (refreshToken && JwtTokenHandlerMobile.isAccessTokenExpired()) {
         logMessage('Access token is expired but we have refresh token');
         postponedRSAAs.push(action);
         logMessage('postponed RSAAs: ', postponedRSAAs);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(
-              process.env.REACT_APP_API_ENDPOINT
-            ).refreshAccessToken()
+            authActionFactory(apiEndpoint).refreshAccessToken()
           );
         }
         return null;

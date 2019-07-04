@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { contactsActionFactory } from 'dial-core';
+import config from 'config';
 import ContactList from './ContactList';
+
+const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ calls }) {
   return {
@@ -12,8 +15,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserContacts: contactsActionFactory(process.env.REACT_APP_API_ENDPOINT)
-        .getUserContacts
+      getUserContacts: contactsActionFactory(apiEndpoint).getUserContacts
     },
     dispatch
   );
