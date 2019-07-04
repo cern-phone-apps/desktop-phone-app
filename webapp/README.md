@@ -14,18 +14,6 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ## TODO
 
-- Add cypress again (It was removed in order to speed up builds and installs and to simplify the development)
-
-```javascript
-    "cypress:open": "cypress open",
-    "cypress:verify": "cypress verify",
-    "cypress:version": "cypress version",
-    "cypress:run": "cypress run",
-    "cypress:run:ci": "cypress run --config video=false",
-    "cypress:headed": "cypress run --headed",
-    "cypress:canary": "cypress run --browser canary",
-    "cypress:run:record": "cypress run --record"
-```
 - Enable husky again (https://github.com/typicode/husky)
 
 ## Development
@@ -44,21 +32,25 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 ### Requirements
 
 - node v11.10
-- npm 6.5.0
+- yarn 1.16.0
 
-### Install dependencies
+### 1. Install dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
-## Creating the .env configuration files
+## 2. Creating the config.js configuration file
 
-This project gets the configuration from the `.env` files located on the root of the project.
-There is a `.env.development.local.sample` file that can be used as example.
+This project gets the configuration from the `src/config.js` file.
+There is a `config.sample.js` file that can be used as example.
 
-You must create the `env.development.local` (you must customize this one) and `.env.test.local` (you can use
-the sample configuration for this one) files.
+This file includes several enviroments that must be set:
+
+- prod
+- next
+- dev
+- test
 
 ## Setting up the mock server
 
@@ -91,41 +83,36 @@ a path to the file.
 
 ## Run the application
 
-* `npm start`: Runs the application on development mode. It uses `.env.development.local` env file.
-* `npm run start-secure`: Runs the application using `HTTPS`. . It uses `.env.development.local` env file.
-* `npm run start-ci`: Runs the application using `.env.ci` environment file in CI mode.
+* `yarn electron-start`: Runs the application on development mode.
 
 ## Testing the application
 
 Application can be tested in two different ways:
 
 * Using [Jest](https://jestjs.io/) for unit tests.
-* Using [Cypress](https://www.cypress.io/) for integration tests.
 
 ### Unit tests
 
 Tests are located on `src/__tests__` folder.
 
-In order to run them: `npm test`
-
-### Integration tests
-
-Tests are located on `cypress/integration`.
-
-The mock server needs to be running in order to run the integration tests:
-
-```bash
-npm run mock-server
-npm run start-ci
-```
-
-Then, you can either open cypress with `npm run cypress:open` or run it
-directly with `npm run cypress:run`.
-
+In order to run them: `yarn test`
 
 ## Continuous Integration
 
 -TODO-
+
+## Packaging and Deployment
+
+### Next
+
+`electron-builder-next.json` file is used to pack the application in `NEXT` mode.
+
+- `electron-pack-next`: Generates packages for Mac, Windows and Linux on the `dist` dir. Sets `REACT_APP_NEXT` to true.
+
+### Production
+
+- `electron-pack`: Generates packages for Mac, Windows and Linux on the `dist` dir.
+- `publish`: Publish the current version of the app in Github releases on the repository.
 
 ## React Docs
 
