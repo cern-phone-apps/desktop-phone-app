@@ -111,8 +111,17 @@ In order to run them: `yarn test`
 
 ### Production
 
+Create a `electorn-builder.env` file with the value `GH_TOKEN` on it. This token is required to deploy the application on Github. It can be generated here: https://github.com/settings/tokens/new and the scope must be repository.
+
 - `electron-pack`: Generates packages for Mac, Windows and Linux on the `dist` dir.
 - `publish`: Publish the current version of the app in Github releases on the repository.
+
+#### How to clean all the build releases
+
+Run the following command on `webapp` folder (this one).
+```
+xattr -cr .
+```
 
 ## React Docs
 
