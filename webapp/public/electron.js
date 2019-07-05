@@ -339,7 +339,7 @@ const appHandleLoadPage = (event, arg) => {
   mainWindow.loadURL(arg);
 };
 
-const ipcHandleSyncMessages = (event, arg) => {
+const ipcHandleSyncMessages = (event, arg, doNotDisturb = false) => {
   console.log(`Syncrhonous message received: ${arg}`); // prints "ping"
 
   if (arg === 'code') {
@@ -361,7 +361,9 @@ const ipcHandleSyncMessages = (event, arg) => {
 
   if (arg === 'receiveCall') {
     event.returnValue = 'ok';
-    showWindow();
+    if (!doNotDisturb) {
+      showWindow();
+    }
   }
 };
 
