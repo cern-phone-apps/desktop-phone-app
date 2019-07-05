@@ -8,7 +8,6 @@ const {
   dialog
 } = require('electron');
 
-const os = require('os');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
@@ -87,6 +86,24 @@ const appImagePath = isDev
   ? path.join(__dirname, '/../static/icon.png')
   : path.join(process.resourcesPath, 'icon.png');
 
+const showQuitDialog = () => {
+  const options = {
+    type: 'question',
+    buttons: ['Minimize to tray', 'No', 'Yes'],
+    title: 'Confirm',
+    message: 'Are you sure you want to quit?'
+  };
+  const choice = dialog.showMessageBox(options);
+  console.log(choice);
+  if (choice === 2) {
+    forceQuit = true;
+    app.quit();
+  }
+  if (choice === 0) {
+    hide();
+  }
+};
+
 const menu = Menu.buildFromTemplate([
   {
     label: 'App',
@@ -123,18 +140,8 @@ const menu = Menu.buildFromTemplate([
         label: 'Quit',
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
-          const options = {
-            type: 'question',
-            buttons: ['Yes', 'No'],
-            title: 'Confirm',
-            message: 'Are you sure you want to quit?'
-          };
-          const choice = dialog.showMessageBox(options);
-          if (choice === 0) {
-            // e.preventDefault();
-            forceQuit = true;
-            app.quit();
-          }
+          forceQuit = true;
+          showQuitDialog();
         }
       }
     ]
@@ -168,9 +175,11 @@ const sendAppHideNotification = () => {
 };
 
 const showWindow = () => {
-  mainWindow.show();
-  if (os.platform() === 'darwin') {
-    app.dock.show();
+  if (mainWindow) {
+    mainWindow.show();
+  }
+  if (authWindow && !mainWindow) {
+    authWindow.hide();
   }
 };
 
@@ -194,29 +203,29 @@ const createWindow = () => {
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
-  // if (isDev) {
-  //   const {
-  //     default: installExtension,
-  //     REACT_DEVELOPER_TOOLS,
-  //     REDUX_DEVTOOLS
-  //   } = require('electron-devtools-installer');
+  if (isDev) {
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS,
+      REDUX_DEVTOOLS
+    } = require('electron-devtools-installer');
 
-  //   installExtension(REACT_DEVELOPER_TOOLS)
-  //     .then(name => {
-  //       console.log(`Added Extension: ${name}`);
-  //     })
-  //     .catch(err => {
-  //       console.log('An error occurred: ', err);
-  //     });
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => {
+        console.log(`Added Extension: ${name}`);
+      })
+      .catch(err => {
+        console.log('An error occurred: ', err);
+      });
 
-  //   installExtension(REDUX_DEVTOOLS)
-  //     .then(name => {
-  //       console.log(`Added Extension: ${name}`);
-  //     })
-  //     .catch(err => {
-  //       console.log('An error occurred: ', err);
-  //     });
-  // }
+    installExtension(REDUX_DEVTOOLS)
+      .then(name => {
+        console.log(`Added Extension: ${name}`);
+      })
+      .catch(err => {
+        console.log('An error occurred: ', err);
+      });
+  }
 
   mainWindow.once('ready-to-show', () => {
     console.log('Showing main window');
@@ -228,13 +237,16 @@ const createWindow = () => {
   });
 
   mainWindow.on('close', e => {
+    if (forceQuit) {
+      app.quit();
+    }
+
     if (!forceQuit) {
       e.preventDefault();
-      mainWindow.hide();
-      if (os.platform() === 'darwin') {
-        app.dock.hide();
-      }
-      sendAppHideNotification();
+      showQuitDialog();
+      // sendAppHideNotification();
+    } else {
+      app.quit();
     }
   });
 };
@@ -284,15 +296,11 @@ const hide = () => {
   if (mainWindow) {
     mainWindow.hide();
   }
-  if (os.platform() === 'darwin') {
-    app.dock.hide();
-  }
-
   sendAppHideNotification();
 };
 
 const toggleWindow = () => {
-  const result = mainWindow.isVisible() ? hide() : showWindow();
+  const result = mainWindow && mainWindow.isVisible() ? hide() : showWindow();
   return result;
 };
 
@@ -347,23 +355,6 @@ app.on('activate', appHandleActivate);
 
 app.on('activate-with-no-open-windows', () => {
   showWindow();
-  if (os.platform() === 'darwin') {
-    app.dock.show();
-  }
-});
-
-// You can use 'before-quit' instead of (or with) the close event
-app.on('before-quit', e => {
-  // Handle menu-item or keyboard shortcut quit here
-  if (!forceQuit) {
-    e.preventDefault();
-    if (mainWindow) {
-      mainWindow.hide();
-    }
-    if (os.platform() === 'darwin') {
-      app.dock.hide();
-    }
-  }
 });
 
 const appHandleLoadPage = (event, arg) => {
