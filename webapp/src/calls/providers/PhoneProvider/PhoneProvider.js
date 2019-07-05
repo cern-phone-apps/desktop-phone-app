@@ -401,8 +401,10 @@ export default class PhoneProvider extends React.Component {
     // Retrieve the remote user information from the event data
     const { uri } = event.data.session.remoteIdentity;
     setIsReceivingCall(uri.user, null);
-    new Notification("You are receiving a call.", { requireInteraction: true, timeout: 60 });
-    ipcRenderer.sendSync('synchronous-message', 'receiveCall');
+    if (this.props.doNotDisturb) {
+      new Notification("You are receiving a call.", { requireInteraction: true, timeout: 60 });
+    }
+    ipcRenderer.sendSync('synchronous-message', 'receiveCall', this.props.doNotDisturb);
   }
 
   handleRejectedEvent() {
