@@ -1,6 +1,7 @@
 {
   "appId": "ch.cern.phonewebapp",
   "productName": "CERN Phone App Next",
+  "generateUpdatesFilesForAllChannels": true,
   "asarUnpack": [
     "./node_modules/node-notifier/vendor/**"
   ],
@@ -32,7 +33,7 @@
   },
   "extraFiles": [
     {
-      "from": "static",
+      "from": "static-next",
       "to": "resources",
       "filter": [
         "**/*"
