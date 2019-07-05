@@ -1,8 +1,6 @@
 import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
 import { authActions, authActionFactory, util } from 'dial-core';
 
-import { logMessage } from 'common/utils/logs';
-
 import config from 'config';
 
 const { JwtTokenHandlerMobile } = util.tokens;
@@ -13,7 +11,6 @@ function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
     // Run postponed actions after token refresh
     if (nextAction.type === authActions.TOKEN_RECEIVED) {
-      logMessage('Token received from API');
       next(nextAction);
       postponedRSAAs.forEach(postponed => {
         rsaaMiddleware(next)(postponed);
@@ -24,7 +21,7 @@ function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   };
 }
 
-function processNextAction(postponedRSAAs, rsaaMiddleware) {
+function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
   return next => action => {
     const nextCheckPostponed = checkNextAction(
       next,
@@ -33,7 +30,8 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
     );
 
     if (isRSAA(action)) {
-      const refreshToken = JwtTokenHandlerMobile.getRefreshToken();
+      const state = getState();
+      const refreshToken = JwtTokenHandlerMobile.getRefreshToken(state);
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
@@ -42,13 +40,11 @@ function processNextAction(postponedRSAAs, rsaaMiddleware) {
         return rsaaMiddleware(next)(action);
       }
 
-      if (refreshToken && JwtTokenHandlerMobile.isAccessTokenExpired()) {
-        logMessage('Access token is expired but we have refresh token');
+      if (refreshToken && JwtTokenHandlerMobile.isAccessTokenExpired(state)) {
         postponedRSAAs.push(action);
-        logMessage('postponed RSAAs: ', postponedRSAAs);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(apiEndpoint).refreshAccessToken()
+            authActionFactory(apiEndpoint, 'mobile').refreshAccessToken()
           );
         }
         return null;
