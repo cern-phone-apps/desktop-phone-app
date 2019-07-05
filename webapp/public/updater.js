@@ -4,6 +4,12 @@ const { autoUpdater } = require('electron-updater');
 let updater;
 autoUpdater.autoDownload = false;
 
+if (process.env.REACT_APP_NEXT) {
+  autoUpdater.channel = 'beta';
+} else {
+  autoUpdater.allowPrerelease = false;
+}
+
 autoUpdater.on('error', error => {
   dialog.showErrorBox(
     'Error: ',
