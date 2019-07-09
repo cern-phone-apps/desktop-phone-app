@@ -108,13 +108,32 @@ In order to run them: `yarn test`
 `electron-builder-next.json` file is used to pack the application in `NEXT` mode.
 
 - `electron-pack-next`: Generates packages for Mac, Windows and Linux on the `dist` dir. Sets `REACT_APP_NEXT` to true.
+- `publish-next`: Publish the current version of the app in Github releases, but enables the "beta" channel.
 
 ### Production
 
 Create a `electorn-builder.env` file with the value `GH_TOKEN` on it. This token is required to deploy the application on Github. It can be generated here: https://github.com/settings/tokens/new and the scope must be repository.
 
 - `electron-pack`: Generates packages for Mac, Windows and Linux on the `dist` dir.
-- `publish`: Publish the current version of the app in Github releases on the repository.
+- `publish-prod`: Publish the current version of the app in Github releases on the repository.
+
+#### Release Channels
+
+From electron-builder docs: https://www.electron.build/tutorials/release-using-channels
+
+The following versions will be distributed to users depending on the channel defined:
+
+- `latest` or nothing: users will only get “latest” versions
+- `beta`: users will get “beta” and “latest” version
+- `alpha`: users will get “alpha”, “beta” and “latest” version
+
+##### How To Use It
+
+Imagine that your application is stable and in version `1.0.1`.
+
+If you want to release a beta for the new `1.1.0` version, you only need to update the package.json version with `1.1.0-beta`.
+
+When your application is stable enough, you want to release it to all users. For that, you only need to remove the -beta label from the package.json version tag.
 
 #### How to clean all the build releases
 
