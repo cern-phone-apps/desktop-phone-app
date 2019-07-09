@@ -4,6 +4,10 @@ import LoginPage from 'auth/screens/LoginPage/LoginPage';
 import { authActionFactory, meActionFactory } from 'dial-core';
 import { bindActionCreators } from 'redux';
 
+import config from 'config';
+
+const apiEndpoint = config.api.ENDPOINT;
+
 function mapStateToProps({ auth }) {
   return {
     errors: auth.errors,
@@ -15,8 +19,8 @@ function mapStateToProps({ auth }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getMe: meActionFactory(process.env.REACT_APP_API_ENDPOINT).getMe,
-      login: authActionFactory(process.env.REACT_APP_API_ENDPOINT).login
+      getMe: meActionFactory(apiEndpoint).getMe,
+      login: authActionFactory(apiEndpoint).login
     },
     dispatch
   );

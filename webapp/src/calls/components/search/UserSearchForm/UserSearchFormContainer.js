@@ -6,6 +6,10 @@ import { searchActions, usersActionFactory } from 'dial-core';
 
 import { UserSearchForm } from 'calls/components/search/UserSearchForm/UserSearchForm';
 
+import config from 'config';
+
+const apiEndpoint = config.api.ENDPOINT;
+
 function mapStateToProps() {
   return {};
 }
@@ -14,8 +18,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectUser: searchActions.selectUser,
-      searchUsers: usersActionFactory(process.env.REACT_APP_API_ENDPOINT)
-        .searchUsers
+      searchUsers: usersActionFactory(apiEndpoint).searchUsers
     },
     dispatch
   );

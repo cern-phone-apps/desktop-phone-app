@@ -3,6 +3,10 @@ import { bindActionCreators } from 'redux';
 import ContactAddButton from 'calls/components/contacts/ContactAddButton/ContactAddButton';
 import { contactsActionFactory } from 'dial-core';
 
+import config from 'config';
+
+const apiEndpoint = config.api.ENDPOINT;
+
 function mapStateToProps({ calls }) {
   return {
     contacts: calls.contacts.getContacts.contacts
@@ -12,13 +16,9 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      addUserContact: contactsActionFactory(process.env.REACT_APP_API_ENDPOINT)
-        .addUserContact,
-      removeUserContact: contactsActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).removeUserContact,
-      getUserContacts: contactsActionFactory(process.env.REACT_APP_API_ENDPOINT)
-        .getUserContacts
+      addUserContact: contactsActionFactory(apiEndpoint).addUserContact,
+      removeUserContact: contactsActionFactory(apiEndpoint).removeUserContact,
+      getUserContacts: contactsActionFactory(apiEndpoint).getUserContacts
     },
     dispatch
   );

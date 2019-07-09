@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import { bindActionCreators } from 'redux';
 import { authActionFactory } from 'dial-core';
+import config from 'config';
 import { DisconnectAndLogoutButton } from './DisconnectAndLogoutButton';
+
+const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ calls }) {
   return {
@@ -15,7 +18,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: authActionFactory(process.env.REACT_APP_API_ENDPOINT).logout
+      logout: authActionFactory(apiEndpoint).logout
     },
     dispatch
   );
