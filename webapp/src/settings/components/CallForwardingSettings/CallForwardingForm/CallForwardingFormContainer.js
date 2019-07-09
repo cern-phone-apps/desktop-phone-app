@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { callForwardingActionFactory, callForwardingActions } from 'dial-core';
+import config from 'config';
 import { CallForwardingForm } from './CallForwardingForm';
+
+const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ callForwarding, calls }) {
   return {
@@ -16,18 +19,14 @@ function mapStateToProps({ callForwarding, calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getCallForwardingStatus: callForwardingActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).getCallForwardingStatus,
-      disableCallForwarding: callForwardingActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).disableCallForwarding,
-      enableSimultaneousRinging: callForwardingActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).enableSimultaneousRinging,
-      enableCallForwarding: callForwardingActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).enableCallForwarding,
+      getCallForwardingStatus: callForwardingActionFactory(apiEndpoint)
+        .getCallForwardingStatus,
+      disableCallForwarding: callForwardingActionFactory(apiEndpoint)
+        .disableCallForwarding,
+      enableSimultaneousRinging: callForwardingActionFactory(apiEndpoint)
+        .enableSimultaneousRinging,
+      enableCallForwarding: callForwardingActionFactory(apiEndpoint)
+        .enableCallForwarding,
       clearLastOperation: callForwardingActions.clearLastOperation
     },
     dispatch

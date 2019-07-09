@@ -14,18 +14,6 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ## TODO
 
-- Add cypress again (It was removed in order to speed up builds and installs and to simplify the development)
-
-```javascript
-    "cypress:open": "cypress open",
-    "cypress:verify": "cypress verify",
-    "cypress:version": "cypress version",
-    "cypress:run": "cypress run",
-    "cypress:run:ci": "cypress run --config video=false",
-    "cypress:headed": "cypress run --headed",
-    "cypress:canary": "cypress run --browser canary",
-    "cypress:run:record": "cypress run --record"
-```
 - Enable husky again (https://github.com/typicode/husky)
 
 ## Development
@@ -44,21 +32,25 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 ### Requirements
 
 - node v11.10
-- npm 6.5.0
+- yarn 1.16.0
 
-### Install dependencies
+### 1. Install dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
-## Creating the .env configuration files
+## 2. Creating the config.js configuration file
 
-This project gets the configuration from the `.env` files located on the root of the project.
-There is a `.env.development.local.sample` file that can be used as example.
+This project gets the configuration from the `src/config.js` file.
+There is a `config.sample.js` file that can be used as example.
 
-You must create the `env.development.local` (you must customize this one) and `.env.test.local` (you can use
-the sample configuration for this one) files.
+This file includes several enviroments that must be set:
+
+- prod
+- next
+- dev
+- test
 
 ## Setting up the mock server
 
@@ -91,41 +83,64 @@ a path to the file.
 
 ## Run the application
 
-* `npm start`: Runs the application on development mode. It uses `.env.development.local` env file.
-* `npm run start-secure`: Runs the application using `HTTPS`. . It uses `.env.development.local` env file.
-* `npm run start-ci`: Runs the application using `.env.ci` environment file in CI mode.
+* `yarn electron-start`: Runs the application on development mode.
 
 ## Testing the application
 
 Application can be tested in two different ways:
 
 * Using [Jest](https://jestjs.io/) for unit tests.
-* Using [Cypress](https://www.cypress.io/) for integration tests.
 
 ### Unit tests
 
 Tests are located on `src/__tests__` folder.
 
-In order to run them: `npm test`
-
-### Integration tests
-
-Tests are located on `cypress/integration`.
-
-The mock server needs to be running in order to run the integration tests:
-
-```bash
-npm run mock-server
-npm run start-ci
-```
-
-Then, you can either open cypress with `npm run cypress:open` or run it
-directly with `npm run cypress:run`.
-
+In order to run them: `yarn test`
 
 ## Continuous Integration
 
 -TODO-
+
+## Packaging and Deployment
+
+### Next
+
+`electron-builder-next.json` file is used to pack the application in `NEXT` mode.
+
+- `electron-pack-next`: Generates packages for Mac, Windows and Linux on the `dist` dir. Sets `REACT_APP_NEXT` to true.
+- `publish-next`: Publish the current version of the app in Github releases, but enables the "beta" channel.
+
+### Production
+
+Create a `electorn-builder.env` file with the value `GH_TOKEN` on it. This token is required to deploy the application on Github. It can be generated here: https://github.com/settings/tokens/new and the scope must be repository.
+
+- `electron-pack`: Generates packages for Mac, Windows and Linux on the `dist` dir.
+- `publish-prod`: Publish the current version of the app in Github releases on the repository.
+
+#### Release Channels
+
+From electron-builder docs: https://www.electron.build/tutorials/release-using-channels
+
+The following versions will be distributed to users depending on the channel defined:
+
+- `latest` or nothing: users will only get “latest” versions
+- `beta`: users will get “beta” and “latest” version
+- `alpha`: users will get “alpha”, “beta” and “latest” version
+
+##### How To Use It
+
+Imagine that your application is stable and in version `1.0.1`.
+
+If you want to release a beta for the new `1.1.0` version, you only need to update the package.json version with `1.1.0-beta`.
+
+When your application is stable enough, you want to release it to all users. For that, you only need to remove the -beta label from the package.json version tag.
+
+#### How to clean all the build releases
+
+Run the following command on `webapp` folder (this one).
+```
+xattr -cr .
+```
 
 ## React Docs
 

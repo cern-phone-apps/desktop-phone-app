@@ -8,11 +8,13 @@ const {
   dialog
 } = require('electron');
 
-const os = require('os');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
 const notifier = require('node-notifier');
+
+const { checkForUpdates } = require('./updater');
+const openAboutWindow = require('about-window').default;
 
 let mainWindow;
 let authWindow;
@@ -80,11 +82,53 @@ function unauthenticateUser() {
   });
 }
 
+const appImagePath = isDev
+  ? path.join(__dirname, '/../static/icon.png')
+  : path.join(process.resourcesPath, 'icon.png');
+
+const showQuitDialog = () => {
+  const options = {
+    type: 'question',
+    buttons: ['Minimize to tray', 'No', 'Yes'],
+    title: 'Confirm',
+    message: 'Are you sure you want to quit?'
+  };
+  const choice = dialog.showMessageBox(options);
+  console.log(choice);
+  if (choice === 2) {
+    forceQuit = true;
+    app.quit();
+  }
+  if (choice === 0) {
+    hide();
+  }
+};
+
 const menu = Menu.buildFromTemplate([
   {
-    label: 'Sample',
+    label: 'App',
     submenu: [
-      { label: 'About App', selector: 'orderFrontStandardAboutPanel:' },
+      {
+        label: 'About App',
+        accelerator: 'CmdOrCtrl+A',
+        click: () =>
+          openAboutWindow({
+            icon_path: appImagePath,
+            product_name: 'CERN Phone App',
+            package_json_dir: path.join(__dirname, '../'),
+            use_version_info: true,
+            license: 'GNU GENERAL PUBLIC (v3)',
+            bug_link_text:
+              'https://github.com/cern-dialtone/dial-clients/issues'
+          })
+      },
+      {
+        label: 'Check for updates...',
+        accelerator: 'CmdOrCtrl+U',
+        click: menuItem => {
+          checkForUpdates(menuItem);
+        }
+      },
       {
         label: 'Logout',
         accelerator: 'CmdOrCtrl+O',
@@ -96,18 +140,8 @@ const menu = Menu.buildFromTemplate([
         label: 'Quit',
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
-          const options = {
-            type: 'question',
-            buttons: ['Yes', 'No'],
-            title: 'Confirm',
-            message: 'Are you sure you want to quit?'
-          };
-          const choice = dialog.showMessageBox(options);
-          if (choice === 0) {
-            // e.preventDefault();
-            forceQuit = true;
-            app.quit();
-          }
+          forceQuit = true;
+          showQuitDialog();
         }
       }
     ]
@@ -141,9 +175,11 @@ const sendAppHideNotification = () => {
 };
 
 const showWindow = () => {
-  mainWindow.show();
-  if (os.platform() === 'darwin') {
-    app.dock.show();
+  if (mainWindow) {
+    mainWindow.show();
+  }
+  if (authWindow && !mainWindow) {
+    authWindow.hide();
   }
 };
 
@@ -167,6 +203,7 @@ const createWindow = () => {
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
+<<<<<<< HEAD
    if (isDev) {
      const {
        default: installExtension,
@@ -201,14 +238,16 @@ const createWindow = () => {
   });
 
   mainWindow.on('close', e => {
+    if (forceQuit) {
+      app.quit();
+    }
+
     if (!forceQuit) {
       e.preventDefault();
-      mainWindow.hide();
-      if (os.platform() === 'darwin') {
-        app.dock.hide();
-      }
-
-      sendAppHideNotification();
+      showQuitDialog();
+      // sendAppHideNotification();
+    } else {
+      app.quit();
     }
   });
 };
@@ -255,16 +294,14 @@ const handleAppCertificateError = (
 };
 
 const hide = () => {
-  mainWindow.hide();
-  if (os.platform() === 'darwin') {
-    app.dock.hide();
+  if (mainWindow) {
+    mainWindow.hide();
   }
-
   sendAppHideNotification();
 };
 
 const toggleWindow = () => {
-  const result = mainWindow.isVisible() ? hide() : showWindow();
+  const result = mainWindow && mainWindow.isVisible() ? hide() : showWindow();
   return result;
 };
 
@@ -288,11 +325,12 @@ const handleAppReady = () => {
       console.log('empty dict');
     }
 
+    Menu.setApplicationMenu(menu);
+    createTray();
+
     if (!isEmpty(data) && data.authenticated === true) {
       code = data;
       createWindow();
-      Menu.setApplicationMenu(menu);
-      createTray();
     } else {
       createAuthWindow();
     }
@@ -318,21 +356,6 @@ app.on('activate', appHandleActivate);
 
 app.on('activate-with-no-open-windows', () => {
   showWindow();
-  if (os.platform() === 'darwin') {
-    app.dock.show();
-  }
-});
-
-// You can use 'before-quit' instead of (or with) the close event
-app.on('before-quit', e => {
-  // Handle menu-item or keyboard shortcut quit here
-  if (!forceQuit) {
-    e.preventDefault();
-    mainWindow.hide();
-    if (os.platform() === 'darwin') {
-      app.dock.hide();
-    }
-  }
 });
 
 const appHandleLoadPage = (event, arg) => {

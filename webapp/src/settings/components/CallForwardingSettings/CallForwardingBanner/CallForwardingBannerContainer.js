@@ -3,7 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { openSettingsModal } from 'settings/actions/modal';
 import { bindActionCreators } from 'redux';
 import { callForwardingActionFactory } from 'dial-core';
+import config from 'config';
 import CallForwardingBanner from './CallForwardingBanner';
+
+const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ callForwarding, calls }) {
   return {
@@ -16,9 +19,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       openSettingsModal,
-      getCallForwardingStatus: callForwardingActionFactory(
-        process.env.REACT_APP_API_ENDPOINT
-      ).getCallForwardingStatus
+      getCallForwardingStatus: callForwardingActionFactory(apiEndpoint)
+        .getCallForwardingStatus
     },
     dispatch
   );
