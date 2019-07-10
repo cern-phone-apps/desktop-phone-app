@@ -20,7 +20,6 @@ const apiEndpoint = config.api.ENDPOINT;
 
 export function mapStateToProps({ calls, auth }) {
   return {
-    authToken: auth.authToken,
     doNotDisturb: calls.status.doNotDisturb,
     call: calls.call,
     toneToken: auth.toneToken

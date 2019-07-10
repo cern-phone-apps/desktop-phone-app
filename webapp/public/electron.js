@@ -13,8 +13,9 @@ const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
 const notifier = require('node-notifier');
 
-const { checkForUpdates } = require('./updater');
 const openAboutWindow = require('about-window').default;
+const keytar = require('keytar');
+const { checkForUpdates } = require('./updater');
 
 let mainWindow;
 let authWindow;
@@ -203,30 +204,29 @@ const createWindow = () => {
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
-<<<<<<< HEAD
-   if (isDev) {
-     const {
-       default: installExtension,
-       REACT_DEVELOPER_TOOLS,
-       REDUX_DEVTOOLS
-     } = require('electron-devtools-installer');
+  if (isDev) {
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS,
+      REDUX_DEVTOOLS
+    } = require('electron-devtools-installer');
 
-     installExtension(REACT_DEVELOPER_TOOLS)
-       .then(name => {
-         console.log(`Added Extension: ${name}`);
-       })
-       .catch(err => {
-         console.log('An error occurred: ', err);
-       });
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => {
+        console.log(`Added Extension: ${name}`);
+      })
+      .catch(err => {
+        console.log('An error occurred: ', err);
+      });
 
-     installExtension(REDUX_DEVTOOLS)
-       .then(name => {
-         console.log(`Added Extension: ${name}`);
-       })
-       .catch(err => {
-         console.log('An error occurred: ', err);
-       });
-   }
+    installExtension(REDUX_DEVTOOLS)
+      .then(name => {
+        console.log(`Added Extension: ${name}`);
+      })
+      .catch(err => {
+        console.log('An error occurred: ', err);
+      });
+  }
 
   mainWindow.once('ready-to-show', () => {
     console.log('Showing main window');
@@ -362,7 +362,7 @@ const appHandleLoadPage = (event, arg) => {
   mainWindow.loadURL(arg);
 };
 
-const ipcHandleSyncMessages = (event, arg, doNotDisturb = false) => {
+const ipcHandleSyncMessages = (event, arg, obj = null) => {
   console.log(`Syncrhonous message received: ${arg}`); // prints "ping"
 
   if (arg === 'code') {
@@ -379,14 +379,24 @@ const ipcHandleSyncMessages = (event, arg, doNotDisturb = false) => {
 
   if (arg === 'user-authenticated') {
     event.returnValue = 'ok';
+    if (obj.access_token && obj.refresh_token) {
+      keytar.setPassword('cern-app-phone', 'access_token', obj.access_token);
+      keytar.setPassword('cern-app-phone', 'refresh_token', obj.refresh_token);
+    }
     storage.set('is_authenticated', { authenticated: true }, error => {});
   }
 
   if (arg === 'receiveCall') {
     event.returnValue = 'ok';
-    if (!doNotDisturb) {
+    if (obj && !obj.doNotDisturb) {
       showWindow();
     }
+  }
+
+  if (arg === 'getSecret' && obj && obj.name) {
+    keytar.getPassword('cern-phone-app', obj.name).then(text => {
+      event.returnValue = text;
+    });
   }
 };
 
