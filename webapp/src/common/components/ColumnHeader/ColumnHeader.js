@@ -1,21 +1,24 @@
-import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-import "./ColumnHeader.css";
+import './ColumnHeader.css';
 
-export class ColumnHeader extends Component {
-  static propTypes = {
-    style: PropTypes.object,
-    children: PropTypes.node
-  };
-  render() {
-    return (
-      <header className="padded-item column-header" style={this.props.style}>
-        <Grid>{this.props.children}</Grid>
-      </header>
-    );
-  }
+export function ColumnHeader({ children, style }) {
+  return (
+    <header className="padded-item column-header" style={style}>
+      <Grid>{children}</Grid>
+    </header>
+  );
 }
+
+ColumnHeader.propTypes = {
+  style: PropTypes.shape({}),
+  children: PropTypes.node.isRequired
+};
+
+ColumnHeader.defaultProps = {
+  style: {}
+};
 
 export default ColumnHeader;

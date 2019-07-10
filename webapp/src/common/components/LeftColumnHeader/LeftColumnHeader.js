@@ -3,9 +3,9 @@ import { Grid, Header, Responsive } from 'semantic-ui-react';
 
 import './LeftColumnHeader.css';
 import ToggleButtonContainer from 'common/components/ToggleButton/ToggleButtonContainer';
-import ColumnHeader from 'common/components/ColumnHeader/ColumnHeader';
-import ConnectionStatusModalContainer from 'calls/components/ConnectionStatusModal/ConnectionStatusModalContainer';
-import ErrorButtonContainer from 'common/components/ErrorButton/ErrorButtonContainer';
+import { ColumnHeader } from 'common/components/ColumnHeader/ColumnHeader';
+import { ConnectionStatusModalContainerWithPhoneService } from 'calls/components/ConnectionStatusModal/ConnectionStatusModalContainer';
+import { ErrorButtonContainerWithPhoneService } from 'common/components/ErrorButton/ErrorButtonContainer';
 
 class LeftColumnHeader extends Component {
   centerColumnStyles = {
@@ -32,13 +32,13 @@ class LeftColumnHeader extends Component {
             <Header as="h4">
               {title}{' '}
               <Responsive
-                as={ErrorButtonContainer}
+                as={ErrorButtonContainerWithPhoneService}
                 {...Responsive.onlyMobile}
               />
             </Header>
           </Grid.Column>
           <Grid.Column textAlign="right" width={4} verticalAlign="middle">
-            <ConnectionStatusModalContainer />
+            <ConnectionStatusModalContainerWithPhoneService />
           </Grid.Column>
         </Grid.Row>
       </ColumnHeader>

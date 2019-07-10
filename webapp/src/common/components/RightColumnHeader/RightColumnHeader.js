@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Header, Label } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import './RightColumnHeader.css';
 import ColumnHeader from 'common/components/ColumnHeader/ColumnHeader';
-import ErrorButtonContainer from 'common/components/ErrorButton/ErrorButtonContainer';
-import DownloadDebugLogsButton from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
+import { ErrorButtonContainerWithPhoneService } from 'common/components/ErrorButton/ErrorButtonContainer';
+import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
 
 class RightColumnHeader extends Component {
   centerColumnStyles = {
@@ -16,6 +17,11 @@ class RightColumnHeader extends Component {
 
   headerStyles = {
     minHeight: '53px'
+  };
+
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    activeNumber: PropTypes.string.isRequired
   };
 
   render() {
@@ -33,7 +39,7 @@ class RightColumnHeader extends Component {
             width={10}
           >
             <Header as="h4">
-              {title} <ErrorButtonContainer />
+              {title} <ErrorButtonContainerWithPhoneService />
             </Header>
           </Grid.Column>
           <Grid.Column textAlign="right" width={3} verticalAlign="middle">
