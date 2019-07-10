@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Header, Label } from 'semantic-ui-react';
+import { Grid, Header, Label, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 import './RightColumnHeader.css';
@@ -31,7 +31,9 @@ class RightColumnHeader extends Component {
       <ColumnHeader style={this.headerStyles} verticalAlign="middle">
         <Grid.Row>
           <Grid.Column textAlign="left" width={3} verticalAlign="middle">
-            <Label>{activeNumber}</Label>
+            <Label>
+              <Icon name="phone" /> {activeNumber}
+            </Label>
           </Grid.Column>
           <Grid.Column
             style={this.centerColumnStyles}
