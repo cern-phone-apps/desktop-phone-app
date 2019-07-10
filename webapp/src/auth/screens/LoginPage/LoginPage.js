@@ -12,7 +12,6 @@ import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageCo
 
 const electron = window.require('electron');
 const { ipcRenderer } = electron;
-const keytar = require('keytar');
 
 export class LoginPage extends Component {
   static propTypes = {
@@ -47,12 +46,12 @@ export class LoginPage extends Component {
 
           console.log(result);
           if (result !== undefined && !result.error) {
+            ipcRenderer.sendSync('synchronous-message', 'user-authenticated', {
+              access_token: result.payload.access_token,
+              refresh_token: result.payload.refresh_token
+            });
             console.log('User logged in successfully. Getting. profile...');
-                /*               KEYTAR               */
-                console.log("===============================================\nCode = "+code+"\npassword = ", result);
-//            keytar.addPassword('dial-clients', code, );
             getMe();
-            ipcRenderer.sendSync('synchronous-message', 'user-authenticated');
           }
         })
         .catch(error => {
