@@ -5,7 +5,7 @@ import { Grid, Header, Segment, Modal, Message } from 'semantic-ui-react';
 
 import RightColumn from 'common/components/RightColumn/RightColumn';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
-import MainHeader from 'calls/components/MainHeader';
+import MainHeaderContainer from 'calls/components/MainHeader/MainHeaderContainer';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import NumberConnectorContainer from 'calls/components/NumberConnector/NumberConnectorContainer';
@@ -63,7 +63,7 @@ function NotConnectedScreen({ t }) {
       className="CallsScreen__RightColumn"
     >
       <RightColumn>
-        <MainHeader />
+        <MainHeaderContainer />
         <ErrorBoundary>
           <div className="call-inner-content">
             <Segment textAlign="center" basic>
