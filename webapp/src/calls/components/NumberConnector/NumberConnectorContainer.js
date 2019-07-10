@@ -4,15 +4,20 @@ import { bindActionCreators } from 'redux';
 
 import { numbersActionFactory, numbersActions } from 'dial-core';
 
+import * as setttingsActions from 'settings/actions/settings';
+
 import config from 'config';
 import NumberConnector from './NumberConnector';
 
 const apiEndpoint = config.api.ENDPOINT;
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ auth, calls, settings }) {
   return {
+    toneToken: auth.toneToken,
+    activeNumber: calls.numbers.activeNumber,
     connecting: calls.connection.connecting,
-    numbers: calls.numbers.numbers
+    numbers: calls.numbers.numbers,
+    rememberNumber: settings.settings.rememberNumber
   };
 }
 
@@ -21,7 +26,8 @@ function mapDispatchToProps(dispatch) {
     {
       getUserPhoneNumbers: numbersActionFactory(apiEndpoint)
         .getUserPhoneNumbers,
-      setActiveNumber: numbersActions.setActiveNumber
+      setActiveNumber: numbersActions.setActiveNumber,
+      setRememberNumber: setttingsActions.setRememberNumber
     },
     dispatch
   );
