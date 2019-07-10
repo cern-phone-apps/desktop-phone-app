@@ -1,27 +1,32 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Button, Dimmer, Icon, Loader, Segment } from "semantic-ui-react";
-import { actionMessage, logMessage } from "common/utils/logs";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Button,
+  Dimmer,
+  Icon,
+  Loader,
+  Segment,
+  Checkbox,
+  Form
+} from 'semantic-ui-react';
+import { actionMessage, logMessage } from 'common/utils/logs';
+import styles from './NumberConnector.module.css';
 
-const ButtonNumbersList = ({ numbers, connect }) => {
-  return (
-    <div>
-      {numbers.map((item, index) => {
-        return (
-          <Button
-            fluid
-            key={`number-${index}`}
-            className={"ConnectNumberButton"}
-            onClick={() => connect(item.phoneNumber)}
-          >
-            <Icon name="plug" />
-            {item.phoneNumber}
-          </Button>
-        );
-      })}
-    </div>
-  );
-};
+const ButtonNumbersList = ({ numbers, connect }) => (
+  <div>
+    {numbers.map((item, index) => (
+      <Button
+        fluid
+        key={`number-${index}`}
+        className="ConnectNumberButton"
+        onClick={() => connect(item.phoneNumber)}
+      >
+        <Icon name="plug" />
+        {item.phoneNumber}
+      </Button>
+    ))}
+  </div>
+);
 
 ButtonNumbersList.propTypes = {
   numbers: PropTypes.array,
@@ -37,11 +42,23 @@ export class NumberConnector extends Component {
     connecting: PropTypes.bool.isRequired,
     numbers: PropTypes.array,
     getUserPhoneNumbers: PropTypes.func.isRequired,
-    setActiveNumber: PropTypes.func.isRequired
+    setActiveNumber: PropTypes.func.isRequired,
+    rememberNumber: PropTypes.bool.isRequired,
+    setRememberNumber: PropTypes.func.isRequired
   };
 
   componentDidMount() {
-    const { getUserPhoneNumbers } = this.props;
+    const {
+      getUserPhoneNumbers,
+      rememberNumber,
+      toneToken,
+      activeNumber
+    } = this.props;
+
+    if (rememberNumber && toneToken && activeNumber) {
+      this.connect(activeNumber);
+    }
+
     getUserPhoneNumbers();
   }
 
@@ -55,12 +72,19 @@ export class NumberConnector extends Component {
     logMessage(result);
   };
 
+  rememberNumberOnChange = () => {
+    console.log('Remember number on change');
+    const { setRememberNumber, rememberNumber } = this.props;
+
+    setRememberNumber(!rememberNumber);
+  };
+
   render() {
-    let { connecting, numbers } = this.props;
+    const { connecting, numbers, rememberNumber } = this.props;
 
     if (connecting) {
       return (
-        <Segment padded basic textAlign={"center"}>
+        <Segment padded basic textAlign="center">
           <Dimmer active inverted>
             <Loader active inline="centered" content="Connecting..." />
           </Dimmer>
@@ -70,7 +94,7 @@ export class NumberConnector extends Component {
 
     if (numbers === undefined || numbers.length === 0) {
       return (
-        <Segment padded basic textAlign={"center"}>
+        <Segment padded basic textAlign="center">
           <Dimmer active inverted>
             <Loader
               active
@@ -83,11 +107,24 @@ export class NumberConnector extends Component {
     }
 
     return (
-      <ButtonNumbersList
-        numbers={numbers}
-        connect={this.connect}
-        connecting={connecting}
-      />
+      <React.Fragment>
+        <ButtonNumbersList
+          numbers={numbers}
+          connect={this.connect}
+          connecting={connecting}
+        />
+        <Form className={styles.rememberNumberForm}>
+          <Form.Field>
+            <Checkbox
+              toggle
+              checked={rememberNumber}
+              onChange={this.rememberNumberOnChange}
+              label="Register automatically the selected phone
+            number when app starts."
+            />
+          </Form.Field>
+        </Form>
+      </React.Fragment>
     );
   }
 }
