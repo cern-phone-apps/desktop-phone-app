@@ -31,4 +31,8 @@ export const ConnectionStatusModalContainer = connect(
   mapDispatchToProps
 )(ConnectionStatusModal);
 
-export default withPhoneService(ConnectionStatusModalContainer);
+export const ConnectionStatusModalContainerWithPhoneService = withPhoneService(
+  ConnectionStatusModalContainer
+);
+
+export default ConnectionStatusModalContainerWithPhoneService;
