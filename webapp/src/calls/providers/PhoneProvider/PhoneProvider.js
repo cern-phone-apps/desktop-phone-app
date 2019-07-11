@@ -26,6 +26,7 @@ export default class PhoneProvider extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     // Calls attrs
+    authToken: PropTypes.string,
     doNotDisturb: PropTypes.bool.isRequired,
     call: PropTypes.shape({
       remote: PropTypes.shape({}),
@@ -140,13 +141,14 @@ export default class PhoneProvider extends React.Component {
   authenticateUser = username => {
     const {
       requestRegistration,
-      setToneToken,
-      toneToken,
+      authToken,
       clearAuthToken,
       logout
     } = this.props;
     const { toneAPI } = this.state;
-    const authToken = ipcRenderer.sendSync('synchronous-message', 'getSecret', { name: 'access_token' });
+    const toneToken = ipcRenderer.sendSync('synchronous-message', 'getSecret', {
+      name: 'tone_token'
+    });
     logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     requestRegistration();
@@ -168,11 +170,18 @@ export default class PhoneProvider extends React.Component {
         clearAuthToken();
         logMessage('eToken is');
         logMessage(eToken);
-        setToneToken(eToken);
+
+        ipcRenderer.sendSync('synchronous-message', 'saveToneToken', {
+          name: 'saveToneToken',
+          tone_token: eToken
+        });
       }
     } catch (error) {
       errorMessage(error);
-      logout();
+      console.log(`toneToken: ${toneToken}`);
+      console.log(`tempToken: ${tempToken}`);
+      console.log(`authToken: ${authToken}`);
+      // logout();
     }
   };
 
@@ -400,9 +409,14 @@ export default class PhoneProvider extends React.Component {
     const { uri } = event.data.session.remoteIdentity;
     setIsReceivingCall(uri.user, null);
     if (this.props.doNotDisturb) {
-      new Notification("You are receiving a call.", { requireInteraction: true, timeout: 60 });
+      new Notification('You are receiving a call.', {
+        requireInteraction: true,
+        timeout: 60
+      });
     }
-    ipcRenderer.sendSync('synchronous-message', 'receiveCall', { doNotDisturb: this.props.doNotDisturb });
+    ipcRenderer.sendSync('synchronous-message', 'receiveCall', {
+      doNotDisturb: this.props.doNotDisturb
+    });
   }
 
   handleRejectedEvent() {

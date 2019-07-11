@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
+import { JwtTokenHandlerWeb, JwtTokenHandlerMobile, JwtTokenHandlerDesktop } from '../util/tokens';
 
 export const AUTH_START = '@@auth/AUTH_START';
 
@@ -31,11 +31,13 @@ const API_PATH = '/auth/v1/token';
 
 export default function(apiEndpoint, type = 'mobile') {
   const buildAuthURL = path => `${apiEndpoint}${API_PATH}${path}`;
-  let handlerClass;
+  let authHandlerClass;
   if (type === 'web') {
-    handlerClass = JwtTokenHandlerWeb;
-  } else {
-    handlerClass = JwtTokenHandlerMobile;
+    authHandlerClass = JwtTokenHandlerWeb;
+  } else if (type === 'desktop') {
+    authHandlerClass = JwtTokenHandlerDesktop;
+  }else {
+    authHandlerClass = JwtTokenHandlerMobile;
   }
 
   return {
@@ -69,7 +71,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildAuthURL('/logout/'),
         method: 'DELETE',
         credentials: type === 'web' ? 'include' : 'omit',
-        headers: handlerClass.withAuth({
+        headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
         types: [LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILURE]
@@ -87,7 +89,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildAuthURL('/refresh/'),
         method: 'POST',
         credentials: type === 'web' ? 'include' : 'omit',
-        headers: handlerClass.withRefresh({
+        headers: authHandlerClass.withRefresh({
           'Content-Type': 'application/json'
         }),
         types: [TOKEN_REQUEST, TOKEN_RECEIVED, TOKEN_FAILURE]

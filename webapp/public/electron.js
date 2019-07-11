@@ -365,7 +365,7 @@ const appHandleLoadPage = (event, arg) => {
 };
 
 const ipcHandleSyncMessages = (event, arg, obj = null) => {
-  console.log(`Syncrhonous message received: ${arg}`); // prints "ping"
+  console.log(`Synchronous message received: ${arg} ${obj ? obj.name : ''}`); // prints "ping"
 
   if (arg === 'code') {
     console.log(code);
@@ -382,8 +382,8 @@ const ipcHandleSyncMessages = (event, arg, obj = null) => {
   if (arg === 'user-authenticated') {
     event.returnValue = 'ok';
     if (obj.access_token && obj.refresh_token) {
-      keytar.setPassword('cern-app-phone', 'access_token', obj.access_token);
-      keytar.setPassword('cern-app-phone', 'refresh_token', obj.refresh_token);
+      keytar.setPassword('cern-phone-app', 'access_token', obj.access_token);
+      keytar.setPassword('cern-phone-app', 'refresh_token', obj.refresh_token);
     }
     storage.set('is_authenticated', { authenticated: true }, error => {});
   }
@@ -396,9 +396,17 @@ const ipcHandleSyncMessages = (event, arg, obj = null) => {
   }
 
   if (arg === 'getSecret' && obj && obj.name) {
-    keytar.getPassword('cern-phone-app', obj.name).then(text => {
-      event.returnValue = text;
+    const secret = keytar.getPassword('cern-phone-app', obj.name);
+    secret.then(result => {
+      event.returnValue = result; // result will be 'secret'
     });
+  }
+
+  if (arg === 'saveToneToken' && obj && obj.name) {
+    if (obj.tone_token) {
+      keytar.setPassword('cern-phone-app', 'tone_token', obj.tone_token);
+    }
+    event.returnValue = 'ok';
   }
 };
 
