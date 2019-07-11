@@ -12,7 +12,7 @@ const apiEndpoint = config.api.ENDPOINT;
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: authActionFactory(apiEndpoint, "desktop").logout
+      logout: authActionFactory(apiEndpoint, 'desktop').logout
     },
     dispatch
   );

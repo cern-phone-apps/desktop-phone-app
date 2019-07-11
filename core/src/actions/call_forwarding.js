@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
+import { JwtTokenHandlerWeb, JwtTokenHandlerMobile, JwtTokenHandlerDesktop } from '../util/tokens';
 
 export const ADD_LOCAL_FORWARD_NUMBER = '@@settings/ADD_LOCAL_FORWARD_NUMBER';
 export const ADD_LOCAL_RINGING_NUMBER = '@@settings/ADD_LOCAL_RINGING_NUMBER';
@@ -66,6 +66,8 @@ export default function(apiEndpoint, type = 'mobile') {
   let authHandlerClass;
   if (type === 'web') {
     authHandlerClass = JwtTokenHandlerWeb;
+  } else if (type === 'desktop') {
+    authHandlerClass = JwtTokenHandlerDesktop;
   } else {
     authHandlerClass = JwtTokenHandlerMobile;
   }

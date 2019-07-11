@@ -2,14 +2,12 @@ import jwtDecode from 'jwt-decode';
 
 import JwtTokenHandlerBase from './JwtTokenHandlerBase';
 
-global.require("electron");
+let electron = window.require("electron");
+let {ipcRenderer} = electron;
 
 export default class JwtTokenHandlerDesktop extends JwtTokenHandlerBase {
-  static getAccessToken() {
-    let electron = window.require("electron");
-    let {ipcRenderer} = electron;
-    
-    return ipcRenderer.sendSync("getSecret", { name: 'access_token' });
+  static getAccessToken(state) {
+    return ipcRenderer.sendSync('synchronous-message', 'getSecret', { name: 'access_token' });
   }
 
   static isAccessTokenExpired() {
@@ -25,17 +23,11 @@ export default class JwtTokenHandlerDesktop extends JwtTokenHandlerBase {
     return true;
   }
 
-  static getRefreshToken() {
-    let electron = window.require("electron");
-    let {ipcRenderer} = electron;
-   
-    return ipcRenderer.sendSync("getSecret", { name: 'refresh_token' });
+  static getRefreshToken(state) {
+    return ipcRenderer.sendSync('synchronous-message', 'getSecret', { name: 'refresh_token' });
   }
 
   static isRefreshTokenExpired(state) {
-    let electron = window.require("electron");
-    let {ipcRenderer} = electron;
-   
     let access_token;
     if ((access_token = ipcRenderer.sendSync("getSecret", { name: 'refresh_token' }))) {
       const token = jwtDecode(access_token);
@@ -54,7 +46,7 @@ export default class JwtTokenHandlerDesktop extends JwtTokenHandlerBase {
   static withAuth(headers = {}) {
     return state => ({
       ...headers,
-      Authorization: () => `Bearer ${JwtTokenHandlerDesktop.getAccessToken()}`,
+      Authorization: `Bearer ${JwtTokenHandlerDesktop.getAccessToken()}`,
       Cookie: '' // This line is needed or else the refresh will fail
     });
   }

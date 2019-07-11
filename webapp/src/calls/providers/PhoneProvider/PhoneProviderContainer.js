@@ -22,7 +22,7 @@ export function mapStateToProps({ calls, auth }) {
   return {
     doNotDisturb: calls.status.doNotDisturb,
     call: calls.call,
-    toneToken: auth.toneToken
+    authToken: auth.authToken
   };
 }
 

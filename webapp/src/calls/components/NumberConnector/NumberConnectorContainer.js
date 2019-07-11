@@ -13,7 +13,6 @@ const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ auth, calls, settings }) {
   return {
-    toneToken: auth.toneToken,
     activeNumber: calls.numbers.activeNumber,
     connecting: calls.connection.connecting,
     numbers: calls.numbers.numbers,
@@ -24,7 +23,7 @@ function mapStateToProps({ auth, calls, settings }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserPhoneNumbers: numbersActionFactory(apiEndpoint, "desktop")
+      getUserPhoneNumbers: numbersActionFactory(apiEndpoint, 'desktop')
         .getUserPhoneNumbers,
       setActiveNumber: numbersActions.setActiveNumber,
       setRememberNumber: setttingsActions.setRememberNumber
