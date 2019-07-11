@@ -15,7 +15,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserContacts: contactsActionFactory(apiEndpoint).getUserContacts
+      getUserContacts: contactsActionFactory(apiEndpoint, "desktop").getUserContacts
     },
     dispatch
   );

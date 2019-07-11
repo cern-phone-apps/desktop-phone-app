@@ -19,8 +19,8 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setUserDoNotDisturb: meActionFactory(apiEndpoint).setUserDoNotDisturb,
-      getMe: meActionFactory(apiEndpoint).getMe
+      setUserDoNotDisturb: meActionFactory(apiEndpoint, "desktop").setUserDoNotDisturb,
+      getMe: meActionFactory(apiEndpoint, "desktop").getMe
     },
     dispatch
   );

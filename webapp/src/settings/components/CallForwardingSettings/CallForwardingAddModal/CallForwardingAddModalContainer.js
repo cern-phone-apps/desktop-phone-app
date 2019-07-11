@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
     {
       addLocalForwardNumber: callForwardingActions.addLocalForwardNumber,
       addLocalRingingNumber: callForwardingActions.addLocalRingingNumber,
-      searchUsers: usersActionFactory(apiEndpoint).searchUsers
+      searchUsers: usersActionFactory(apiEndpoint, "desktop").searchUsers
     },
     dispatch
   );

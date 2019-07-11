@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectUser: searchActions.selectUser,
-      searchUsers: usersActionFactory(apiEndpoint).searchUsers
+      searchUsers: usersActionFactory(apiEndpoint, "desktop").searchUsers
     },
     dispatch
   );
