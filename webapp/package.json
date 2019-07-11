@@ -5,6 +5,7 @@
   "homepage": "./",
   "author": "CERN",
   "description": "CERN Phone Application to place and receive calls.",
+  "license": "GNU GENERAL PUBLIC (v3)",
   "main": "public/electron.js",
   "repository": "https://github.com/cern-dialtone/dial-clients.git",
   "scripts": {
@@ -133,6 +134,7 @@
   },
   "build": {
     "appId": "ch.cern.phonewebapp",
+    "productName": "CERN Phone App",
     "generateUpdatesFilesForAllChannels": true,
     "asarUnpack": [
       "./node_modules/node-notifier/vendor/**"
@@ -155,7 +157,7 @@
     },
     "appImage": {
       "synopsis": "CERN Phone Application to place and receive calls.",
-      "category": "Utilities"
+      "category": "Utility"
     },
     "files": [
       "build/**/*",
