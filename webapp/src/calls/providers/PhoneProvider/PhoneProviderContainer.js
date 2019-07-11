@@ -30,7 +30,7 @@ export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...authActions,
-      logout: authActionFactory(apiEndpoint).logout,
+      logout: authActionFactory(apiEndpoint, "desktop").logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions,

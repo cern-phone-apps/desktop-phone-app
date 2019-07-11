@@ -16,9 +16,9 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      addUserContact: contactsActionFactory(apiEndpoint).addUserContact,
-      removeUserContact: contactsActionFactory(apiEndpoint).removeUserContact,
-      getUserContacts: contactsActionFactory(apiEndpoint).getUserContacts
+      addUserContact: contactsActionFactory(apiEndpoint, "desktop").addUserContact,
+      removeUserContact: contactsActionFactory(apiEndpoint, "desktop").removeUserContact,
+      getUserContacts: contactsActionFactory(apiEndpoint, "desktop").getUserContacts
     },
     dispatch
   );

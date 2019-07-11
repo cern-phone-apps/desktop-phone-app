@@ -19,7 +19,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserPhoneNumbers: numbersActionFactory(apiEndpoint)
+      getUserPhoneNumbers: numbersActionFactory(apiEndpoint, "desktop")
         .getUserPhoneNumbers,
       setActiveNumber: numbersActions.setActiveNumber
     },
