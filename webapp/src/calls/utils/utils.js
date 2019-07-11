@@ -22,7 +22,7 @@ export const getWindowTitle = (connected, onCall, calling) => {
     title = 'You are disconnected';
   }
   if (connected) {
-    title = 'Make a call';
+    title = 'Connected';
   }
   if (calling) {
     title = 'Calling';

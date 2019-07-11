@@ -1,11 +1,8 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import ToggleButton from "common/components/ToggleButton/ToggleButton";
-import {
-  displaySidebar,
-  finishedDisplayingSidebar
-} from "common/actions/sidebar";
+import ToggleButton from 'common/components/ToggleButton/ToggleButton';
+import { displaySidebar } from 'common/actions/sidebar';
 
 function mapStateToProps({ common }) {
   return {
@@ -17,8 +14,7 @@ function mapStateToProps({ common }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      displaySidebar,
-      finishedDisplayingSidebar
+      displaySidebar
     },
     dispatch
   );

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import './RightColumnHeader.css';
 import ColumnHeader from 'common/components/ColumnHeader/ColumnHeader';
-import { ErrorButtonContainerWithPhoneService } from 'common/components/ErrorButton/ErrorButtonContainer';
 import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
 
 class RightColumnHeader extends Component {
@@ -40,9 +39,7 @@ class RightColumnHeader extends Component {
             textAlign="center"
             width={10}
           >
-            <Header as="h4">
-              {title} <ErrorButtonContainerWithPhoneService />
-            </Header>
+            <Header as="h4">{title}</Header>
           </Grid.Column>
           <Grid.Column textAlign="right" width={3} verticalAlign="middle">
             <DownloadDebugLogsButton />
