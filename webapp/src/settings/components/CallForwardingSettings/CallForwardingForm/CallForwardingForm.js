@@ -26,8 +26,14 @@ export class CallForwardingForm extends React.Component {
     }).isRequired,
     activeNumber: PropTypes.string.isRequired,
     lastOperationResult: PropTypes.shape({
-      success: PropTypes.bool.isRequired
-    }).isRequired
+      success: PropTypes.bool
+    })
+  };
+
+  static defaultProps = {
+    lastOperationResult: {
+      success: false
+    }
   };
 
   state = {

@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { openSettingsModal, closeSettingsModal } from "settings/actions/modal";
-import SettingsModal from "settings/components/SettingsModal/SettingsModal";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { openSettingsModal, closeSettingsModal } from 'settings/actions/modal';
+import SettingsModal from 'settings/components/SettingsModal/SettingsModal';
 
 function mapStateToProps({ settings }) {
   return {
@@ -11,10 +11,13 @@ function mapStateToProps({ settings }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    openSettingsModal,
-    closeSettingsModal
-  }, dispatch);
+  return bindActionCreators(
+    {
+      openSettingsModal,
+      closeSettingsModal
+    },
+    dispatch
+  );
 }
 
 export default withRouter(
