@@ -1,27 +1,8 @@
 import * as sidebarActions from 'common/actions/sidebar';
 
 const initialState = {
-  isVisible: false,
-  isDisplaying: false,
-  contentDimmed: false,
-  displayTime: 500
+  isVisible: false
 };
-
-function setSidebarIsDisplaying(state) {
-  return {
-    ...state,
-    isVisible: true,
-    contentDimmed: true,
-    isDisplaying: true
-  };
-}
-
-function setSidebarFinishedDisplaying(state) {
-  return {
-    ...state,
-    isDisplaying: false
-  };
-}
 
 /**
  * Handles the state of the sidebar.
@@ -40,22 +21,14 @@ const sidebar = (state = initialState, action) => {
      * If the sidebar wants to be displayed or is being displayed.
      */
     case sidebarActions.DISPLAY_SIDEBAR:
-    case sidebarActions.IS_DISPLAYING:
-      return setSidebarIsDisplaying(state);
-
-    case sidebarActions.FINISHED_DISPLAYING:
-      return setSidebarFinishedDisplaying(state);
-
-    case sidebarActions.HIDE_SIDEBAR:
-      if (state.isDisplaying === false) {
-        return {
-          ...state,
-          isVisible: false,
-          contentDimmed: false
-        };
-      }
       return {
-        ...state
+        ...state,
+        isVisible: true
+      };
+    case sidebarActions.HIDE_SIDEBAR:
+      return {
+        ...state,
+        isVisible: false
       };
     default:
       return state;

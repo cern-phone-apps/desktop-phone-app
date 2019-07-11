@@ -30,6 +30,10 @@ function isEmpty(ob) {
   return true;
 }
 
+const appImagePath = isDev
+  ? path.join(__dirname, '/../static/icon.png')
+  : path.join(process.resourcesPath, 'icon.png');
+
 const handleAuthClosedEvent = () => {
   // Dereference the authWindowdow object, usually you would store authWindowdows
   // in an array if your app supports multi authWindowdows, this is the time
@@ -55,8 +59,9 @@ function createAuthWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: false
+    },
+    icon: appImagePath
   });
 
   const oauthUrl = `https://webrtc-auth.web.cern.ch`;
@@ -82,10 +87,6 @@ function unauthenticateUser() {
     }
   });
 }
-
-const appImagePath = isDev
-  ? path.join(__dirname, '/../static/icon.png')
-  : path.join(process.resourcesPath, 'icon.png');
 
 const showQuitDialog = () => {
   const options = {
@@ -188,14 +189,15 @@ const createWindow = () => {
   console.log('Creating main window');
   mainWindow = new BrowserWindow({
     backgroundColor: '#F7F7F7',
-    minWidth: 800,
+    minWidth: 350,
     show: false,
     // titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
     },
     height: 600,
-    width: 1024
+    width: 1024,
+    icon: appImagePath
   });
 
   mainWindow.loadURL(

@@ -1,9 +1,8 @@
-import * as modalActions from 'settings/actions/modal'
+import * as modalActions from 'settings/actions/modal';
 
 const initialState = {
-  modalOpen: false,
+  modalOpen: false
 };
-
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -18,6 +17,6 @@ export default (state = initialState, action) => {
         modalOpen: false
       };
     default:
-      return state
+      return state;
   }
-}
+};
