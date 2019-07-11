@@ -6,7 +6,6 @@ import { Icon, Modal, Menu, Header } from 'semantic-ui-react';
 import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings';
 import PersonalInfoContainer from 'settings/components/PersonalInfo/PersonalInfoContainer';
 import AppInfo from 'settings/components/AppInfo/AppInfo';
-import NotificationsSettings from 'settings/components/NotificationsSettings/NotificationsSettings';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import CallsSettings from 'settings/components/CallsSettings/CallsSettings';
 import RememberNumberSettingsContainer from 'settings/components/RememberNumberSettings/RememberNumberSettingsContainer';
@@ -66,8 +65,6 @@ export class SettingsModal extends Component {
             <RememberNumberSettingsContainer />
             <hr />
             <DeviceSettings />
-            <hr />
-            <NotificationsSettings />
             <hr />
             <Header as="h4">{t('dangerZoneHeader')}</Header>
             <LogoutButtonContainer color="red" />

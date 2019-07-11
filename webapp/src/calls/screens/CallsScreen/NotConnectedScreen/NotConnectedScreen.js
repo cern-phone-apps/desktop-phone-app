@@ -24,8 +24,8 @@ function SelectPhoneNumberModal({ modalOpen }) {
           header="Have you installed CERN certificates?"
           content={
             <p>
-              CERN certificates are required to run this application. If you
-              haven&apos;t intelled them yet, please follow the steps{' '}
+              CERN CA certificates are required to run this application. If you
+              haven&apos;t installed them yet, please follow the steps{' '}
               <a
                 href={getCERNCertificatesURL()}
                 target="_blank"
