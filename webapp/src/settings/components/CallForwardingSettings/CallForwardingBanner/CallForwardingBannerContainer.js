@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       openSettingsModal,
-      getCallForwardingStatus: callForwardingActionFactory(apiEndpoint)
+      getCallForwardingStatus: callForwardingActionFactory(apiEndpoint, "desktop")
         .getCallForwardingStatus
     },
     dispatch

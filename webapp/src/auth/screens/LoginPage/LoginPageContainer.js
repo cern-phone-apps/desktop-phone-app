@@ -19,8 +19,8 @@ function mapStateToProps({ auth }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getMe: meActionFactory(apiEndpoint).getMe,
-      login: authActionFactory(apiEndpoint).login
+      getMe: meActionFactory(apiEndpoint, "desktop").getMe,
+      login: authActionFactory(apiEndpoint, "desktop").login
     },
     dispatch
   );

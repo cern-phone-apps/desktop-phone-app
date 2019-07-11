@@ -13,8 +13,9 @@ const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
 const notifier = require('node-notifier');
 
-const { checkForUpdates } = require('./updater');
 const openAboutWindow = require('about-window').default;
+const keytar = require('keytar');
+const { checkForUpdates } = require('./updater');
 
 let mainWindow;
 let authWindow;
@@ -363,7 +364,7 @@ const appHandleLoadPage = (event, arg) => {
   mainWindow.loadURL(arg);
 };
 
-const ipcHandleSyncMessages = (event, arg, doNotDisturb = false) => {
+const ipcHandleSyncMessages = (event, arg, obj = null) => {
   console.log(`Syncrhonous message received: ${arg}`); // prints "ping"
 
   if (arg === 'code') {
@@ -380,14 +381,24 @@ const ipcHandleSyncMessages = (event, arg, doNotDisturb = false) => {
 
   if (arg === 'user-authenticated') {
     event.returnValue = 'ok';
+    if (obj.access_token && obj.refresh_token) {
+      keytar.setPassword('cern-app-phone', 'access_token', obj.access_token);
+      keytar.setPassword('cern-app-phone', 'refresh_token', obj.refresh_token);
+    }
     storage.set('is_authenticated', { authenticated: true }, error => {});
   }
 
   if (arg === 'receiveCall') {
     event.returnValue = 'ok';
-    if (!doNotDisturb) {
+    if (obj && !obj.doNotDisturb) {
       showWindow();
     }
+  }
+
+  if (arg === 'getSecret' && obj && obj.name) {
+    keytar.getPassword('cern-phone-app', obj.name).then(text => {
+      event.returnValue = text;
+    });
   }
 };
 

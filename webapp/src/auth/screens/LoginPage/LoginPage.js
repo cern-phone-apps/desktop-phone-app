@@ -46,9 +46,12 @@ export class LoginPage extends Component {
 
           console.log(result);
           if (result !== undefined && !result.error) {
+            ipcRenderer.sendSync('synchronous-message', 'user-authenticated', {
+              access_token: result.payload.access_token,
+              refresh_token: result.payload.refresh_token
+            });
             console.log('User logged in successfully. Getting. profile...');
             getMe();
-            ipcRenderer.sendSync('synchronous-message', 'user-authenticated');
           }
         })
         .catch(error => {
