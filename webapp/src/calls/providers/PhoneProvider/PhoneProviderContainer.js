@@ -20,7 +20,6 @@ const apiEndpoint = config.api.ENDPOINT;
 
 export function mapStateToProps({ calls, auth }) {
   return {
-    authToken: auth.authToken,
     doNotDisturb: calls.status.doNotDisturb,
     call: calls.call,
     toneToken: auth.toneToken
@@ -31,7 +30,7 @@ export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...authActions,
-      logout: authActionFactory(apiEndpoint).logout,
+      logout: authActionFactory(apiEndpoint, "desktop").logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions,

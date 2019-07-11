@@ -12,7 +12,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectContact: contactsActions.selectContact,
-      findUserById: usersActionFactory(apiEndpoint).findUserById
+      findUserById: usersActionFactory(apiEndpoint, "desktop").findUserById
     },
     dispatch
   );

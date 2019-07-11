@@ -18,7 +18,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: authActionFactory(apiEndpoint).logout
+      logout: authActionFactory(apiEndpoint, "desktop").logout
     },
     dispatch
   );

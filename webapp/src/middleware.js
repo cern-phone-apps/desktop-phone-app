@@ -3,7 +3,7 @@ import { authActions, authActionFactory, util } from 'dial-core';
 
 import config from 'config';
 
-const { JwtTokenHandlerMobile } = util.tokens;
+const { JwtTokenHandlerDesktop } = util.tokens;
 
 const apiEndpoint = config.api.ENDPOINT;
 
@@ -31,7 +31,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
 
     if (isRSAA(action)) {
       const state = getState();
-      const refreshToken = JwtTokenHandlerMobile.getRefreshToken(state);
+      const refreshToken = JwtTokenHandlerDesktop.getRefreshToken(state);
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
@@ -40,11 +40,11 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         return rsaaMiddleware(next)(action);
       }
 
-      if (refreshToken && JwtTokenHandlerMobile.isAccessTokenExpired(state)) {
+      if (refreshToken && JwtTokenHandlerDesktop.isAccessTokenExpired()) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(apiEndpoint, 'mobile').refreshAccessToken()
+            authActionFactory(apiEndpoint, 'desktop').refreshAccessToken()
           );
         }
         return null;

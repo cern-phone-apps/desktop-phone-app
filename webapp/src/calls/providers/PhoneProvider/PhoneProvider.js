@@ -26,7 +26,6 @@ export default class PhoneProvider extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     // Calls attrs
-    authToken: PropTypes.string,
     doNotDisturb: PropTypes.bool.isRequired,
     call: PropTypes.shape({
       remote: PropTypes.shape({}),
@@ -140,7 +139,6 @@ export default class PhoneProvider extends React.Component {
    */
   authenticateUser = username => {
     const {
-      authToken,
       requestRegistration,
       setToneToken,
       toneToken,
@@ -148,7 +146,7 @@ export default class PhoneProvider extends React.Component {
       logout
     } = this.props;
     const { toneAPI } = this.state;
-
+    const authToken = ipcRenderer.sendSync('synchronous-message', 'getSecret', { name: 'access_token' });
     logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     requestRegistration();
@@ -404,7 +402,7 @@ export default class PhoneProvider extends React.Component {
     if (this.props.doNotDisturb) {
       new Notification("You are receiving a call.", { requireInteraction: true, timeout: 60 });
     }
-    ipcRenderer.sendSync('synchronous-message', 'receiveCall', this.props.doNotDisturb);
+    ipcRenderer.sendSync('synchronous-message', 'receiveCall', { doNotDisturb: this.props.doNotDisturb });
   }
 
   handleRejectedEvent() {
