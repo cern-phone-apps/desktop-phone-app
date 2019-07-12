@@ -10,10 +10,8 @@ import {
   Form
 } from 'semantic-ui-react';
 import { actionMessage, logMessage } from 'common/utils/logs';
+import ElectronService from 'services/electron-service';
 import styles from './NumberConnector.module.css';
-
-const electron = window.require('electron');
-const { ipcRenderer } = electron;
 
 const ButtonNumbersList = ({ numbers, connect }) => (
   <div>
@@ -53,9 +51,7 @@ export class NumberConnector extends Component {
   componentDidMount() {
     const { getUserPhoneNumbers, rememberNumber, activeNumber } = this.props;
 
-    const toneToken = ipcRenderer.sendSync('synchronous-message', 'getSecret', {
-      name: 'tone_token'
-    });
+    const toneToken = ElectronService.getToneToken();
 
     if (rememberNumber && toneToken && activeNumber) {
       this.connect(activeNumber);

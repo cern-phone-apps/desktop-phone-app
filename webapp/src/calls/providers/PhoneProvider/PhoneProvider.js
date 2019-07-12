@@ -12,8 +12,7 @@ import {
   toneOutMessage
 } from 'common/utils/logs';
 
-const electron = window.require('electron');
-const { ipcRenderer } = electron;
+import ElectronService from 'services/electron-service';
 
 const ringToneId = 'ringTone';
 const ringBackToneId = 'ringbackTone';
@@ -146,9 +145,7 @@ export default class PhoneProvider extends React.Component {
       logout
     } = this.props;
     const { toneAPI } = this.state;
-    const toneToken = ipcRenderer.sendSync('synchronous-message', 'getSecret', {
-      name: 'tone_token'
-    });
+    const toneToken = ElectronService.getToneToken();
     logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     requestRegistration();
@@ -171,17 +168,14 @@ export default class PhoneProvider extends React.Component {
         logMessage('eToken is');
         logMessage(eToken);
 
-        ipcRenderer.sendSync('synchronous-message', 'saveToneToken', {
-          name: 'saveToneToken',
-          tone_token: eToken
-        });
+        ElectronService.saveToneToken(eToken);
       }
     } catch (error) {
       errorMessage(error);
       console.log(`toneToken: ${toneToken}`);
       console.log(`tempToken: ${tempToken}`);
       console.log(`authToken: ${authToken}`);
-      // logout();
+      logout();
     }
   };
 
@@ -409,14 +403,12 @@ export default class PhoneProvider extends React.Component {
     const { uri } = event.data.session.remoteIdentity;
     setIsReceivingCall(uri.user, null);
     if (this.props.doNotDisturb) {
-      new Notification('You are receiving a call.', {
+      Notification('You are receiving a call.', {
         requireInteraction: true,
         timeout: 60
       });
     }
-    ipcRenderer.sendSync('synchronous-message', 'receiveCall', {
-      doNotDisturb: this.props.doNotDisturb
-    });
+    ElectronService.setReceivingCall(this.props.doNotDisturb);
   }
 
   handleRejectedEvent() {
