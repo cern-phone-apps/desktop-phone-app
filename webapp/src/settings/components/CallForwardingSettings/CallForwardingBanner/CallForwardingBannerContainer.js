@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       openSettingsModal,
-      getCallForwardingStatus: dialBackendApi.getCallForwardingStatus
+      getCallForwardingStatus: dialBackendApi().getCallForwardingStatus
     },
     dispatch
   );

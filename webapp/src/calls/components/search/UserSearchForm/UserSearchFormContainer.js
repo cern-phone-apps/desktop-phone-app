@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectUser: searchActions.selectUser,
-      searchUsers: dialBackendApi.searchUsers
+      searchUsers: dialBackendApi().searchUsers
     },
     dispatch
   );

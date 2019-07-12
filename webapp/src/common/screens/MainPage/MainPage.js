@@ -38,21 +38,15 @@ function MainSidebar(props) {
 MainSidebar.propTypes = {
   visible: PropTypes.bool,
   renderSidebarItems: PropTypes.any,
-  onClick: PropTypes.func,
-  hideSidebarIfVisible: PropTypes.func
+  onClick: PropTypes.func
 };
 
-function MainPusher({
-  dimmed,
-  notifications,
-  renderMainRoutes,
-  hideSidebarIfVisible
-}) {
+function MainPusher({ dimmed, notifications, renderMainRoutes }) {
   return (
     <Sidebar.Pusher dimmed={dimmed} className="MainPusher">
       {renderMainRoutes}
       <Notifications notifications={notifications} />
-      <SettingsModalContainer hideSidebarIfVisible={hideSidebarIfVisible} />
+      <SettingsModalContainer />
     </Sidebar.Pusher>
   );
 }
@@ -60,8 +54,7 @@ function MainPusher({
 MainPusher.propTypes = {
   dimmed: PropTypes.bool,
   renderMainRoutes: PropTypes.any,
-  notifications: PropTypes.any,
-  hideSidebarIfVisible: PropTypes.func
+  notifications: PropTypes.any
 };
 
 export class MainPage extends Component {
@@ -144,14 +137,12 @@ export class MainPage extends Component {
           visible={isVisible}
           renderSidebarItems={this.renderSidebarItems()}
           onClick={this.openSettingsModalAction}
-          hideSidebarIfVisible={this.hideSidebarIfVisible}
           onHide={this.handleSidebarHide}
         />
         <MainPusher
           dimmed={isVisible}
           renderMainRoutes={this.renderMainRoutes()}
           notifications={notifications}
-          hideSidebarIfVisible={this.hideSidebarIfVisible}
         />
       </Sidebar.Pushable>
     );

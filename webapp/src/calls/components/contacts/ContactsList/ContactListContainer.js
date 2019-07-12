@@ -12,7 +12,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserContacts: dialBackendApi.getUserContacts
+      getUserContacts: dialBackendApi().getUserContacts
     },
     dispatch
   );

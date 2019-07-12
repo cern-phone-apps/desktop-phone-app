@@ -28,8 +28,10 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
     );
 
     if (isRSAA(action)) {
+      console.log('isRsaa action');
       const state = getState();
       const refreshToken = JwtTokenHandlerDesktop.getRefreshToken(state);
+      console.log(refreshToken);
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
@@ -42,7 +44,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            dialBackendApi.refreshAccessToken()
+            dialBackendApi().refreshAccessToken()
           );
         }
         return null;

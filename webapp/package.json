@@ -109,6 +109,7 @@
   "devDependencies": {
     "concurrently": "^4.1.1",
     "cross-env": "^5.1.5",
+    "devtron": "^1.4.0",
     "electron": "^5.0.6",
     "electron-builder": "^20.44.4",
     "electron-devtools-installer": "^2.2.4",
@@ -159,7 +160,7 @@
         "Name": "CERN Phone App",
         "Icon": "./assets/512x512.icns",
         "Comment": "CERN Phone Application to place and receive calls."
-        }
+      }
     },
     "appImage": {
       "synopsis": "CERN Phone Application to place and receive calls.",

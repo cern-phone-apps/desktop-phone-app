@@ -27,7 +27,7 @@ export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...authActions,
-      logout: dialBackendApi.logout,
+      logout: dialBackendApi().logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions,

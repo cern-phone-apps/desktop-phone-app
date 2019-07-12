@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
     {
       addLocalForwardNumber: callForwardingActions.addLocalForwardNumber,
       addLocalRingingNumber: callForwardingActions.addLocalRingingNumber,
-      searchUsers: dialBackendApi.searchUsers
+      searchUsers: dialBackendApi().searchUsers
     },
     dispatch
   );

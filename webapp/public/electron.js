@@ -76,6 +76,9 @@ function createAuthWindow() {
 
 function unauthenticateUser() {
   storage.set('is_authenticated', {}, error => {
+    keytar.deletePassword('cern-phone-app', 'access_token');
+    keytar.deletePassword('cern-phone-app', 'refresh_token');
+    keytar.deletePassword('cern-phone-app', 'tone_token');
     if (error) {
       console.log(`Error is_authenticated: ${error}`);
     }
@@ -228,11 +231,16 @@ const createWindow = () => {
       .catch(err => {
         console.log('An error occurred: ', err);
       });
+    require('devtron').install();
   }
 
   mainWindow.once('ready-to-show', () => {
     console.log('Showing main window');
     showWindow();
+
+    if (isDev) {
+      mainWindow.webContents.openDevTools();
+    }
 
     ipcMain.on('open-external-window', (event, arg) => {
       shell.openExternal(arg);
@@ -364,7 +372,23 @@ const appHandleLoadPage = (event, arg) => {
   mainWindow.loadURL(arg);
 };
 
-const ipcHandleSyncMessages = (event, arg, obj = null) => {
+const handleUserAsAuthenticated = async obj => {
+  if (obj.access_token && obj.refresh_token) {
+    await keytar.setPassword(
+      'cern-phone-app',
+      'access_token',
+      obj.access_token
+    );
+    await keytar.setPassword(
+      'cern-phone-app',
+      'refresh_token',
+      obj.refresh_token
+    );
+  }
+  storage.set('is_authenticated', { authenticated: true }, error => {});
+};
+
+const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   console.log(`Synchronous message received: ${arg} ${obj ? obj.name : ''}`); // prints "ping"
 
   if (arg === 'code') {
@@ -380,12 +404,8 @@ const ipcHandleSyncMessages = (event, arg, obj = null) => {
   }
 
   if (arg === 'user-authenticated') {
+    await handleUserAsAuthenticated(obj);
     event.returnValue = 'ok';
-    if (obj.access_token && obj.refresh_token) {
-      keytar.setPassword('cern-phone-app', 'access_token', obj.access_token);
-      keytar.setPassword('cern-phone-app', 'refresh_token', obj.refresh_token);
-    }
-    storage.set('is_authenticated', { authenticated: true }, error => {});
   }
 
   if (arg === 'receiveCall') {
