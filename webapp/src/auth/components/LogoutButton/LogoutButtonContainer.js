@@ -3,16 +3,13 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import TranslatedLogoutButton from 'auth/components/LogoutButton/LogoutButton';
-import { authActionFactory } from 'dial-core';
 
-import config from 'config';
-
-const apiEndpoint = config.api.ENDPOINT;
+import dialBackendApi from 'services/api';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: authActionFactory(apiEndpoint, 'desktop').logout
+      logout: dialBackendApi.logout
     },
     dispatch
   );

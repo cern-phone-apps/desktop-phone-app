@@ -2,11 +2,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { openSettingsModal } from 'settings/actions/modal';
 import { bindActionCreators } from 'redux';
-import { callForwardingActionFactory } from 'dial-core';
-import config from 'config';
+import dialBackendApi from 'services/api';
 import CallForwardingBanner from './CallForwardingBanner';
-
-const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ callForwarding, calls }) {
   return {
@@ -19,8 +16,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       openSettingsModal,
-      getCallForwardingStatus: callForwardingActionFactory(apiEndpoint, "desktop")
-        .getCallForwardingStatus
+      getCallForwardingStatus: dialBackendApi.getCallForwardingStatus
     },
     dispatch
   );
