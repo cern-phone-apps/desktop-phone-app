@@ -5,6 +5,7 @@ import MainPage from 'common/screens/MainPage/MainPage';
 import { bindActionCreators } from 'redux';
 import { hideSidebar, displaySidebar } from 'common/actions/sidebar';
 import { openSettingsModal } from 'settings/actions/modal';
+import dialBackendApi from 'services/api';
 
 function mapStateToProps({ auth, common }) {
   return {
@@ -22,7 +23,8 @@ function mapDispatchToProps(dispatch) {
     {
       displaySidebar,
       hideSidebar,
-      openSettingsModal
+      openSettingsModal,
+      logout: dialBackendApi().logout
     },
     dispatch
   );

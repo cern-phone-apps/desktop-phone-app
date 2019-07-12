@@ -11,6 +11,9 @@ import Notifications from 'common/components/Notifications/Notifications';
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
 import { logMessage } from 'common/utils/logs';
 
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
+
 function MainSidebar(props) {
   return (
     <Sidebar
@@ -65,8 +68,20 @@ export class MainPage extends Component {
     contentDimmed: PropTypes.bool.isRequired,
     notifications: PropTypes.array,
     hideSidebar: PropTypes.func.isRequired,
-    openSettingsModal: PropTypes.func.isRequired
+    openSettingsModal: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
   };
+
+  componentDidMount = () => {
+    ipcRenderer.on('logoutRequest', () => {
+      const { logout } = this.props;
+      logout();
+    });
+  };
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners(['logoutRequest']);
+  }
 
   /**
    * Renders all the sidebar items

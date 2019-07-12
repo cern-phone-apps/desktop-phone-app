@@ -2,6 +2,7 @@ import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
 import { authActions, util } from 'dial-core';
 
 import dialBackendApi from 'services/api';
+import ElectronService from 'services/electron-service';
 
 const { JwtTokenHandlerDesktop } = util.tokens;
 
@@ -9,6 +10,7 @@ function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
     // Run postponed actions after token refresh
     if (nextAction.type === authActions.TOKEN_RECEIVED) {
+      ElectronService.updateAccessToken(nextAction.payload.access_token);
       next(nextAction);
       postponedRSAAs.forEach(postponed => {
         rsaaMiddleware(next)(postponed);
@@ -28,10 +30,8 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
     );
 
     if (isRSAA(action)) {
-      console.log('isRsaa action');
       const state = getState();
       const refreshToken = JwtTokenHandlerDesktop.getRefreshToken(state);
-      console.log(refreshToken);
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
