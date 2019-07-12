@@ -9,9 +9,7 @@ import * as routes from 'calls/routes';
 import LoadingDimmer from 'auth/components/LoadingDimmer/LoadingDimmer';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
-
-const electron = window.require('electron');
-const { ipcRenderer } = electron;
+import ElectronService from 'services/electron-service';
 
 export class LoginPage extends Component {
   static propTypes = {
@@ -24,11 +22,11 @@ export class LoginPage extends Component {
     code: undefined
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     document.body.className = 'loginStyle';
     const { login, getMe } = this.props;
 
-    const code = ipcRenderer.sendSync('synchronous-message', 'code');
+    const code = ElectronService.getOauthCode();
     console.log(`code is: ${code}`);
 
     if (code) {
@@ -41,25 +39,33 @@ export class LoginPage extends Component {
             console.error(
               `Unable to authenticate with the given code: ${code}`
             );
-            ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
+            ElectronService.setUserAsUnauthenticated();
           }
 
           console.log(result);
           if (result !== undefined && !result.error) {
-            ipcRenderer.sendSync('synchronous-message', 'user-authenticated', {
-              access_token: result.payload.access_token,
-              refresh_token: result.payload.refresh_token
+            const {
+              access_token: accessToken,
+              refresh_token: refreshToken
+            } = result.payload;
+            const response = ElectronService.setUserAsAuthenticated(
+              accessToken,
+              refreshToken
+            );
+            response.then(response2 => {
+              console.log('User logged in successfully. Getting. profile...');
+              console.log(response2);
+              this.props.setAuthenticated();
+              // getMe();
             });
-            console.log('User logged in successfully. Getting. profile...');
-            getMe();
           }
         })
         .catch(error => {
           console.error(error);
-          ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
+          ElectronService.setUserAsUnauthenticated();
         });
     } else {
-      ipcRenderer.sendSync('synchronous-message', 'user-unauthenticated');
+      ElectronService.setUserAsUnauthenticated();
     }
   };
 
@@ -89,12 +95,7 @@ export class LoginPage extends Component {
                 <h4>Login with your CERN account</h4>
                 {/* <LoginButton /> */}
                 <Button
-                  onClick={() =>
-                    ipcRenderer.sendSync(
-                      'synchronous-message',
-                      'user-unauthenticated'
-                    )
-                  }
+                  onClick={() => ElectronService.setUserAsUnauthenticated()}
                 >
                   Logout
                 </Button>

@@ -2,17 +2,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Contact from 'calls/components/contacts/Contact/Contact';
-import { contactsActions, usersActionFactory } from 'dial-core';
+import { contactsActions } from 'dial-core';
 
-import config from 'config';
-
-const apiEndpoint = config.api.ENDPOINT;
+import dialBackendApi from 'services/api';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectContact: contactsActions.selectContact,
-      findUserById: usersActionFactory(apiEndpoint).findUserById
+      findUserById: dialBackendApi().findUserById
     },
     dispatch
   );

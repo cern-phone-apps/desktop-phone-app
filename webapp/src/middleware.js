@@ -1,16 +1,16 @@
 import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
-import { authActions, authActionFactory, util } from 'dial-core';
+import { authActions, util } from 'dial-core';
 
-import config from 'config';
+import dialBackendApi from 'services/api';
+import ElectronService from 'services/electron-service';
 
-const { JwtTokenHandlerMobile } = util.tokens;
-
-const apiEndpoint = config.api.ENDPOINT;
+const { JwtTokenHandlerDesktop } = util.tokens;
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
     // Run postponed actions after token refresh
     if (nextAction.type === authActions.TOKEN_RECEIVED) {
+      ElectronService.updateAccessToken(nextAction.payload.access_token);
       next(nextAction);
       postponedRSAAs.forEach(postponed => {
         rsaaMiddleware(next)(postponed);
@@ -31,7 +31,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
 
     if (isRSAA(action)) {
       const state = getState();
-      const refreshToken = JwtTokenHandlerMobile.getRefreshToken(state);
+      const refreshToken = JwtTokenHandlerDesktop.getRefreshToken(state);
       // If it is a LOGIN_REQUEST or LOGOUT_REQUEST we don't try to refresh the token
       if (
         action[RSAA].types.indexOf(authActions.LOGOUT_REQUEST) > -1 ||
@@ -40,11 +40,11 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         return rsaaMiddleware(next)(action);
       }
 
-      if (refreshToken && JwtTokenHandlerMobile.isAccessTokenExpired(state)) {
+      if (refreshToken && JwtTokenHandlerDesktop.isAccessTokenExpired()) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(apiEndpoint, 'mobile').refreshAccessToken()
+            dialBackendApi().refreshAccessToken()
           );
         }
         return null;

@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
+import { JwtTokenHandlerWeb, JwtTokenHandlerMobile, JwtTokenHandlerDesktop } from '../util/tokens';
 
 export const ADD_LOCAL_FORWARD_NUMBER = '@@settings/ADD_LOCAL_FORWARD_NUMBER';
 export const ADD_LOCAL_RINGING_NUMBER = '@@settings/ADD_LOCAL_RINGING_NUMBER';
@@ -66,6 +66,8 @@ export default function(apiEndpoint, type = 'mobile') {
   let authHandlerClass;
   if (type === 'web') {
     authHandlerClass = JwtTokenHandlerWeb;
+  } else if (type === 'desktop') {
+    authHandlerClass = JwtTokenHandlerDesktop;
   } else {
     authHandlerClass = JwtTokenHandlerMobile;
   }
@@ -74,7 +76,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURLWithParam('/status/', extension),
         method: 'GET',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -89,7 +90,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURL('/disable/'),
         method: 'DELETE',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -105,7 +105,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURL('/simultaneous-ring/enable/'),
         method: 'POST',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -121,7 +120,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURL('/enable/'),
         method: 'POST',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),

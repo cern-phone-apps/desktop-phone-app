@@ -1,12 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { callForwardingActions, usersActionFactory } from 'dial-core';
+import { callForwardingActions } from 'dial-core';
 
-import config from 'config';
+import dialBackendApi from 'services/api';
 import { CallForwardingAddModal } from './CallForwardingAddModal';
-
-
-const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ callForwarding, user }) {
   return {
@@ -22,7 +19,7 @@ function mapDispatchToProps(dispatch) {
     {
       addLocalForwardNumber: callForwardingActions.addLocalForwardNumber,
       addLocalRingingNumber: callForwardingActions.addLocalRingingNumber,
-      searchUsers: usersActionFactory(apiEndpoint).searchUsers
+      searchUsers: dialBackendApi().searchUsers
     },
     dispatch
   );

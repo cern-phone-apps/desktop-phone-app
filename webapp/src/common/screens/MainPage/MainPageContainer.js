@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom';
 
 import MainPage from 'common/screens/MainPage/MainPage';
 import { bindActionCreators } from 'redux';
-import { hideSidebar } from 'common/actions/sidebar';
+import { hideSidebar, displaySidebar } from 'common/actions/sidebar';
 import { openSettingsModal } from 'settings/actions/modal';
+import dialBackendApi from 'services/api';
 
 function mapStateToProps({ auth, common }) {
   return {
@@ -20,8 +21,10 @@ function mapStateToProps({ auth, common }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
+      displaySidebar,
       hideSidebar,
-      openSettingsModal
+      openSettingsModal,
+      logout: dialBackendApi().logout
     },
     dispatch
   );

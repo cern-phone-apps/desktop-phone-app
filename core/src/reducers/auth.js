@@ -55,7 +55,6 @@ export default (state = initialState, action) => {
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
-        loggedIn: action.payload.login,
         authToken: JSON.stringify(action.payload.token),
         accessToken: action.payload.access_token,
         refreshToken: action.payload.refresh_token,
@@ -103,6 +102,14 @@ export default (state = initialState, action) => {
         ...state,
         toneToken: action.toneToken
       };
+      case authActions.authActionsTypes.SET_AUTHENTICATED:
+        return{
+          ...state,
+          loggedIn: true,
+          accessToken: undefined,
+          refreshToken: undefined,
+          toneToken: undefined
+        }
     default:
       return state;
   }

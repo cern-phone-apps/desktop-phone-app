@@ -3,52 +3,65 @@ import { Button, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react';
 import DetectRTC from 'detectrtc';
 import { actionMessage, errorMessage, logMessage } from 'common/utils/logs';
 import { stopStreams } from 'settings/utils/devices';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-function DownloadDebugModalActions(props) {
+function DownloadDebugModalActions({
+  loadLogsClick,
+  logsLoaded,
+  handleCloseClick,
+  uriComponent
+}) {
   return (
     <Modal.Actions>
-      <Button color="green" onClick={props.onClick}>
+      <Button color="green" onClick={loadLogsClick}>
         Load Logs
       </Button>
 
       <Button
         color="blue"
-        disabled={!props.logsLoaded}
+        disabled={!logsLoaded}
         href={`data:text/json;charset=utf-8,${encodeURIComponent(
-          props.uriComponent
+          uriComponent
         )}`}
         download="data.json"
       >
         <Icon name="checkmark" /> Download Logs
       </Button>
-      <Button onClick={props.onClick1}>Close</Button>
+      <Button onClick={handleCloseClick}>Close</Button>
     </Modal.Actions>
   );
 }
 
 DownloadDebugModalActions.propTypes = {
-  onClick: PropTypes.func,
-  logsLoaded: PropTypes.bool,
-  uriComponent: PropTypes.any,
-  onClick1: PropTypes.func
+  loadLogsClick: PropTypes.func.isRequired,
+  logsLoaded: PropTypes.bool.isRequired,
+  uriComponent: PropTypes.string,
+  handleCloseClick: PropTypes.func.isRequired
 };
 
-function DownloadDebugModalLogsContent(props) {
+DownloadDebugModalActions.defaultProps = {
+  uriComponent: ''
+};
+
+function DownloadDebugModalLogsContent({ value }) {
   return (
     <Modal.Content>
       <Form>
         <TextArea
           placeholder="Log content"
           style={{ minHeight: 100 }}
-          value={props.value}
+          value={value}
         />
       </Form>
     </Modal.Content>
   );
 }
 
-DownloadDebugModalLogsContent.propTypes = { value: PropTypes.any };
+DownloadDebugModalLogsContent.propTypes = { value: PropTypes.string };
+
+DownloadDebugModalLogsContent.defaultProps = {
+  value: ''
+};
 
 export class DownloadDebugLogsButton extends Component {
   state = {
@@ -74,7 +87,7 @@ export class DownloadDebugLogsButton extends Component {
 
       navigator.mediaDevices
         .getUserMedia({ audio: true, video: false })
-        .then(stream => {
+        .then(() => {
           this.generateLogs(ipDict);
         })
         .catch(() => {
@@ -92,13 +105,6 @@ export class DownloadDebugLogsButton extends Component {
       ipv4
     }
   });
-
-  generateLogs(ipDict = {}) {
-    logMessage('Loading system info...');
-    const logs = JSON.parse(localStorage.getItem('logs'));
-    logs.push(this.getSystemInformation(ipDict));
-    this.setState({ logs: JSON.stringify(logs) });
-  }
 
   getOSInformation = () => {
     const name = DetectRTC.osName;
@@ -199,24 +205,31 @@ export class DownloadDebugLogsButton extends Component {
     }
   });
 
+  generateLogs(ipDict = {}) {
+    logMessage('Loading system info...');
+    const logs = JSON.parse(localStorage.getItem('logs'));
+    logs.push(this.getSystemInformation(ipDict));
+    this.setState({ logs: JSON.stringify(logs) });
+  }
+
   render() {
-    const { logsLoaded } = this.state;
+    const { logsLoaded, logs, modalOpen } = this.state;
     return (
       <Modal
         trigger={
           <Button onClick={this.handleOpen} className="flat" icon="bug" />
         }
-        open={this.state.modalOpen}
+        open={modalOpen}
         onClose={this.handleClose}
         size="small"
       >
         <Header icon="browser" content="Logs" />
-        <DownloadDebugModalLogsContent value={this.state.logs} />
+        <DownloadDebugModalLogsContent value={logs} />
         <DownloadDebugModalActions
-          onClick={this.loadLogs}
+          loadLogsClick={this.loadLogs}
           logsLoaded={logsLoaded}
-          uriComponent={this.state.logs}
-          onClick1={this.handleClose}
+          uriComponent={logs}
+          handleCloseClick={this.handleClose}
         />
       </Modal>
     );

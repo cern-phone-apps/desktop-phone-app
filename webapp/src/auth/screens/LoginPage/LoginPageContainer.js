@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LoginPage from 'auth/screens/LoginPage/LoginPage';
-import { authActionFactory, meActionFactory } from 'dial-core';
 import { bindActionCreators } from 'redux';
 
-import config from 'config';
-
-const apiEndpoint = config.api.ENDPOINT;
+import dialBackendApi from 'services/api';
+import { authActions } from 'dial-core';
 
 function mapStateToProps({ auth }) {
   return {
@@ -19,8 +17,9 @@ function mapStateToProps({ auth }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getMe: meActionFactory(apiEndpoint).getMe,
-      login: authActionFactory(apiEndpoint).login
+      getMe: dialBackendApi().getMe,
+      login: dialBackendApi().login,
+      setAuthenticated: authActions.setAuthenticated
     },
     dispatch
   );

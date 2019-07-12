@@ -2,26 +2,28 @@ import { connect } from 'react-redux';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import { bindActionCreators } from 'redux';
 
-import { numbersActionFactory, numbersActions } from 'dial-core';
+import { numbersActions } from 'dial-core';
 
-import config from 'config';
+import * as setttingsActions from 'settings/actions/settings';
+
+import dialBackendApi from 'services/api';
 import NumberConnector from './NumberConnector';
 
-const apiEndpoint = config.api.ENDPOINT;
-
-function mapStateToProps({ calls }) {
+function mapStateToProps({ auth, calls, settings }) {
   return {
+    activeNumber: calls.numbers.activeNumber,
     connecting: calls.connection.connecting,
-    numbers: calls.numbers.numbers
+    numbers: calls.numbers.numbers,
+    rememberNumber: settings.settings.rememberNumber
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserPhoneNumbers: numbersActionFactory(apiEndpoint)
-        .getUserPhoneNumbers,
-      setActiveNumber: numbersActions.setActiveNumber
+      getUserPhoneNumbers: dialBackendApi().getUserPhoneNumbers,
+      setActiveNumber: numbersActions.setActiveNumber,
+      setRememberNumber: setttingsActions.setRememberNumber
     },
     dispatch
   );

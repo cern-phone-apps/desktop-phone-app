@@ -67,8 +67,14 @@ function ContactProfileModalHeader({ profile }) {
 
 ContactProfileModalHeader.propTypes = {
   profile: PropTypes.shape({
-    displayName: PropTypes.string.isRequired
-  }).isRequired
+    displayName: PropTypes.string
+  })
+};
+
+ContactProfileModalHeader.defaultProps = {
+  profile: {
+    displayName: ''
+  }
 };
 
 export class ContactProfileModal extends Component {
