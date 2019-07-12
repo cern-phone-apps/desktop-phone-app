@@ -52,7 +52,7 @@ class RecentCall extends Component {
       incoming
     } = this.props.recentCall;
     const color = missed ? "red" : "green";
-    const printableDate = moment(startTime).calendar();
+    const printableDate = moment(endTime).calendar();
     const duration = moment.duration(moment(endTime).diff(moment(startTime)));
 
     return (
