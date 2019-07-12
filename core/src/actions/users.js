@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
+import { JwtTokenHandlerWeb, JwtTokenHandlerMobile, JwtTokenHandlerDesktop } from '../util/tokens';
 
 export const SEARCH_REQUEST = '@@search/SEARCH_REQUEST';
 export const SEARCH_SUCCESS = '@@search/SEARCH_SUCCESS';
@@ -17,6 +17,8 @@ export default function(apiEndpoint, type = 'mobile') {
   let authHandlerClass;
   if (type === 'web') {
     authHandlerClass = JwtTokenHandlerWeb;
+  } else if (type === 'desktop') {
+    authHandlerClass = JwtTokenHandlerDesktop;
   } else {
     authHandlerClass = JwtTokenHandlerMobile;
   }

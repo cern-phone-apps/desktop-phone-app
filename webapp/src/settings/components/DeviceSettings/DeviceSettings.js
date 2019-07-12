@@ -41,8 +41,8 @@ export class DeviceSettings extends Component {
               fieldId={"audioOutput"}
               fieldType={"audiooutput"}
             />
-            <Button onClick={this.playSound}>Play Sound</Button>
-            <Button onClick={this.stopSound}>Stop Sound</Button>
+            <Button onClick={this.playSound}>Play Test Sound</Button>
+            <Button onClick={this.stopSound}>Stop Test Sound</Button>
           </Form>
         </ErrorBoundary>
       </div>

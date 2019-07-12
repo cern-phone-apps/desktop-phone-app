@@ -6,9 +6,9 @@ import { Icon, Modal, Menu, Header } from 'semantic-ui-react';
 import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings';
 import PersonalInfoContainer from 'settings/components/PersonalInfo/PersonalInfoContainer';
 import AppInfo from 'settings/components/AppInfo/AppInfo';
-import NotificationsSettings from 'settings/components/NotificationsSettings/NotificationsSettings';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import CallsSettings from 'settings/components/CallsSettings/CallsSettings';
+import RememberNumberSettingsContainer from 'settings/components/RememberNumberSettings/RememberNumberSettingsContainer';
 
 const ModalTrigger = ({ onClick }) => (
   <Menu.Item
@@ -32,7 +32,6 @@ export class SettingsModal extends Component {
   static propTypes = {
     modalOpen: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    hideSidebarIfVisible: PropTypes.func.isRequired,
     openSettingsModal: PropTypes.func.isRequired,
     closeSettingsModal: PropTypes.func.isRequired
   };
@@ -50,7 +49,6 @@ export class SettingsModal extends Component {
         size="small"
         dimmer="blurring"
         closeIcon
-        // trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible} />}
         className="ModalSettings"
         onClose={this.handleClose}
         open={modalOpen}
@@ -62,9 +60,9 @@ export class SettingsModal extends Component {
             <hr />
             <CallsSettings />
             <hr />
-            <DeviceSettings />
+            <RememberNumberSettingsContainer />
             <hr />
-            <NotificationsSettings />
+            <DeviceSettings />
             <hr />
             <Header as="h4">{t('dangerZoneHeader')}</Header>
             <LogoutButtonContainer color="red" />

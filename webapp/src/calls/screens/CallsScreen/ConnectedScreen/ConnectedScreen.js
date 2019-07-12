@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 import RightColumn from 'common/components/RightColumn/RightColumn';
 import CallModalContainer from 'calls/components/call_modals/OutgoingCallModal/OutgoingCallModalContainer';
-import MainHeaderContainer from 'calls/components/MainHeader';
+import MainHeaderContainer from 'calls/components/MainHeader/MainHeaderContainer';
 import CallerTabsSelectorContainer from 'calls/components/CallerTabsSelector/CallerTabsSelectorContainer';
 import CallForwardingBannerContainer from 'settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBannerContainer';
-import styles from './ConnectedScreen.module.css';
 import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
+import styles from './ConnectedScreen.module.css';
 
 export const ConnectedScreen = ({ calling }) => (
   <Grid.Column

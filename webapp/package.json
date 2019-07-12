@@ -1,10 +1,11 @@
 {
   "name": "cern-phone-app",
-  "version": "0.4.1",
+  "version": "0.4.2-beta",
   "private": true,
   "homepage": "./",
   "author": "CERN",
   "description": "CERN Phone Application to place and receive calls.",
+  "license": "GNU GENERAL PUBLIC (v3)",
   "main": "public/electron.js",
   "repository": "https://github.com/cern-dialtone/dial-clients.git",
   "scripts": {
@@ -76,6 +77,7 @@
     "i18next-node-fs-backend": "^2.1.3",
     "i18next-xhr-backend": "^1.5.1",
     "js-cookie": "^2.2.0",
+    "keytar": "^4.11.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.0",
     "node-notifier": "^5.4.0",
@@ -107,6 +109,7 @@
   "devDependencies": {
     "concurrently": "^4.1.1",
     "cross-env": "^5.1.5",
+    "devtron": "^1.4.0",
     "electron": "^5.0.6",
     "electron-builder": "^20.44.4",
     "electron-devtools-installer": "^2.2.4",
@@ -133,6 +136,7 @@
   },
   "build": {
     "appId": "ch.cern.phonewebapp",
+    "productName": "CERN Phone App",
     "generateUpdatesFilesForAllChannels": true,
     "asarUnpack": [
       "./node_modules/node-notifier/vendor/**"
@@ -151,11 +155,17 @@
       "target": "nsis"
     },
     "linux": {
-      "target": "AppImage"
+      "target": "AppImage",
+      "desktop": {
+        "Name": "CERN Phone App",
+        "Icon": "./assets/512x512.icns",
+        "Comment": "CERN Phone Application to place and receive calls."
+      }
     },
     "appImage": {
       "synopsis": "CERN Phone Application to place and receive calls.",
-      "category": "Utilities"
+      "category": "Utility",
+      "artifactName": "cern-phone-app-${version}-${arch}-${os}.AppImage"
     },
     "files": [
       "build/**/*",

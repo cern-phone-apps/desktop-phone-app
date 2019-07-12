@@ -8,9 +8,11 @@ import './MainPage.css';
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
 import Notifications from 'common/components/Notifications/Notifications';
-import ModalDebugContainer from 'debug/components/ModalDebug/ModalDebugContainer';
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
 import { logMessage } from 'common/utils/logs';
+
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
 
 function MainSidebar(props) {
   return (
@@ -21,6 +23,7 @@ function MainSidebar(props) {
       visible={props.visible}
       icon="labeled"
       vertical
+      onHide={props.onHide}
     >
       {props.renderSidebarItems}
       <Menu.Item
@@ -31,7 +34,6 @@ function MainSidebar(props) {
         <Icon name="settings" />
         {'Settings'}
       </Menu.Item>
-      <ModalDebugContainer hideSidebarIfVisible={props.hideSidebarIfVisible} />
     </Sidebar>
   );
 }
@@ -39,18 +41,15 @@ function MainSidebar(props) {
 MainSidebar.propTypes = {
   visible: PropTypes.bool,
   renderSidebarItems: PropTypes.any,
-  onClick: PropTypes.func,
-  hideSidebarIfVisible: PropTypes.func
+  onClick: PropTypes.func
 };
 
-function MainPusher(props) {
+function MainPusher({ dimmed, notifications, renderMainRoutes }) {
   return (
-    <Sidebar.Pusher dimmed={props.dimmed} className="MainPusher">
-      {props.renderMainRoutes}
-      <Notifications notifications={props.notifications} />
-      <SettingsModalContainer
-        hideSidebarIfVisible={props.hideSidebarIfVisible}
-      />
+    <Sidebar.Pusher dimmed={dimmed} className="MainPusher">
+      {renderMainRoutes}
+      <Notifications notifications={notifications} />
+      <SettingsModalContainer />
     </Sidebar.Pusher>
   );
 }
@@ -58,8 +57,7 @@ function MainPusher(props) {
 MainPusher.propTypes = {
   dimmed: PropTypes.bool,
   renderMainRoutes: PropTypes.any,
-  notifications: PropTypes.any,
-  hideSidebarIfVisible: PropTypes.func
+  notifications: PropTypes.any
 };
 
 export class MainPage extends Component {
@@ -70,13 +68,20 @@ export class MainPage extends Component {
     contentDimmed: PropTypes.bool.isRequired,
     notifications: PropTypes.array,
     hideSidebar: PropTypes.func.isRequired,
-    openSettingsModal: PropTypes.func.isRequired
+    openSettingsModal: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
   };
 
-  hideSidebarIfVisible = () => {
-    logMessage('Hiding Sidebar');
-    return this.props.hideSidebar();
+  componentDidMount = () => {
+    ipcRenderer.on('logoutRequest', () => {
+      const { logout } = this.props;
+      logout();
+    });
   };
+
+  componentWillUnmount() {
+    ipcRenderer.removeAllListeners(['logoutRequest']);
+  }
 
   /**
    * Renders all the sidebar items
@@ -86,7 +91,7 @@ export class MainPage extends Component {
     const { t } = this.props;
     return routes.mainRoutes(t).map((route, index) => (
       <Menu.Item
-        onClick={this.hideSidebarIfVisible}
+        onClick={this.handleHideClick}
         name={route.sidebarId}
         as={NavLink}
         key={index}
@@ -130,26 +135,29 @@ export class MainPage extends Component {
     openSettingsModal();
   };
 
-  render() {
-    const { notifications } = this.props;
+  handleHideClick = () => this.props.hideSidebar();
 
-    if (!this.props.isAuthenticated) {
+  handleShowClick = () => this.props.displaySidebar();
+
+  handleSidebarHide = () => this.props.hideSidebar();
+
+  render() {
+    const { isVisible, isAuthenticated, notifications } = this.props;
+    if (!isAuthenticated) {
       return <Redirect to={loginRoutes.loginRoute.path} />;
     }
-
     return (
       <Sidebar.Pushable as={Segment}>
         <MainSidebar
-          visible={this.props.isVisible}
+          visible={isVisible}
           renderSidebarItems={this.renderSidebarItems()}
           onClick={this.openSettingsModalAction}
-          hideSidebarIfVisible={this.hideSidebarIfVisible}
+          onHide={this.handleSidebarHide}
         />
         <MainPusher
-          dimmed={this.props.contentDimmed}
+          dimmed={isVisible}
           renderMainRoutes={this.renderMainRoutes()}
           notifications={notifications}
-          hideSidebarIfVisible={this.hideSidebarIfVisible}
         />
       </Sidebar.Pushable>
     );
