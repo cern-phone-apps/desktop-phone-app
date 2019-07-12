@@ -74,6 +74,13 @@ function createAuthWindow() {
   authWindow.webContents.once('did-finish-load', handleAuthDidFinishLoad);
 }
 
+function logoutUser() {
+  if (mainWindow) {
+    console.log('Sendind logout request');
+    mainWindow.webContents.send('logoutRequest');
+  }
+}
+
 function unauthenticateUser() {
   storage.set('is_authenticated', {}, error => {
     keytar.deletePassword('cern-phone-app', 'access_token');
@@ -138,7 +145,7 @@ const menu = Menu.buildFromTemplate([
         label: 'Logout',
         accelerator: 'CmdOrCtrl+O',
         click: () => {
-          unauthenticateUser();
+          logoutUser();
         }
       },
       {
@@ -388,6 +395,16 @@ const handleUserAsAuthenticated = async obj => {
   storage.set('is_authenticated', { authenticated: true }, error => {});
 };
 
+const updateAccessToken = async obj => {
+  if (obj.access_token) {
+    await keytar.setPassword(
+      'cern-phone-app',
+      'access_token',
+      obj.access_token
+    );
+  }
+};
+
 const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   console.log(`Synchronous message received: ${arg} ${obj ? obj.name : ''}`); // prints "ping"
 
@@ -400,6 +417,12 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   if (arg === 'user-unauthenticated') {
     event.returnValue = 'ok';
     unauthenticateUser();
+    return;
+  }
+
+  if (arg === 'update-access-token') {
+    await updateAccessToken(obj);
+    event.returnValue = 'ok';
     return;
   }
 

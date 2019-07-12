@@ -18,8 +18,18 @@ export class CallForwardingBanner extends Component {
     fetchTimes: 0
   };
 
+  timer = null;
+
   componentDidMount() {
+    const timerTime = 60000;
     this.fetchCallForwardingStatus();
+    this.timer = setInterval(() => {
+      this.fetchCallForwardingStatus();
+    }, timerTime);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   isCallForwardingEnabled = (
@@ -41,7 +51,11 @@ export class CallForwardingBanner extends Component {
   async fetchCallForwardingStatus() {
     const { activeNumber, getCallForwardingStatus } = this.props;
     const forwardingData = await getCallForwardingStatus(activeNumber);
-    if (forwardingData && forwardingData.payload.success) {
+    if (
+      forwardingData &&
+      forwardingData.payload &&
+      forwardingData.payload.success
+    ) {
       // Obtain values from the payload
       const { payload } = forwardingData;
       const callForwardingStatus = payload['call-forwarding'];

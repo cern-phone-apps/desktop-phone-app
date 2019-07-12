@@ -36,6 +36,20 @@ class ElectronService {
   };
 
   /**
+   * Sets the the access token
+   */
+  static updateAccessToken = async accessToken => {
+    const result = await ipcRenderer.sendSync(
+      SYNC_MESSAGE,
+      'update-access-token',
+      {
+        access_token: accessToken
+      }
+    );
+    return result;
+  };
+
+  /**
    * Gets the toneToken from the backend
    */
   static getToneToken = () => {
