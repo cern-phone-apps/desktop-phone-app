@@ -16,8 +16,8 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setUserDoNotDisturb: dialBackendApi.setUserDoNotDisturb,
-      getMe: dialBackendApi.getMe
+      setUserDoNotDisturb: dialBackendApi().setUserDoNotDisturb,
+      getMe: dialBackendApi().getMe
     },
     dispatch
   );

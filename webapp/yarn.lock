@@ -1564,6 +1564,11 @@ accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
+accessibility-developer-tools@^2.11.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/accessibility-developer-tools/-/accessibility-developer-tools-2.12.0.tgz#3da0cce9d6ec6373964b84f35db7cfc3df7ab514"
+  integrity sha1-PaDM6dbsY3OWS4TzXbfPw996tRQ=
+
 acorn-dynamic-import@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/acorn-dynamic-import/-/acorn-dynamic-import-4.0.0.tgz#482210140582a36b83c3e342e1cfebcaa9240948"
@@ -3719,6 +3724,15 @@ detectrtc@^1.3.5:
   resolved "https://registry.yarnpkg.com/detectrtc/-/detectrtc-1.3.9.tgz#a18646f22d954e4f47e9d4220459c71c8c68526c"
   integrity sha512-uDmANQib8St/dRppyQGXHX36qG2wel5dKHslqz0qr2958rcpN6heOzofV2PoKi7ogtCXpQuz0JUzazWhnLBPcA==
 
+devtron@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/devtron/-/devtron-1.4.0.tgz#b5e748bd6e95bbe70bfcc68aae6fe696119441e1"
+  integrity sha1-tedIvW6Vu+cL/MaKrm/mlhGUQeE=
+  dependencies:
+    accessibility-developer-tools "^2.11.0"
+    highlight.js "^9.3.0"
+    humanize-plus "^1.8.1"
+
 "dial-core@file:../core":
   version "0.0.1"
   dependencies:
@@ -5519,6 +5533,11 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
+highlight.js@^9.3.0:
+  version "9.15.8"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.15.8.tgz#f344fda123f36f1a65490e932cf90569e4999971"
+  integrity sha512-RrapkKQWwE+wKdF73VsOa2RQdIoO3mxwJ4P8mhbI6KYJUraUHRKM5w5zQQKXNk0xNL4UVRdulV9SBJcmzJNzVA==
+
 history@^4.7.2:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/history/-/history-4.9.0.tgz#84587c2068039ead8af769e9d6a6860a14fa1bca"
@@ -5734,6 +5753,11 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+
+humanize-plus@^1.8.1:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/humanize-plus/-/humanize-plus-1.8.2.tgz#a65b34459ad6367adbb3707a82a3c9f916167030"
+  integrity sha1-pls0RZrWNnrbs3B6gqPJ+RYWcDA=
 
 husky@^0.14.3:
   version "0.14.3"

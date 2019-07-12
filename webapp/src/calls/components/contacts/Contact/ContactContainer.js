@@ -10,7 +10,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectContact: contactsActions.selectContact,
-      findUserById: dialBackendApi.findUserById
+      findUserById: dialBackendApi().findUserById
     },
     dispatch
   );

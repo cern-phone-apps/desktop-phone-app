@@ -22,7 +22,7 @@ export class LoginPage extends Component {
     code: undefined
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     document.body.className = 'loginStyle';
     const { login, getMe } = this.props;
 
@@ -48,9 +48,16 @@ export class LoginPage extends Component {
               access_token: accessToken,
               refresh_token: refreshToken
             } = result.payload;
-            ElectronService.setUserAsAuthenticated(accessToken, refreshToken);
-            console.log('User logged in successfully. Getting. profile...');
-            getMe();
+            const response = ElectronService.setUserAsAuthenticated(
+              accessToken,
+              refreshToken
+            );
+            response.then(response2 => {
+              console.log('User logged in successfully. Getting. profile...');
+              console.log(response2);
+              this.props.setAuthenticated();
+              // getMe();
+            });
           }
         })
         .catch(error => {

@@ -15,7 +15,7 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: dialBackendApi.logout
+      logout: dialBackendApi().logout
     },
     dispatch
   );

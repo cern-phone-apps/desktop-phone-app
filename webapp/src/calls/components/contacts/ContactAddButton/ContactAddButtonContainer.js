@@ -13,9 +13,9 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      addUserContact: dialBackendApi.addUserContact,
-      removeUserContact: dialBackendApi.removeUserContact,
-      getUserContacts: dialBackendApi.getUserContacts
+      addUserContact: dialBackendApi().addUserContact,
+      removeUserContact: dialBackendApi().removeUserContact,
+      getUserContacts: dialBackendApi().getUserContacts
     },
     dispatch
   );

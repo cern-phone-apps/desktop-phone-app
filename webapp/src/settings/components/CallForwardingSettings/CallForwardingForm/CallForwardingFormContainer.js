@@ -17,10 +17,10 @@ function mapStateToProps({ callForwarding, calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getCallForwardingStatus: dialBackendApi.getCallForwardingStatus,
-      disableCallForwarding: dialBackendApi.disableCallForwarding,
-      enableSimultaneousRinging: dialBackendApi.enableSimultaneousRinging,
-      enableCallForwarding: dialBackendApi.enableCallForwarding,
+      getCallForwardingStatus: dialBackendApi().getCallForwardingStatus,
+      disableCallForwarding: dialBackendApi().disableCallForwarding,
+      enableSimultaneousRinging: dialBackendApi().enableSimultaneousRinging,
+      enableCallForwarding: dialBackendApi().enableCallForwarding,
       clearLastOperation: callForwardingActions.clearLastOperation
     },
     dispatch

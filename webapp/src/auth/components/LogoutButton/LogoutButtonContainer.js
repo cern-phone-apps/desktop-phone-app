@@ -9,7 +9,7 @@ import dialBackendApi from 'services/api';
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      logout: dialBackendApi.logout
+      logout: dialBackendApi().logout
     },
     dispatch
   );

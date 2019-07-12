@@ -19,6 +19,10 @@ export const CLEAR_TOKEN = '@@auth/CLEAR_TOKEN';
 
 export const SET_TONE_TOKEN = '@@connection/SET_TONE_TOKEN';
 
+export const authActionsTypes = {
+  SET_AUTHENTICATED: '@@auth/SET_AUTHENTICATED'
+}
+
 const API_PATH = '/auth/v1/token';
 
 /**
@@ -112,4 +116,10 @@ export function setToneToken(toneToken) {
     toneToken,
     type: SET_TONE_TOKEN
   };
+}
+
+export function setAuthenticated(){
+  return {
+    type: authActionsTypes.SET_AUTHENTICATED
+  }
 }

@@ -32,7 +32,6 @@ export class SettingsModal extends Component {
   static propTypes = {
     modalOpen: PropTypes.bool.isRequired,
     t: PropTypes.func.isRequired,
-    hideSidebarIfVisible: PropTypes.func.isRequired,
     openSettingsModal: PropTypes.func.isRequired,
     closeSettingsModal: PropTypes.func.isRequired
   };
@@ -50,7 +49,6 @@ export class SettingsModal extends Component {
         size="small"
         dimmer="blurring"
         closeIcon
-        // trigger={<ModalTrigger onClick={this.props.hideSidebarIfVisible} />}
         className="ModalSettings"
         onClose={this.handleClose}
         open={modalOpen}

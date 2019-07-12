@@ -21,7 +21,7 @@ function mapStateToProps({ auth, calls, settings }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getUserPhoneNumbers: dialBackendApi.getUserPhoneNumbers,
+      getUserPhoneNumbers: dialBackendApi().getUserPhoneNumbers,
       setActiveNumber: numbersActions.setActiveNumber,
       setRememberNumber: setttingsActions.setRememberNumber
     },
