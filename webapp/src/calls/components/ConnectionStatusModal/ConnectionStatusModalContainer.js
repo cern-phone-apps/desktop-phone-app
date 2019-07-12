@@ -1,12 +1,9 @@
 import { connect } from 'react-redux';
-import { meActionFactory } from 'dial-core';
 
 import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 import { bindActionCreators } from 'redux';
-import config from 'config';
+import dialBackendApi from 'services/api';
 import ConnectionStatusModal from './ConnectionStatusModal';
-
-const apiEndpoint = config.api.ENDPOINT;
 
 function mapStateToProps({ calls }) {
   return {
@@ -19,8 +16,8 @@ function mapStateToProps({ calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setUserDoNotDisturb: meActionFactory(apiEndpoint, "desktop").setUserDoNotDisturb,
-      getMe: meActionFactory(apiEndpoint, "desktop").getMe
+      setUserDoNotDisturb: dialBackendApi.setUserDoNotDisturb,
+      getMe: dialBackendApi.getMe
     },
     dispatch
   );

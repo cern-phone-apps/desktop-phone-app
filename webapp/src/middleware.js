@@ -1,11 +1,9 @@
 import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
-import { authActions, authActionFactory, util } from 'dial-core';
+import { authActions, util } from 'dial-core';
 
-import config from 'config';
+import dialBackendApi from 'services/api';
 
 const { JwtTokenHandlerDesktop } = util.tokens;
-
-const apiEndpoint = config.api.ENDPOINT;
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
@@ -44,7 +42,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(apiEndpoint, 'desktop').refreshAccessToken()
+            dialBackendApi.refreshAccessToken()
           );
         }
         return null;

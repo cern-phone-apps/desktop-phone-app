@@ -2,13 +2,11 @@ import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux';
 
-import { searchActions, usersActionFactory } from 'dial-core';
+import { searchActions } from 'dial-core';
 
 import { UserSearchForm } from 'calls/components/search/UserSearchForm/UserSearchForm';
 
-import config from 'config';
-
-const apiEndpoint = config.api.ENDPOINT;
+import dialBackendApi from 'services/api';
 
 function mapStateToProps() {
   return {};
@@ -18,7 +16,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       selectUser: searchActions.selectUser,
-      searchUsers: usersActionFactory(apiEndpoint, "desktop").searchUsers
+      searchUsers: dialBackendApi.searchUsers
     },
     dispatch
   );

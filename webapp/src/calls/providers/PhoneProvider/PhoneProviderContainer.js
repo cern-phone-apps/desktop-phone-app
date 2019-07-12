@@ -6,17 +6,14 @@ import {
   callActions,
   connectionActions,
   recentCallsActions,
-  authActions,
-  authActionFactory
+  authActions
 } from 'dial-core';
 
 import { info, success, warning } from 'common/actions/notifications';
 import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider';
 import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 
-import config from 'config';
-
-const apiEndpoint = config.api.ENDPOINT;
+import dialBackendApi from 'services/api';
 
 export function mapStateToProps({ calls, auth }) {
   return {
@@ -30,7 +27,7 @@ export function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...authActions,
-      logout: authActionFactory(apiEndpoint, "desktop").logout,
+      logout: dialBackendApi.logout,
       ...connectionActions,
       ...callActions,
       ...recentCallsActions,
