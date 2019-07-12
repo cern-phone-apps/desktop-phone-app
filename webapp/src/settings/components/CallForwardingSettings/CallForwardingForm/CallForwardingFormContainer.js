@@ -19,13 +19,17 @@ function mapStateToProps({ callForwarding, calls }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getCallForwardingStatus: callForwardingActionFactory(apiEndpoint, "desktop")
-        .getCallForwardingStatus,
-      disableCallForwarding: callForwardingActionFactory(apiEndpoint, "desktop")
+      getCallForwardingStatus: callForwardingActionFactory(
+        apiEndpoint,
+        'desktop'
+      ).getCallForwardingStatus,
+      disableCallForwarding: callForwardingActionFactory(apiEndpoint, 'desktop')
         .disableCallForwarding,
-      enableSimultaneousRinging: callForwardingActionFactory(apiEndpoint, "desktop")
-        .enableSimultaneousRinging,
-      enableCallForwarding: callForwardingActionFactory(apiEndpoint, "desktop")
+      enableSimultaneousRinging: callForwardingActionFactory(
+        apiEndpoint,
+        'desktop'
+      ).enableSimultaneousRinging,
+      enableCallForwarding: callForwardingActionFactory(apiEndpoint, 'desktop')
         .enableCallForwarding,
       clearLastOperation: callForwardingActions.clearLastOperation
     },

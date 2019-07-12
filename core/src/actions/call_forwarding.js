@@ -76,7 +76,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURLWithParam('/status/', extension),
         method: 'GET',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -91,7 +90,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURL('/disable/'),
         method: 'DELETE',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -107,7 +105,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURL('/simultaneous-ring/enable/'),
         method: 'POST',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -123,7 +120,6 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildApiURL('/enable/'),
         method: 'POST',
-        credentials: 'include',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
