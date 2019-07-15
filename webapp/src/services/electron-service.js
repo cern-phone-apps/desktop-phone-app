@@ -78,6 +78,11 @@ class ElectronService {
     });
     return result;
   };
+
+  static openLogsFolder = () => {
+    const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'open-logs-folder');
+    return result;
+  };
 }
 
 export default ElectronService;

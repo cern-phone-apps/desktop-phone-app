@@ -9,7 +9,6 @@ import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
 import Notifications from 'common/components/Notifications/Notifications';
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
-import { logMessage } from 'common/utils/logs';
 
 const electron = window.require('electron');
 const { ipcRenderer } = electron;
