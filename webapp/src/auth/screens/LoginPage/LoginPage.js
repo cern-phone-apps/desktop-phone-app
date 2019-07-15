@@ -31,8 +31,6 @@ export class LoginPage extends Component {
 
     if (code) {
       this.setState({ code });
-
-      console.log('Login user with code...');
       login(code)
         .then(result => {
           if (result.error) {
@@ -53,10 +51,8 @@ export class LoginPage extends Component {
               refreshToken
             );
             response.then(response2 => {
-              console.log('User logged in successfully. Getting. profile...');
-              console.log(response2);
               this.props.setAuthenticated();
-              // getMe();
+              getMe();
             });
           }
         })
@@ -93,7 +89,6 @@ export class LoginPage extends Component {
               </Segment>
               <Segment textAlign="center" raised attached>
                 <h4>Login with your CERN account</h4>
-                {/* <LoginButton /> */}
                 <Button
                   onClick={() => ElectronService.setUserAsUnauthenticated()}
                 >

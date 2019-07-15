@@ -1,31 +1,22 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react';
+import { Button, Header, Modal } from 'semantic-ui-react';
 import DetectRTC from 'detectrtc';
 import { actionMessage, errorMessage, logMessage } from 'common/utils/logs';
 import { stopStreams } from 'settings/utils/devices';
 import PropTypes from 'prop-types';
+import ElectronService from 'services/electron-service';
+
+const { remote } = window.require('electron');
 
 function DownloadDebugModalActions({
   loadLogsClick,
   logsLoaded,
-  handleCloseClick,
-  uriComponent
+  handleCloseClick
 }) {
   return (
     <Modal.Actions>
       <Button color="green" onClick={loadLogsClick}>
-        Load Logs
-      </Button>
-
-      <Button
-        color="blue"
-        disabled={!logsLoaded}
-        href={`data:text/json;charset=utf-8,${encodeURIComponent(
-          uriComponent
-        )}`}
-        download="data.json"
-      >
-        <Icon name="checkmark" /> Download Logs
+        Open logs folder
       </Button>
       <Button onClick={handleCloseClick}>Close</Button>
     </Modal.Actions>
@@ -43,16 +34,38 @@ DownloadDebugModalActions.defaultProps = {
   uriComponent: ''
 };
 
+const LogsLocationMac = () => (
+  <li>
+    <strong>On macOS</strong>: ~/Library/Logs/cern-phone-app/log.log
+  </li>
+);
+
+const LogsLocationLinux = () => (
+  <li>
+    <strong>On Linux</strong>: ~/.config/cern-phone-app/log.log
+  </li>
+);
+
+const LogsLocationWindows = () => (
+  <li>
+    <strong>On Windows</strong>:
+    %USERPROFILE%\AppData\Roaming\cern-phone-app\log.log
+  </li>
+);
+
 function DownloadDebugModalLogsContent({ value }) {
   return (
     <Modal.Content>
-      <Form>
-        <TextArea
-          placeholder="Log content"
-          style={{ minHeight: 100 }}
-          value={value}
-        />
-      </Form>
+      <p>Logs are stored in the following location:</p>
+      <ul>
+        {remote.process.platform === 'darwin' && <LogsLocationMac />}
+        {remote.process.platform === 'linux' && <LogsLocationLinux />}
+        {remote.process.platform === 'win32' && <LogsLocationWindows />}
+      </ul>
+      <p>
+        If you experience any problem with the application, please open a ticket
+        and attach the logs us so we can debug it.
+      </p>
     </Modal.Content>
   );
 }
@@ -96,6 +109,7 @@ export class DownloadDebugLogsButton extends Component {
         });
     });
     this.setState({ logsLoaded: true });
+    ElectronService.openLogsFolder();
   };
 
   getIpAddress = (ip, publicAddress, ipv4) => ({
@@ -207,9 +221,7 @@ export class DownloadDebugLogsButton extends Component {
 
   generateLogs(ipDict = {}) {
     logMessage('Loading system info...');
-    const logs = JSON.parse(localStorage.getItem('logs'));
-    logs.push(this.getSystemInformation(ipDict));
-    this.setState({ logs: JSON.stringify(logs) });
+    logMessage(this.getSystemInformation(ipDict));
   }
 
   render() {
@@ -228,7 +240,6 @@ export class DownloadDebugLogsButton extends Component {
         <DownloadDebugModalActions
           loadLogsClick={this.loadLogs}
           logsLoaded={logsLoaded}
-          uriComponent={logs}
           handleCloseClick={this.handleClose}
         />
       </Modal>

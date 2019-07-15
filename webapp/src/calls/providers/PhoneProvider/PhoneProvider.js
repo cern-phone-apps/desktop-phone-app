@@ -165,16 +165,10 @@ export default class PhoneProvider extends React.Component {
          * If the authToken was used, we clear the original auth token as we will use the encrypted token from now on.
          */
         clearAuthToken();
-        logMessage('eToken is');
-        logMessage(eToken);
-
         ElectronService.saveToneToken(eToken);
       }
     } catch (error) {
       errorMessage(error);
-      console.log(`toneToken: ${toneToken}`);
-      console.log(`tempToken: ${tempToken}`);
-      console.log(`authToken: ${authToken}`);
       logout();
     }
   };

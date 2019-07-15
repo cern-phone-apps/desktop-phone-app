@@ -69,6 +69,7 @@
     "dial-core": "file:../core",
     "electron-is-dev": "^1.1.0",
     "electron-json-storage": "^4.1.6",
+    "electron-log": "^3.0.6",
     "electron-updater": "^4.0.14",
     "global": "^4.4.0",
     "history": "^4.7.2",

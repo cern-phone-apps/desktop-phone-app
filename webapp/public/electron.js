@@ -15,7 +15,15 @@ const notifier = require('node-notifier');
 
 const openAboutWindow = require('about-window').default;
 const keytar = require('keytar');
+const log = require('electron-log');
 const { checkForUpdates } = require('./updater');
+
+const logFormat = '{level} | {h}:{i}:{s}:{ms} | {processType} | {text}';
+log.transports.file.level = 'debug';
+log.transports.console.level = 'debug';
+log.transports.file.format = logFormat;
+log.transports.rendererConsole.level = 'debug';
+log.transports.console.format = logFormat;
 
 let mainWindow;
 let authWindow;
@@ -116,6 +124,41 @@ const showQuitDialog = () => {
   }
 };
 
+const openLogsFolder = () => {
+  let logsPath;
+  switch (process.platform) {
+    case 'darwin':
+      logsPath = path.join(
+        app.getPath('home'),
+        'Library',
+        'Logs',
+        'cern-phone-app',
+        'log.log'
+      );
+      break;
+    case 'win32':
+      logsPath = path.join(
+        app.getPath('home'),
+        'AppData',
+        'Roaming',
+        'cern-phone-app',
+        'log.log'
+      );
+      break;
+    case 'linux':
+      logsPath = path.join(
+        app.getPath('home'),
+        '.config',
+        'cern-phone-app',
+        'log.log'
+      );
+      break;
+    default:
+      break;
+  }
+  shell.showItemInFolder(logsPath);
+};
+
 const menu = Menu.buildFromTemplate([
   {
     label: 'App',
@@ -139,6 +182,14 @@ const menu = Menu.buildFromTemplate([
         accelerator: 'CmdOrCtrl+U',
         click: menuItem => {
           checkForUpdates(menuItem);
+        }
+      },
+      {
+        label: 'Open logs folder',
+        accelerator: 'CmdOrCtrl+L',
+        click: menuItem => {
+          log.info('Clicked Open logs folder');
+          openLogsFolder();
         }
       },
       {
@@ -274,17 +325,12 @@ const createWindow = () => {
  * @param url
  */
 function handleCallback(url) {
-  console.log('Handling callback...');
   const rawCode = /code=([^&]*)/.exec(url) || null;
   code = rawCode && rawCode.length > 1 ? rawCode[1] : null;
   const error = /\?error=(.+)$/.exec(url);
-  console.log(url);
 
   // If there is a code, proceed to get token from github
   if (code) {
-    console.log('code');
-    console.log(code);
-
     createWindow();
     authWindow.destroy();
   } else if (error) {
@@ -336,7 +382,6 @@ const createTray = () => {
 const handleAppReady = () => {
   storage.get('is_authenticated', (error, data) => {
     if (error) throw error;
-    console.log(data);
 
     if (isEmpty(data)) {
       console.log('empty dict');
@@ -406,10 +451,7 @@ const updateAccessToken = async obj => {
 };
 
 const ipcHandleSyncMessages = async (event, arg, obj = null) => {
-  console.log(`Synchronous message received: ${arg} ${obj ? obj.name : ''}`); // prints "ping"
-
   if (arg === 'code') {
-    console.log(code);
     event.returnValue = code;
     return;
   }
@@ -449,6 +491,11 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
     if (obj.tone_token) {
       keytar.setPassword('cern-phone-app', 'tone_token', obj.tone_token);
     }
+    event.returnValue = 'ok';
+  }
+
+  if (arg === 'open-logs-folder') {
+    openLogsFolder();
     event.returnValue = 'ok';
   }
 };
