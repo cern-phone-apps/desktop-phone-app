@@ -1,8 +1,19 @@
 import Raven from 'raven-js';
 import ReactPiwik from 'react-piwik';
 
+import log from 'electron-log';
+
 const { remote } = window.require('electron');
-const log = remote.require('electron-log');
+const remoteLog = remote.require('electron-log');
+
+const logFormat = '{level} | {h}:{i}:{s}:{ms} | {processType} | {text}';
+log.transports.file.level = false;
+if (process.env.NODE_ENV === 'production') {
+  log.transports.console.level = false;
+} else {
+  log.transports.console.level = 'debug';
+  log.transports.console.format = logFormat;
+}
 
 (() => {
   // saving the original console.log function
@@ -15,7 +26,10 @@ const log = remote.require('electron-log');
     // because we need the function to be inside the
     // scope of the `console` object so we going to use the
     // `apply` function
-    log.info(arguments);
+    if (process.env.NODE_ENV !== 'production') {
+      log.info(arguments);
+    }
+    remoteLog.info(arguments);
   }
 
   function customError() {
@@ -24,7 +38,10 @@ const log = remote.require('electron-log');
     // because we need the function to be inside the
     // scope of the `console` object so we going to use the
     // `apply` function
-    log.error(arguments);
+    if (process.env.NODE_ENV !== 'production') {
+      log.error(arguments);
+    }
+    remoteLog.info(arguments);
   }
 
   console.log = customLog;
