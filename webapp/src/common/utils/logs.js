@@ -6,7 +6,7 @@ import log from 'electron-log';
 const { remote } = window.require('electron');
 const remoteLog = remote.require('electron-log');
 
-const logFormat = '{level} | {h}:{i}:{s}:{ms} | {processType} | {text}';
+const logFormat = '{level} | {h}:{i}:{s}:{ms} | {text}';
 log.transports.file.level = false;
 if (process.env.NODE_ENV === 'production') {
   log.transports.console.level = false;
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
     if (process.env.NODE_ENV !== 'production') {
       log.error(arguments);
     }
-    remoteLog.info(arguments);
+    remoteLog.error(arguments);
   }
 
   console.log = customLog;
