@@ -18,12 +18,15 @@ const keytar = require('keytar');
 const log = require('electron-log');
 const { checkForUpdates } = require('./updater');
 
-const logFormat = '{level} | {h}:{i}:{s}:{ms} | {processType} | {text}';
-log.transports.file.level = 'debug';
-log.transports.console.level = 'debug';
-log.transports.file.format = logFormat;
-log.transports.rendererConsole.level = 'debug';
-log.transports.console.format = logFormat;
+const logFormat = '{level} | {h}:{i}:{s}:{ms} | {text}';
+log.transports.rendererConsole.level = false;
+log.transports.console.level = false;
+log.transports.file.level = false;
+if (!isDev) {
+  log.transports.file.level = 'debug';
+  log.transports.file.format = logFormat;
+  log.transports.console.format = logFormat;
+}
 
 let mainWindow;
 let authWindow;
