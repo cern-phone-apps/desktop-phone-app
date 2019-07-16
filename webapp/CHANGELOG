@@ -10,6 +10,26 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.4.2-beta - 2019-07-16
+### Added
+- Support for AppImage on Linux (Centos 7 and Ubuntu 18.04)
+- Installation on Linux Desktop
+- Use keytar to store tokens
+- Support to remember the last number used when the application starts
+- Support for electron-log to store logs instead of local storage
+- About window working on all platforms
+- Active number is displayed on the right header
+- Logs modal now displays the logs location depending on the operating system
+- App menu option to open logs folder location
+### Improved
+- Authentication workflow: Now tokens are removed on logout
+- Sidebar now hides if the user clicks outside it
+### Removed
+- Debug modal
+- Notifications section on settings
+### Fixed
+- Typos and texts
+
 ## w0.4.0 - 2019-06-05
 ### Added
 - Call forwarding and simulatenous ringing banner and settings.
