@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Icon, Item } from "semantic-ui-react";
+import RecentCallModal from "calls/components/recent_calls/RecentCallModal/RecentCallModal.js"
 
 import styles from "../RecentCallList/RecentCall.module.css";
 
@@ -56,24 +57,26 @@ class RecentCall extends Component {
     const duration = moment.duration(moment(endTime).diff(moment(startTime)));
 
     return (
-      <Item className={"padded-item RecentCall"}>
-        <Icon
-          name="phone"
-          size={"large"}
-          color={"grey"}
-          className={"ui avatar"}
-        />
+      <RecentCallModal recentCall={this.props.recentCall} trigger={
+      <Item className={"padded-item RecentCall"} key={name+"-"+endTime+"-item"}>
+          <Icon
+            name="phone"
+            size={"large"}
+            color={"grey"}
+            className={"ui avatar"}
+          />
 
-        <RecentCallContent
-          name={name}
-          incoming={incoming}
-          color={color}
-          phoneNumber={phoneNumber}
-          printableDate={printableDate}
-          missed={missed}
-          duration={duration}
-        />
+          <RecentCallContent
+            name={name}
+            incoming={incoming}
+            color={color}
+            phoneNumber={phoneNumber}
+            printableDate={printableDate}
+            missed={missed}
+            duration={duration}
+          />
       </Item>
+      }/>
     );
   }
 }
