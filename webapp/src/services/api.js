@@ -9,7 +9,7 @@ import {
 
 import config from 'config';
 
-const apiEndpoint = 'https://dial-backend-next.web.cern.ch';
+const apiEndpoint = config.api.ENDPOINT;
 const apiType = 'desktop';
 
 const dialBackendApi = () => ({
