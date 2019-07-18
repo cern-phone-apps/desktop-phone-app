@@ -19,7 +19,6 @@ export class RecentCallsScreen extends React.Component {
 
   renderItem = ({ item }) => {
     const { navigation } = this.props;
-
     const printableDate = moment(item.endTime).calendar();
     const duration = moment.duration(
       moment(item.endTime).diff(moment(item.startTime))
