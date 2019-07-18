@@ -6,7 +6,7 @@ import log from 'electron-log';
 const { remote } = window.require('electron');
 const remoteLog = remote.require('electron-log');
 
-const logFormat = '{level} | {h}:{i}:{s}:{ms} | {text}';
+const logFormat = '{level} | {y}-{m}-{d} {h}:{i}:{s}:{ms} | {text}';
 log.transports.file.level = false;
 if (process.env.NODE_ENV === 'production') {
   log.transports.console.level = false;
