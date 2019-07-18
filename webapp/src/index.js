@@ -6,6 +6,7 @@ import { createHashHistory } from 'history';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { I18nextProvider } from 'react-i18next';
 import ReactPiwik from 'react-piwik';
+import config from 'config';
 /** s
  * Local imports
  */
@@ -23,8 +24,8 @@ import registerServiceWorker from './registerServiceWorker';
  */
 
 const piwik = new ReactPiwik({
-  url: process.env.REACT_APP_PIWIK_URL,
-  siteId: process.env.REACT_APP_PIWIK_SITE_ID,
+  url: config.piwik.URL,
+  siteId: config.piwik.SITE_ID,
   trackErrors: true
 });
 
