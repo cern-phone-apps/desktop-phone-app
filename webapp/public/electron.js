@@ -18,7 +18,7 @@ const keytar = require('keytar');
 const log = require('electron-log');
 const { checkForUpdates } = require('./updater');
 
-const logFormat = '{level} | {h}:{i}:{s}:{ms} | {text}';
+const logFormat = '{level} | {y}-{m}-{d} {h}:{i}:{s}:{ms} | {text}';
 log.transports.rendererConsole.level = false;
 log.transports.console.level = false;
 log.transports.file.level = false;
