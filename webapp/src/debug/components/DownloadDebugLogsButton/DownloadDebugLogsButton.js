@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Header, Modal } from 'semantic-ui-react';
 import DetectRTC from 'detectrtc';
-import { actionMessage, errorMessage, logMessage } from 'common/utils/logs';
+import {
+  actionMessage,
+  errorMessage,
+  logMessage,
+  systemInfoMessage
+} from 'common/utils/logs';
 import { stopStreams } from 'settings/utils/devices';
 import PropTypes from 'prop-types';
 import ElectronService from 'services/electron-service';
@@ -82,11 +87,18 @@ export class DownloadDebugLogsButton extends Component {
     logsLoaded: false
   };
 
-  handleOpen = () => this.setState({ modalOpen: true });
+  handleOpen = () => {
+    this.setState({ modalOpen: true });
+    this.loadLogs();
+  };
 
   handleClose = () => {
     this.setState({ modalOpen: false });
     stopStreams();
+  };
+
+  openLogsFolder = () => {
+    ElectronService.openLogsFolder();
   };
 
   loadLogs = () => {
@@ -109,7 +121,6 @@ export class DownloadDebugLogsButton extends Component {
         });
     });
     this.setState({ logsLoaded: true });
-    ElectronService.openLogsFolder();
   };
 
   getIpAddress = (ip, publicAddress, ipv4) => ({
@@ -221,7 +232,7 @@ export class DownloadDebugLogsButton extends Component {
 
   generateLogs(ipDict = {}) {
     logMessage('Loading system info...');
-    logMessage(this.getSystemInformation(ipDict));
+    systemInfoMessage(`${JSON.stringify(this.getSystemInformation(ipDict))}`);
   }
 
   render() {
@@ -238,7 +249,7 @@ export class DownloadDebugLogsButton extends Component {
         <Header icon="browser" content="Logs" />
         <DownloadDebugModalLogsContent value={logs} />
         <DownloadDebugModalActions
-          loadLogsClick={this.loadLogs}
+          loadLogsClick={this.openLogsFolder}
           logsLoaded={logsLoaded}
           handleCloseClick={this.handleClose}
         />

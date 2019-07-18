@@ -27,9 +27,9 @@ if (process.env.NODE_ENV === 'production') {
     // scope of the `console` object so we going to use the
     // `apply` function
     if (process.env.NODE_ENV !== 'production') {
-      log.info(arguments);
+      log.info(`LOG | ${JSON.stringify(arguments)}`);
     }
-    remoteLog.info(arguments);
+    remoteLog.info(`LOG | ${JSON.stringify(arguments)}`);
   }
 
   function customError() {
@@ -39,9 +39,9 @@ if (process.env.NODE_ENV === 'production') {
     // scope of the `console` object so we going to use the
     // `apply` function
     if (process.env.NODE_ENV !== 'production') {
-      log.error(arguments);
+      log.error(`ERROR | ${JSON.stringify(arguments)}`);
     }
-    remoteLog.error(arguments);
+    remoteLog.error(`ERROR | ${JSON.stringify(arguments)}`);
   }
 
   console.log = customLog;
@@ -68,6 +68,10 @@ const actionMessage = message => {
 };
 const logMessage = message => {
   log.info(JSON.stringify(message));
+};
+
+const systemInfoMessage = message => {
+  log.info(`SYSTEM | ${JSON.stringify(message)}`);
 };
 
 /**
@@ -97,5 +101,6 @@ export {
   toneInMessage,
   toneOutMessage,
   actionMessage,
-  logEvent
+  logEvent,
+  systemInfoMessage
 };
