@@ -48,30 +48,37 @@ if (process.env.NODE_ENV === 'production') {
   console.error = customError;
 })();
 
+let logger;
+if (process.env.NODE_ENV !== 'production') {
+  logger = log;
+} else {
+  logger = remoteLog;
+}
+
 const toneInMessage = message => {
-  log.info(`%cTONE_IN | ${JSON.stringify(message)}`, 'color: red');
+  logger.info(`%cTONE_IN | ${JSON.stringify(message)}`, 'color: red');
 };
 const toneOutMessage = message => {
-  log.info(`%cTONE_OUT | ${JSON.stringify(message)}`, 'color: blue');
+  logger.info(`%cTONE_OUT | ${JSON.stringify(message)}`, 'color: blue');
 };
 const infoMessage = message => {
-  log.info(JSON.stringify(message));
+  logger.info(JSON.stringify(message));
 };
 const errorMessage = message => {
-  log.error(JSON.stringify(message));
+  logger.error(JSON.stringify(message));
 };
 const warnMessage = message => {
-  log.warn(JSON.stringify(message));
+  logger.warn(JSON.stringify(message));
 };
 const actionMessage = message => {
-  log.warn(`ACTION | ${JSON.stringify(message)}`);
+  logger.warn(`ACTION | ${JSON.stringify(message)}`);
 };
 const logMessage = message => {
-  log.info(JSON.stringify(message));
+  logger.info(JSON.stringify(message));
 };
 
 const systemInfoMessage = message => {
-  log.info(`SYSTEM | ${JSON.stringify(message)}`);
+  logger.info(`SYSTEM | ${JSON.stringify(message)}`);
 };
 
 /**
