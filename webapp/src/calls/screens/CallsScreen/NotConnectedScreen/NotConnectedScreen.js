@@ -9,6 +9,7 @@ import MainHeaderContainer from 'calls/components/MainHeader/MainHeaderContainer
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import NumberConnectorContainer from 'calls/components/NumberConnector/NumberConnectorContainer';
+import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
 
 function SelectPhoneNumberModal({ modalOpen }) {
   const getCERNCertificatesURL = () =>
@@ -44,6 +45,7 @@ function SelectPhoneNumberModal({ modalOpen }) {
         </p>
         <NumberConnectorContainer />
         <hr />
+        <DownloadDebugLogsButton floated="right" />
         <LogoutButtonContainer color="red" />
       </Modal.Content>
     </Modal>
