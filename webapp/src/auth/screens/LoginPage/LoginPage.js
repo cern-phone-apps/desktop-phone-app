@@ -10,6 +10,7 @@ import LoadingDimmer from 'auth/components/LoadingDimmer/LoadingDimmer';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
 import ElectronService from 'services/electron-service';
+import { errorMessage } from 'common/utils/logs';
 
 export class LoginPage extends Component {
   static propTypes = {
@@ -27,20 +28,17 @@ export class LoginPage extends Component {
     const { login, getMe } = this.props;
 
     const code = ElectronService.getOauthCode();
-    console.log(`code is: ${code}`);
 
     if (code) {
       this.setState({ code });
       login(code)
         .then(result => {
           if (result.error) {
-            console.error(
-              `Unable to authenticate with the given code: ${code}`
-            );
+            errorMessage(`Unable to authenticate with the given code: ${code}`);
             ElectronService.setUserAsUnauthenticated();
+            errorMessage(result);
           }
 
-          console.log(result);
           if (result !== undefined && !result.error) {
             const {
               access_token: accessToken,

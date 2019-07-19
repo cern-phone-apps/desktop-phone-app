@@ -67,15 +67,11 @@ export class UserSearchResultsFormatter {
           searchResults.push(result);
           return result;
         });
-        // console.log("returning formatted phones");
 
-        // console.log(formattedPhones);
         return searchResults;
       }
-      // console.log("resturniung searchResults");
       return searchResults;
     });
-    // logMessage(searchResults);
 
     return searchResults;
   };

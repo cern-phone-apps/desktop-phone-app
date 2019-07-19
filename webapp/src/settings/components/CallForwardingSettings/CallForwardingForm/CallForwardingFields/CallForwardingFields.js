@@ -4,6 +4,7 @@ import React from 'react';
 
 import CallForwardingAddModalContainer from '../../CallForwardingAddModal/CallForwardingAddModalContainer';
 import { buildDropdownOptionsArray } from '../../utils';
+import { logMessage } from 'common/utils/logs';
 
 class CallForwardingFields extends React.Component {
   static propTypes = {
@@ -69,7 +70,7 @@ class CallForwardingFields extends React.Component {
   updateForwardList = newAdded => {
     const { localForwardList, status } = this.props;
 
-    console.log('Updating forward list...');
+    logMessage('Updating forward list...');
 
     const remoteList = status['destination-list']
       ? buildDropdownOptionsArray(status['destination-list'])
@@ -103,7 +104,7 @@ class CallForwardingFields extends React.Component {
     const { localForwardList } = this.props;
     const { remoteList } = this.state;
 
-    console.log(`Selecting existing number`);
+    logMessage(`Selecting existing number`);
 
     this.setState(
       {

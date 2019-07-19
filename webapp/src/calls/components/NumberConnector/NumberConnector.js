@@ -71,7 +71,7 @@ export class NumberConnector extends Component {
   };
 
   rememberNumberOnChange = () => {
-    console.log('Remember number on change');
+    logMessage('Remember number on change');
     const { setRememberNumber, rememberNumber } = this.props;
 
     setRememberNumber(!rememberNumber);

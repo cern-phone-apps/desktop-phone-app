@@ -144,7 +144,6 @@ export class CallForwardingAddModal extends React.Component {
       searchUsers,
       UserSearchResultsFormatter.formatResultsOneLinePerPhone
     );
-    console.log(result);
     this.setState(result);
     return result;
   };
