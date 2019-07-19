@@ -8,9 +8,6 @@ i18n.use(LanguageDetector).use(reactI18nextModule);
 
 if (process.env.NODE_ENV === 'production') {
   const electron = window.require('electron');
-  console.log(
-    `${electron.remote.app.getAppPath()}${__dirname}build/locales/{{lng}}/{{ns}}.json`
-  );
   i18n.use(ElectronBackend).init({
     backend: {
       loadPath: `${electron.remote.app.getAppPath()}${__dirname}build/locales/{{lng}}/{{ns}}.json`

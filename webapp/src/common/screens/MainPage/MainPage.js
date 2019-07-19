@@ -64,7 +64,6 @@ export class MainPage extends Component {
     t: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool.isRequired,
-    contentDimmed: PropTypes.bool.isRequired,
     notifications: PropTypes.array,
     hideSidebar: PropTypes.func.isRequired,
     openSettingsModal: PropTypes.func.isRequired,

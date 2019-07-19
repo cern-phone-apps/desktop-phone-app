@@ -162,9 +162,6 @@ export class IncomingCallModal extends Component {
     if (modalHidden && receivingCall) {
       shouldDisplayBanner = true;
     }
-
-    console.log(`Should display banner?: ${shouldDisplayBanner}`);
-
     if (connected && receivingCall) {
       return (
         <Modal

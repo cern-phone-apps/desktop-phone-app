@@ -9,7 +9,7 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { errorMessage } from 'common/utils/logs';
+import { errorMessage, infoMessage, logMessage } from 'common/utils/logs';
 import SimRingingFieldsContainer from './SimultaneousRingingFields/SimultaneousRingingFieldsContainer';
 
 import CallForwardingFieldsContainer from './CallForwardingFields/CallForwardingFieldsContainer';
@@ -93,7 +93,6 @@ export class CallForwardingForm extends React.Component {
 
   // Form
   handleRadioChangeAction = (e, { value }) => {
-    console.log(value);
     this.setState({ forwardStatus: value });
   };
 
@@ -102,7 +101,7 @@ export class CallForwardingForm extends React.Component {
     if (!isFetching) {
       this.fetchData();
     } else {
-      console.log('Already fetching...');
+      infoMessage('Already fetching...');
     }
   };
 
@@ -121,13 +120,13 @@ export class CallForwardingForm extends React.Component {
 
     const { forwardStatus, ringingNumbers, forwardNumbers } = this.state;
 
-    console.log('Saving Call Forwarding data....');
-    console.log(`Forward status: ${forwardStatus}`);
-    console.log(`Ringing numbers: ${ringingNumbers}`);
-    console.log(`Forward numbers: ${forwardNumbers}`);
+    logMessage('Saving Call Forwarding data....');
+    logMessage(`Forward status: ${forwardStatus}`);
+    logMessage(`Ringing numbers: ${ringingNumbers}`);
+    logMessage(`Forward numbers: ${forwardNumbers}`);
 
     if (forwardStatus === 'disabled') {
-      console.log(`Calling disableCallForwarding with ${activeNumber}`);
+      logMessage(`Calling disableCallForwarding with ${activeNumber}`);
       disableCallForwarding(activeNumber);
     } else if (forwardStatus === 'simultaneous') {
       enableSimultaneousRinging(activeNumber, ringingNumbers);
