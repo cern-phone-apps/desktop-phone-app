@@ -87,6 +87,10 @@ export class DownloadDebugLogsButton extends Component {
     logsLoaded: false
   };
 
+  static defaultProps = {
+    floated: false
+  };
+
   handleOpen = () => {
     this.setState({ modalOpen: true });
     this.loadLogs();
@@ -240,7 +244,12 @@ export class DownloadDebugLogsButton extends Component {
     return (
       <Modal
         trigger={
-          <Button onClick={this.handleOpen} className="flat" icon="bug" />
+          <Button
+            onClick={this.handleOpen}
+            className="flat"
+            icon="bug"
+            floated={this.props.floated}
+          />
         }
         open={modalOpen}
         onClose={this.handleClose}
