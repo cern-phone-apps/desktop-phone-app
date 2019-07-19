@@ -83,6 +83,18 @@ class ElectronService {
     const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'open-logs-folder');
     return result;
   };
+
+  static setUpdateChannelValue = value => {
+    const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'setUpdateChannelValue', {
+      value
+    });
+    return result;
+  };
+
+  static getUpdateChannelValue = () => {
+    const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'getUpdateChannelValue');
+    return result;
+  };
 }
 
 export default ElectronService;

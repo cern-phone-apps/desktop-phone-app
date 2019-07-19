@@ -9,6 +9,7 @@ import AppInfo from 'settings/components/AppInfo/AppInfo';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import CallsSettings from 'settings/components/CallsSettings/CallsSettings';
 import RememberNumberSettingsContainer from 'settings/components/RememberNumberSettings/RememberNumberSettingsContainer';
+import UpdateSettings from 'settings/components/UpdateSettings/UpdateSettings';
 
 const ModalTrigger = ({ onClick }) => (
   <Menu.Item
@@ -63,6 +64,8 @@ export class SettingsModal extends Component {
             <RememberNumberSettingsContainer />
             <hr />
             <DeviceSettings />
+            <hr />
+            <UpdateSettings />
             <hr />
             <Header as="h4">{t('dangerZoneHeader')}</Header>
             <LogoutButtonContainer color="red" />

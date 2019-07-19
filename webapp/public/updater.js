@@ -1,14 +1,15 @@
 const { dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const storage = require('electron-json-storage');
 
 let updater;
 autoUpdater.autoDownload = false;
 
-if (process.env.REACT_APP_NEXT) {
-  autoUpdater.channel = 'beta';
-} else {
-  autoUpdater.allowPrerelease = false;
-}
+// if (process.env.REACT_APP_NEXT) {
+//   autoUpdater.channel = 'beta';
+// } else {
+//   autoUpdater.allowPrerelease = false;
+// }
 
 autoUpdater.on('error', error => {
   dialog.showErrorBox(
@@ -63,6 +64,14 @@ autoUpdater.on('update-downloaded', () => {
 function checkForUpdates(menuItem, focusedWindow, event) {
   updater = menuItem;
   updater.enabled = false;
-  autoUpdater.checkForUpdates();
+
+  storage.get('update_channel', (error, data) => {
+    let channel = data.channel || 'stable';
+    console.log(`Updating app using channel: ${channel}`);
+
+    if (error) channel = 'stable';
+    autoUpdater.channel = channel;
+    autoUpdater.checkForUpdates();
+  });
 }
 module.exports.checkForUpdates = checkForUpdates;
