@@ -88,7 +88,7 @@ export class DownloadDebugLogsButton extends Component {
   };
 
   static defaultProps = {
-    floated: false
+    floated: undefined
   };
 
   handleOpen = () => {

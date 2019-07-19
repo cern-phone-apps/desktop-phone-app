@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Grid, Header, Segment, Modal, Message } from 'semantic-ui-react';
+import {
+  Grid,
+  Header,
+  Segment,
+  Modal,
+  Message,
+} from 'semantic-ui-react';
 
 import RightColumn from 'common/components/RightColumn/RightColumn';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
@@ -10,6 +16,7 @@ import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageCo
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import NumberConnectorContainer from 'calls/components/NumberConnector/NumberConnectorContainer';
 import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
+import SettingsButtonContainer from 'common/components/SettingsButton/SettingsButtonContainer';
 
 function SelectPhoneNumberModal({ modalOpen }) {
   const getCERNCertificatesURL = () =>
@@ -46,6 +53,7 @@ function SelectPhoneNumberModal({ modalOpen }) {
         <NumberConnectorContainer />
         <hr />
         <DownloadDebugLogsButton floated="right" />
+        <SettingsButtonContainer floated="right" />
         <LogoutButtonContainer color="red" />
       </Modal.Content>
     </Modal>
