@@ -10,6 +10,14 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.4.3 - 2019-07-19
+### Added
+- Support to select the update channel (stable, beta, alpha)
+- Settings and debug buttons are now displayed on not connected screen
+### Fixed
+- Logs are now displayed properly on the logs file
+- Piwik stats are not obtained from process.env
+
 ## w0.4.2-beta - 2019-07-16
 ### Added
 - Support for AppImage on Linux (Centos 7 and Ubuntu 18.04)
