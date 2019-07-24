@@ -1,6 +1,6 @@
 {
   "name": "cern-phone-app",
-  "version": "0.4.3",
+  "version": "0.5.0-beta",
   "private": true,
   "homepage": "./",
   "author": "CERN",
@@ -102,7 +102,6 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.86.0",
-    "sip.js": "^0.11.2",
     "tone-api-web": "file:../tone-api/web",
     "uid": "0.0.2",
     "wait-on": "^3.2.0"
