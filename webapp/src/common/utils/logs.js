@@ -55,30 +55,68 @@ if (process.env.NODE_ENV !== 'production') {
   logger = remoteLog;
 }
 
-const toneInMessage = message => {
-  logger.info(`%cTONE_IN | ${JSON.stringify(message)}`, 'color: red');
+const simpleStringify = object => {
+  const simpleObject = {};
+  Object.keys(object).forEach(prop => {
+    if (
+      Object.prototype.hasOwnProperty.call(object, prop) &&
+      typeof object[prop] !== 'object' &&
+      typeof object[prop] !== 'function'
+    ) {
+      simpleObject[prop] = object[prop];
+    }
+  });
+  return JSON.stringify(simpleObject); // returns cleaned up JSON
 };
+
+const printParsedMessage = (
+  message,
+  loggerType = 'info',
+  messageType = 'info'
+) => {
+  let parsedMessage;
+  try {
+    parsedMessage = JSON.stringify(message);
+  } catch (TypeError) {
+    parsedMessage = simpleStringify(message);
+  }
+
+  if (loggerType === 'info') {
+    logger.info(`${messageType} | ${parsedMessage}`);
+  }
+  if (loggerType === 'error') {
+    logger.error(`${messageType} | ${parsedMessage}`);
+  }
+  if (loggerType === 'warn') {
+    logger.warn(`${messageType} | ${parsedMessage}`);
+  }
+};
+
+const toneInMessage = message => {
+  printParsedMessage(message, 'info', '%cTONE_IN');
+};
+
 const toneOutMessage = message => {
-  logger.info(`%cTONE_OUT | ${JSON.stringify(message)}`, 'color: blue');
+  printParsedMessage(message, 'info', '%cTONE_OUT');
 };
 const infoMessage = message => {
-  logger.info(JSON.stringify(message));
+  printParsedMessage(message);
 };
 const errorMessage = message => {
-  logger.error(JSON.stringify(message));
+  printParsedMessage(message, 'error', 'error');
 };
 const warnMessage = message => {
-  logger.warn(JSON.stringify(message));
+  printParsedMessage(message, 'warn', 'warn');
 };
 const actionMessage = message => {
-  logger.warn(`ACTION | ${JSON.stringify(message)}`);
+  printParsedMessage(message, 'info', 'ACTION');
 };
 const logMessage = message => {
-  logger.info(JSON.stringify(message));
+  printParsedMessage(message);
 };
 
 const systemInfoMessage = message => {
-  logger.info(`SYSTEM | ${JSON.stringify(message)}`);
+  printParsedMessage(message, 'info', 'SYSTEM');
 };
 
 /**
