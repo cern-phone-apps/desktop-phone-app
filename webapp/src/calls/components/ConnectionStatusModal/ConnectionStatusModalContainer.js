@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux';
 import dialBackendApi from 'services/api';
 import ConnectionStatusModal from './ConnectionStatusModal';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ connection, numbers, status }) {
   return {
-    connected: calls.connection.connected,
-    activeNumber: calls.numbers.activeNumber,
-    doNotDisturb: calls.status.doNotDisturb
+    connected: connection.connected,
+    activeNumber: numbers.activeNumber,
+    doNotDisturb: status.doNotDisturb
   };
 }
 

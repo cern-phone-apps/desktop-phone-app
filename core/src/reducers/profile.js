@@ -1,6 +1,6 @@
 import * as usersActions from '../actions/users';
 
-const initialState = {
+const INITIAL_STATE = {
   profile: {},
   fetching: false,
   error: undefined
@@ -13,7 +13,7 @@ const initialState = {
  * @param action
  * @returns {{userSelected: boolean, value: string, searchResults: Array}}
  */
-const search = (state = initialState, action) => {
+const search = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case usersActions.PROFILE_REQUEST:
       return {

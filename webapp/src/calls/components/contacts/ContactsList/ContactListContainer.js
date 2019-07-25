@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import dialBackendApi from 'services/api';
 import ContactList from './ContactList';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ contacts }) {
   return {
-    contacts: calls.contacts.getContacts.contacts
+    contacts: contacts.getContacts.contacts
   };
 }
 

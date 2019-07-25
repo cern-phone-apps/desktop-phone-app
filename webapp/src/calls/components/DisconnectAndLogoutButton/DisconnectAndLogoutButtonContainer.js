@@ -5,10 +5,10 @@ import { bindActionCreators } from 'redux';
 import dialBackendApi from 'services/api';
 import { DisconnectAndLogoutButton } from './DisconnectAndLogoutButton';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ connection }) {
   return {
-    connected: calls.connection.connected,
-    disconnecting: calls.connection.disconnecting
+    connected: connection.connected,
+    disconnecting: connection.disconnecting
   };
 }
 

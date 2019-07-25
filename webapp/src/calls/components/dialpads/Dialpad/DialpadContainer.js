@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { callActions, dialpadActions } from 'dial-core';
 import Dialpad from './Dialpad';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ dialpad }) {
   return {
-    dialpadValue: calls.dialpad.value
+    dialpadValue: dialpad.value
   };
 }
 

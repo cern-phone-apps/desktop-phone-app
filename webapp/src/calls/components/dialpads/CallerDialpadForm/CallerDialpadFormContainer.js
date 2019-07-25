@@ -7,9 +7,9 @@ import { dialpadActions, callActions } from 'dial-core';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import { CallerDialpadForm } from './CallerDialpadForm';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ dialpad }) {
   return {
-    value: calls.dialpad.value
+    value: dialpad.value
   };
 }
 

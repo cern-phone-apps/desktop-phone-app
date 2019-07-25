@@ -6,9 +6,9 @@ import { dialpadActions, searchActions, callActions } from 'dial-core';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import { CallerDialpad } from './CallerDialpad';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ dialpad }) {
   return {
-    dialpadValue: calls.dialpad.value
+    dialpadValue: dialpad.value
   };
 }
 

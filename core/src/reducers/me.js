@@ -1,6 +1,6 @@
 import * as meActions from '../actions/me';
 
-const initialState = {
+const INITIAL_STATE = {
   email: null,
   firstName: null,
   lastName: null,
@@ -20,7 +20,7 @@ const initialState = {
  * @param action Action that will be triggered
  * @returns {*} A dict with the new state
  */
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case meActions.ME_REQUEST:
       return {

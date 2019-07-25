@@ -1,6 +1,6 @@
 import * as callForwardingActions from '../actions/call_forwarding';
 
-const initialState = {
+const INITIAL_STATE = {
   localForwardList: [],
   localRingingList: [],
   fetchingStatus: false,
@@ -8,7 +8,7 @@ const initialState = {
   lastOperationResult: null
 };
 
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case callForwardingActions.ADD_LOCAL_FORWARD_NUMBER:
       return {

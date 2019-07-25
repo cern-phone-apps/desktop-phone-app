@@ -9,11 +9,11 @@ import * as setttingsActions from 'settings/actions/settings';
 import dialBackendApi from 'services/api';
 import NumberConnector from './NumberConnector';
 
-function mapStateToProps({ auth, calls, settings }) {
+function mapStateToProps({ auth, numbers, connection, settings }) {
   return {
-    activeNumber: calls.numbers.activeNumber,
-    connecting: calls.connection.connecting,
-    numbers: calls.numbers.numbers,
+    activeNumber: numbers.activeNumber,
+    connecting: connection.connecting,
+    numbers: numbers.numbers,
     rememberNumber: settings.settings.rememberNumber
   };
 }

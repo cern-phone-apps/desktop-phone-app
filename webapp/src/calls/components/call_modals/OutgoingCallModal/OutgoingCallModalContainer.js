@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import CallModal from './OutgoingCallModal';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ call }) {
   return {
-    callerName: calls.call.tempRemote ? calls.call.tempRemote.name : '',
-    phoneNumber: calls.call.tempRemote ? calls.call.tempRemote.phoneNumber : ''
+    callerName: call.tempRemote ? call.tempRemote.name : '',
+    phoneNumber: call.tempRemote ? call.tempRemote.phoneNumber : ''
   };
 }
 

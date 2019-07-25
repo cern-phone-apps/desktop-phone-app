@@ -4,12 +4,20 @@ export const CALL_REJECTED = '@@call/CALL_REJECTED';
 export const CALL_FAILED = '@@call/CALL_FAILED';
 export const CALL_MISSED = '@@call/CALL_MISSED';
 export const CALL_RECEIVED = '@@call/CALL_RECEIVED';
-export const CALL_FINISHED = '@@call/CALL_FINISHED';
 export const CALL_ACCEPTED = '@@call/CALL_ACCEPTED';
+export const SET_CALL_ID = '@@call/SET_CALL_ID';
 
 export const ADD_ADDITIONAL_CALL = '@@call/ADD_ADDITIONAL_CALL';
 export const REMOVE_ADDITIONAL_CALL = '@@call/REMOVE_ADDITIONAL_CALL';
 
+export const CALL_FINISHED_ACTIONS = {
+  FINISH_ONGOING_CALL : '@@call/FINISH_ONGOING_CALL',
+  FINISH_TEMP_CALL: '@@call/FINISH_TEMP_CALL'
+}
+
+export const ADDITIONAL_CALL_ACTIONS = {
+  SET_ADDITIONAL_CALL: '@@call/SET_ADDITIONAL_CALL'
+}
 /**
  * Action that triggers a call to a selected caller
  *
@@ -96,21 +104,32 @@ export function setCallMissed() {
 }
 
 /**
- * Action triggered when a call is hung up
- * @returns {{type: string}} A dict
+ *
+ * @param { boolean } onCall Whether the application should remain on call or not
+ * @param { object } remote The remote that will be set on the application
  */
-export function setCallFinished(onCall = false, remote = null) {
+export function setTempCallFinished() {
   return {
-    onCall,
+    type: CALL_FINISHED_ACTIONS.FINISH_TEMP_CALL
+  };
+}
+
+/**
+ *
+ * @param { boolean } onCall Whether the application should remain on call or not
+ * @param { object } remote The remote that will be set on the application
+ */
+export function setOngoingCallFinished(remote = undefined) {
+  return {
     remote,
-    type: CALL_FINISHED
+    type: CALL_FINISHED_ACTIONS.FINISH_ONGOING_CALL
   };
 }
 
 /**
  *
  */
-export function addAdditionalCall() {
+export function incrementAdditionalCallsNumber() {
   return {
     type: ADD_ADDITIONAL_CALL
   };
@@ -119,8 +138,27 @@ export function addAdditionalCall() {
 /**
  *
  */
-export function removeAdditionalCall() {
+export function decrementAdditionalCallsNumber() {
   return {
     type: REMOVE_ADDITIONAL_CALL
+  };
+}
+
+export function setAdditionalCall(additionalCall) {
+  return {
+    type: ADDITIONAL_CALL_ACTIONS.SET_ADDITIONAL_CALL,
+    additionalCall
+  };
+}
+
+/**
+ * Action triggered when a call is taking place.
+ *
+ * @returns {{type: string}} A dict
+ */
+export function setCallId(callId) {
+  return {
+    type: SET_CALL_ID,
+    callId
   };
 }

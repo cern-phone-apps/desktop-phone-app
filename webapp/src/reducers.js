@@ -5,7 +5,11 @@ import {
   authReducer,
   meReducer,
   callsReducer,
-  callForwardingReducer
+  callForwardingReducer,
+  recentCallsReducer,
+  doNotDisturbReducer,
+  profileReducer,
+  contactsReducer
 } from 'dial-core';
 
 import settings from 'settings/reducers/index';
@@ -21,8 +25,16 @@ const rootReducer = combineReducers({
   common,
   callForwarding: callForwardingReducer,
   settings,
-  calls: callsReducer,
-  router: routerReducer
+  router: routerReducer,
+  call: callsReducer.callReducer,
+  connection: callsReducer.connectionReducer,
+  recent: recentCallsReducer,
+  search: callsReducer.searchReducer,
+  dialpad: callsReducer.dialpadReducer,
+  numbers: callsReducer.numbersReducer,
+  status: doNotDisturbReducer,
+  profile: profileReducer,
+  contacts: contactsReducer
 });
 
 export default rootReducer;

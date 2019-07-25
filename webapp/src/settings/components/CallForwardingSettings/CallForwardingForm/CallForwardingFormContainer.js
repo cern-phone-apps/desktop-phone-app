@@ -4,12 +4,12 @@ import { callForwardingActions } from 'dial-core';
 import dialBackendApi from 'services/api';
 import { CallForwardingForm } from './CallForwardingForm';
 
-function mapStateToProps({ callForwarding, calls }) {
+function mapStateToProps({ callForwarding, numbers }) {
   return {
     localForwardList: callForwarding.localForwardList,
     fetchingStatus: callForwarding.fetchingStatus,
     status: callForwarding.status,
-    activeNumber: calls.numbers.activeNumber,
+    activeNumber: numbers.activeNumber,
     lastOperationResult: callForwarding.lastOperationResult
   };
 }

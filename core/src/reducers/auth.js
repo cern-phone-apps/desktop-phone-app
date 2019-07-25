@@ -1,7 +1,7 @@
 import * as authActions from '../actions/auth';
 import { createError } from '../util/errors';
 
-const initialState = {
+const INITIAL_STATE = {
   authInProgress: false,
   loggedIn: false,
   authToken: undefined,
@@ -20,7 +20,7 @@ const initialState = {
  * @param action
  * @returns {{loggedIn, loginInProgress, error}}
  */
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case authActions.AUTH_START:
       return {

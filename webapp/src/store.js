@@ -8,20 +8,9 @@ import apiMiddleware from 'middleware';
 import rootReducer from './reducers';
 
 const createCustomStore = history => {
-  // We don't want to persist the connection status
-  const blacklistFilter = createBlacklistFilter('calls', [
-    'connection',
-    'search',
-    'call',
-    'dialpad',
-    'contacts'
-  ]);
-
   const blacklistLoginFilter = createBlacklistFilter('auth', [
     'loginInProgress',
     'error'
-    // "loggedIn",
-    // "token"
   ]);
 
   const blacklistCommonFilter = createBlacklistFilter('common', [
@@ -34,9 +23,8 @@ const createCustomStore = history => {
   const persistConfig = {
     key: 'phone-webapp',
     storage,
-    blacklist: ['sidebar'],
+    blacklist: ['sidebar', 'connection', 'call', 'dialpad', 'search'],
     transforms: [
-      blacklistFilter,
       blacklistLoginFilter,
       blacklistCommonFilter,
       blacklistSettingsFilter

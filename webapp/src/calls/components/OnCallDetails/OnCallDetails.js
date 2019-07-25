@@ -45,7 +45,7 @@ export class OnCallDetails extends Component {
             <h3 className="ui center aligned header">{t('onCallWithText')}</h3>
             <h2 className="ui center aligned header">
               <Icon name="user" />{' '}
-              {caller ? caller.phoneNumber : caller.phoneNumber}
+              {caller ? caller.phoneNumber : 'Unknow number'}
             </h2>
             <div className="ui center aligned basic segment">
               <Timer startTime={call.startTime} />

@@ -1,21 +1,17 @@
-import { bindActionCreators } from "redux";
+import { bindActionCreators } from 'redux';
 
-import { connect } from "react-redux";
-import CallerTabsSelector from "calls/components/CallerTabsSelector/CallerTabsSelector";
+import { connect } from 'react-redux';
+import CallerTabsSelector from 'calls/components/CallerTabsSelector/CallerTabsSelector';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ dialpad }) {
   return {
-    dialpadValue: calls.dialpad.value,
-    displayDialpad: calls.dialpad.display,
+    dialpadValue: dialpad.value,
+    displayDialpad: dialpad.display
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-    },
-    dispatch
-  );
+  return bindActionCreators({}, dispatch);
 }
 
 export const CallerTabsSelectorContainer = connect(

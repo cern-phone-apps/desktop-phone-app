@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { OnCallScreen } from './OnCallScreen';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ connection, call, search }) {
   return {
-    connected: calls.connection.connected,
-    onCall: calls.call.onCall,
-    calling: calls.call.calling,
-    userSelected: calls.search.userSelected
+    connected: connection.connected,
+    onCall: call.onCall,
+    calling: call.calling,
+    userSelected: search.userSelected
   };
 }
 

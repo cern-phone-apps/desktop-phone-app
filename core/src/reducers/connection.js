@@ -1,6 +1,6 @@
 import * as connectionActions from '../actions/connection';
 
-const initialState = {
+const INITIAL_STATE = {
   connected: false,
   activeNumber: '',
   connecting: false,
@@ -8,7 +8,7 @@ const initialState = {
   error: {}
 };
 
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case connectionActions.REGISTRATION_REQUEST:
       return {

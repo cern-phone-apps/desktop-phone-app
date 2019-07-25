@@ -9,12 +9,13 @@ import IncomingCallModal from './IncomingCallModal';
  * @param calls
  * @returns {{connected: *, receivingCall: boolean, callerName: *, callerNumber: *}}
  */
-function mapStateToProps({ calls }) {
+function mapStateToProps({ call, connection }) {
   return {
-    connected: calls.connection.connected,
-    receivingCall: calls.call.receivingCall,
-    callerName: calls.call.tempRemote ? calls.call.tempRemote.callerName : '',
-    callerNumber: calls.call.tempRemote ? calls.call.tempRemote.phoneNumber : ''
+    connected: connection.connected,
+    receivingCall: call.receivingCall,
+    onCall: call.onCall,
+    callerName: call.tempRemote ? call.tempRemote.callerName : '',
+    callerNumber: call.tempRemote ? call.tempRemote.phoneNumber : ''
   };
 }
 

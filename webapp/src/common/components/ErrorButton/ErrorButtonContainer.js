@@ -2,14 +2,9 @@ import { connect } from 'react-redux';
 import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 import ErrorButton from 'common/components/ErrorButton/ErrorButton';
 
-function mapStateToProps({ calls, auth }) {
+function mapStateToProps({ call, connection, numbers, auth }) {
   return {
-    errors: [
-      calls.call.error,
-      calls.connection.error,
-      calls.numbers.error,
-      auth.error
-    ]
+    errors: [call.error, connection.error, numbers.error, auth.error]
   };
 }
 

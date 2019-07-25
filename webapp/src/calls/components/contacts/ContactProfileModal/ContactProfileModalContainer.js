@@ -3,12 +3,12 @@ import { bindActionCreators } from 'redux';
 import { contactsActions } from 'dial-core';
 import ContactProfileModal from 'calls/components/contacts/ContactProfileModal/ContactProfileModal';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ contacts, profile }) {
   return {
-    modalOpen: calls.contacts.modal.modalOpen,
-    selectedContact: calls.contacts.modal.selectedContact,
-    profile: calls.profile.profile,
-    fetching: calls.profile.fetching
+    modalOpen: contacts.modal.modalOpen,
+    selectedContact: contacts.modal.selectedContact,
+    profile: profile.profile,
+    fetching: profile.fetching
   };
 }
 

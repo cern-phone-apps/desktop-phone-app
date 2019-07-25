@@ -39,6 +39,14 @@ function RejectButton({ onClick }) {
   );
 }
 
+function HangupAndPickupButton({ onClick }) {
+  return (
+    <Button negative onClick={onClick} className="RejectCallButton">
+      Hangup and Answer
+    </Button>
+  );
+}
+
 RejectButton.propTypes = { onClick: PropTypes.func };
 
 /**
@@ -66,10 +74,12 @@ function CallingModalContent({
   callerName,
   callerNumber,
   onClickReject,
-  onClickAnswer
+  onClickAnswer,
+  onClickHangupAndAnswer,
+  onCall
 }) {
   return (
-    <>
+    <React.Fragment>
       <Modal.Header>Receiving an incoming call</Modal.Header>
       <Modal.Content>
         <Modal.Description>
@@ -82,17 +92,20 @@ function CallingModalContent({
       </Modal.Content>
       <Modal.Actions>
         <RejectButton onClick={onClickReject} />
-        <AnswerButton onClick={onClickAnswer} />
+        {!onCall && <AnswerButton onClick={onClickAnswer} />}
+        {onCall && <HangupAndPickupButton onClick={onClickHangupAndAnswer} />}
       </Modal.Actions>
-    </>
+    </React.Fragment>
   );
 }
 
 CallingModalContent.propTypes = {
   callerName: PropTypes.any,
   callerNumber: PropTypes.any,
-  onClick: PropTypes.func,
-  onClick1: PropTypes.func
+  onClickReject: PropTypes.func,
+  onClickAnswer: PropTypes.func,
+  onClickHangupAndAnswer: PropTypes.func,
+  onCall: PropTypes.bool.isRequired
 };
 
 /**
@@ -104,6 +117,7 @@ export class IncomingCallModal extends Component {
     phoneService: PropTypes.object.isRequired,
     connected: PropTypes.bool.isRequired,
     receivingCall: PropTypes.bool.isRequired,
+    onCall: PropTypes.bool.isRequired,
     callerName: PropTypes.string,
     callerNumber: PropTypes.string,
     setIsReceivingCall: PropTypes.func.isRequired // TODO Rename this function
@@ -146,6 +160,16 @@ export class IncomingCallModal extends Component {
   };
 
   /**
+   * Action triggered when the reject call button is triggered
+   */
+  hangUpAndAnswerIncomingCall = () => {
+    const { phoneService } = this.props;
+    const hangUpdDefaultCall = true;
+    phoneService.hangUpCurrentCallAction(hangUpdDefaultCall);
+    phoneService.acceptIncomingCall();
+  };
+
+  /**
    * Action triggered when the answer button is clicked
    */
   answerCall = () => {
@@ -155,7 +179,13 @@ export class IncomingCallModal extends Component {
   };
 
   render() {
-    const { connected, receivingCall, callerName, callerNumber } = this.props;
+    const {
+      connected,
+      receivingCall,
+      callerName,
+      callerNumber,
+      onCall
+    } = this.props;
     const { modalHidden } = this.state;
 
     let shouldDisplayBanner = false;
@@ -186,8 +216,10 @@ export class IncomingCallModal extends Component {
           <CallingModalContent
             callerName={callerName}
             callerNumber={callerNumber}
+            onCall={onCall}
             onClickReject={this.rejectIncomingCall}
             onClickAnswer={this.answerCall}
+            onClickHangupAndAnswer={this.hangUpAndAnswerIncomingCall}
           />
         </Modal>
       );

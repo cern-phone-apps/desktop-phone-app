@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import ContactEmergencyModal from 'calls/components/contacts/ContactEmergencyModal/ContactEmergencyModal';
 import { contactsActions } from 'dial-core';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ contacts }) {
   return {
-    emergencyModalOpen: calls.contacts.emergencyModal.emergencyModalOpen
+    emergencyModalOpen: contacts.emergencyModal.emergencyModalOpen
   };
 }
 

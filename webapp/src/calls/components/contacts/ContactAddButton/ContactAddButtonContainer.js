@@ -4,9 +4,9 @@ import ContactAddButton from 'calls/components/contacts/ContactAddButton/Contact
 
 import dialBackendApi from 'services/api';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ contacts }) {
   return {
-    contacts: calls.contacts.getContacts.contacts
+    contacts: contacts.getContacts.contacts
   };
 }
 

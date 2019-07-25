@@ -1,11 +1,11 @@
 import * as dialpadActions from '../actions/dialpad';
 
-const initialState = {
+const INITIAL_STATE = {
   display: false,
   value: ''
 };
 
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case dialpadActions.DIALPAD_NUMBER_UPDATED:
       return {

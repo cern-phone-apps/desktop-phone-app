@@ -1,6 +1,6 @@
 import * as numbersActions from '../actions/numbers';
 
-const initialState = {
+const INITIAL_STATE = {
   fetching: false,
   error: undefined,
   activeNumber: undefined,
@@ -65,7 +65,7 @@ function handleServerError(state, action) {
  * @param action
  * @returns {{fetching, numbers, error}} The state with all the user's phone numbers
  */
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case numbersActions.NUMBERS_REQUEST:
       if (action.error) {

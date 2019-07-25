@@ -22,13 +22,17 @@ export class CallForwardingBanner extends Component {
 
   componentDidMount() {
     const timerTime = 60000;
+    this.mounted = true;
     this.fetchCallForwardingStatus();
     this.timer = setInterval(() => {
-      this.fetchCallForwardingStatus();
+      if (this.mounted) {
+        this.fetchCallForwardingStatus();
+      }
     }, timerTime);
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearTimeout(this.timer);
   }
 

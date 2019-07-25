@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { SearchProfileModal } from 'calls/components/search/SearchProfileModal/SearchProfileModal';
 import { searchActions } from 'dial-core';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ search }) {
   return {
-    userSelected: calls.search.userSelected,
-    user: calls.search.user
+    userSelected: search.userSelected,
+    user: search.user
   };
 }
 

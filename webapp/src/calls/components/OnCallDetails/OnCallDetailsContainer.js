@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import withPhoneService from 'calls/providers/PhoneProvider/PhoneService';
 import OnCallDetails from './OnCallDetails';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ call }) {
   return {
-    caller: calls.call.remote,
-    receivingCall: calls.call.receivingCall,
-    call: calls.call
+    caller: call.remote,
+    receivingCall: call.receivingCall,
+    call
   };
 }
 

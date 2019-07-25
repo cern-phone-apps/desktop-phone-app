@@ -1,14 +1,14 @@
 import * as recentCallsActions from '../actions/recent_calls';
 
-const initialState = {
+const INITIAL_STATE = {
   lastRecentId: 0,
   recentCalls: []
 };
 
-export default (state = initialState, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case recentCallsActions.ADD_RECENT_CALL: {
-      const { remote, incoming, missed, startTime } = action;
+      const { remote } = action;
       const lastRecentId = state.lastRecentId + 1;
 
       return {
@@ -20,9 +20,9 @@ export default (state = initialState, action) => {
             name: remote.name,
             phoneNumber: remote.phoneNumber,
             endTime: Date.now(),
-            startTime,
-            missed,
-            incoming
+            startTime: remote.startTime || Date.now(),
+            missed: remote.missed,
+            incoming: remote.incoming
           },
           ...state.recentCalls
         ]

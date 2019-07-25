@@ -17,23 +17,31 @@ import * as searchActions from './actions/search';
 import authReducer from './reducers/auth';
 import callsReducer from './reducers';
 import meReducer from './reducers/me';
-import numbersReducer from './reducers/numbers';
+import recentCallsReducer from './reducers/recent';
+import doNotDisturbReducer from './reducers/do_not_disturb';
+import profileReducer from './reducers/profile';
+
 import callForwardingReducer from './reducers/call_forwarding';
 import contactsReducer from './reducers/contacts';
-import searchReducer from './reducers/search';
 
 import * as util from './util';
 
 export {
   util,
+  /* Authentication */
   authActionFactory,
   authActions,
   authReducer,
   callActions,
   callsReducer,
+  /* Calls related reducers */
+  recentCallsReducer,
+  doNotDisturbReducer,
+  profileReducer,
   callForwardingActionFactory,
   callForwardingActions,
   callForwardingReducer,
+  /* Actions */
   connectionActions,
   contactsActionFactory,
   contactsActions,
@@ -44,9 +52,7 @@ export {
   meReducer,
   numbersActionFactory,
   numbersActions,
-  numbersReducer,
   recentCallsActions,
   searchActions,
-  searchReducer,
   usersActionFactory
 };

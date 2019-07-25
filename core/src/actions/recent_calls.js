@@ -9,18 +9,19 @@ export const CLEAR_RECENT_CALLS = '@@call/CLEAR_RECENT_CALLS';
  * @param startTime
  * @returns {{incoming: *, missed: *, startTime: *, remote: *, type: string}}
  */
-export function addRecentCall(remote, incoming, missed, startTime) {
-  const newRemote = remote || {};
+export function addRecentCall(remote) {
+  const newRemote = remote;
   if (remote && !remote.name) {
     newRemote.name = remote.phoneNumber;
   }
 
   return {
     remote: newRemote,
-    missed,
+    missed: newRemote.missed,
     incoming: newRemote.incoming,
-    startTime,
-    type: ADD_RECENT_CALL
+    startTime: newRemote.startTime,
+    type: ADD_RECENT_CALL,
+    callId: newRemote.callId
   };
 }
 

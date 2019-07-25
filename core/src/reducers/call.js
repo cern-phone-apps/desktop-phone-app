@@ -13,12 +13,11 @@ const initialState = {
   remote: null,
   /** the identity of the caller/recipient (queued call) */
   tempRemote: null,
-  /** whether the call has been missed */
-  missed: true,
   /** error information */
   error: {},
   /** number of queued up calls */
-  additionalCalls: 0
+  additionalCalls: 0,
+  additionalCall: undefined
 };
 
 /**
@@ -32,10 +31,10 @@ function processCallOutgoing(state, { recipient, uuid }) {
     calling: true,
     uuid,
     onCall: false,
-    missed: true,
     receivingCall: false,
     tempRemote: {
-      ...recipient
+      ...recipient,
+      missed: true
     }
   };
 }
@@ -74,9 +73,9 @@ function processCallFailed(state, errors) {
 function processCallMissed(state) {
   return {
     ...state,
-    missed: true,
     tempRemote: {
-      ...state.tempRemote
+      ...state.tempRemote,
+      missed: true
     }
   };
 }
@@ -94,7 +93,8 @@ function processCallReceived(state, { callerName, callerNumber, uuid }) {
     tempRemote: {
       name: callerName,
       phoneNumber: callerNumber,
-      incoming: true
+      incoming: true,
+      missed: true
     }
   };
 }
@@ -110,23 +110,23 @@ function processCallAccepted(state, { startTime }) {
     ...state,
     onCall: true,
     calling: false,
-    missed: false,
     receivingCall: false,
     startTime,
-    remote: tempRemote,
-    tempRemote: null
+    remote: {
+      ...tempRemote,
+      startTime,
+      missed: false
+    },
+    tempRemote: undefined
   };
 }
 
-function processCallFinished(state, { remote, onCall }) {
+function processCallFinished(state) {
   return {
     ...state,
-    onCall,
-    uuid: null,
     calling: false,
     receivingCall: false,
-    remote,
-    tempRemote: null
+    tempRemote: undefined
   };
 }
 
@@ -144,8 +144,14 @@ const call = (state = initialState, action) => {
       return processCallReceived(state, action);
     case callActions.CALL_ACCEPTED:
       return processCallAccepted(state, action);
-    case callActions.CALL_FINISHED:
+    case callActions.CALL_FINISHED_ACTIONS.FINISH_TEMP_CALL:
       return processCallFinished(state, action);
+    case callActions.CALL_FINISHED_ACTIONS.FINISH_ONGOING_CALL:
+      return {
+        ...state,
+        remote: undefined,
+        onCall: false
+      }
     case callActions.ADD_ADDITIONAL_CALL:
       return {
         ...state,
@@ -156,7 +162,19 @@ const call = (state = initialState, action) => {
         ...state,
         additionalCalls: state.additionalCalls - 1
       };
-
+      case callActions.ADDITIONAL_CALL_ACTIONS.SET_ADDITIONAL_CALL:
+      return {
+        ...state,
+        additionalCall: action.additionalCall
+      };
+    case callActions.SET_CALL_ID:
+      return {
+        ...state,
+        tempRemote: {
+          ...state.tempRemote,
+          callId: action.callId
+        }
+      }
     default:
       return state;
   }

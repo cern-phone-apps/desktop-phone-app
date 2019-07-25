@@ -5,10 +5,10 @@ import * as setttingsActions from 'settings/actions/settings';
 
 import RememberNumberSettings from './RememberNumberSettings';
 
-function mapStateToProps({ auth, calls, settings }) {
+function mapStateToProps({ auth, numbers, settings }) {
   return {
     toneToken: auth.toneToken,
-    activeNumber: calls.numbers.activeNumber,
+    activeNumber: numbers.activeNumber,
     rememberNumber: settings.settings.rememberNumber
   };
 }

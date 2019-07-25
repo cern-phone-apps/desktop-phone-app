@@ -1,6 +1,6 @@
 import * as searchActions from '../actions/search';
 
-const initialState = {
+const INITIAL_STATE = {
   userSelected: false,
   searching: false,
   searchEnable: false
@@ -84,7 +84,7 @@ function setSearchFailure(state) {
  * @param action
  * @returns {{userSelected: boolean, value: string, searchResults: Array}}
  */
-const search = (state = initialState, action) => {
+const search = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case searchActions.USER_SELECTED:
       return setUserSelected(state, action);

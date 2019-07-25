@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import MainHeader from './MainHeader';
 
-function mapStateToProps({ calls }) {
+function mapStateToProps({ call, connection, numbers }) {
   return {
-    onCall: calls.call.onCall,
-    connected: calls.connection.connected,
-    calling: calls.call.calling,
-    activeNumber: calls.numbers.activeNumber
+    onCall: call.onCall,
+    connected: connection.connected,
+    calling: call.calling,
+    activeNumber: numbers.activeNumber
   };
 }
 
