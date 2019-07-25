@@ -41,7 +41,7 @@ function RejectButton({ onClick }) {
 
 function HangupAndPickupButton({ onClick }) {
   return (
-    <Button negative onClick={onClick} className="RejectCallButton">
+    <Button color="green" onClick={onClick} className="RejectCallButton">
       Hangup and Answer
     </Button>
   );
