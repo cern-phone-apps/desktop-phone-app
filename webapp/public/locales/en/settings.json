@@ -9,7 +9,10 @@
     "header": "Your profile",
     "name": "Name:",
     "username": "Username:",
-    "email": "Email:"
+    "email": "Email:",
+    "phone": "Phone:",
+    "mobile": "Mobile:",
+    "activeNumber": "Active Number:"
   },
   "devices": {
     "header": "Devices",
