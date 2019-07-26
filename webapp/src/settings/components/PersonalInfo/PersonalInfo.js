@@ -1,17 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Header } from "semantic-ui-react";
-import { translate } from "react-i18next";
-import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
-
+import React from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Header, List, Label, Icon } from 'semantic-ui-react';
+import { translate } from 'react-i18next';
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
+import styles from './PersonalInfo.module.css';
 /**
  * Generates the user's full name
  * @param firstName
  * @param lastName
  * @returns {string}
  */
-const fullName = (firstName, lastName) => {
-  return `${firstName} ${lastName}`;
+const fullName = (firstName, lastName) => `${firstName} ${lastName}`;
+const UserPhoneWithActiveNumber = ({ phone, activeNumber, icon = 'phone' }) => {
+  const isActiveNumber = phone ? phone.includes(activeNumber) : false;
+  return (
+    <List.Item>
+      <Icon className={[styles.phoneListItem]} name={icon} />
+      {phone || '-'}{' '}
+      {isActiveNumber ? (
+        <Label as="span" color="green" content="active" size="mini" />
+      ) : (
+        ''
+      )}
+    </List.Item>
+  );
 };
 /**
  * Displays the user's information
@@ -24,33 +37,38 @@ const fullName = (firstName, lastName) => {
  * @returns {*}
  * @constructor
  */
-export const PersonalInfo = ({ t, firstName, lastName, username, email }) => {
+export const PersonalInfo = ({ t }) => {
+  const activeNumber = useSelector(state => state.numbers.activeNumber);
+  const user = useSelector(state => state.user);
+
   return (
-    <div>
-      <ErrorBoundary>
-        <Header as={"h4"}>{t("personalInfo.header")}</Header>
-        <ul>
-          <li>
-            {t("personalInfo.name")} {fullName(firstName, lastName)}
-          </li>
-          <li>
-            {t("personalInfo.username")} {username}
-          </li>
-          <li>
-            {t("personalInfo.email")} {email}
-          </li>
-        </ul>
-      </ErrorBoundary>
-    </div>
+    <ErrorBoundary>
+      <Header as="h4">{t('personalInfo.header')}</Header>
+      <List>
+        <List.Item
+          icon="user"
+          content={`${fullName(user.firstName, user.lastName)} (${
+            user.username
+          })`}
+        />
+        <List.Item icon="mail" content={user.email} />
+        <UserPhoneWithActiveNumber
+          phone={user.phone}
+          activeNumber={activeNumber}
+          icon="phone"
+        />
+        <UserPhoneWithActiveNumber
+          phone={user.mobile}
+          activeNumber={activeNumber}
+          icon="mobile"
+        />
+      </List>
+    </ErrorBoundary>
   );
 };
 
 PersonalInfo.propTypes = {
-  t: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired
+  t: PropTypes.func.isRequired
 };
 
-export default translate("settings")(PersonalInfo);
+export default translate('settings')(PersonalInfo);

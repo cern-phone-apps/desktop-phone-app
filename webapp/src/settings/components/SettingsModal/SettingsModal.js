@@ -4,7 +4,7 @@ import { translate } from 'react-i18next';
 import { Icon, Modal, Menu, Header } from 'semantic-ui-react';
 
 import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings';
-import PersonalInfoContainer from 'settings/components/PersonalInfo/PersonalInfoContainer';
+import PersonalInfo from 'settings/components/PersonalInfo/PersonalInfo';
 import AppInfo from 'settings/components/AppInfo/AppInfo';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import CallsSettings from 'settings/components/CallsSettings/CallsSettings';
@@ -57,7 +57,7 @@ export class SettingsModal extends Component {
         <Modal.Header>{t('header')}</Modal.Header>
         <Modal.Content scrolling>
           <Modal.Description>
-            <PersonalInfoContainer />
+            <PersonalInfo />
             <hr />
             <CallsSettings />
             <hr />

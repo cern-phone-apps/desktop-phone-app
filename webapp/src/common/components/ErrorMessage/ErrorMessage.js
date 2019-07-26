@@ -27,10 +27,10 @@ export class ErrorMessage extends Component {
         <Message color="red">
           <ul>
             {results.map((element, index) => (
-                <li key={`message${index}`}>
-                  {element.message} ({element.statusCode})
-                </li>
-              ))}
+              <li key={index.toString()}>
+                {element.message} ({element.statusCode})
+              </li>
+            ))}
           </ul>
         </Message>
       </Segment>

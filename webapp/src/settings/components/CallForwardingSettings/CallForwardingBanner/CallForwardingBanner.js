@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Icon } from 'semantic-ui-react';
-import { useSelector, useDispatch } from 'react-redux';
 import { openSettingsModal } from 'settings/actions/modal';
 import dialBackendApi from 'services/api';
 import styles from './CallForwardingBanner.module.css';
