@@ -1,59 +1,47 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
 import { Icon } from 'semantic-ui-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { openSettingsModal } from 'settings/actions/modal';
+import dialBackendApi from 'services/api';
 import styles from './CallForwardingBanner.module.css';
 
-export class CallForwardingBanner extends Component {
-  static propTypes = {
-    t: PropTypes.func.isRequired,
-    status: PropTypes.object,
-    getCallForwardingStatus: PropTypes.func.isRequired,
-    activeNumber: PropTypes.string.isRequired
-  };
-
-  state = {
-    callForwardingEnabled: false,
-    fetchTimes: 0
-  };
-
-  timer = null;
-
-  componentDidMount() {
-    const timerTime = 60000;
-    this.mounted = true;
-    this.fetchCallForwardingStatus();
-    this.timer = setInterval(() => {
-      if (this.mounted) {
-        this.fetchCallForwardingStatus();
-      }
-    }, timerTime);
+const isCallForwardingEnabled = (
+  callForwardingStatus,
+  simultaneousRingingStatus
+) => {
+  let result = false;
+  if (callForwardingStatus || simultaneousRingingStatus) {
+    result = true;
   }
+  return result;
+};
 
-  componentWillUnmount() {
-    this.mounted = false;
-    clearTimeout(this.timer);
-  }
+export function CallForwardingBanner() {
+  /**
+   * Hooks
+   */
+  const [callForwardingEnabled, setCallForwardingEnabled] = useState(false);
+  const dispatch = useDispatch();
+  const activeNumber = useSelector(state => state.numbers.activeNumber);
 
-  isCallForwardingEnabled = (
-    callForwardingStatus,
-    simultaneousRingingStatus
-  ) => {
-    let result = false;
-    if (callForwardingStatus || simultaneousRingingStatus) {
-      result = true;
-    }
-    return result;
-  };
+  /**
+   * Properties
+   */
+  const callForwardingStatus = useSelector(
+    state => state.callForwarding.status
+  );
+  let timer = null;
+  let mounted = false;
+  const timerTime = 60000;
+  /**
+   * Functions
+   */
+  const openModal = () => dispatch(openSettingsModal());
+  const getCallForwardingStatus = extension =>
+    dispatch(dialBackendApi().getCallForwardingStatus(extension));
 
-  openSettingsModalAction = () => {
-    const { openSettingsModal } = this.props;
-    openSettingsModal();
-  };
-
-  async fetchCallForwardingStatus() {
-    const { activeNumber, getCallForwardingStatus } = this.props;
+  const fetchCallForwardingStatus = async () => {
     const forwardingData = await getCallForwardingStatus(activeNumber);
     if (
       forwardingData &&
@@ -62,35 +50,51 @@ export class CallForwardingBanner extends Component {
     ) {
       // Obtain values from the payload
       const { payload } = forwardingData;
-      const callForwardingStatus = payload['call-forwarding'];
-      const simultaneousRingingStatus = payload['simultaneous-ring'];
-      // Build dropdown options
-      // Get radio button value
-      const status = this.isCallForwardingEnabled(
-        callForwardingStatus,
-        simultaneousRingingStatus
-      );
-      this.setState({ callForwardingEnabled: status });
-    } else if (this.state.fetchTimes < 2) {
-      this.setState({ fetchTimes: this.state.fetchTimes + 1 });
-      this.fetchCallForwardingStatus();
-    }
-  }
 
-  render() {
-    if (this.state.callForwardingEnabled) {
-      return (
-        <div
-          onClick={this.openSettingsModalAction}
-          className={`padded-item ${styles.callForwardingMessage}`}
-        >
-          <Icon name="warning sign" /> {'Call Forwarding is enabled'}
-        </div>
+      const status = isCallForwardingEnabled(
+        payload['call-forwarding'],
+        payload['simultaneous-ring']
       );
-    }
 
-    return <></>;
+      setCallForwardingEnabled(status);
+    }
+  };
+
+  useEffect(() => {
+    // Didmount and willUpdated
+    mounted = true;
+    fetchCallForwardingStatus();
+    timer = setInterval(() => {
+      if (mounted) {
+        fetchCallForwardingStatus();
+      }
+    }, timerTime);
+
+    return () => {
+      // Unmounting...
+      mounted = false;
+      clearTimeout(timer);
+    };
+    // If the following value changes
+  }, [
+    callForwardingStatus['call-forwarding'],
+    callForwardingStatus['simultaneous-ring']
+  ]);
+
+  if (callForwardingEnabled) {
+    return (
+      <div
+        onClick={openModal}
+        role="button"
+        onKeyPress={openModal}
+        tabIndex="0"
+        className={`padded-item ${styles.callForwardingMessage}`}
+      >
+        <Icon name="warning sign" /> {'Call Forwarding is enabled'}
+      </div>
+    );
   }
+  return null;
 }
 
-export default translate('settings')(CallForwardingBanner);
+export default CallForwardingBanner;

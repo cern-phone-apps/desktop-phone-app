@@ -133,6 +133,7 @@ export class CallForwardingForm extends React.Component {
     } else if (forwardStatus === 'forward') {
       enableCallForwarding(activeNumber, forwardNumbers);
     }
+    this.fetchData();
   };
 
   updateRingingNumbers = numbers => {

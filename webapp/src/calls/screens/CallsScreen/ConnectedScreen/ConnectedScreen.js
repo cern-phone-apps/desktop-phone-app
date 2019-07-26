@@ -5,7 +5,7 @@ import RightColumn from 'common/components/RightColumn/RightColumn';
 import CallModalContainer from 'calls/components/call_modals/OutgoingCallModal/OutgoingCallModalContainer';
 import MainHeaderContainer from 'calls/components/MainHeader/MainHeaderContainer';
 import CallerTabsSelectorContainer from 'calls/components/CallerTabsSelector/CallerTabsSelectorContainer';
-import CallForwardingBannerContainer from 'settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBannerContainer';
+import CallForwardingBanner from 'settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBanner';
 import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 import styles from './ConnectedScreen.module.css';
 
@@ -20,7 +20,7 @@ export const ConnectedScreen = ({ calling }) => (
       <div className={styles.innerContainer}>
         <MainHeaderContainer />
         <IncomingCallModalContainer />
-        <CallForwardingBannerContainer />
+        <CallForwardingBanner />
         <div>
           <div>
             {calling && <CallModalContainer modalOpen={calling} />}
