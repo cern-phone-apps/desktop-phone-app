@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import { createHashHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { I18nextProvider } from 'react-i18next';
 import ReactPiwik from 'react-piwik';
@@ -12,7 +11,7 @@ import config from 'config';
  */
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
-import configureStore from 'store';
+import configureStore, { history } from 'store';
 import i18n from 'i18n';
 import App from 'App';
 import PhoneProviderContainer from 'calls/providers/PhoneProvider/PhoneProviderContainer';
@@ -29,13 +28,8 @@ const piwik = new ReactPiwik({
   trackErrors: true
 });
 
-/**
- * Set up the store and the history
- */
-// const history = createBrowserHistory();
-const history = createHashHistory();
-
-const { store, persistor } = configureStore(history);
+// const { store, persistor } = configureStore(history);
+const { store, persistor } = configureStore({});
 
 ReactDOM.render(
   <Provider store={store}>

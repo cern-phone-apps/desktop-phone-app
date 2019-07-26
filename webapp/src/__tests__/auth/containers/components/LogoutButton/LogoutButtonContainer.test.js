@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 import configureMockStore from "redux-mock-store";
 
 import createHistory from "history/createBrowserHistory";
-import { routerMiddleware } from "react-router-redux";
+import { routerMiddleware } from "connected-react-router";
 import { LogoutButtonContainer } from "auth/components/LogoutButton/LogoutButtonContainer";
 
 const history = createHistory();

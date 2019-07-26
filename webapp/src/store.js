@@ -1,25 +1,27 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router';
 import storage from 'redux-persist/lib/storage';
 import { createBlacklistFilter } from 'redux-persist-transform-filter';
+import { createHashHistory } from 'history';
 
 import apiMiddleware from 'middleware';
-import rootReducer from './reducers';
+import createRootReducer from './reducers';
 
-const createCustomStore = history => {
-  const blacklistLoginFilter = createBlacklistFilter('auth', [
-    'loginInProgress',
-    'error'
-  ]);
+export const history = createHashHistory();
 
-  const blacklistCommonFilter = createBlacklistFilter('common', [
-    'notifications',
-    'sidebar'
-  ]);
+const blacklistLoginFilter = createBlacklistFilter('auth', [
+  'loginInProgress',
+  'error'
+]);
 
-  const blacklistSettingsFilter = createBlacklistFilter('settings', ['modal']);
+const blacklistCommonFilter = createBlacklistFilter('common', [
+  'notifications',
+  'sidebar'
+]);
+const blacklistSettingsFilter = createBlacklistFilter('settings', ['modal']);
 
+const createCustomStore = preloadedState => {
   const persistConfig = {
     key: 'phone-webapp',
     storage,
@@ -31,11 +33,14 @@ const createCustomStore = history => {
     ]
   };
 
-  const persistedReducers = persistReducer(persistConfig, rootReducer);
+  const persistedReducers = persistReducer(
+    persistConfig,
+    createRootReducer(history)
+  );
 
   return createStore(
     persistedReducers,
-    {},
+    preloadedState,
     compose(
       applyMiddleware(apiMiddleware, routerMiddleware(history)),
       window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -43,7 +48,7 @@ const createCustomStore = history => {
   );
 };
 
-export default history => {
+export default () => {
   const store = createCustomStore(history);
   const persistor = persistStore(store);
   return { store, persistor };

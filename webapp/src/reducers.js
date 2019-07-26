@@ -1,4 +1,4 @@
-import { routerReducer } from 'react-router-redux/reducer';
+import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 
 import {
@@ -19,22 +19,21 @@ import common from './common/reducers/index';
  * All the reducers of the application combined to store the status of the
  * application organized by screens or logic if it affects other parts of the application.
  */
-const rootReducer = combineReducers({
-  auth: authReducer,
-  user: meReducer,
-  common,
-  callForwarding: callForwardingReducer,
-  settings,
-  router: routerReducer,
-  call: callsReducer.callReducer,
-  connection: callsReducer.connectionReducer,
-  recent: recentCallsReducer,
-  search: callsReducer.searchReducer,
-  dialpad: callsReducer.dialpadReducer,
-  numbers: callsReducer.numbersReducer,
-  status: doNotDisturbReducer,
-  profile: profileReducer,
-  contacts: contactsReducer
-});
-
-export default rootReducer;
+export default history =>
+  combineReducers({
+    router: connectRouter(history),
+    auth: authReducer,
+    user: meReducer,
+    common,
+    callForwarding: callForwardingReducer,
+    settings,
+    call: callsReducer.callReducer,
+    connection: callsReducer.connectionReducer,
+    recent: recentCallsReducer,
+    search: callsReducer.searchReducer,
+    dialpad: callsReducer.dialpadReducer,
+    numbers: callsReducer.numbersReducer,
+    status: doNotDisturbReducer,
+    profile: profileReducer,
+    contacts: contactsReducer
+  });
