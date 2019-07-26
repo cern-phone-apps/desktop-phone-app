@@ -22,7 +22,7 @@
     "test-coverage": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient  react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "test:staged": "cross-env CI=true  REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests",
-    "electron-start": "concurrently \"cross-env BROWSER=none yarn react-scripts start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-start": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
