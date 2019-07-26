@@ -26,7 +26,6 @@ function handleNumbersFailure(state, action) {
   return {
     ...state,
     fetching: false,
-    numbers: [],
     error
   };
 }

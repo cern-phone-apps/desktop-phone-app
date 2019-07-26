@@ -45,6 +45,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/contacts/'),
         method: 'GET',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -61,6 +62,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/contacts/'),
         method: 'POST',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -77,6 +79,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/contacts/'),
         method: 'DELETE',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),

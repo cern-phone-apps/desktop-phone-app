@@ -31,6 +31,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildCallsApiEndpoint('/numbers/'),
         method: 'GET',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),

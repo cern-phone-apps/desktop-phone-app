@@ -29,6 +29,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/users/findByUsername/', name),
         method: 'GET',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -41,6 +42,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/users/findById/', personId),
         method: 'GET',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -53,6 +55,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/users/search/', name),
         method: 'GET',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),

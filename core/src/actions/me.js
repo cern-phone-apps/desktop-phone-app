@@ -27,6 +27,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/me/'),
         method: 'GET',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),
@@ -38,6 +39,7 @@ export default function(apiEndpoint, type = 'mobile') {
         endpoint: buildApiURL('/me/'),
         method: 'PUT',
         credentials: 'include',
+        options: { timeout: 3000 },
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
         }),

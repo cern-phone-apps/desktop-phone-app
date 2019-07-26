@@ -56,6 +56,7 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildAuthURL('/login/'),
         method: 'POST',
+        options: { timeout: 3000 },
         body: JSON.stringify({ code, type }),
         credentials: type === 'web' ? 'include' : 'omit',
         headers: { 'Content-Type': 'application/json' },
@@ -74,6 +75,7 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildAuthURL('/logout/'),
         method: 'DELETE',
+        options: { timeout: 3000 },
         credentials: type === 'web' ? 'include' : 'omit',
         headers: authHandlerClass.withAuth({
           'Content-Type': 'application/json'
@@ -92,6 +94,7 @@ export default function(apiEndpoint, type = 'mobile') {
       [RSAA]: {
         endpoint: buildAuthURL('/refresh/'),
         method: 'POST',
+        options: { timeout: 3000 },
         credentials: type === 'web' ? 'include' : 'omit',
         headers: authHandlerClass.withRefresh({
           'Content-Type': 'application/json'
