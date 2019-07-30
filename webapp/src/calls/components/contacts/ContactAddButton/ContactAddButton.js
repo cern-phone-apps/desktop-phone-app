@@ -1,88 +1,73 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Icon } from 'semantic-ui-react';
-import { logMessage } from 'common/utils/logs';
 import PropTypes from 'prop-types';
+import dialBackendApi from 'services/api';
+
 import styles from './ContactAddButton.module.css';
 
-class ContactAddButton extends Component {
-  static propTypes = {
-    contact: PropTypes.object.isRequired,
-    contacts: PropTypes.array.isRequired,
-    addUserContact: PropTypes.func.isRequired,
-    removeUserContact: PropTypes.func.isRequired,
-    getUserContacts: PropTypes.func.isRequired
+function ContactAddButton({ contact }) {
+  const [hasContact, setHasContact] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const contacts = useSelector(state => state.contacts.getContacts.contacts);
+  const added = useSelector(state => state.contacts.addContacts.added);
+  const removed = useSelector(state => state.contacts.removeContacts.removed);
+  const dispatch = useDispatch();
+  const addContact = async () => {
+    await dispatch(dialBackendApi().addUserContact(contact));
+    setHasContact(true);
+  };
+  const removeContact = async () => {
+    await dispatch(dialBackendApi().removeUserContact(contact.personId));
+    setHasContact(false);
   };
 
-  state = {
-    loading: true,
-    deleting: true,
-    hasContact: false
-  };
-
-  async componentDidMount() {
-    const { getUserContacts, contact } = this.props;
-    this.setState({ loading: true });
-    const newContacts = await getUserContacts();
-    if (newContacts && newContacts.payload && newContacts.payload) {
-      const ids = newContacts.payload.map(a => a.personId.toString());
-      if (
-        ids.includes(contact.personId) ||
-        ids.includes(contact.personId.toString())
-      ) {
-        this.setState({ hasContact: true });
-      }
+  useEffect(() => {
+    const ids = contacts.contacts.map(a => a.personId.toString());
+    if (
+      ids.includes(contact.personId) ||
+      ids.includes(contact.personId.toString())
+    ) {
+      setHasContact(true);
+    } else {
+      setHasContact(false);
     }
-    this.setState({ loading: false });
+    setIsLoading(false);
+  }, [added, removed, contacts, contact]);
+
+  if (isLoading) {
+    return <Icon loading name="sync" size="small" />;
   }
 
-  addContactAction = async () => {
-    const { addUserContact, contact, getUserContacts } = this.props;
-    this.setState({ loading: true });
-    await addUserContact(contact);
-    this.setState({ loading: false });
-    this.setState({ hasContact: true });
-    getUserContacts();
-  };
-
-  removeContactAction = async () => {
-    const { removeUserContact, contact, getUserContacts } = this.props;
-    logMessage(`Removing contact...`);
-    this.setState({ loading: true });
-    await removeUserContact(contact.personId);
-    this.setState({ loading: false });
-    this.setState({ hasContact: false });
-    getUserContacts();
-  };
-
-  render() {
-    const { loading, hasContact } = this.state;
-
-    if (loading) {
-      return <Icon loading name="sync" size="small" />;
-    }
-
-    if (hasContact) {
-      return (
-        <Icon
-          name="star"
-          className={styles.ContactAddButton}
-          size="big"
-          color="yellow"
-          onClick={this.removeContactAction}
-        />
-      );
-    }
-
+  if (hasContact) {
     return (
       <Icon
         name="star"
         className={styles.ContactAddButton}
         size="big"
-        color="grey"
-        onClick={this.addContactAction}
+        color="yellow"
+        onClick={removeContact}
       />
     );
   }
+
+  return (
+    <Icon
+      name="star"
+      className={styles.ContactAddButton}
+      size="big"
+      color="grey"
+      onClick={addContact}
+    />
+  );
 }
+
+ContactAddButton.propTypes = {
+  contact: PropTypes.shape({
+    personId: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default ContactAddButton;

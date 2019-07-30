@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import { formatUserOrganization } from 'calls/utils/formatters';
 import UserPhoneNumberButtonContainer from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer';
-import ContactAddButtonContainer from 'calls/components/contacts/ContactAddButton/ContactAddButtonContainer';
+import ContactAddButton from 'calls/components/contacts/ContactAddButton/ContactAddButton';
 import UserProfileExtraInfo from 'calls/components/UserProfileExtraInfo/UserProfileExtraInfo';
 
 function ContactProfileModalContent({ profile }) {
@@ -54,7 +54,7 @@ function ContactProfileModalHeader({ profile }) {
       <Icon name="user" color="blue" />
       <Header.Content>
         <Header as="h5" floated="right">
-          <ContactAddButtonContainer contact={profile} />
+          <ContactAddButton contact={profile} />
         </Header>
         {profile ? profile.displayName : ''}
         <Header.Subheader>

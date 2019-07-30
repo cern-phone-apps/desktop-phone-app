@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import { formatUserOrganization } from 'calls/utils/formatters';
 import UserPhoneNumberButtonContainer from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer';
-import ContactAddButtonContainer from 'calls/components/contacts/ContactAddButton/ContactAddButtonContainer';
+import ContactAddButton from 'calls/components/contacts/ContactAddButton/ContactAddButton';
 import UserProfileExtraInfo from 'calls/components/UserProfileExtraInfo/UserProfileExtraInfo';
 
 function SearchProfileModalHeader(props) {
@@ -20,7 +20,7 @@ function SearchProfileModalHeader(props) {
       <Icon name="user" color={'blue'} />
       <Header.Content>
         <Header as="h5" floated={'right'}>
-          <ContactAddButtonContainer contact={props.contact} />
+          <ContactAddButton contact={props.contact} />
         </Header>
         {props.contact ? props.contact.displayName : ''}
         <Header.Subheader>
