@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Grid, Icon, Menu, Responsive } from "semantic-ui-react";
-import RecentCallListContainer from "calls/components/recent_calls/RecentCallList";
-import LeftColumn from "common/components/LeftColumn/LeftColumn";
-import ErrorBoundary from "common/components/ErrorBoundary/ErrorBoundary";
-import LeftColumnHeader from "common/components/LeftColumnHeader/LeftColumnHeader";
-import ContactListContainer from "calls/components/contacts/ContactsList/ContactListContainer";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Grid, Icon, Menu, Responsive } from 'semantic-ui-react';
+import RecentCallListContainer from 'calls/components/recent_calls/RecentCallList';
+import LeftColumn from 'common/components/LeftColumn/LeftColumn';
+import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
+import LeftColumnHeader from 'common/components/LeftColumnHeader/LeftColumnHeader';
+import ContactList from 'calls/components/contacts/ContactsList/ContactList';
 
 function CallsSidebarMenu(props) {
   return (
     <Menu icon size="massive" fluid widths={3}>
       <Menu.Item
         name="phone"
-        active={props.activeItem === "phone"}
+        active={props.activeItem === 'phone'}
         onClick={props.onClick}
       >
         <Icon name="phone" />
@@ -20,7 +20,7 @@ function CallsSidebarMenu(props) {
 
       <Menu.Item
         name="user"
-        active={props.activeItem === "user"}
+        active={props.activeItem === 'user'}
         onClick={props.onClick}
       >
         <Icon name="user" />
@@ -44,7 +44,7 @@ class CallsSidebar extends Component {
     openSettingsModal: PropTypes.func.isRequired
   };
 
-  state = { activeItem: "phone" };
+  state = { activeItem: 'phone' };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -61,14 +61,14 @@ class CallsSidebar extends Component {
       <Responsive
         as={Grid.Column}
         width={4}
-        className={"CallsScreen__LeftColumn"}
+        className="CallsScreen__LeftColumn"
         {...Responsive.onlyComputer}
       >
         <LeftColumn>
           <ErrorBoundary>
             <LeftColumnHeader />
-            {activeItem === "phone" && <RecentCallListContainer />}
-            {activeItem === "user" && <ContactListContainer />}
+            {activeItem === 'phone' && <RecentCallListContainer />}
+            {activeItem === 'user' && <ContactList />}
             <CallsSidebarMenu
               activeItem={activeItem}
               onClick={this.handleItemClick}

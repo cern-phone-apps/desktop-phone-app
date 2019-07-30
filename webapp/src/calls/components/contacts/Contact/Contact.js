@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Item, Icon } from 'semantic-ui-react';
 
 import { formatUserOrganization } from 'calls/utils/formatters';
-import { logMessage } from 'common/utils/logs';
 import styles from './Contact.module.css';
 
 class Contact extends Component {
@@ -22,7 +21,6 @@ class Contact extends Component {
 
   render() {
     const { contact } = this.props;
-    logMessage(contact);
     return (
       <Item className="" onClick={this.selectContactAction}>
         <div className={`ui tiny image ${styles.avatar}`}>
