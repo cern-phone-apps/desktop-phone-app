@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Icon } from 'semantic-ui-react';
@@ -6,82 +6,52 @@ import { openSettingsModal } from 'settings/actions/modal';
 import dialBackendApi from 'services/api';
 import styles from './CallForwardingBanner.module.css';
 
-const isCallForwardingEnabled = (
-  callForwardingStatus,
-  simultaneousRingingStatus
-) => {
-  let result = false;
-  if (callForwardingStatus || simultaneousRingingStatus) {
-    result = true;
-  }
-  return result;
-};
-
 export function CallForwardingBanner() {
   /**
    * Hooks
    */
-  const [callForwardingEnabled, setCallForwardingEnabled] = useState(false);
   const dispatch = useDispatch();
   const activeNumber = useSelector(state => state.numbers.activeNumber);
-
-  /**
-   * Properties
-   */
   const callForwardingStatus = useSelector(
-    state => state.callForwarding.status
+    state => state.callForwarding.status['call-forwarding']
   );
-  let timer = null;
-  let mounted = false;
-  const timerTime = 60000;
+  const simRingingStatus = useSelector(
+    state => state.callForwarding.status['simultaneous-ring']
+  );
+  const lastOperationResultMessage = useSelector(state =>
+    state.callForwarding.lastOperationResult
+      ? state.callForwarding.lastOperationResult
+      : ''
+  );
+
   /**
    * Functions
    */
   const openModal = () => dispatch(openSettingsModal());
-  const getCallForwardingStatus = extension =>
-    dispatch(dialBackendApi().getCallForwardingStatus(extension));
-
-  const fetchCallForwardingStatus = async () => {
-    const forwardingData = await getCallForwardingStatus(activeNumber);
-    if (
-      forwardingData &&
-      forwardingData.payload &&
-      forwardingData.payload.success
-    ) {
-      // Obtain values from the payload
-      const { payload } = forwardingData;
-
-      const status = isCallForwardingEnabled(
-        payload['call-forwarding'],
-        payload['simultaneous-ring']
-      );
-
-      setCallForwardingEnabled(status);
-    }
-  };
 
   useEffect(() => {
+    const timerTime = 60000;
+    const getCallForwardingStatus = extension =>
+      dispatch(dialBackendApi().getCallForwardingStatus(extension));
+
+    const fetchCallForwardingStatus = async () => {
+      await getCallForwardingStatus(activeNumber);
+    };
+
     // Didmount and willUpdated
-    mounted = true;
     fetchCallForwardingStatus();
-    timer = setInterval(() => {
-      if (mounted) {
-        fetchCallForwardingStatus();
-      }
+    const timer = setInterval(() => {
+      fetchCallForwardingStatus();
     }, timerTime);
 
     return () => {
       // Unmounting...
-      mounted = false;
       clearTimeout(timer);
     };
     // If the following value changes
-  }, [
-    callForwardingStatus['call-forwarding'],
-    callForwardingStatus['simultaneous-ring']
-  ]);
+  }, [lastOperationResultMessage, dispatch, activeNumber]);
 
-  if (callForwardingEnabled) {
+  if (callForwardingStatus || simRingingStatus) {
     return (
       <div
         onClick={openModal}
