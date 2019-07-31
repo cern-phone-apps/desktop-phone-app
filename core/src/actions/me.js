@@ -1,5 +1,5 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile, JwtTokenHandlerDesktop } from '../util/tokens';
+import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
 
 export const ME_REQUEST = '@@user/ME_REQUEST';
 export const ME_SUCCESS = '@@user/ME_SUCCESS';
@@ -17,6 +17,7 @@ export default function(apiEndpoint, type = 'mobile') {
   if (type === 'web') {
     authHandlerClass = JwtTokenHandlerWeb;
   } else if (type === 'desktop') {
+    const { JwtTokenHandlerDesktop } = require('../util/tokens');
     authHandlerClass = JwtTokenHandlerDesktop;
   } else {
     authHandlerClass = JwtTokenHandlerMobile;
