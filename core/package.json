@@ -11,7 +11,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.13.0",
-    "nodemon": "^1.19.0",
+    "nodemon": "^1.19.1",
     "prettier": "^1.17.0"
   },
   "dependencies": {

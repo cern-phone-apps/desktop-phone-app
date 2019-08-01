@@ -102,14 +102,19 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         toneToken: action.toneToken
       };
-      case authActions.authActionsTypes.SET_AUTHENTICATED:
-        return{
-          ...state,
-          loggedIn: true,
-          accessToken: undefined,
-          refreshToken: undefined,
-          toneToken: undefined
-        }
+    case authActions.authActionsTypes.SET_AUTHENTICATED:
+      return {
+        ...state,
+        loggedIn: true,
+        accessToken: undefined,
+        refreshToken: undefined,
+        toneToken: undefined
+      };
+    case authActions.authActionsTypes.SET_AUTHENTICATED_MOBILE:
+      return {
+        ...state,
+        loggedIn: true
+      };
     default:
       return state;
   }

@@ -6,10 +6,7 @@ import RegisterScreen from './RegisterScreen';
 
 import dialBackendApi from '../../../services/api';
 
-function mapStateToProps(state) {
-  const { connection, numbers } = state.calls;
-  const { auth } = state;
-
+function mapStateToProps({ connection, numbers, auth }) {
   return {
     connected: connection ? connection.connected : false,
     numbers: numbers.numbers,

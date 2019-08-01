@@ -19,8 +19,9 @@ export const CLEAR_TOKEN = '@@auth/CLEAR_TOKEN';
 export const SET_TONE_TOKEN = '@@connection/SET_TONE_TOKEN';
 
 export const authActionsTypes = {
-  SET_AUTHENTICATED: '@@auth/SET_AUTHENTICATED'
-}
+  SET_AUTHENTICATED: '@@auth/SET_AUTHENTICATED',
+  SET_AUTHENTICATED_MOBILE: '@@auth/SET_AUTHENTICATED_MOBILE'
+};
 
 const API_PATH = '/auth/v1/token';
 
@@ -32,12 +33,15 @@ const API_PATH = '/auth/v1/token';
  * @returns {{}} A RSAA request with REQUEST, SUCCESS and FAILURE statuses.
  */
 
-export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
+export default function(
+  apiEndpoint,
+  type = 'mobile',
+  tokenHandlerClass = null
+) {
   const buildAuthURL = path => `${apiEndpoint}${API_PATH}${path}`;
-  let authHandlerClass = tokenHandlerClass;
+  const authHandlerClass = tokenHandlerClass;
 
   return {
-
     login: code => ({
       [RSAA]: {
         endpoint: buildAuthURL('/login/'),
@@ -111,8 +115,14 @@ export function setToneToken(toneToken) {
   };
 }
 
-export function setAuthenticated(){
+export function setAuthenticated() {
   return {
     type: authActionsTypes.SET_AUTHENTICATED
-  }
+  };
+}
+
+export function setAuthenticatedMobile() {
+  return {
+    type: authActionsTypes.SET_AUTHENTICATED_MOBILE
+  };
 }

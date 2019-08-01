@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch) {
     {
       getMe: dialBackendApi().getMe,
       login: dialBackendApi().login,
-      setAuthenticated: authActions.setAuthenticated
+      setAuthenticated: authActions.setAuthenticatedMobile
     },
     dispatch
   );
