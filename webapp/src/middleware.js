@@ -1,10 +1,10 @@
 import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
-import { authActions, util } from 'dial-core';
+import { authActions } from 'dial-core';
 
 import dialBackendApi from 'services/api';
 import ElectronService from 'services/electron-service';
 
-const { JwtTokenHandlerDesktop } = util.tokens;
+import JwtTokenHandlerDesktop from 'auth/utils/token-desktop-handler';
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {

@@ -1,5 +1,4 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
 
 export const AUTH_START = '@@auth/AUTH_START';
 
@@ -33,26 +32,11 @@ const API_PATH = '/auth/v1/token';
  * @returns {{}} A RSAA request with REQUEST, SUCCESS and FAILURE statuses.
  */
 
-export default function(apiEndpoint, type = 'mobile') {
+export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
   const buildAuthURL = path => `${apiEndpoint}${API_PATH}${path}`;
-  let authHandlerClass;
-  if (type === 'web') {
-    authHandlerClass = JwtTokenHandlerWeb;
-  } else if (type === 'desktop') {
-    const { JwtTokenHandlerDesktop } = require('../util/tokens');
-
-    authHandlerClass = JwtTokenHandlerDesktop;
-  }else {
-    authHandlerClass = JwtTokenHandlerMobile;
-  }
+  let authHandlerClass = tokenHandlerClass;
 
   return {
-    /**
-     * Triggered when the user clicks the "Sign in" button
-     */
-    startAuth: () => ({
-      type: AUTH_START
-    }),
 
     login: code => ({
       [RSAA]: {
@@ -106,6 +90,10 @@ export default function(apiEndpoint, type = 'mobile') {
     })
   };
 }
+
+export const startAuth = () => ({
+  type: AUTH_START
+});
 
 /**
  * Action triggered when a call is taking place.

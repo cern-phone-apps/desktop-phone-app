@@ -1,19 +1,23 @@
 import jwtDecode from 'jwt-decode';
 
-import JwtTokenHandlerBase from './JwtTokenHandlerBase';
+import { util } from 'dial-core';
 
-let electron = window.require("electron");
-let {ipcRenderer} = electron;
+const { JwtTokenHandlerBase } = util.tokens;
+
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
 
 export default class JwtTokenHandlerDesktop extends JwtTokenHandlerBase {
   static getAccessToken(state) {
-    return ipcRenderer.sendSync('synchronous-message', 'getSecret', { name: 'access_token' });
+    return ipcRenderer.sendSync('synchronous-message', 'getSecret', {
+      name: 'access_token'
+    });
   }
 
   static isAccessTokenExpired() {
-    let access_token;
-    if ((access_token = JwtTokenHandlerDesktop.getAccessToken())) {
-      const token = jwtDecode(access_token);
+    let accessToken;
+    if ((accessToken = JwtTokenHandlerDesktop.getAccessToken())) {
+      const token = jwtDecode(accessToken);
 
       if (token && token.exp) {
         return 1000 * token.exp - new Date().getTime() < 5000;
@@ -24,14 +28,20 @@ export default class JwtTokenHandlerDesktop extends JwtTokenHandlerBase {
   }
 
   static getRefreshToken(state) {
-    return ipcRenderer.sendSync('synchronous-message', 'getSecret', { name: 'refresh_token' });
+    return ipcRenderer.sendSync('synchronous-message', 'getSecret', {
+      name: 'refresh_token'
+    });
   }
 
   static isRefreshTokenExpired(state) {
     let access_token;
-    if ((access_token = ipcRenderer.sendSync("getSecret", { name: 'refresh_token' }))) {
+    if (
+      (access_token = ipcRenderer.sendSync('getSecret', {
+        name: 'refresh_token'
+      }))
+    ) {
       const token = jwtDecode(access_token);
-      console.log("\n\n\n\nTOKEN =>>>>>", token, "\n\n\n\n");
+      console.log('\n\n\n\nTOKEN =>>>>>', token, '\n\n\n\n');
       if (token && token.exp) {
         return 1000 * token.exp - new Date().getTime() < 5000;
       }

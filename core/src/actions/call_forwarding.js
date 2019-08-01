@@ -1,5 +1,4 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
 
 export const ADD_LOCAL_FORWARD_NUMBER = '@@settings/ADD_LOCAL_FORWARD_NUMBER';
 export const ADD_LOCAL_RINGING_NUMBER = '@@settings/ADD_LOCAL_RINGING_NUMBER';
@@ -57,21 +56,14 @@ export function clearLastOperation() {
   };
 }
 
-export default function(apiEndpoint, type = 'mobile') {
+export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
   const buildApiURLWithParam = (path, extension) =>
     `${apiEndpoint}${API_PATH}${path}${extension}`;
 
   const buildApiURL = path => `${apiEndpoint}${API_PATH}${path}`;
 
-  let authHandlerClass;
-  if (type === 'web') {
-    authHandlerClass = JwtTokenHandlerWeb;
-  } else if (type === 'desktop') {
-    const { JwtTokenHandlerDesktop } = require('../util/tokens');
-    authHandlerClass = JwtTokenHandlerDesktop;
-  } else {
-    authHandlerClass = JwtTokenHandlerMobile;
-  }
+  let authHandlerClass = tokenHandlerClass;
+
   return {
     getCallForwardingStatus: extension => ({
       [RSAA]: {

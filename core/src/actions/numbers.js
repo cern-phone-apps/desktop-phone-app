@@ -15,17 +15,10 @@ const API_PATH = '/api/v1';
  * @param name username of the user to search
  * @returns {{}} The RSAA action
  */
-export default function(apiEndpoint, type = 'mobile') {
+export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
   const buildCallsApiEndpoint = path => `${apiEndpoint}${API_PATH}${path}`;
-  let authHandlerClass;
-  if (type === 'web') {
-    authHandlerClass = JwtTokenHandlerWeb;
-  } else if (type === 'desktop') {
-    const { JwtTokenHandlerDesktop } = require('../util/tokens');
-    authHandlerClass = JwtTokenHandlerDesktop;
-  } else {
-    authHandlerClass = JwtTokenHandlerMobile;
-  }
+  let authHandlerClass = tokenHandlerClass;
+
   return {
     getUserPhoneNumbers: () => ({
       [RSAA]: {

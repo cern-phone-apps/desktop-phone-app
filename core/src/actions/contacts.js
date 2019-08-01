@@ -1,5 +1,4 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
 
 export const GET_CONTACTS_REQUEST = '@@contacts/GET_CONTACTS_REQUEST';
 export const GET_CONTACTS_SUCCESS = '@@contacts/GET_CONTACTS_SUCCESS';
@@ -28,18 +27,11 @@ export const CLOSE_EMERGENCY_MODAL = '@@contacts/CLOSE_EMERGENCY_MODAL';
 
 const API_PATH = '/api/v1';
 
-export default function(apiEndpoint, type = 'mobile') {
+export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
   const buildApiURL = path => `${apiEndpoint}${API_PATH}${path}`;
 
-  let authHandlerClass;
-  if (type === 'web') {
-    authHandlerClass = JwtTokenHandlerWeb;
-  } else if (type === 'desktop') {
-    const { JwtTokenHandlerDesktop } = require('../util/tokens');
-    authHandlerClass = JwtTokenHandlerDesktop;
-  } else {
-    authHandlerClass = JwtTokenHandlerMobile;
-  }
+  let authHandlerClass = tokenHandlerClass;
+
   return {
     getUserContacts: () => ({
       [RSAA]: {

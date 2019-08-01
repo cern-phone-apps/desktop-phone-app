@@ -1,5 +1,4 @@
 import { RSAA } from 'redux-api-middleware';
-import { JwtTokenHandlerWeb, JwtTokenHandlerMobile } from '../util/tokens';
 
 export const SEARCH_REQUEST = '@@search/SEARCH_REQUEST';
 export const SEARCH_SUCCESS = '@@search/SEARCH_SUCCESS';
@@ -11,18 +10,10 @@ export const PROFILE_FAILURE = '@@search/PROFILE_FAILURE';
 
 const API_PATH = '/api/v1';
 
-export default function(apiEndpoint, type = 'mobile') {
+export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
   const buildApiURL = (path, name) => `${apiEndpoint}${API_PATH}${path}${name}`;
 
-  let authHandlerClass;
-  if (type === 'web') {
-    authHandlerClass = JwtTokenHandlerWeb;
-  } else if (type === 'desktop') {
-    const { JwtTokenHandlerDesktop } = require('../util/tokens');
-    authHandlerClass = JwtTokenHandlerDesktop;
-  } else {
-    authHandlerClass = JwtTokenHandlerMobile;
-  }
+  let authHandlerClass = tokenHandlerClass;
 
   return {
     findUserByUsername: name => ({

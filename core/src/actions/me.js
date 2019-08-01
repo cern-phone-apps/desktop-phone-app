@@ -11,17 +11,10 @@ export const SET_DO_NOT_DISTURB_FAILURE = '@@status/SET_DO_NOT_DISTURB_SUCCESS';
 
 const API_PATH = '/api/v1';
 
-export default function(apiEndpoint, type = 'mobile') {
+export default function(apiEndpoint, type = 'mobile', tokenHandlerClass=null) {
   const buildApiURL = path => `${apiEndpoint}${API_PATH}${path}`;
-  let authHandlerClass;
-  if (type === 'web') {
-    authHandlerClass = JwtTokenHandlerWeb;
-  } else if (type === 'desktop') {
-    const { JwtTokenHandlerDesktop } = require('../util/tokens');
-    authHandlerClass = JwtTokenHandlerDesktop;
-  } else {
-    authHandlerClass = JwtTokenHandlerMobile;
-  }
+  let authHandlerClass = tokenHandlerClass;
+
   return {
     getMe: () => ({
       [RSAA]: {

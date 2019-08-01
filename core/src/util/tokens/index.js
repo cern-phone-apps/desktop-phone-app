@@ -1,5 +1,6 @@
 import JwtTokenHandlerWeb from './JwtTokenHandlerWeb';
 import JwtTokenHandlerMobile from './JwtTokenHandlerMobile';
-import JwtTokenHandlerDesktop from './JwtTokenHandlerDesktop';
+import JwtTokenHandlerBase from './JwtTokenHandlerBase';
 
-export { JwtTokenHandlerWeb, JwtTokenHandlerMobile, JwtTokenHandlerDesktop };
+
+export { JwtTokenHandlerBase, JwtTokenHandlerWeb, JwtTokenHandlerMobile };
