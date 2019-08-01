@@ -61,6 +61,7 @@ class LoginScreen extends React.Component {
               onPress={() => {
                 if (!authInProgress) {
                   startAuth();
+                  console.log('Navigating to LoginWebView');
                   navigation.navigate('LoginWebView');
                 }
               }}

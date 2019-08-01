@@ -41,18 +41,9 @@ export class PhoneProvider extends React.Component {
     toneToken: PropTypes.string.isRequired,
     // call info
     call: PropTypes.shape({
-      additionalCalls: PropTypes.number.isRequired,
       remote: PropTypes.shape({}),
-      tempRemote: PropTypes.shape({
-        name: PropTypes.string,
-        phoneNumber: PropTypes.string,
-        incoming: PropTypes.bool
-      }),
       startTime: PropTypes.number,
-      onCall: PropTypes.bool,
-      receivingCall: PropTypes.bool.isRequired,
-      missed: PropTypes.bool.isRequired,
-      uuid: PropTypes.string
+      onCall: PropTypes.bool
     }),
     // state setters
     setToneToken: PropTypes.func.isRequired,

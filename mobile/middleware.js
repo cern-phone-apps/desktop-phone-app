@@ -1,9 +1,10 @@
-import { API_ENDPOINT } from 'react-native-dotenv';
 import { apiMiddleware, isRSAA, RSAA } from 'redux-api-middleware';
 
-import { authActions, authActionFactory, util } from 'dial-core';
+import { authActions, authActionFactory } from 'dial-core';
 
-const { JwtTokenHandlerMobile } = util.tokens;
+import JwtTokenHandlerMobile from './src/auth/utils/token-mobile-handler';
+
+import dialBackendApi from './src/services/api';
 
 function checkNextAction(next, postponedRSAAs, rsaaMiddleware) {
   return nextAction => {
@@ -42,7 +43,7 @@ function processNextAction(postponedRSAAs, rsaaMiddleware, getState) {
         postponedRSAAs.push(action);
         if (postponedRSAAs.length > 0) {
           return rsaaMiddleware(nextCheckPostponed)(
-            authActionFactory(API_ENDPOINT, 'mobile').refreshAccessToken()
+            dialBackendApi().refreshAccessToken()
           );
         }
         return null;

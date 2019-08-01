@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { API_ENDPOINT } from 'react-native-dotenv';
-
-import { usersActionFactory, contactsActionFactory } from 'dial-core';
 
 import SearchUsersScreen from './SearchUsersScreen';
+
+import dialBackendApi from '../../../services/api';
 
 function mapStateToProps(state) {
   const { calls } = state;
@@ -17,11 +16,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      searchUsers: usersActionFactory(API_ENDPOINT, 'mobile').searchUsers,
-      addUserContact: contactsActionFactory(API_ENDPOINT, 'mobile')
-        .addUserContact,
-      getUserContacts: contactsActionFactory(API_ENDPOINT, 'mobile')
-        .getUserContacts
+      searchUsers: dialBackendApi().searchUsers,
+      addUserContact: dialBackendApi().addUserContact,
+      getUserContacts: dialBackendApi().getUserContacts
     },
     dispatch
   );

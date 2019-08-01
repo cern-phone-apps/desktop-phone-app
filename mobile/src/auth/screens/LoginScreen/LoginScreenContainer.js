@@ -1,8 +1,7 @@
-import { API_ENDPOINT } from 'react-native-dotenv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { authActionFactory } from 'dial-core';
+import { authActions } from 'dial-core';
 import LoginScreen from './LoginScreen';
 
 function mapStateToProps(state) {
@@ -15,7 +14,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      ...authActionFactory(API_ENDPOINT, 'mobile')
+      startAuth: authActions.startAuth
     },
     dispatch
   );

@@ -1,21 +1,27 @@
-import { API_ENDPOINT } from 'react-native-dotenv';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { authActionFactory } from 'dial-core';
+
+import { authActions } from 'dial-core';
 
 import LoginWebView from './LoginWebView';
+import dialBackendApi from '../../../services/api';
 
-function mapStateToProps(state) {
-  const { auth } = state;
+function mapStateToProps({ auth }) {
+  const { login, loginInProgress, loggedIn, error } = auth;
   return {
-    ...auth
+    login,
+    loginInProgress,
+    loggedIn,
+    error
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      login: authActionFactory(API_ENDPOINT, 'mobile').login
+      getMe: dialBackendApi().getMe,
+      login: dialBackendApi().login,
+      setAuthenticated: authActions.setAuthenticated
     },
     dispatch
   );
