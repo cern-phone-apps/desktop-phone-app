@@ -1,3 +1,6 @@
 [submodule "modules/core"]
 	path = modules/core
 	url = https://github.com/cern-dialtone/core.git
+[submodule "modules/tone-api"]
+	path = modules/tone-api
+	url = https://github.com/cern-dialtone/tone-api.git
