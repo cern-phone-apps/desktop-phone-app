@@ -67,7 +67,7 @@
     "connected-react-router": "^6.5.2",
     "debug": "^3.1.0",
     "detectrtc": "^1.3.5",
-    "dial-core": "file:../core",
+    "dial-core": "file:../modules/core",
     "electron-is-dev": "^1.1.0",
     "electron-json-storage": "^4.1.6",
     "electron-log": "^3.0.6",
