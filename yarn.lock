@@ -3735,7 +3735,7 @@ devtron@^1.4.0:
     highlight.js "^9.3.0"
     humanize-plus "^1.8.1"
 
-"dial-core@file:../core":
+"dial-core@file:./modules/core":
   version "0.0.1"
   dependencies:
     js-cookie "^2.2.0"
@@ -11776,7 +11776,7 @@ toidentifier@1.0.0:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
-"tone-api-web@file:../tone-api/web":
+"tone-api-web@file:./modules/tone-api/web":
   version "1.0.0"
   dependencies:
     crypto-js "^3.1.9-1"
