@@ -202,7 +202,11 @@ export default class PhoneProvider extends React.Component {
       this.hangupDefault = true;
       logMessage('hangupDefault is true');
     }
-    return toneAPI.hangUp();
+    try {
+      toneAPI.hangUp();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   hangUpCallEvent = () => {
@@ -432,8 +436,7 @@ export default class PhoneProvider extends React.Component {
       setTempCallFinished,
       addRecentCall,
       setOngoingCallFinished,
-      tempRemote,
-      call: { additionalCalls, remote },
+      call: { additionalCalls, remote, tempRemote },
       decrementAdditionalCallsNumber
     } = this.props;
 
