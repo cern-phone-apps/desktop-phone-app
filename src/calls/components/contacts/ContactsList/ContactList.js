@@ -31,6 +31,7 @@ export function ContactList() {
       <Item.Group link>
         <ContactEmergencyItemContainer />
         {contacts &&
+          contacts.contacts &&
           contacts.contacts.map((item, index) => (
             <ContactContainer
               key={`recent-${index.toString()}`}
