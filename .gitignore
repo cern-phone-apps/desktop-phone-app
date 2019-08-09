@@ -38,3 +38,4 @@ mockserver/rest/*/*/*/mock/response.txt
 dist/
 
 electron-builder.env
+src/config.js
