@@ -43,7 +43,8 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!**/third-party/**"
-    ]
+    ],
+    "watchPathIgnorePatterns": ["old_tests"]
   },
   "eslintConfig": {
     "extends": "react-app"
