@@ -7,10 +7,10 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ## Status
 
-[![Build Status](https://travis-ci.org/cern-dialtone/dial-webapp.svg?branch=master)](https://travis-ci.org/cern-dialtone/dial-webapp)
-[![Dependency Status](https://david-dm.org/cern-dialtone/dial-webapp.svg)](https://david-dm.org/cern-dialtone/dial-webapp)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/maintainability)](https://codeclimate.com/github/cern-dialtone/dial-webapp/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/9fa67924a62e229f913c/test_coverage)](https://codeclimate.com/github/cern-dialtone/dial-webapp/test_coverage)
+[![Build Status](https://travis-ci.org/cern-phone-apps/desktop-phone-app.svg?branch=master)](https://travis-ci.org/cern-phone-apps/desktop-phone-app)
+[![Dependency Status](https://david-dm.org/cern-phone-apps/desktop-phone-app.svg)](https://david-dm.org/cern-phone-apps/desktop-phone-app)
+[![Maintainability](https://api.codeclimate.com/v1/badges/da59b244235bb64bfe28/maintainability)](https://codeclimate.com/github/cern-phone-apps/desktop-phone-app/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/da59b244235bb64bfe28/test_coverage)](https://codeclimate.com/github/cern-phone-apps/desktop-phone-app/test_coverage)
 
 ## TODO
 
