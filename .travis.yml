@@ -5,6 +5,9 @@ node_js:
 cache:
   yarn: true
 
+before_install:
+  - sudo apt-get install -y libsecret-1-dev
+
 install:
   # use the new "ci" command for fastest installs on CI
   - cp src/config.sample.js src/config.js
