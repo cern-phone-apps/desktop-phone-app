@@ -2,9 +2,9 @@ import { Dropdown, Form, Grid, Header, Radio } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { logMessage } from 'common/utils/logs';
 import CallForwardingAddModalContainer from '../../CallForwardingAddModal/CallForwardingAddModalContainer';
 import { buildDropdownOptionsArray } from '../../utils';
-import { logMessage } from 'common/utils/logs';
 
 class CallForwardingFields extends React.Component {
   static propTypes = {
@@ -52,15 +52,17 @@ class CallForwardingFields extends React.Component {
    */
   selectDefaultDropdownSelection = () => {
     const { status } = this.props;
-    const defaultDropdownValues = status['destination-list'][0];
-    this.setState(
-      {
-        defaultDropdownValues
-      },
-      () => {
-        this.props.saveAction(defaultDropdownValues);
-      }
-    );
+    if (status['destination-list'] && status['destination-list'].length > 0) {
+      const defaultDropdownValues = status['destination-list'][0];
+      this.setState(
+        {
+          defaultDropdownValues
+        },
+        () => {
+          this.props.saveAction(defaultDropdownValues);
+        }
+      );
+    }
   };
 
   /**
