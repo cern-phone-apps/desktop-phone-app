@@ -13,22 +13,51 @@ import { actionMessage, logMessage } from 'common/utils/logs';
 import ElectronService from 'services/electron-service';
 import styles from './NumberConnector.module.css';
 
-const ButtonNumbersList = ({ numbers, connect }) => (
-  <div>
-    {numbers.map((item, index) => (
-      <Button
-        fluid
-        key={`number-${index}`}
-        className="ConnectNumberButton"
-        onClick={() => connect(item.phoneNumber)}
-      >
-        <Icon name="plug" />
-        {item.phoneNumber}
+function NoNumbersButton({ numbersLength }) {
+  if (numbersLength === 0) {
+    return (
+      <Button fluid className="ConnectNumberButton" disabled>
+        {'There are no phone numbers in this section.'}
       </Button>
-    ))}
-  </div>
-);
+    );
+  }
+  return null;
+}
 
+const ButtonNumbersList = ({ numbers, connect }) => (
+  <React.Fragment>
+    <div>
+      <h4>Personal</h4>
+      {numbers.personal.map((item, index) => (
+        <Button
+          fluid
+          key={`number-${index}`}
+          className="ConnectNumberButton"
+          onClick={() => connect(item)}
+        >
+          <Icon name="plug" />
+          {item}
+        </Button>
+      ))}
+      <NoNumbersButton numbersLength={numbers.personal.length} />
+    </div>
+    <div style={{ marginTop: 10 }}>
+      <h4>Shared</h4>
+      {numbers.shared.map((item, index) => (
+        <Button
+          fluid
+          key={`number-${index}`}
+          className="ConnectNumberButton"
+          onClick={() => connect(item)}
+        >
+          <Icon name="plug" />
+          {item}
+        </Button>
+      ))}
+      <NoNumbersButton numbersLength={numbers.shared.length} />
+    </div>
+  </React.Fragment>
+);
 ButtonNumbersList.propTypes = {
   numbers: PropTypes.array,
   connect: PropTypes.func.isRequired
