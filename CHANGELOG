@@ -10,6 +10,19 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.0-beta -2019-08-30
+! Breaking changes in this version !
+### Added
+- Support for Tone API 0.8.7
+- Support to reject or accept a second call
+= Support for redux using hooks
+- Timeout to api requests
+- Extract core and tone-api to gitmodules
+- Support for the new UCServices number api, displaying shared and personal sections
+### Improved
+- Behavior of call forwarding settings/banner
+- Behavior of contacts list add/remove
+
 ## w0.4.3 - 2019-07-19
 ### Added
 - Support to select the update channel (stable, beta, alpha)
