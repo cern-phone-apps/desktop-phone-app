@@ -8,6 +8,7 @@ cache:
 install:
   # use the new "ci" command for fastest installs on CI
   - cp src/config.sample.js src/config.js
+  - yarn
   - yarn build
 
 stages:

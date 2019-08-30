@@ -18,7 +18,7 @@
     "start-ci": "REACT_APP_ENV=ci sh -ac '. .env.ci; npm run start'",
     "build-js": "cross-env  react-scripts build",
     "build": "cross-env npm-run-all build-css build-js",
-    "test": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient  react-scripts test --env=jsdom",
+    "test": "cross-env react-scripts test --env=jsdom",
     "test-coverage": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient  react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "test:staged": "cross-env CI=true  REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests",
