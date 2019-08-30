@@ -13,6 +13,7 @@ function mapStateToProps({ auth, numbers, connection, settings }) {
   return {
     activeNumber: numbers.activeNumber,
     connecting: connection.connecting,
+    error: connection.error.message,
     numbers: numbers.numbers,
     rememberNumber: settings.settings.rememberNumber
   };

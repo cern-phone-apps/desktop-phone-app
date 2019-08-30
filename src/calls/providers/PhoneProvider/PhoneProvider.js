@@ -189,7 +189,6 @@ export default class PhoneProvider extends React.Component {
         },
         description: `Unable to authenticate the user on TONE`
       };
-
       setRegistrationFailure(errorToDisplay);
       // logout();
     }
@@ -346,7 +345,7 @@ export default class PhoneProvider extends React.Component {
 
     const handler = {
       registered: this.handleRegisteredEvent,
-      registrationFailed: this.handlRegistrationFailedEvent,
+      registrationFailed: this.handleRegistrationFailedEvent,
       unregistered: this.handleUnregisteredEvent,
       terminated: this.handleTerminatedEvent,
       accepted: this.handleAcceptedEvent,
@@ -489,9 +488,9 @@ export default class PhoneProvider extends React.Component {
     setDisconnectionSuccess();
   };
 
-  handleRegistationFailedEvent = event => {
+  handleRegistrationFailedEvent = event => {
     const { setRegistrationFailure } = this.props;
-    if (event.error !== undefined) {
+    if (event.error.description !== undefined) {
       setRegistrationFailure(event.error);
     }
   };
