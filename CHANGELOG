@@ -10,6 +10,10 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.1-beta -2019-09-02
+### Added
+- Support to opt-in/out to send stats
+
 ## w0.5.0-beta -2019-08-30
 ! Breaking changes in this version !
 ### Added
