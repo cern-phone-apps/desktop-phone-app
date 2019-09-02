@@ -6,7 +6,6 @@ import { Dial } from 'tone-api-web';
 import {
   errorMessage,
   infoMessage,
-  logEvent,
   logMessage,
   toneInMessage,
   toneOutMessage,
@@ -154,7 +153,7 @@ export default class PhoneProvider extends React.Component {
     const { toneAPI } = this.state;
     const toneToken = ElectronService.getToneToken();
     let tokenUsed = 'authToken';
-    logEvent('calls', `authenticate`, `user: ${username}.`);
+    // logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
     requestRegistration();
     /**

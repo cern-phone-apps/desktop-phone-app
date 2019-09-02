@@ -32,7 +32,7 @@ const ButtonNumbersList = ({ numbers, connect }) => (
       {numbers.personal.map((item, index) => (
         <Button
           fluid
-          key={`number-${index}`}
+          key={`number-${index.toString()}`}
           className="ConnectNumberButton"
           onClick={() => connect(item)}
         >
@@ -47,7 +47,7 @@ const ButtonNumbersList = ({ numbers, connect }) => (
       {numbers.shared.map((item, index) => (
         <Button
           fluid
-          key={`number-${index}`}
+          key={`number-${index.toString()}`}
           className="ConnectNumberButton"
           onClick={() => connect(item)}
         >
@@ -60,7 +60,10 @@ const ButtonNumbersList = ({ numbers, connect }) => (
   </React.Fragment>
 );
 ButtonNumbersList.propTypes = {
-  numbers: PropTypes.array,
+  numbers: PropTypes.shape({
+    personal: PropTypes.arrayOf(PropTypes.string),
+    shared: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired,
   connect: PropTypes.func.isRequired
 };
 
@@ -87,14 +90,24 @@ const DisplayErrors = ({ errorMessage }) => {
  */
 export class NumberConnector extends Component {
   static propTypes = {
-    phoneService: PropTypes.object.isRequired, // Phone Service
+    phoneService: PropTypes.shape({
+      authenticateUser: PropTypes.func.isRequired
+    }).isRequired, // Phone Service
     connecting: PropTypes.bool.isRequired,
-    numbers: PropTypes.array,
+    numbers: PropTypes.shape({
+      personal: PropTypes.arrayOf(PropTypes.string),
+      shared: PropTypes.arrayOf(PropTypes.string)
+    }).isRequired,
     getUserPhoneNumbers: PropTypes.func.isRequired,
     setActiveNumber: PropTypes.func.isRequired,
     rememberNumber: PropTypes.bool.isRequired,
     setRememberNumber: PropTypes.func.isRequired,
-    error: PropTypes.string.isRequired
+    error: PropTypes.string,
+    activeNumber: PropTypes.string.isRequired
+  };
+
+  static defaultProps = {
+    error: ''
   };
 
   componentDidMount() {

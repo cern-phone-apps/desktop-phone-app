@@ -1,6 +1,3 @@
-import Raven from 'raven-js';
-import ReactPiwik from 'react-piwik';
-
 import log from 'electron-log';
 
 const { remote } = window.require('electron');
@@ -119,25 +116,6 @@ const systemInfoMessage = message => {
   printParsedMessage(message, 'info', 'SYSTEM');
 };
 
-/**
- * Initializes Raven error logging
- */
-Raven.config(process.env.REACT_APP_SENTRY_DSN).install();
-
-/**
- * Logs all the events to Piwik if the environment is not test
- * @param category (string) Category of the event
- * @param method (string) Method of the event
- * @param message (string) Message to display
- */
-const logEvent = (category, method, message = '') => {
-  if (process.env.NODE_ENV === 'production') {
-    ReactPiwik.push(['trackEvent', category, method, message]);
-  } else {
-    logMessage(message);
-  }
-};
-
 export {
   errorMessage,
   warnMessage,
@@ -146,6 +124,5 @@ export {
   toneInMessage,
   toneOutMessage,
   actionMessage,
-  logEvent,
   systemInfoMessage
 };

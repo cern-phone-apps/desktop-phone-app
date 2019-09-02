@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import buildUrl from 'build-url';
 import { translate } from 'react-i18next';
-import { actionMessage, logEvent } from 'common/utils/logs';
+import { actionMessage } from 'common/utils/logs';
 /**
  * The idea of this component is to redirect the user to the Oauth authorization URL of your provider.
  */
@@ -43,7 +43,6 @@ export class LoginButton extends Component {
    * Redirects the user to the Oauth authorization URL
    */
   loginUser = () => {
-    logEvent('auth', `login`);
     actionMessage(`Auth: User clicks login button`);
     const authorizeUrl = this.buildAuthorizeUrl();
     const { window: propsWindow } = this.props;

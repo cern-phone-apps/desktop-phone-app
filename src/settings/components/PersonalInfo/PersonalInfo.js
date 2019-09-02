@@ -16,7 +16,7 @@ const UserPhoneWithActiveNumber = ({ phone, activeNumber, icon = 'phone' }) => {
   const isActiveNumber = phone ? phone.includes(activeNumber) : false;
   return (
     <List.Item>
-      <Icon className={[styles.phoneListItem]} name={icon} />
+      <Icon className={styles.phoneListItem} name={icon} />
       {phone || '-'}{' '}
       {isActiveNumber ? (
         <Label as="span" color="green" content="active" size="mini" />
