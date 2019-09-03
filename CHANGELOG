@@ -10,6 +10,16 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.3 -2019-09-03
+### Added
+- New app version of the app found by the updater is now displayed in the update window.
+### Fixed
+- Updates now are using Release/Prerelease basis instead of release channels, that are not supporte for Github provider in electron-builder
+
+## w0.5.3-alpha -2019-09-03
+### Removed
+- Mute button in oncall screen (it was unused)
+
 ## w0.5.1-beta -2019-09-02
 ### Added
 - Support to opt-in/out to send stats
