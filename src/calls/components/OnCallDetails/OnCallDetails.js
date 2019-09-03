@@ -52,9 +52,6 @@ export class OnCallDetails extends Component {
             </div>
             <div className="ui center aligned basic segment">
               <HangupButton onClick={() => this.hangup()} />
-              <button type="button" className="ui circular icon button">
-                <i className="mute icon" />
-              </button>
             </div>
           </div>
         </Segment>
