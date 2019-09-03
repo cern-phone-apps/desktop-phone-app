@@ -1,6 +1,6 @@
 {
   "name": "cern-phone-app",
-  "version": "0.5.3-alpha",
+  "version": "0.5.3",
   "private": true,
   "homepage": "./",
   "author": "CERN",
@@ -26,10 +26,11 @@
     "electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
-    "electron-pack": "yarn build && build -mlw",
-    "electron-pack-mac": "yarn build && build -m",
-    "electron-pack-linux": "yarn build && build -l",
-    "publish-prod": "yarn build && build -mlw --publish always",
+    "electron-pack": "yarn build && electron-builder build -mlw",
+    "only-pack-mac": "electron-builder build -m",
+    "electron-pack-mac": "yarn build && electron-builder build -m",
+    "electron-pack-linux": "yarn build && electron-builder build -l",
+    "publish-prod": "yarn build && electron-builder build -mlw --publish always",
     "electron-pack-next": "REACT_APP_NEXT=true yarn build && REACT_APP_NEXT=true electron-builder --config electron-builder-next.json build -mlw",
     "publish-next": "REACT_APP_NEXT=true yarn build && electron-builder build --config electron-builder-next.json -mlw --publish always"
   },
@@ -113,7 +114,7 @@
     "cross-env": "^5.1.5",
     "devtron": "^1.4.0",
     "electron": "^5.0.6",
-    "electron-builder": "^20.44.4",
+    "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -139,16 +140,16 @@
   "build": {
     "appId": "ch.cern.phonewebapp",
     "productName": "CERN Phone App",
-    "generateUpdatesFilesForAllChannels": true,
     "asarUnpack": [
       "./node_modules/node-notifier/vendor/**"
     ],
-    "publish": [
-      {
+    "generateUpdatesFilesForAllChannels": true,
+    "publish": {
         "provider": "github",
-        "repo": "desktop-phone-app"
-      }
-    ],
+        "owner": "cern-phone-apps",
+        "repo": "desktop-phone-app",
+        "publishAutoUpdate": true
+    },
     "mac": {
       "category": "public.app-category.social-networking",
       "target": "zip"

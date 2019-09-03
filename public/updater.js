@@ -5,12 +5,6 @@ const storage = require('electron-json-storage');
 let updater;
 autoUpdater.autoDownload = false;
 
-// if (process.env.REACT_APP_NEXT) {
-//   autoUpdater.channel = 'beta';
-// } else {
-//   autoUpdater.allowPrerelease = false;
-// }
-
 autoUpdater.on('error', error => {
   dialog.showErrorBox(
     'Error: ',
@@ -20,13 +14,14 @@ autoUpdater.on('error', error => {
   updater = null;
 });
 
-autoUpdater.on('update-available', () => {
+autoUpdater.on('update-available', (info) => {
+
   dialog.showMessageBox(
     {
       type: 'info',
       title: 'Found Updates',
-      message: 'Found updates, do you want update now?',
-      buttons: ['Sure', 'No']
+      message: `Found updates, do you want update now? (${info.version})`,
+      buttons: ['Yes', 'No']
     },
     buttonIndex => {
       if (buttonIndex === 0) {
@@ -66,14 +61,19 @@ function checkForUpdates(menuItem, focusedWindow, event) {
   updater.enabled = false;
 
   storage.get('update_channel', (error, data) => {
-    let channel = data.channel || 'latest';
-    console.log(`Updating app using channel: ${channel}`);
+    const channel = data.channel || 'latest';
+    if (channel === 'latest') {
+      autoUpdater.allowPrerelease = false;
+    } else {
+      autoUpdater.allowPrerelease = true;
+    }
+    console.log(`Setting allowPrerelease to ${autoUpdater.allowPrerelease}`);
 
     if (error) {
       console.log(`Error found checking updates: ${error}`);
-      channel = 'latest';
     }
-    autoUpdater.channel = channel;
+    console.log(`Auto Updater is set to ${autoUpdater.channel}`);
+    console.log(`Current version of the app is ${autoUpdater.currentVersion}`);
     autoUpdater.checkForUpdates();
   });
 }

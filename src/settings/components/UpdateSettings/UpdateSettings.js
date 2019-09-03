@@ -6,18 +6,13 @@ import { logMessage } from 'common/utils/logs';
 
 const channelOptions = [
   {
-    key: 'stable',
-    text: 'Stable',
+    key: 'latest',
+    text: 'Release',
     value: 'latest'
   },
   {
-    key: 'beta',
-    text: 'Beta',
-    value: 'beta'
-  },
-  {
     key: 'alpha',
-    text: 'Alpha',
+    text: 'Prerelease',
     value: 'alpha'
   }
 ];
