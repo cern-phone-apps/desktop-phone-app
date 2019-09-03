@@ -69,7 +69,10 @@ function checkForUpdates(menuItem, focusedWindow, event) {
     let channel = data.channel || 'latest';
     console.log(`Updating app using channel: ${channel}`);
 
-    if (error) channel = 'latest';
+    if (error) {
+      console.log(`Error found checking updates: ${error}`);
+      channel = 'latest';
+    }
     autoUpdater.channel = channel;
     autoUpdater.checkForUpdates();
   });
