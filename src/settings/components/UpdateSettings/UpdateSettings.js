@@ -8,7 +8,7 @@ const channelOptions = [
   {
     key: 'stable',
     text: 'Stable',
-    value: 'stable'
+    value: 'latest'
   },
   {
     key: 'beta',
@@ -23,7 +23,7 @@ const channelOptions = [
 ];
 
 export default function UpdateSettings() {
-  const [value, setValue] = useState('stable');
+  const [value, setValue] = useState('latest');
   const handleChange = (e, { value: newValue }) => {
     logMessage(newValue);
     setValue(newValue);
@@ -33,7 +33,7 @@ export default function UpdateSettings() {
   useEffect(() => {
     let result = ElectronService.getUpdateChannelValue();
     if (!result) {
-      result = 'stable';
+      result = 'latest';
     }
     logMessage(result);
     setValue(result.channel);

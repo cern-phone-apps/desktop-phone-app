@@ -66,10 +66,10 @@ function checkForUpdates(menuItem, focusedWindow, event) {
   updater.enabled = false;
 
   storage.get('update_channel', (error, data) => {
-    let channel = data.channel || 'stable';
+    let channel = data.channel || 'latest';
     console.log(`Updating app using channel: ${channel}`);
 
-    if (error) channel = 'stable';
+    if (error) channel = 'latest';
     autoUpdater.channel = channel;
     autoUpdater.checkForUpdates();
   });
