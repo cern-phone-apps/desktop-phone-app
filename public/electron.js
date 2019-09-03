@@ -505,9 +505,13 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   if (arg === 'setUpdateChannelValue') {
     console.log(`Setting update channel to ${obj.value}`);
     storage.set('update_channel', { channel: obj.value }, error => {
-      console.error(`Unable to set updateChannel: ${error}`);
+      if (error) {
+        event.returnValue = 'error';
+        console.error(`Unable to set updateChannel: ${error}`);
+      } else {
+        event.returnValue = 'ok';
+      }
     });
-    event.returnValue = 'ok';
   }
   if (arg === 'getUpdateChannelValue') {
     console.log('GetUpdateChannel');

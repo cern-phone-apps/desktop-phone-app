@@ -25,6 +25,7 @@ const channelOptions = [
 export default function UpdateSettings() {
   const [value, setValue] = useState('latest');
   const handleChange = (e, { value: newValue }) => {
+    logMessage('Handle channel change');
     logMessage(newValue);
     setValue(newValue);
     ElectronService.setUpdateChannelValue(newValue);
