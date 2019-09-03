@@ -146,7 +146,7 @@
     "publish": [
       {
         "provider": "github",
-        "repo": "dial-clients"
+        "repo": "desktop-phone-app"
       }
     ],
     "mac": {
