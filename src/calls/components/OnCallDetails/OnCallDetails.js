@@ -23,7 +23,7 @@ export function DisplayDialpadButton(props) {
     <button
       type="button"
       onClick={props.onClick}
-      className="ui circular green icon button OnCallDetails__HangupButton"
+      className="ui circular grey icon button OnCallDetails__HangupButton"
       style={{ margin: '1%' }}
     >
       <Icon className="text telephone" />
