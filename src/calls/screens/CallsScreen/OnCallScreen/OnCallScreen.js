@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 import OnCallDetailsContainer from 'calls/components/OnCallDetails/OnCallDetailsContainer';
 import RightColumn from 'common/components/RightColumn/RightColumn';
@@ -9,9 +9,33 @@ import styles from 'calls/screens/CallsScreen/ConnectedScreen/ConnectedScreen.mo
 import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 
 export class OnCallScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { displayDialpad: false };
+  }
+
   styles = { height: '100%' };
 
   dividedStyles = { paddingTop: '0', paddingBottom: 0 };
+
+  toggleDialpad() {
+    this.setState({ displayDialpad: !this.state.displayDialpad });
+  }
+
+  DtmfDialPad() {
+    if (this.state.displayDialpad === true) {
+      return (
+        <Grid.Column>
+          <Segment basic>
+            <Grid.Column>
+              <DtmfDialpadForm />
+            </Grid.Column>
+          </Segment>
+        </Grid.Column>
+      );
+    }
+    return null;
+  }
 
   render() {
     return (
@@ -37,17 +61,11 @@ export class OnCallScreen extends Component {
     return (
       <ErrorBoundary>
         <Grid padded style={this.styles}>
-          <Grid.Row columns={2} divided style={this.dividedStyles}>
+          <Grid.Row columns={(this.state.displayDialpad) ? 2 : 1 } divided style={this.dividedStyles}>
             <Grid.Column>
-              <OnCallDetailsContainer />
+              <OnCallDetailsContainer toggleDialpad={() => this.toggleDialpad()}/>
             </Grid.Column>
-            <Grid.Column>
-              <Segment basic>
-                <Grid.Column>
-                  <DtmfDialpadForm />
-                </Grid.Column>
-              </Segment>
-            </Grid.Column>
+            {this.DtmfDialPad()}
           </Grid.Row>
         </Grid>
       </ErrorBoundary>

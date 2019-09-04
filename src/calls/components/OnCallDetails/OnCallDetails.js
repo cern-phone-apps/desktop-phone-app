@@ -11,13 +11,28 @@ export function HangupButton(props) {
       type="button"
       onClick={props.onClick}
       className="ui circular red icon button OnCallDetails__HangupButton"
+      style={{ margin: '1%' }}
     >
       <i className="phone icon" />
     </button>
   );
 }
 
+export function DisplayDialpadButton(props) {
+  return (
+    <button
+      type="button"
+      onClick={props.onClick}
+      className="ui circular green icon button OnCallDetails__HangupButton"
+      style={{ margin: '1%' }}
+    >
+      <Icon className="text telephone" />
+    </button>
+  );
+}
+
 HangupButton.propTypes = { onClick: PropTypes.func };
+DisplayDialpadButton.propTypes = { onClick: PropTypes.func };
 
 export class OnCallDetails extends Component {
   static propTypes = {
@@ -37,7 +52,7 @@ export class OnCallDetails extends Component {
   };
 
   render() {
-    const { t, caller, call } = this.props;
+    const { t, caller, call, toggleDialpad } = this.props;
     return (
       <Segment basic>
         <Segment textAlign="center">
@@ -52,6 +67,7 @@ export class OnCallDetails extends Component {
             </div>
             <div className="ui center aligned basic segment">
               <HangupButton onClick={() => this.hangup()} />
+              <DisplayDialpadButton onClick={() => toggleDialpad()} />
             </div>
           </div>
         </Segment>
