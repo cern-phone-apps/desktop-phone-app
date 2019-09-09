@@ -1,5 +1,5 @@
-import React from 'react';
-import { Icon, Rating } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Button, Header, Modal, Icon, Rating } from "semantic-ui-react";
 
 const onRate = (value) => {
   alert("only "+value+'??');
@@ -7,18 +7,19 @@ const onRate = (value) => {
 };
 
 const RateCallQuality = ({ lastCall }) => {
-  if (lastCall[0].endTime > new Date().getTime() - 1000)
+  const [ rate, setRate ] = useState(true);
+  if (lastCall[0].endTime > new Date().getTime() - 10000000000)
     return (
-      <div
-        style={{
-          backgroundColor: 'white',
-          padding: 20
-        }}
-        id="rateCallQuality"
+      <Modal
+        open={rate}
+        size="small"
+        //className={"OutgoingCallModal"}
       >
-        <h2>Call quality feedback</h2>
-        <Rating maxRating={5} icon='star' size='massive' onRate={onRate}/>
-      </div>
+        <Header icon="star" content="Call quality feedback" />
+        <Modal.Content>
+          <Rating maxRating={5} defaultRating={3} icon='star' size='massive' onRate={(e) => setRate(false)}/>
+        </Modal.Content>
+      </Modal>
     );
   return null;
 };
