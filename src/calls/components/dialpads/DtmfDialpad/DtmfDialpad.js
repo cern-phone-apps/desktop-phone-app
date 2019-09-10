@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Icon, Segment, Grid } from "semantic-ui-react";
+import { Segment, Grid } from "semantic-ui-react";
 import { CallButton } from "../CallerDialpad/CallButton";
 import Dialpad from "../Dialpad/Dialpad";
 import PropTypes from "prop-types";
@@ -26,7 +26,7 @@ export class DtmfDialpad extends Component {
       <Grid.Column textAlign={"center"}>
         <CallButton
           clickHandler={this.props.sendDtmfClick}
-          text={<Icon name={"tty"}/>}
+          text={"Send"}
         />
       </Grid.Column>
       <Grid.Column/>
