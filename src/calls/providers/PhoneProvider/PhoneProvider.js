@@ -98,21 +98,22 @@ export default class PhoneProvider extends React.Component {
   }
 
   componentDidMount() {
-    const { authToken } = this.props;
+    this.initializeToneApi();
+  }
 
-    const firstRegister = !!authToken;
+  initializeToneApi = () => {
     const devMode = false;
 
     this.audioElement = document.getElementById(callInputId);
     this.setState(
       {
-        toneAPI: new Dial(devMode, firstRegister)
+        toneAPI: new Dial(devMode)
       },
       () => {
         this.addListeners();
       }
     );
-  }
+  };
 
   /**
    * Only for testing purposes.
@@ -143,18 +144,20 @@ export default class PhoneProvider extends React.Component {
    * @param username
    * @returns {boolean|void|*}
    */
-  authenticateUser = username => {
+  authenticateUser = async username => {
     const {
       requestRegistration,
       authToken,
       clearAuthToken,
       setRegistrationFailure
     } = this.props;
+
     const { toneAPI } = this.state;
     const toneToken = ElectronService.getToneToken();
     let tokenUsed = 'authToken';
     // logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: ${username}/*****`);
+    toneOutMessage(`Authenticating user: ${toneToken}`);
     requestRegistration();
     /**
      * If there is an authToken, we use that token. Else, we use the already encrypted token provided by the api
@@ -168,7 +171,7 @@ export default class PhoneProvider extends React.Component {
     }
     try {
       logMessage(`Authenticating user ${username} and ${tokenUsed}`);
-      const eToken = toneAPI.authenticate(username, tempToken);
+      const eToken = toneAPI.authenticate(username, tempToken, !!authToken);
       if (authToken) {
         /**
          * If the authToken was used, we clear the original auth token as we will use the encrypted token from now on.
