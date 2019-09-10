@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Header, Modal, Icon, Rating } from 'semantic-ui-react';
+import { Button, Header, Modal, Rating } from 'semantic-ui-react';
 
 const RateCallQuality = ({ lastCall }) => {
+  const lastCallTime = (lastCall && lastCall[0] && lastCall[0].endTime) ? lastCall[0].endTime : 0;
   const [displayModal, setDisplayModal] = useState(
-    lastCall[0].endTime > new Date().getTime() - 10000
+    lastCallTime > new Date().getTime() - 10000
   );
   const [rate, setRate] = useState(0);
   const onRate = value => {
@@ -11,7 +12,7 @@ const RateCallQuality = ({ lastCall }) => {
     setDisplayModal(false);
   };
   return (
-    <Modal open={displayModal} size="small">
+    <Modal open={false} size="small">
       <Header icon="star" content="Call quality feedback" />
       <Modal.Content>
         <Rating
