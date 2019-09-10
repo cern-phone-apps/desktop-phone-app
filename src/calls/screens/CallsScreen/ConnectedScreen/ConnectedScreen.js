@@ -8,7 +8,6 @@ import CallerTabsSelectorContainer from 'calls/components/CallerTabsSelector/Cal
 import CallForwardingBanner from 'settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBanner';
 import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 import styles from './ConnectedScreen.module.css';
-import RateCallQualityContainer from 'calls/components/RateCallQuality/RateCallQualityContainer';
 
 export const ConnectedScreen = ({ calling, lastCall }) => (
   <Grid.Column
@@ -22,7 +21,6 @@ export const ConnectedScreen = ({ calling, lastCall }) => (
         <MainHeaderContainer />
         <IncomingCallModalContainer />
         <CallForwardingBanner />
-        <RateCallQualityContainer lastCall={lastCall} />
         <div>
           <div>
             {calling && <CallModalContainer modalOpen={calling} />}
