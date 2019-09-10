@@ -25,7 +25,10 @@ function ContactAddButton({ contact }) {
   };
 
   useEffect(() => {
-    const ids = contacts.contacts.map(a => a.personId.toString());
+    const ids =
+      contacts === undefined || contacts.contacts === undefined
+        ? []
+        : contacts.contacts.map(a => a.personId.toString());
     if (
       ids.includes(contact.personId) ||
       ids.includes(contact.personId.toString())
