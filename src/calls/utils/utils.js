@@ -34,6 +34,7 @@ export const getWindowTitle = (connected, onCall, calling) => {
 };
 
 export function formatPhoneNumber(phoneNumber) {
+  if (!phoneNumber) return null;
   return phoneNumber
     .replace('+', '00')
     .replace(/ /g, '')
