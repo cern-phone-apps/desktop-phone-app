@@ -9,7 +9,7 @@ import CallForwardingBanner from 'settings/components/CallForwardingSettings/Cal
 import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 import styles from './ConnectedScreen.module.css';
 
-export const ConnectedScreen = ({ calling }) => (
+export const ConnectedScreen = ({ calling, lastCall }) => (
   <Grid.Column
     computer={12}
     mobile={16}
