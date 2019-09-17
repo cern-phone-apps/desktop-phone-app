@@ -10,6 +10,16 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.4 -2019-09-17
+### Added
+- Support for Tone API 0.8.8 (Tone API constructor and authenticate methods) (PR #104)
+### Fixed
+- Output device is saved on settings (PR #108)
+- Clicking on a search result won't display an error when contact list is empty (PR #105)
+- Now is not possible to call to undefined numbers and these numbers are not added to recent calls (PR #112)
+### Improved
+- DTMF Dialpad is hidden by default and can be displayed using a button (PR #100)
+
 ## w0.5.3 -2019-09-03
 ### Added
 - New app version of the app found by the updater is now displayed in the update window.
