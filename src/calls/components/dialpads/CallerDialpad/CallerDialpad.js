@@ -17,6 +17,8 @@ export class CallerDialpad extends Component {
 
   makeCall = () => {
     const { dialpadValue } = this.props;
+    
+    if (dialpadValue === '') return;
 
     const formattedNumber = formatPhoneNumber(dialpadValue);
 

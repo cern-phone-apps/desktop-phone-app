@@ -77,6 +77,7 @@ const DisplayErrors = ({ errorMessage }) => {
         header={errorMessage}
         list={[
           'You can try again in few minutes.',
+          'Try to logout and login again.',
           'If the problem persists contact support.'
         ]}
       />
