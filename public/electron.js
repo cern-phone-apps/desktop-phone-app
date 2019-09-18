@@ -8,6 +8,7 @@ const {
   dialog
 } = require('electron');
 
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
@@ -33,6 +34,11 @@ let authWindow;
 let code;
 let tray;
 let forceQuit = false;
+let goingToUpdate = false;
+
+autoUpdater.on('before-quit-for-update', () => {
+  goingToUpdate = true;
+});
 
 function isEmpty(ob) {
   for (const i in ob) {
@@ -207,7 +213,7 @@ const menu = Menu.buildFromTemplate([
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
           forceQuit = true;
-          showQuitDialog();
+          if (!goingToUpdate) showQuitDialog();
         }
       }
     ]
@@ -313,7 +319,7 @@ const createWindow = () => {
       app.quit();
     }
 
-    if (!forceQuit) {
+    if (!forceQuit && !goingToUpdate) {
       e.preventDefault();
       showQuitDialog();
       // sendAppHideNotification();
