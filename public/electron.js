@@ -36,7 +36,7 @@ let tray;
 let forceQuit = false;
 let goingToUpdate = false;
 
-autoUpdater.on('before-quit-for-update', () => {
+autoUpdater.on('update-downloaded', () => {
   goingToUpdate = true;
 });
 
