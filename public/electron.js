@@ -236,6 +236,7 @@ const sendAppHideNotification = () => {
   // Object
   notifier.notify({
     title: 'CERN Phone App',
+    icon: path.join(__dirname, '../assets/icon.png'),
     message: 'The app has been minimized to tray.'
   });
 };
