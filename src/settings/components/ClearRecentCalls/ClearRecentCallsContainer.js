@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { recentCallsActions } from 'dial-core';
-import ClearRecentCalls from './ClearRecentCalls';
+import ClearRecentCallsSection from './ClearRecentCalls';
 
 function mapStateToProps({ recent }) {
   return {
@@ -22,6 +22,6 @@ function mapDispatchToProps(dispatch) {
 export const RecentCallsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ClearRecentCalls);
+)(ClearRecentCallsSection);
 
 export default RecentCallsContainer;
