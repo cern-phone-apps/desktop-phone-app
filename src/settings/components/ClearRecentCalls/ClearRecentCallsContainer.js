@@ -5,8 +5,9 @@ import { recentCallsActions } from 'dial-core';
 import ClearRecentCallsSection from './ClearRecentCalls';
 
 function mapStateToProps({ recent }) {
+  const { recentCalls } = recent;
   return {
-    recentCalls: recent.recentCalls
+    recentCalls
   };
 }
 
