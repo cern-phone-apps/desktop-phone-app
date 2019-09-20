@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Segment, Grid } from "semantic-ui-react";
-import { CallButton } from "../CallerDialpad/CallButton";
+import { CallButton } from "../../CallButton/CallButton";
 import Dialpad from "../Dialpad/Dialpad";
 import PropTypes from "prop-types";
 

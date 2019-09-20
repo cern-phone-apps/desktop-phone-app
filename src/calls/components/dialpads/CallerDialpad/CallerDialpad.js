@@ -4,11 +4,13 @@ import React, { Component } from 'react';
 import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
 import { logMessage } from 'common/utils/logs';
 
-import { CallButton } from './CallButton';
+import { CallButton } from '../../CallButton/CallButton';
 import Dialpad from '../Dialpad/Dialpad';
 
+// eslint-disable-next-line import/prefer-default-export
 export class CallerDialpad extends Component {
   static propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
     phoneService: PropTypes.object.isRequired,
     unSelectUser: PropTypes.func.isRequired,
     dialpadValue: PropTypes.string.isRequired,
@@ -44,7 +46,7 @@ export class CallerDialpad extends Component {
           <Grid.Column />
           <Grid.Column textAlign="center">
             <CallButton
-              clickHandler={this.makeCall}
+              onClick={this.makeCall}
               text={<Icon name="phone" />}
             />
           </Grid.Column>
