@@ -123,9 +123,8 @@ From electron-builder docs: https://www.electron.build/tutorials/release-using-c
 
 The following versions will be distributed to users depending on the channel defined:
 
-- `latest` or nothing: users will only get “latest” versions
-- `beta`: users will get “beta” and “latest” version
-- `alpha`: users will get “alpha”, “beta” and “latest” version
+- `Release` : users will get the latest release version
+- `Prerelease`: users will get the latest prerelease version
 
 ##### How To Use It
 
