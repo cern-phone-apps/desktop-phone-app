@@ -5,13 +5,12 @@ const {
   ipcMain,
   Menu,
   Tray,
-  dialog
+  dialog,
+  Notification
 } = require('electron');
-
 const path = require('path');
 const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
-const notifier = require('node-notifier');
 
 const openAboutWindow = require('about-window').default;
 const keytar = require('keytar');
@@ -233,12 +232,11 @@ const menu = Menu.buildFromTemplate([
 ]);
 
 const sendAppHideNotification = () => {
-  // Object
-  notifier.notify({
+  const notif = new Notification({
     title: 'CERN Phone App',
-    icon: path.join(__dirname, '../assets/icon.png'),
-    message: 'The app has been minimized to tray.'
+    body: 'The app has been minimized to tray.'
   });
+  notif.show();
 };
 
 const showWindow = () => {
