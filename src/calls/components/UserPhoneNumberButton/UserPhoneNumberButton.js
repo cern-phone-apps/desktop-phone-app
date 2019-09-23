@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Icon } from "semantic-ui-react";
-import { buildcaller} from "calls/utils/utils";
+import { Icon, Button } from "semantic-ui-react";
+import { buildcaller } from "calls/utils/utils";
 import { formatPhoneNumber } from "calls/utils/utils";
 import { CallButton } from "../CallButton/CallButton"; 
 
@@ -30,13 +30,11 @@ export class UserPhoneNumberButton extends Component {
   render() {
     return (
       <CallButton
-        fluid
-        className={'CalleeProfileNumber'}
         onClick={this.makeCall}
         text={
-          <div>
+          <Button fluid className={'CalleeProfileNumber'}>
             <Icon name={this.props.icon} /> {this.props.phoneNumber}
-          </div>
+          </Button>
         }
       />
     );

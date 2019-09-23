@@ -19,7 +19,7 @@ export class CallerDialpad extends Component {
 
   makeCall = () => {
     const { dialpadValue } = this.props;
-    
+
     if (dialpadValue === '') return;
 
     const formattedNumber = formatPhoneNumber(dialpadValue);
@@ -47,7 +47,13 @@ export class CallerDialpad extends Component {
           <Grid.Column textAlign="center">
             <CallButton
               onClick={this.makeCall}
-              text={<Icon name="phone" />}
+              text={
+                <div className="DialButton CallButton">
+                  <div className="DialButton__content">
+                    <Icon name="phone" />
+                  </div>
+                </div>
+              }
             />
           </Grid.Column>
           <Grid.Column />

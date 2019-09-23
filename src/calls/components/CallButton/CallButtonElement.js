@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DetectRTC from 'detectrtc';
 
 /**
@@ -8,14 +8,22 @@ import DetectRTC from 'detectrtc';
  * @constructor
  */
 
-function checkDevices(handler) {
+export function CallButtonElement({ text, onClick }) {
+  function checkDevices() {
     if (DetectRTC.hasSpeakers && DetectRTC.hasMicrophone) {
-        handler();
+      onClick();
     } else {
-        alert("There are no input/output devices.\nPlease connect at least one speaker and one microphone and select them in settings.");
+      DetectRTC.load(() => {
+        if (DetectRTC.hasSpeakers && DetectRTC.hasMicrophone) {
+          onClick();
+        } else {
+          alert(
+            'There are no input/output devices.\nPlease connect at least one speaker and one microphone.'
+          );
+        }
+      });
     }
-}
+  }
 
-export function CallButtonElement(text, style, onClick) {
-    return (<div style={style} onClick={() => checkDevices(onClick)}>{text}</div>);
+  return <div onClick={checkDevices}>{text}</div>;
 }
