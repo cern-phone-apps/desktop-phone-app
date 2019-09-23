@@ -7,10 +7,8 @@ import { logMessage } from 'common/utils/logs';
 import { CallButton } from '../../CallButton/CallButton';
 import Dialpad from '../Dialpad/Dialpad';
 
-// eslint-disable-next-line import/prefer-default-export
 export class CallerDialpad extends Component {
   static propTypes = {
-    // eslint-disable-next-line react/forbid-prop-types
     phoneService: PropTypes.object.isRequired,
     unSelectUser: PropTypes.func.isRequired,
     dialpadValue: PropTypes.string.isRequired,
