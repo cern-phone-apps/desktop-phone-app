@@ -9,6 +9,8 @@ import OnCallScreen from 'calls/screens/CallsScreen/OnCallScreen';
 import CallsSidebarContainer from 'calls/components/CallsSidebar/CallsSidebarContainer';
 
 export function CallsScreen({ connected, onCall }) {
+  if (!connected)
+    return (<NotConnectedScreen />);
   return (
     <Grid stackable className="CallsScreen__Grid">
       <CallsSidebarContainer />

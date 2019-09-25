@@ -1,25 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Grid, Header, Segment, Modal, Message } from 'semantic-ui-react';
+import {
+  Header,
+  Message,
+  Divider
+} from 'semantic-ui-react';
 
-import RightColumn from 'common/components/RightColumn/RightColumn';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
-import MainHeaderContainer from 'calls/components/MainHeader/MainHeaderContainer';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
 import NumberConnectorContainer from 'calls/components/NumberConnector/NumberConnectorContainer';
 import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
 import SettingsButtonContainer from 'common/components/SettingsButton/SettingsButtonContainer';
 
-function SelectPhoneNumberModal({ modalOpen }) {
+function SelectPhoneNumberModal() {
   const getCERNCertificatesURL = () =>
     'https://cafiles.cern.ch/cafiles/certificates/Grid.aspx';
 
   return (
-    <Modal open={modalOpen} size="small" className="SelectPhoneModal">
+    <div
+      style={{
+        flex: 4,
+        backgroundColor: 'white',
+        padding: '5%',
+        margin: 'auto',
+        display: 'inline-block',
+        width: '100%',
+        height: '100%',
+        alignItems: 'center'
+      }}
+    >
       <Header icon="phone" content="Select a phone number" />
-      <Modal.Content>
+      <Divider clearing />
+      <div>
         <Message
           info
           icon="certificate"
@@ -49,8 +63,8 @@ function SelectPhoneNumberModal({ modalOpen }) {
         <DownloadDebugLogsButton floated="right" />
         <SettingsButtonContainer floated="right" />
         <LogoutButtonContainer color="red" />
-      </Modal.Content>
-    </Modal>
+      </div>
+    </div>
   );
 }
 
@@ -60,23 +74,9 @@ SelectPhoneNumberModal.propTypes = {
 
 function NotConnectedScreen({ t }) {
   return (
-    <Grid.Column
-      computer={12}
-      mobile={16}
-      tablet={16}
-      className="CallsScreen__RightColumn"
-    >
-      <RightColumn>
-        <MainHeaderContainer />
-        <ErrorBoundary>
-          <div className="call-inner-content">
-            <Segment textAlign="center" basic>
-              <SelectPhoneNumberModal modalOpen />
-            </Segment>
-          </div>
-        </ErrorBoundary>
-      </RightColumn>
-    </Grid.Column>
+    <ErrorBoundary>
+      <SelectPhoneNumberModal />
+    </ErrorBoundary>
   );
 }
 
