@@ -59,7 +59,7 @@ class RecentCall extends Component {
 
     return (
       <RecentCallModal recentCall={this.props.recentCall} trigger={
-      <Item tabIndex="2" className={"padded-item RecentCall"} key={name+"-"+endTime+"-item"}>
+      <Item tabIndex="2" aria-label={"Recent call from "+phoneNumber} className={"padded-item RecentCall"} key={name+"-"+endTime+"-item"}>
           <Icon
             name="phone"
             size={"large"}

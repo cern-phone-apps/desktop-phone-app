@@ -72,6 +72,7 @@ export class UserSearchForm extends Component {
             onSearchChange={this.handleSearchChange}
             results={results}
             value={value}
+            aria-label={"Search bar"}
           />
           <SearchProfileModalContainer />
         </Grid.Column>

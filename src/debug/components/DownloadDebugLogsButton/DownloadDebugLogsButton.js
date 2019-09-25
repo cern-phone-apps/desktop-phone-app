@@ -20,10 +20,10 @@ function DownloadDebugModalActions({
 }) {
   return (
     <Modal.Actions>
-      <Button color="green" onClick={loadLogsClick}>
+      <Button color="green" onClick={loadLogsClick} tabIndex="0" aria-label="Open logs folder">
         Open logs folder
       </Button>
-      <Button onClick={handleCloseClick}>Close</Button>
+      <Button onClick={handleCloseClick} tabIndex="0" aria-label="Close this modal">Close</Button>
     </Modal.Actions>
   );
 }
@@ -249,6 +249,8 @@ export class DownloadDebugLogsButton extends Component {
             className="flat"
             icon="bug"
             floated={this.props.floated}
+            tabIndex="4"
+            aria-label="Generate logs to report a bug"
           />
         }
         open={modalOpen}

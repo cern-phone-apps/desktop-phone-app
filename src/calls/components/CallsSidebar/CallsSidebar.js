@@ -11,22 +11,29 @@ function CallsSidebarMenu(props) {
   return (
     <Menu icon size="massive" fluid widths={3}>
       <Menu.Item
+        tabIndex="1"
         name="phone"
+        aria-label="Recent calls"
         active={props.activeItem === 'phone'}
         onClick={props.onClick}
+        onKeyPress={(e) => { if (e.charCode === 13) props.onClick(e, { name: 'phone' }); }}
       >
         <Icon name="phone" />
       </Menu.Item>
 
       <Menu.Item
+        tabIndex="1"
+        aria-label="Contact list"
         name="user"
         active={props.activeItem === 'user'}
         onClick={props.onClick}
+        onKeyPress={(e) => { if (e.charCode === 13) props.onClick(e, { name: 'user' }); }}
       >
         <Icon name="user" />
       </Menu.Item>
 
-      <Menu.Item name="settings" onClick={props.onClick1}>
+      <Menu.Item tabIndex="1" name="settings" aria-label="Settings" onClick={props.onClick1}
+        onKeyPress={(e) => { if (e.charCode === 13) props.onClick1(e, { name: 'settings' }); }}>
         <Icon name="settings" />
       </Menu.Item>
     </Menu>

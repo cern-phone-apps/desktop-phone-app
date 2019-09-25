@@ -18,7 +18,9 @@ class RecentCallList extends Component {
 
     return (
       <ScrollableContent>
-          <Item.Group link>
+          <Item.Group onFocus={() => {
+            
+          }} aria-label="Recent calls list" tabIndex="0" link>
           {recentCalls.map((item, index) => {
             if (item && !item.name) return null;
             return <RecentCall
