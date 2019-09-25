@@ -58,7 +58,7 @@ export class LoginButton extends Component {
   render() {
     const { t } = this.props;
     return (
-      <Button className="LoginButton" color="blue" onClick={this.loginUser}>
+      <Button className="LoginButton" color="blue" onClick={this.loginUser} tabIndex="0">
         {t('loginButtonText')}
       </Button>
     );

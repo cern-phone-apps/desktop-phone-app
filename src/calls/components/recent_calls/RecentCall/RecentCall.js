@@ -52,13 +52,14 @@ class RecentCall extends Component {
       missed,
       incoming
     } = this.props.recentCall;
+    const { index } = this.props;
     const color = missed ? "red" : "green";
     const printableDate = moment(endTime).calendar();
     const duration = moment.duration(moment(endTime).diff(moment(startTime)));
 
     return (
       <RecentCallModal recentCall={this.props.recentCall} trigger={
-      <Item className={"padded-item RecentCall"} key={name+"-"+endTime+"-item"}>
+      <Item tabIndex="2" className={"padded-item RecentCall"} key={name+"-"+endTime+"-item"}>
           <Icon
             name="phone"
             size={"large"}
@@ -74,6 +75,7 @@ class RecentCall extends Component {
             printableDate={printableDate}
             missed={missed}
             duration={duration}
+            index={index}
           />
       </Item>
       }/>

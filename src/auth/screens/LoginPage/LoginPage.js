@@ -88,6 +88,8 @@ export class LoginPage extends Component {
               <Segment textAlign="center" raised attached>
                 <h4>Login with your CERN account</h4>
                 <Button
+                  role="button"
+                  tabIndex="0"
                   onClick={() => ElectronService.setUserAsUnauthenticated()}
                 >
                   Logout

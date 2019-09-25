@@ -31,6 +31,9 @@ export class CallerTabsSelector extends Component {
                 active={activeItem === "search"}
                 onClick={this.handleTabClick}
                 className={"DisplaySearchButton"}
+                role="tabpanel"
+                tabIndex="0"
+                onKeyPress={(e) => { if (e.charCode === 13) this.handleTabClick(e, { name: "search" }); }}
               >
                 <Icon name="search" /> Search
               </Menu.Item>
@@ -39,6 +42,9 @@ export class CallerTabsSelector extends Component {
                 active={activeItem === "dialpad"}
                 onClick={this.handleTabClick}
                 className={"DisplayDialpadButton"}
+                role="tabpanel"
+                tabIndex="0"
+                onKeyPress={(e) => { if (e.charCode === 13) this.handleTabClick(e, { name: "dialpad" }); }}
               >
                 <Icon name="text telephone" /> Dialpad
               </Menu.Item>
