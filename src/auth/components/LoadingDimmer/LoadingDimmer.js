@@ -11,7 +11,7 @@ import { translate } from 'react-i18next';
  */
 export const LoadingDimmer = ({ t }) => (
   <Dimmer active>
-    <Loader size="large" role="progressbar">{t('loadingText')}</Loader>
+    <Loader size="large">{t('loadingText')}</Loader>
   </Dimmer>
 );
 

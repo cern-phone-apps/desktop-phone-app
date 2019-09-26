@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Icon, Button } from "semantic-ui-react";
-import { buildcaller } from "calls/utils/utils";
-import { formatPhoneNumber } from "calls/utils/utils";
-import { CallButton } from "../CallButton/CallButton"; 
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Icon, Button } from 'semantic-ui-react';
+import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
+
+import { CallButton } from '../CallButton/CallButton';
 
 export class UserPhoneNumberButton extends Component {
   static propTypes = {
     phoneNumber: PropTypes.string.isRequired,
     callerName: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
-    phoneService: PropTypes.object.isRequired,
+    phoneService: PropTypes.object.isRequired
   };
 
   makeCall = () => {
@@ -29,14 +29,9 @@ export class UserPhoneNumberButton extends Component {
 
   render() {
     return (
-      <CallButton
-        onClick={this.makeCall}
-        text={
-          <Button fluid className={'CalleeProfileNumber'}>
-            <Icon name={this.props.icon} /> {this.props.phoneNumber}
-          </Button>
-        }
-      />
+      <Button fluid className="CalleeProfileNumber" onClick={this.makeCall}>
+        <Icon name={this.props.icon} /> {this.props.phoneNumber}
+      </Button>
     );
   }
 }

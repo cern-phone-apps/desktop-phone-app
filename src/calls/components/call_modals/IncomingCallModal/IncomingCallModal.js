@@ -92,8 +92,8 @@ function CallingModalContent({
       </Modal.Content>
       <Modal.Actions>
         <RejectButton onClick={onClickReject} />
-        {!onCall && <AnswerButton onClick={onClickAnswer} role="button" tabIndex="0"/>}
-        {onCall && <HangupAndPickupButton onClick={onClickHangupAndAnswer}  role="button" tabIndex="1"/>}
+        {!onCall && <AnswerButton onClick={onClickAnswer} />}
+        {onCall && <HangupAndPickupButton onClick={onClickHangupAndAnswer} />}
       </Modal.Actions>
     </React.Fragment>
   );

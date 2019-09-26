@@ -31,7 +31,7 @@ export class LogoutButton extends Component {
   render() {
     const { t, color } = this.props;
     return (
-      <Button className="LogoutButton" role="button" tabIndex="0" color={color} onClick={this.logoutUser}>
+      <Button className="LogoutButton" color={color} onClick={this.logoutUser}>
         {t('logoutButtonText')}
       </Button>
     );
