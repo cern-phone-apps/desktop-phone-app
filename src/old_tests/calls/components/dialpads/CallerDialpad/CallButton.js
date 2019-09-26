@@ -1,32 +1,30 @@
-import React from "react";
-import { shallow } from "enzyme";
-import { Icon } from "semantic-ui-react";
-import { CallButton } from "calls/components/CallButton/CallButton";
+import React from 'react';
+import { shallow } from 'enzyme';
+import { Icon } from 'semantic-ui-react';
+import { CallButton } from 'calls/components/dialpads/CallerDialpad/CallButton';
 
-
-it("renders CallButton without crashing", () => {
+it('renders CallButton without crashing', () => {
   const wrapper = shallow(
-    <CallButton clickHandler={() => {}} text={<Icon name={"phone"} />} />
+    <CallButton clickHandler={() => {}} text={<Icon name="phone" />} />
   );
 });
 
-it("contains expected texts", () => {
+it('contains expected texts', () => {
   const wrapper = shallow(
-    <CallButton clickHandler={() => {}} text={<Icon name={"phone"} />} />
+    <CallButton clickHandler={() => {}} text={<Icon name="phone" />} />
   );
 
-  expect(wrapper.debug()).toContain("DialButton");
-  expect(wrapper.debug()).toContain("CallButton");
+  expect(wrapper.debug()).toContain('DialButton');
+  expect(wrapper.debug()).toContain('CallButton');
 });
 
-it("triggers clickHandler method", () => {
+it('triggers clickHandler method', () => {
   const clickHandler = jest.fn();
   const wrapper = shallow(
-    <CallButton clickHandler={clickHandler} text={<Icon name={"phone"} />} />
+    <CallButton clickHandler={clickHandler} text={<Icon name="phone" />} />
   );
 
-  const div = wrapper.find(".CallButton");
-  div.simulate("click");
+  const div = wrapper.find('.CallButton');
+  div.simulate('click');
   expect(clickHandler).toHaveBeenCalled();
-
 });
