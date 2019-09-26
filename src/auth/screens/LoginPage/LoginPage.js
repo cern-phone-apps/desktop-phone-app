@@ -11,6 +11,7 @@ import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
 import ElectronService from 'services/electron-service';
 import { errorMessage } from 'common/utils/logs';
+import { registerRoute } from '../../../calls/routes';
 
 export class LoginPage extends Component {
   static propTypes = {
@@ -66,7 +67,7 @@ export class LoginPage extends Component {
   render() {
     const { isAuthenticated, loginInProgress } = this.props;
     if (isAuthenticated) {
-      return <Redirect exact to={routes.callsRoute.path} />;
+      return <Redirect exact to={registerRoute.path} />;
     }
 
     if (loginInProgress) {
