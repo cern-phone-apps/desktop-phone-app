@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { CallButton } from '../../CallButton/CallButton';
+import { CallButton } from "../CallerDialpad/CallButton";
 import Dialpad from '../Dialpad/Dialpad';
 
 export class DtmfDialpad extends Component {

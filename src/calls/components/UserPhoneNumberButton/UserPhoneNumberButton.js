@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Icon, Button } from 'semantic-ui-react';
 import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
 
-import { CallButton } from '../CallButton/CallButton';
-
 export class UserPhoneNumberButton extends Component {
   static propTypes = {
     phoneNumber: PropTypes.string.isRequired,
@@ -29,7 +27,7 @@ export class UserPhoneNumberButton extends Component {
 
   render() {
     return (
-      <Button fluid className="CalleeProfileNumber" onClick={this.makeCall}>
+      <Button fluid className={"CalleeProfileNumber"} onClick={this.makeCall}>
         <Icon name={this.props.icon} /> {this.props.phoneNumber}
       </Button>
     );
