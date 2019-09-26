@@ -5,7 +5,6 @@ import { Header, Segment, Button } from 'semantic-ui-react';
 
 import { translate } from 'react-i18next';
 import './LoginPage.css';
-import * as routes from 'calls/routes';
 import LoadingDimmer from 'auth/components/LoadingDimmer/LoadingDimmer';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
