@@ -6,6 +6,7 @@ import {
   Message,
   Divider
 } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import ErrorMessageContainer from 'common/components/ErrorMessage/ErrorMessageContainer';
@@ -13,6 +14,7 @@ import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonCont
 import NumberConnectorContainer from 'calls/components/NumberConnector/NumberConnectorContainer';
 import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
 import SettingsButtonContainer from 'common/components/SettingsButton/SettingsButtonContainer';
+import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
 
 function SelectPhoneNumberModal() {
   const getCERNCertificatesURL = () =>
@@ -72,9 +74,14 @@ SelectPhoneNumberModal.propTypes = {
   modalOpen: PropTypes.bool.isRequired
 };
 
-function NotConnectedScreen({ t }) {
+function NotConnectedScreen({ isAuthenticated, connected }) {
+  if (!isAuthenticated)
+    return <Redirect to='/login'/>
+  if (connected)
+    return <Redirect to='/home'/>
   return (
     <ErrorBoundary>
+      <SettingsModalContainer />
       <SelectPhoneNumberModal />
     </ErrorBoundary>
   );
