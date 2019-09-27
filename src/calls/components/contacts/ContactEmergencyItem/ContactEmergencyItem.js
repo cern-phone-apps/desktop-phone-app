@@ -18,7 +18,7 @@ class ContactEmergencyItem extends Component {
     const { icon, description } = this.state;
 
     return (
-      <Item className={styles.item} onClick={this.openEmergencyModalAction}>
+      <Item className={styles.item} onClick={this.openEmergencyModalAction} tabIndex="0" aria-label={description}>
         <div className={`ui tiny image ${styles.avatar}`}>
           <Icon name={icon} size="large" className="ui avatar" />
         </div>

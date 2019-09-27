@@ -52,6 +52,8 @@ function ContactAddButton({ contact }) {
         size="big"
         color="yellow"
         onClick={removeContact}
+        tabIndex="0"
+        aria-label="Remove this contact"
       />
     );
   }
@@ -63,6 +65,8 @@ function ContactAddButton({ contact }) {
       size="big"
       color="grey"
       onClick={addContact}
+      tabIndex="0"
+      aria-label="Add this contact"
     />
   );
 }

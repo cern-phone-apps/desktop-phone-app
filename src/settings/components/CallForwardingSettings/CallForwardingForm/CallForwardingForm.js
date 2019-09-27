@@ -225,7 +225,7 @@ export class CallForwardingForm extends React.Component {
                       icon
                       onClick={this.handleSave}
                       tabIndex="0"
-                      aria-lablel="Save call forwarding settings"
+                      aria-label="Save call forwarding settings"
                     >
                       <Icon name="save" /> Save
                     </Button>

@@ -37,10 +37,20 @@ export default function UpdateSettings() {
 
   return (
     <ErrorBoundary>
-      <Header as="h4">Update settings</Header>
+      <Header as="h4" tabIndex="0" aria-label="">Update settings</Header>
       <Form>
         <Form.Field>
           <p>Configure how you receive automatic updates.</p>
+          <p>Shortcut to update: {() => {
+            if (process.platform === 'darwin')
+            {
+              return ("Command + U");
+            }
+            else
+            {
+              return ("Control + U");
+            }
+          }}</p>
 
           <Form.Dropdown
             id="update-channel-selector"

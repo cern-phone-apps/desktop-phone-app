@@ -32,7 +32,7 @@ export class UserPhoneNumberButton extends Component {
       <CallButton
         onClick={this.makeCall}
         text={
-          <Button fluid className={'CalleeProfileNumber'}>
+          <Button fluid className={'CalleeProfileNumber'} tabIndex="0" aria-label={`Call ${this.props.phoneNumber}`}>
             <Icon name={this.props.icon} /> {this.props.phoneNumber}
           </Button>
         }

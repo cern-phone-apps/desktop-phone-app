@@ -22,7 +22,7 @@ class Contact extends Component {
   render() {
     const { contact } = this.props;
     return (
-      <Item className="" onClick={this.selectContactAction}>
+      <Item className="" onClick={this.selectContactAction} tabIndex="0" aria-label={`Contact ${contact.displayName}`}>
         <div className={`ui tiny image ${styles.avatar}`}>
           <Icon
             name="user circle"
