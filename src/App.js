@@ -10,7 +10,7 @@ import * as loginRoutes from 'auth/routes';
 
 const NoMatch = ({ location }) => (
   <div>
-    <h3>
+    <h3 style={{ textAlign: 'center' }}>
       404 - No match for <code>{location.pathname}</code>
     </h3>
   </div>
@@ -34,6 +34,7 @@ function App() {
         path={loginRoutes.loginRoute.path}
         component={RoutedLoginPageContainer}
       />
+      <Route component={NoMatch} />
     </Switch>
   );
 }
