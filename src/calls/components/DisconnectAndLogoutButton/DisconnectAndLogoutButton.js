@@ -30,6 +30,8 @@ export class DisconnectAndLogoutButton extends Component {
           disabled={!connected}
           onClick={this.disconnect}
           title="Disconnect and logout"
+          tabIndex="0"
+          aria-label="Disconnect and logout"
         >
           <Icon name="plug" color="red" /> Disconnect and logout
         </Button>

@@ -16,7 +16,9 @@ function CallsSidebarMenu(props) {
         aria-label="Recent calls"
         active={props.activeItem === 'phone'}
         onClick={props.onClick}
-        onKeyPress={(e) => { if (e.charCode === 13) props.onClick(e, { name: 'phone' }); }}
+        onKeyPress={e => {
+          if (e.charCode === 13) props.onClick(e, { name: 'phone' });
+        }}
       >
         <Icon name="phone" />
       </Menu.Item>
@@ -27,13 +29,22 @@ function CallsSidebarMenu(props) {
         name="user"
         active={props.activeItem === 'user'}
         onClick={props.onClick}
-        onKeyPress={(e) => { if (e.charCode === 13) props.onClick(e, { name: 'user' }); }}
+        onKeyPress={e => {
+          if (e.charCode === 13) props.onClick(e, { name: 'user' });
+        }}
       >
         <Icon name="user" />
       </Menu.Item>
 
-      <Menu.Item tabIndex="1" name="settings" aria-label="Settings" onClick={props.onClick1}
-        onKeyPress={(e) => { if (e.charCode === 13) props.onClick1(e, { name: 'settings' }); }}>
+      <Menu.Item
+        tabIndex="1"
+        name="settings"
+        aria-label="Settings"
+        onClick={props.onClick1}
+        onKeyPress={e => {
+          if (e.charCode === 13) props.onClick1(e, { name: 'settings' });
+        }}
+      >
         <Icon name="settings" />
       </Menu.Item>
     </Menu>

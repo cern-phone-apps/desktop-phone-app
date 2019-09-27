@@ -62,7 +62,7 @@ class RecentCall extends Component {
         recentCall={this.props.recentCall}
         trigger={
           <Item
-            tabIndex="4"
+            tabIndex="0"
             aria-label={`${missed ? 'missed' : ''} call from ${phoneNumber}`}
             className="padded-item RecentCall"
             key={`${name}-${endTime}-item`}
