@@ -58,6 +58,7 @@ export function CallForwardingBanner() {
         role="button"
         onKeyPress={openModal}
         tabIndex="0"
+        aria-label="Call Forwarding is enabled"
         className={`padded-item ${styles.callForwardingMessage}`}
       >
         <Icon name="warning sign" /> {'Call Forwarding is enabled'}

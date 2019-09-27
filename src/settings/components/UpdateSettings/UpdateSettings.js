@@ -52,6 +52,8 @@ export default function UpdateSettings() {
             onChange={handleChange}
             options={channelOptions}
             value={value}
+            tabIndex="0"
+            aria-label="Select the update channel"
           />
         </Form.Field>
       </Form>

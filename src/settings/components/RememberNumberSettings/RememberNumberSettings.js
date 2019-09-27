@@ -24,6 +24,10 @@ export class RememberNumberSettings extends React.Component {
                 onChange={this.rememberNumberOnChange}
                 label="Register automatically the selected phone
             number when app starts."
+                tabIndex="0"
+                aria-label={`Auto register is ${
+                  rememberNumber ? 'enabled' : 'disabled'
+                }`}
               />
             </Form.Field>
           </Form>

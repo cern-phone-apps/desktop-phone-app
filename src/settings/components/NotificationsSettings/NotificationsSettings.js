@@ -58,12 +58,16 @@ class NotificationsSettings extends Component {
                 disabled={this.state.permission !== "default"}
                 color={"blue"}
                 onClick={this.requestPermission}
+                tabIndex="0"
+                aria-label="Request permission"
               >
                 Request Permission
               </Button>
               <Button
                 disabled={this.state.permission !== "granted"}
                 onClick={this.testNotification}
+                tabIndex="0"
+                aria-label="Test notifications"
               >
                 Test Notifications
               </Button>

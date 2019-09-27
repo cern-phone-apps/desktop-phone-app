@@ -24,7 +24,7 @@ export class ErrorMessage extends Component {
     }
     return (
       <Segment basic style={this.styles}>
-        <Message color="red">
+        <Message color="red" tabIndex="-1" aria-label="Error message">
           <ul>
             {results.map((element, index) => (
               <li key={index.toString()}>

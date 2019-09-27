@@ -23,6 +23,8 @@ export class SendStatsSettings extends React.Component {
                 checked={sendStats}
                 onChange={this.rememberSendStatsStateOnChange}
                 label="Help us improve this application by allowing statistics sends."
+                tabIndex="0"
+                aria-label={"statistics sends are "+(sendStats ? "enabled" : "disabled")}
               />
             </Form.Field>
           </Form>

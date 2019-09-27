@@ -134,6 +134,8 @@ class CallForwardingFields extends React.Component {
               value="forward"
               checked={forwardStatus === 'forward'}
               onChange={onChange}
+              tabIndex="0"
+              aria-label="Forward to"
             />
           </Form.Field>
         </Grid.Column>
@@ -143,13 +145,15 @@ class CallForwardingFields extends React.Component {
           <Form.Group>
             <Form.Field>
               <Dropdown
+                tabIndex="0"
+                aria-label="Select Number"
                 labeled
                 search
                 selection
                 multiple={false}
                 value={defaultDropdownValues}
                 options={forwardList}
-                placeholder="Select Number"
+                placeholder="Select Number for call forwarding"
                 loading={isFetching}
                 disabled={isFetching}
                 onChange={this.handleDropdownChangeAction}

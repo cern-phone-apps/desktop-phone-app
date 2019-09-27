@@ -67,7 +67,7 @@ export class OnCallDetails extends Component {
             </div>
             <div className="ui center aligned basic segment">
               <HangupButton onClick={() => this.hangup()} />
-              <DisplayDialpadButton onClick={() => toggleDialpad()} />
+              <DisplayDialpadButton onClick={() => toggleDialpad()} tabIndex="0" aria-label="Toggle DTMF Dialpad"/>
             </div>
           </div>
         </Segment>

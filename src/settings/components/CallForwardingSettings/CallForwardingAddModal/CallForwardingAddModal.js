@@ -180,7 +180,13 @@ export class CallForwardingAddModal extends React.Component {
         <Header icon="phone" content="Add a new number" />
         <Modal.Content>
           <Form>
-            <Header as="h3">Search a user</Header>
+            <Header
+              as="h3"
+              tabIndex="0"
+              aria-label="Add a user to your call forwarding list"
+            >
+              Search a user
+            </Header>
             <Form.Field>
               <Search
                 fluid
@@ -194,6 +200,8 @@ export class CallForwardingAddModal extends React.Component {
                 value={value}
                 resultRenderer={resultRenderer}
                 placeholder={"Input a person's name"}
+                tabIndex="0"
+                aria-label="Search for a person's name"
               />
             </Form.Field>
             <Form.Field>
@@ -203,23 +211,36 @@ export class CallForwardingAddModal extends React.Component {
                 value={phoneValue}
                 name="phoneValue"
                 onChange={this.handleFieldChangeAction}
+                tabIndex="0"
+                aria-label="Input for a phone number"
               />
             </Form.Field>
           </Form>
         </Modal.Content>
         <Modal.Actions>
           {this.props.me.mobile && (
-            <Button onClick={this.forwardMobile} className="MobileButton">
+            <Button
+              onClick={this.forwardMobile}
+              className="MobileButton"
+              tabIndex="0"
+            >
               <Icon name="mobile" /> Forward to mobile phone
             </Button>
           )}
-          <Button onClick={this.handleClose} className="CancelButton">
+          <Button
+            onClick={this.handleClose}
+            tabIndex="0"
+            aria-label="Cancel this action"
+            className="CancelButton"
+          >
             <Icon name="remove" /> Cancel
           </Button>
           <Button
             color="green"
             onClick={this.addSelectedNumber}
             className="AddButton"
+            tabIndex="0"
+            aria-label="Add this number"
           >
             <Icon name="checkmark" /> Add this number
           </Button>

@@ -153,6 +153,8 @@ class SimRingingFields extends React.Component {
                 loading={isFetching}
                 disabled={isFetching}
                 onChange={this.handleDropdownChangeAction}
+                tabIndex="0"
+                aria-label="Select Number for simultaneous ringing"
               />
             </Form.Field>
             <CallForwardingAddModalContainer

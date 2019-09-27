@@ -54,6 +54,8 @@ export class SettingsModal extends Component {
         className="ModalSettings"
         onClose={this.handleClose}
         open={modalOpen}
+        tabIndex="0"
+        aria-label="Settings Modal"
       >
         <Modal.Header>{t('header')}</Modal.Header>
         <Modal.Content scrolling>

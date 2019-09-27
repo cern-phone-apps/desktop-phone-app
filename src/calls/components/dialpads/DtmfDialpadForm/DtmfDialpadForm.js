@@ -15,6 +15,8 @@ function DtmfDialpadField(props) {
           placeholder="Input a dtmf command..."
           onChange={props.onChange}
           icon={<Icon name="text telephone" inverted color="blue" circular />}
+          tabIndex="0"
+          aria-label="DTMF input"
         />
       </Form.Field>
     </Form>

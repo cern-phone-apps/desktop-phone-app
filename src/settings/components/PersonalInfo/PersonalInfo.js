@@ -15,7 +15,7 @@ const fullName = (firstName, lastName) => `${firstName} ${lastName}`;
 const UserPhoneWithActiveNumber = ({ phone, activeNumber, icon = 'phone' }) => {
   const isActiveNumber = phone ? phone.includes(activeNumber) : false;
   return (
-    <List.Item>
+    <List.Item tabIndex="0" aria-label={(icon === 'phone'?"Phone":"Mobile")+" Number"}>
       <Icon className={styles.phoneListItem} name={icon} />
       {phone || '-'}{' '}
       {isActiveNumber ? (
@@ -46,12 +46,19 @@ export const PersonalInfo = ({ t }) => {
       <Header as="h4">{t('personalInfo.header')}</Header>
       <List>
         <List.Item
+          tabIndex="0"
+          aria-label="Username"
           icon="user"
           content={`${fullName(user.firstName, user.lastName)} (${
             user.username
           })`}
         />
-        <List.Item icon="mail" content={user.email} />
+        <List.Item
+          icon="mail"
+          content={user.email}
+          tabIndex="0"
+          aria-label="Mail"
+        />
         <UserPhoneWithActiveNumber
           phone={user.phone}
           activeNumber={activeNumber}

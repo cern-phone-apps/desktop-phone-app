@@ -191,6 +191,12 @@ export class CallForwardingForm extends React.Component {
                     value="disabled"
                     checked={forwardStatus === 'disabled'}
                     onChange={this.handleRadioChangeAction}
+                    tabIndex="0"
+                    aria-label={
+                      `call forwarding is ${forwardStatus === 'disabled'}`
+                        ? 'disabled'
+                        : 'enabled'
+                    }
                   />
                 </Form.Field>
               </Grid.Column>
@@ -215,7 +221,12 @@ export class CallForwardingForm extends React.Component {
               <Grid.Column>
                 <Form.Group>
                   <Form.Field>
-                    <Button icon onClick={this.handleSave}>
+                    <Button
+                      icon
+                      onClick={this.handleSave}
+                      tabIndex="0"
+                      aria-lablel="Save call forwarding settings"
+                    >
                       <Icon name="save" /> Save
                     </Button>
                   </Form.Field>
@@ -225,6 +236,8 @@ export class CallForwardingForm extends React.Component {
                       loading={isFetching}
                       onClick={this.handleFetchAgain}
                       icon="refresh"
+                      tabIndex="0"
+                      aria-label="Refresh call forwarding section"
                     />
                   </Form.Field>
                 </Form.Group>

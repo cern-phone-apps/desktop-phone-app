@@ -52,6 +52,8 @@ class LanguageSettings extends Component {
                 options={languageOptions}
                 placeholder={t("language.selectLanguage")}
                 onChange={(event, data) => this.changeLanguage(data.value)}
+                tabIndex="0"
+                aria-label="Select language"
               />
             </Form.Field>
           </Form>

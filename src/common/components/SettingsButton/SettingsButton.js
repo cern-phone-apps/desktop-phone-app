@@ -26,6 +26,8 @@ class SettingsButton extends React.Component {
         className="flat"
         icon="settings"
         floated={floated}
+        tabIndex="0"
+        aria-label="open Settings modal"
       />
     );
   }

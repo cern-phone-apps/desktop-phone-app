@@ -33,7 +33,14 @@ ModalTrigger.propTypes = {
  */
 function RejectButton({ onClick }) {
   return (
-    <Button negative onClick={onClick} className="RejectCallButton">
+    <Button
+      negative
+      onClick={onClick}
+      onKeyPress={(e) => { if (e.charCode === 13) onClick(); }}
+      className="RejectCallButton"
+      tabIndex="0"
+      aria-label={`Reject call`}
+    >
       Reject
     </Button>
   );
@@ -41,7 +48,7 @@ function RejectButton({ onClick }) {
 
 function HangupAndPickupButton({ onClick }) {
   return (
-    <Button color="green" onClick={onClick} className="RejectCallButton">
+    <Button color="green" onClick={onClick} className="RejectCallButton" tabIndex="0" aria-label="Hang up and answer">
       Hangup and Answer
     </Button>
   );
@@ -85,15 +92,29 @@ function CallingModalContent({
         <Modal.Description>
           <div className="ui center aligned basic segment">
             <PhoneRingingIcon />
-            <Header as="h3">{callerName}</Header>
+            <Header
+              as="h3"
+              tabIndex="0"
+              aria-label={`You are receiving a call from ${callerName}`}
+            >
+              {callerName}
+            </Header>
             <Header as="h4">({callerNumber})</Header>
           </div>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
         <RejectButton onClick={onClickReject} />
-        {!onCall && <AnswerButton onClick={onClickAnswer} role="button" tabIndex="0"/>}
-        {onCall && <HangupAndPickupButton onClick={onClickHangupAndAnswer}  role="button" tabIndex="1"/>}
+        {!onCall && (
+          <AnswerButton onClick={onClickAnswer} role="button" tabIndex="0" />
+        )}
+        {onCall && (
+          <HangupAndPickupButton
+            onClick={onClickHangupAndAnswer}
+            role="button"
+            tabIndex="1"
+          />
+        )}
       </Modal.Actions>
     </React.Fragment>
   );
@@ -202,6 +223,8 @@ export class IncomingCallModal extends Component {
           closeIcon
           onOpen={this.onOpen}
           onClose={this.onClose}
+          tabIndex="0"
+          aria-label="calling modal"
           trigger={
             shouldDisplayBanner && (
               <ModalTrigger

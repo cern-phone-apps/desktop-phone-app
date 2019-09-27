@@ -25,7 +25,7 @@ export class DtmfDialpad extends Component {
         <CallButton
           onClick={this.props.sendDtmfClick}
           text={
-            <div className="DialButton CallButton">
+            <div className="DialButton CallButton" tabIndex="0" aria-label="Send DTMF command">
               <div className="DialButton__content">Send</div>
             </div>
           }
