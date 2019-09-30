@@ -9,6 +9,7 @@ import NotConnectedScreenContainer from 'calls/screens/CallsScreen/NotConnectedS
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
 import { registerRoute } from 'calls/routes';
+import { logMessage } from 'common/utils/logs';
 
 const NoMatch = ({ location }) => (
   <div>
@@ -23,18 +24,22 @@ NoMatch.propTypes = {
     pathname: PropTypes.string.isRequired
   }).isRequired
 };
-
+/**
+ * The application will load the registerRoute by default,
+ * then the mainRoute and then the login one
+ */
 function App() {
   return (
     <Switch>
       <Route
-        exact
-        path={routes.mainRoute.path}
-        component={RoutedMainPageContainer}
-      />
-      <Route
         path={registerRoute.path}
         component={NotConnectedScreenContainer}
+        exact={registerRoute.exact}
+      />
+      <Route
+        exact={routes.mainRoute.exact}
+        path={routes.mainRoute.path}
+        component={RoutedMainPageContainer}
       />
       <Route
         path={loginRoutes.loginRoute.path}
