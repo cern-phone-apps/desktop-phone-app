@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { Icon } from "semantic-ui-react";
-import { CallButton } from "calls/components/dialpads/CallerDialpad/CallButton";
+import { CallButton } from "calls/components/CallButton/CallButton";
 
 
 it("renders CallButton without crashing", () => {

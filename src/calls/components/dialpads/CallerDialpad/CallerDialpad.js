@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
 import { logMessage } from 'common/utils/logs';
 
-import { CallButton } from './CallButton';
+import { CallButton } from '../../CallButton/CallButton';
 import Dialpad from '../Dialpad/Dialpad';
 
 export class CallerDialpad extends Component {
@@ -17,7 +17,7 @@ export class CallerDialpad extends Component {
 
   makeCall = () => {
     const { dialpadValue } = this.props;
-    
+
     if (dialpadValue === '') return;
 
     const formattedNumber = formatPhoneNumber(dialpadValue);
@@ -44,8 +44,14 @@ export class CallerDialpad extends Component {
           <Grid.Column />
           <Grid.Column textAlign="center">
             <CallButton
-              clickHandler={this.makeCall}
-              text={<Icon name="phone" />}
+              onClick={this.makeCall}
+              text={
+                <div className="DialButton CallButton">
+                  <div className="DialButton__content">
+                    <Icon name="phone" />
+                  </div>
+                </div>
+              }
             />
           </Grid.Column>
           <Grid.Column />
