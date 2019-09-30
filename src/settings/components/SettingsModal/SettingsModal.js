@@ -12,6 +12,7 @@ import RememberNumberSettingsContainer from 'settings/components/RememberNumberS
 import UpdateSettings from 'settings/components/UpdateSettings/UpdateSettings';
 import SendStatsSettingsContainer from 'settings/components/SendStatsSettings/SendStatsSettingsContainter';
 import ClearRecentCallsContainer from 'settings/components/ClearRecentCalls/ClearRecentCallsContainer';
+import DoNotDisturbSettingsContainer from '../DoNotDisturbSettings/DoNotDisturbSettingsContainer';
 
 const ModalTrigger = ({ onClick }) => (
   <Menu.Item
@@ -64,6 +65,8 @@ export class SettingsModal extends Component {
             <CallsSettings />
             <hr />
             <RememberNumberSettingsContainer />
+            <hr />
+            <DoNotDisturbSettingsContainer />
             <hr />
             <SendStatsSettingsContainer />
             <hr />
