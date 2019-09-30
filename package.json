@@ -85,7 +85,6 @@
     "keytar": "^4.11.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.0",
-    "node-notifier": "^5.4.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
     "raven-js": "^3.19.1",
