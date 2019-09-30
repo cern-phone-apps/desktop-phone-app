@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
-import DisconnectAndLogoutButton from 'calls/components/DisconnectAndLogoutButton/DisconnectAndLogoutButtonContainer';
 import { actionMessage, logMessage } from 'common/utils/logs';
 
 /**

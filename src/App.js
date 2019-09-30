@@ -9,7 +9,6 @@ import NotConnectedScreenContainer from 'calls/screens/CallsScreen/NotConnectedS
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
 import { registerRoute } from 'calls/routes';
-import { logMessage } from 'common/utils/logs';
 
 const NoMatch = ({ location }) => (
   <div>
