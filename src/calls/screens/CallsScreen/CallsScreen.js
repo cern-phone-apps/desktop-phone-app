@@ -7,10 +7,11 @@ import PropTypes from 'prop-types';
 import ConnectedScreen from 'calls/screens/CallsScreen/ConnectedScreen';
 import OnCallScreen from 'calls/screens/CallsScreen/OnCallScreen';
 import CallsSidebarContainer from 'calls/components/CallsSidebar/CallsSidebarContainer';
+import { registerRoute } from 'calls/routes';
 
 export function CallsScreen({ connected, onCall }) {
   if (!connected) {
-    return <Redirect to="/register" />;
+    return <Redirect to={registerRoute.path} />;
   }
   return (
     <Grid stackable className="CallsScreen__Grid">
