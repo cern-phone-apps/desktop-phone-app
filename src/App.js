@@ -5,8 +5,10 @@ import { Route, Switch } from 'react-router-dom';
 
 import RoutedMainPageContainer from 'common/screens/MainPage/MainPageContainer';
 import RoutedLoginPageContainer from 'auth/screens/LoginPage/LoginPageContainer';
+import NotConnectedScreenContainer from 'calls/screens/CallsScreen/NotConnectedScreen/NotConnectedScreenContainer';
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
+import { registerRoute } from 'calls/routes';
 
 const NoMatch = ({ location }) => (
   <div>
@@ -29,6 +31,10 @@ function App() {
         exact
         path={routes.mainRoute.path}
         component={RoutedMainPageContainer}
+      />
+      <Route
+        path={registerRoute.path}
+        component={NotConnectedScreenContainer}
       />
       <Route
         path={loginRoutes.loginRoute.path}

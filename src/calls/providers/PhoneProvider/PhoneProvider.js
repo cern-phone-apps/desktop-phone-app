@@ -232,6 +232,7 @@ export default class PhoneProvider extends React.Component {
     const { toneAPI } = this.state;
 
     if (phoneNumber === '' || !phoneNumber) return;
+
     setMakeCallRequest({
       name,
       phoneNumber
