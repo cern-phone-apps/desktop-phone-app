@@ -14,7 +14,7 @@ function DoNotDisturbSettings({ doNotDisturb, setUserDoNotDisturb, getMe }) {
         });
       }
     });
-  }, []);
+  }, [setUserDoNotDisturb, getMe]);
 
   const toggleDontDisturb = () => {
     setLoading(true);
@@ -26,7 +26,7 @@ function DoNotDisturbSettings({ doNotDisturb, setUserDoNotDisturb, getMe }) {
   return (
     <ErrorBoundary>
       <h4>Do not disturb</h4>
-      <Button onClick={toggleDontDisturb}>
+      <Button onClick={toggleDontDisturb} loading={loading}>
         {doNotDisturb ? 'Disable Do not disturb' : 'Enable Do not disturb'}
       </Button>
     </ErrorBoundary>
