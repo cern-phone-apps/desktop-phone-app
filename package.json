@@ -45,7 +45,9 @@
       "src/**/*.{js,jsx}",
       "!**/third-party/**"
     ],
-    "watchPathIgnorePatterns": ["old_tests"]
+    "watchPathIgnorePatterns": [
+      "old_tests"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -109,14 +111,13 @@
     "wait-on": "^3.2.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^9.2.0",
     "concurrently": "^4.1.1",
     "cross-env": "^5.1.5",
     "devtron": "^1.4.0",
     "electron": "^5.0.6",
     "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-babel": "^4.1.2",
@@ -144,10 +145,10 @@
     ],
     "generateUpdatesFilesForAllChannels": true,
     "publish": {
-        "provider": "github",
-        "owner": "cern-phone-apps",
-        "repo": "desktop-phone-app",
-        "publishAutoUpdate": true
+      "provider": "github",
+      "owner": "cern-phone-apps",
+      "repo": "desktop-phone-app",
+      "publishAutoUpdate": true
     },
     "mac": {
       "category": "public.app-category.social-networking",
