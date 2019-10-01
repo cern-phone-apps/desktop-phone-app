@@ -5,6 +5,10 @@ import { PropTypes } from 'prop-types';
 import { version } from 'common/utils/appInfo';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 
+/**
+ * Displays the app information. Likely to be used in settings.
+ * @param {t} translate function
+ */
 export const AppInfo = ({ t }) => (
   <div>
     <ErrorBoundary>
