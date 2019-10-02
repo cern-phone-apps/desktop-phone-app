@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
@@ -55,7 +55,7 @@ RejectButton.propTypes = { onClick: PropTypes.func };
  * @returns {*}
  * @constructor
  */
-function AnswerButton({ onClick }) {
+function AnswerButton({ onClick, loading }) {
   return (
     <Button
       positive
@@ -64,6 +64,7 @@ function AnswerButton({ onClick }) {
       labelPosition="right"
       content="Answer"
       className="AnswerCallButton"
+      loading={(!!loading)}
     />
   );
 }
@@ -78,6 +79,7 @@ function CallingModalContent({
   onClickHangupAndAnswer,
   onCall
 }) {
+  const [answerLoading, setAnswerLoading] = useState(0);
   return (
     <React.Fragment>
       <Modal.Header>Receiving an incoming call</Modal.Header>
@@ -92,7 +94,7 @@ function CallingModalContent({
       </Modal.Content>
       <Modal.Actions>
         <RejectButton onClick={onClickReject} />
-        {!onCall && <AnswerButton onClick={onClickAnswer} />}
+        {!onCall && <AnswerButton onClick={() => { onClickAnswer(); setAnswerLoading(1); }} loading={answerLoading} />}
         {onCall && <HangupAndPickupButton onClick={onClickHangupAndAnswer} />}
       </Modal.Actions>
     </React.Fragment>
