@@ -39,3 +39,4 @@ dist/
 
 electron-builder.env
 src/config.js
+private/

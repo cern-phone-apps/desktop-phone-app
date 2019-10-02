@@ -109,10 +109,16 @@ In order to run them: `yarn test`
 
 ### Production
 
-Create a `electorn-builder.env` file with the value `GH_TOKEN` on it. This token is required to deploy the application on Github. It can be generated here: https://github.com/settings/tokens/new and the scope must be repository.
+Create a `electorn-builder.env` file with the following values:
 
-- `electron-pack`: Generates packages for Mac, Windows and Linux on the `dist` dir.
-- `publish-prod`: Publish the current version of the app in Github releases on the repository.
+- `GH_TOKEN`: This token is required to deploy the application on Github. It can be generated here: https://github.com/settings/tokens/new and the scope must be repository.
+- `WIN_CSC_LINK`: Path to the `.p12` code signing certificate.
+- `WIN_CSC_KEY_PASSWORD`: Password for the `WIN_CSC_LINK` certificate.
+
+#### Commands
+
+- `yarn electron-pack`: Generates packages for Mac, Windows and Linux on the `dist` dir.
+- `yarn publish-prod`: Publish the current version of the app in Github releases on the repository. It will be a `draft` and not visible to the users.
 
 #### Release Channels
 
