@@ -18,10 +18,10 @@
     "start-ci": "REACT_APP_ENV=ci sh -ac '. .env.ci; npm run start'",
     "build-js": "cross-env  react-scripts build",
     "build": "cross-env npm-run-all build-css build-js",
-    "test": "cross-env react-scripts CI=true test --env=jsdom",
-    "test-coverage": "cross-env react-scripts test --env=jsdom --coverage",
+    "test": "cross-env react-scripts test",
+    "test-coverage": "cross-env react-scripts test --coverage --watchAll",
     "eject": "react-scripts eject",
-    "test:staged": "cross-env CI=true react-scripts test --coverage --env=jsdom --findRelatedTests",
+    "test:staged": "cross-env CI=true react-scripts test --coverage --findRelatedTests",
     "electron-start": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
@@ -48,11 +48,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!**/third-party/**"
-    ],
-    "watchPathIgnorePatterns": [
-      "old_tests"
+      "**/src/**/*.{js,jsx,ts,tsx}",
+      "!**/node_modules/"
     ]
   },
   "eslintConfig": {

@@ -34,7 +34,7 @@ describe('PersonalInfo', () => {
     store.dispatch = jest.fn();
   });
 
-  it('renders without crashing', async () => {
+  it('renders component and includes store props', async () => {
     const { getByText } = render(
       <Provider store={store}>
         <PersonalInfo t={key => key} />
