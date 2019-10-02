@@ -9,6 +9,7 @@ const {
   Notification
 } = require('electron');
 const fs = require('fs');
+const pki = require('node-forge').pki;
 
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
@@ -329,39 +330,43 @@ const createWindow = () => {
     }
   });
 
+  /**
+   * Certificate verification
+   */
   mainWindow.webContents.session.setCertificateVerifyProc(
     (request, callback) => {
       const { hostname, verificationResult, errorCode, certificate } = request;
+      let certificateValid = false;
+      // -202 Means it is self signed
       if (errorCode === -202) {
         console.log(
           `Request with hostname: ${hostname} verificationResult: ${verificationResult} errorCode: ${errorCode}`
         );
-        console.log(`Request with certificate:`);
-        console.log(certificate.issuerCert.data);
+        // The ca certificate bundled in the application
         const certPath = isDev
           ? path.join(__dirname, '/../static/certificates/CERN_ca.crt')
           : path.join(process.resourcesPath, 'certificates', 'CERN_ca.crt');
-        const cert = fs.readFileSync(certPath);
-        console.log(cert);
 
-        if (cert === certificate.issuerCert.data) {
-          console.log('Values are the same');
-          callback(0);
-        } else {
-          console.log('Values are NOT the same');
+        // Generating the certificates for validation
+        const ca = pki.certificateFromPem(fs.readFileSync(certPath, 'ascii'));
+        const client = pki.certificateFromPem(certificate.data);
+        // We check if the certificate is valid
+        try {
+          if (!ca.verify(client)) {
+            console.log('Unable to validate the certificate');
+          } else {
+            certificateValid = true;
+          }
+        } catch (err) {
+          console.log(err);
+          certificateValid = false;
         }
-
-        callback(-2);
-        // Self signed certificate
       }
-      if (errorCode === 0) {
+      if (errorCode === 0 || certificateValid) {
         callback(0);
+      } else {
+        callback(-2);
       }
-      //   const { hostname } = request;
-      //   if (hostname === 'cern.ch') {
-      //     console.log('Calling callback(0)');
-      //     callback(0);
-      //   }
     }
   );
 };
