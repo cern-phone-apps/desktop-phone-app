@@ -19,7 +19,7 @@
     "build-js": "cross-env  react-scripts build",
     "build": "cross-env npm-run-all build-css build-js",
     "test": "cross-env react-scripts test",
-    "test-coverage": "cross-env react-scripts test --coverage --watchAll",
+    "test-coverage": "cross-env CI=true react-scripts test --coverage",
     "eject": "react-scripts eject",
     "test:staged": "cross-env CI=true react-scripts test --coverage --findRelatedTests",
     "electron-start": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
