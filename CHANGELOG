@@ -10,6 +10,22 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.5 -2019-10-03
+### Added
+1. Clear recent calls button. Now recent calls list can be cleared from settings (PR #123)
+2. Display an error when trying to make a call and there are no devices available (PR #130)
+3. Display loading icon when answering a call until `accepted` event is received (PR #140)
+
+### Improved
+1. Bundle CERN CA certificate with the application so it won't be required by the user to install them manually (PR #154)
+2. Added code signing for the application in Windows. When installing the application in a Windows PC, the application shouldn't require special permissions
+
+3. Change text in update dialog dialog (PR #124)
+4. Don't show exit dialog if the app is going to update (PR #125)
+5. App icon is displayed in the notification when the app is minimized to tray (PR #126)
+6. Set registration screen as a screen, not a modal over the app (PR #136)
+8. Move `do not disturb` settings to the settings modal (PR #139)
+
 ## w0.5.4 -2019-09-17
 ### Added
 - Support for Tone API 0.8.8 (Tone API constructor and authenticate methods) (PR #104)
