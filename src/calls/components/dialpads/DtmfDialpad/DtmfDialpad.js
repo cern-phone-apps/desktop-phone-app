@@ -22,14 +22,7 @@ export class DtmfDialpad extends Component {
     <Grid.Row>
       <Grid.Column />
       <Grid.Column textAlign="center">
-        <CallButton
-          onClick={this.props.sendDtmfClick}
-          content={
-            <div className="DialButton CallButton">
-              <div className="DialButton__content">Send</div>
-            </div>
-          }
-        />
+        <CallButton onClick={this.props.sendDtmfClick} content="Send" />
       </Grid.Column>
       <Grid.Column />
     </Grid.Row>
