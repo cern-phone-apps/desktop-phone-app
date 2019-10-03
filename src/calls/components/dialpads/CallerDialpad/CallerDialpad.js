@@ -45,7 +45,7 @@ export class CallerDialpad extends Component {
           <Grid.Column textAlign="center">
             <CallButton
               clickHandler={this.makeCall}
-              text={<Icon name="phone" />}
+              content={<Icon name="phone" />}
             />
           </Grid.Column>
           <Grid.Column />

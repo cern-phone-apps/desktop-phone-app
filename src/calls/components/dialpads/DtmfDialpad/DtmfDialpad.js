@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { CallButton } from "../CallerDialpad/CallButton";
+import { CallButton } from '../CallerDialpad/CallButton';
 import Dialpad from '../Dialpad/Dialpad';
 
 export class DtmfDialpad extends Component {
@@ -24,7 +24,7 @@ export class DtmfDialpad extends Component {
       <Grid.Column textAlign="center">
         <CallButton
           onClick={this.props.sendDtmfClick}
-          text={
+          content={
             <div className="DialButton CallButton">
               <div className="DialButton__content">Send</div>
             </div>
