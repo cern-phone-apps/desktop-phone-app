@@ -8,6 +8,9 @@ const {
   dialog,
   Notification
 } = require('electron');
+const fs = require('fs');
+const pki = require('node-forge').pki;
+
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
@@ -326,6 +329,46 @@ const createWindow = () => {
       app.quit();
     }
   });
+
+  /**
+   * Certificate verification
+   */
+  mainWindow.webContents.session.setCertificateVerifyProc(
+    (request, callback) => {
+      const { hostname, verificationResult, errorCode, certificate } = request;
+      let certificateValid = false;
+      // -202 Means it is self signed
+      if (errorCode === -202) {
+        console.log(
+          `Request with hostname: ${hostname} verificationResult: ${verificationResult} errorCode: ${errorCode}`
+        );
+        // The ca certificate bundled in the application
+        const certPath = isDev
+          ? path.join(__dirname, '/../static/certificates/CERN_ca.crt')
+          : path.join(process.resourcesPath, 'certificates', 'CERN_ca.crt');
+
+        // Generating the certificates for validation
+        const ca = pki.certificateFromPem(fs.readFileSync(certPath, 'ascii'));
+        const client = pki.certificateFromPem(certificate.data);
+        // We check if the certificate is valid
+        try {
+          if (!ca.verify(client)) {
+            console.log('Unable to validate the certificate');
+          } else {
+            certificateValid = true;
+          }
+        } catch (err) {
+          console.log(err);
+          certificateValid = false;
+        }
+      }
+      if (errorCode === 0 || certificateValid) {
+        callback(0);
+      } else {
+        callback(-2);
+      }
+    }
+  );
 };
 
 /**
@@ -349,20 +392,20 @@ function handleCallback(url) {
   }
 }
 
-const handleAppCertificateError = (
-  event,
-  webContents,
-  url,
-  error,
-  certificate,
-  callback
-) => {
-  if (isDev) {
-    process.stdout.write(`Preventing certificate error: ${url}\n`);
-    event.preventDefault();
-    callback(true);
-  }
-};
+// const handleAppCertificateError = (
+//   event,
+//   webContents,
+//   url,
+//   error,
+//   certificate,
+//   callback
+// ) => {
+//   if (isDev) {
+//     process.stdout.write(`Preventing certificate error: ${url}\n`);
+//     event.preventDefault();
+//     callback(true);
+//   }
+// };
 
 const hide = () => {
   if (mainWindow) {
@@ -419,7 +462,7 @@ const appHandleActivate = () => {
 /**
  * App events
  */
-app.on('certificate-error', handleAppCertificateError);
+// app.on('certificate-error', handleAppCertificateError);
 app.on('ready', handleAppReady);
 app.on('window-all-closed', appHandleAllWindowsClosed);
 app.on('activate', appHandleActivate);
