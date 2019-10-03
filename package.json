@@ -28,6 +28,7 @@
     "preelectron-pack": "yarn build",
     "electron-pack": "yarn build && electron-builder build -mlw",
     "only-pack-mac": "electron-builder build -m",
+    "only-pack-windows": "electron-builder build -w",
     "electron-pack-mac": "yarn build && electron-builder build -m",
     "electron-pack-linux": "yarn build && electron-builder build -l",
     "publish-prod": "yarn build && electron-builder build -mlw --publish always",
