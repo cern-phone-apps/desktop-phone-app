@@ -8,15 +8,26 @@ import React from 'react';
  * @constructor
  */
 
-export function CallButton({ clickHandler, text }) {
+export function CallButton({ clickHandler, content }) {
   return (
-    <div className="DialButton CallButton" onClick={() => clickHandler()}>
-      <div className="DialButton__content">{text}</div>
+    <div
+      onKeyPress={clickHandler}
+      className="DialButton CallButton"
+      onClick={clickHandler}
+      role="button"
+      tabIndex={0}
+    >
+      <div className="DialButton__content">{content}</div>
     </div>
   );
 }
 
 CallButton.propTypes = {
   clickHandler: PropTypes.func.isRequired,
-  text: PropTypes.object.isRequired
+  content: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 };
+
+export default CallButton;
