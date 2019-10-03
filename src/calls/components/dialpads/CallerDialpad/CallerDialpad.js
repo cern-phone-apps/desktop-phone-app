@@ -43,7 +43,10 @@ export class CallerDialpad extends Component {
         <Grid.Row>
           <Grid.Column />
           <Grid.Column textAlign="center">
-            <CallButton onClick={this.makeCall} text={<Icon name="phone" />} />
+            <CallButton
+              clickHandler={this.makeCall}
+              text={<Icon name="phone" />}
+            />
           </Grid.Column>
           <Grid.Column />
         </Grid.Row>
