@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Header, Modal, Divider } from 'semantic-ui-react';
+import { Header, Modal } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
