@@ -6,10 +6,12 @@ const {
   Menu,
   Tray,
   dialog,
-  Notification
+  Notification,
+  systemPreferences
 } = require('electron');
 const fs = require('fs');
 const pki = require('node-forge').pki;
+const os = require('os');
 
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
@@ -257,7 +259,28 @@ const showWindow = () => {
   }
 };
 
-const createWindow = () => {
+const askForMediaAccess = async () => {
+  try {
+    if (os.platform() !== 'darwin') {
+      return true;
+    }
+
+    const status = await systemPreferences.getMediaAccessStatus('microphone');
+    log.info('Current microphone access status:', status);
+
+    if (status === 'not-determined') {
+      const success = await systemPreferences.askForMediaAccess('microphone');
+      return success.valueOf();
+    }
+
+    return status === 'granted';
+  } catch (error) {
+    log.error('Could not get microphone permission:', error.message);
+  }
+  return false;
+};
+
+const createWindow = async () => {
   console.log('Creating main window');
   mainWindow = new BrowserWindow({
     backgroundColor: '#F7F7F7',
@@ -271,6 +294,10 @@ const createWindow = () => {
     width: 1024,
     icon: appImagePath
   });
+
+  const success = await askForMediaAccess('microphone');
+
+  console.log(`The result of system preferences is: ${success}`);
 
   mainWindow.loadURL(
     isDev

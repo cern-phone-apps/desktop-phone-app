@@ -157,7 +157,11 @@
     },
     "mac": {
       "category": "public.app-category.social-networking",
-      "target": "zip"
+      "target": "zip",
+      "entitlements": "build/entitlements.mac.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
+      }
     },
     "win": {
       "target": "nsis"
