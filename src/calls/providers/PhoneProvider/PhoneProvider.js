@@ -156,8 +156,7 @@ export default class PhoneProvider extends React.Component {
     const toneToken = ElectronService.getToneToken();
     let tokenUsed = 'authToken';
     // logEvent('calls', `authenticate`, `user: ${username}.`);
-    toneOutMessage(`Authenticating user: ${username}/*****`);
-    toneOutMessage(`Authenticating user: ${toneToken}`);
+    toneOutMessage(`Authenticating user: **<phone number>**/**<password>**`);
     requestRegistration();
     /**
      * If there is an authToken, we use that token. Else, we use the already encrypted token provided by the api
@@ -232,6 +231,7 @@ export default class PhoneProvider extends React.Component {
     const { toneAPI } = this.state;
 
     if (phoneNumber === '' || !phoneNumber) return;
+
     setMakeCallRequest({
       name,
       phoneNumber

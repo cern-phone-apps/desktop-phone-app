@@ -22,12 +22,13 @@ jobs:
   include:
     - stage: unit_test
       name: "Unit Tests"
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
       script:
-        - npm --version
-        # - npm test -- --coverage
+        - yarn --version
+        - yarn test-coverage
+      # Pipe the coverage data to Code Climate
       after_script:
-        #
-        # Code climate configuration
-        #
-        - npm install -g codeclimate-test-reporter
-        - codeclimate-test-reporter < coverage/lcov.info
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

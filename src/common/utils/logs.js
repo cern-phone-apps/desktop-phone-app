@@ -1,7 +1,12 @@
 import log from 'electron-log';
 
 const { remote } = window.require('electron');
-const remoteLog = remote.require('electron-log');
+let remoteLog = {};
+if (remote) {
+  remoteLog = remote.require('electron-log');
+} else {
+  remoteLog = () => {};
+}
 
 const logFormat = '{level} | {y}-{m}-{d} {h}:{i}:{s}:{ms} | {text}';
 log.transports.file.level = false;
@@ -10,6 +15,13 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   log.transports.console.level = 'debug';
   log.transports.console.format = logFormat;
+}
+
+let logger;
+if (process.env.NODE_ENV !== 'production') {
+  logger = log;
+} else {
+  logger = remoteLog;
 }
 
 (() => {
@@ -44,13 +56,6 @@ if (process.env.NODE_ENV === 'production') {
   console.log = customLog;
   console.error = customError;
 })();
-
-let logger;
-if (process.env.NODE_ENV !== 'production') {
-  logger = log;
-} else {
-  logger = remoteLog;
-}
 
 const simpleStringify = object => {
   const simpleObject = {};

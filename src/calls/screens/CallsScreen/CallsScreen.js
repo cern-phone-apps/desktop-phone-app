@@ -1,20 +1,23 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 
 import './CallsScreen.css';
 import PropTypes from 'prop-types';
-import NotConnectedScreen from 'calls/screens/CallsScreen/NotConnectedScreen/NotConnectedScreen';
 import ConnectedScreen from 'calls/screens/CallsScreen/ConnectedScreen';
 import OnCallScreen from 'calls/screens/CallsScreen/OnCallScreen';
 import CallsSidebarContainer from 'calls/components/CallsSidebar/CallsSidebarContainer';
+import { registerRoute } from 'calls/routes';
 
 export function CallsScreen({ connected, onCall }) {
+  if (!connected) {
+    return <Redirect to={registerRoute.path} />;
+  }
   return (
     <Grid stackable className="CallsScreen__Grid">
       <CallsSidebarContainer />
       {connected && onCall && <OnCallScreen />}
       {connected && !onCall && <ConnectedScreen />}
-      {!connected && <NotConnectedScreen />}
     </Grid>
   );
 }

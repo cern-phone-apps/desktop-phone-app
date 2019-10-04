@@ -3,6 +3,11 @@
  * @type {{path: string, exact: boolean}}
  */
 export const callsRoute = {
-  path: "/",
+  path: '/home',
+  exact: true
+};
+
+export const registerRoute = {
+  path: '/',
   exact: true
 };

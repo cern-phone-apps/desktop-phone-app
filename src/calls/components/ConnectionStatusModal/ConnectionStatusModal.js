@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
-import DisconnectAndLogoutButton from 'calls/components/DisconnectAndLogoutButton/DisconnectAndLogoutButtonContainer';
 import { actionMessage, logMessage } from 'common/utils/logs';
 
 /**
@@ -56,22 +55,6 @@ function ConnectionStatusModalContent({
       <Modal.Description>
         <p>{message}</p>
         <p>{callsMessage}</p>
-
-        <p>
-          <Button onClick={onClick}>
-            {doNotDisturb ? 'Disable Do not disturb' : 'Enable Do not disturb'}
-          </Button>
-        </p>
-
-        {connected ? (
-          <p>
-            If you want to disconnect from the telephony backend, you can use
-            the following button to logout and login again.
-          </p>
-        ) : (
-          ''
-        )}
-        <DisconnectAndLogoutButton color="red" displayMessage={false} />
       </Modal.Description>
     </Modal.Content>
   );

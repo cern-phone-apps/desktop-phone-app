@@ -5,14 +5,18 @@ const {
   ipcMain,
   Menu,
   Tray,
-  dialog
+  dialog,
+  Notification,
+  systemPreferences
 } = require('electron');
+const fs = require('fs');
+const pki = require('node-forge').pki;
+const os = require('os');
 
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const storage = require('electron-json-storage');
-const notifier = require('node-notifier');
 
 const openAboutWindow = require('about-window').default;
 const keytar = require('keytar');
@@ -239,11 +243,11 @@ const menu = Menu.buildFromTemplate([
 ]);
 
 const sendAppHideNotification = () => {
-  // Object
-  notifier.notify({
+  const notif = new Notification({
     title: 'CERN Phone App',
-    message: 'The app has been minimized to tray.'
+    body: 'The app has been minimized to tray.'
   });
+  notif.show();
 };
 
 const showWindow = () => {
@@ -255,7 +259,28 @@ const showWindow = () => {
   }
 };
 
-const createWindow = () => {
+const askForMediaAccess = async () => {
+  try {
+    if (os.platform() !== 'darwin') {
+      return true;
+    }
+
+    const status = await systemPreferences.getMediaAccessStatus('microphone');
+    log.info('Current microphone access status:', status);
+
+    if (status === 'not-determined') {
+      const success = await systemPreferences.askForMediaAccess('microphone');
+      return success.valueOf();
+    }
+
+    return status === 'granted';
+  } catch (error) {
+    log.error('Could not get microphone permission:', error.message);
+  }
+  return false;
+};
+
+const createWindow = async () => {
   console.log('Creating main window');
   mainWindow = new BrowserWindow({
     backgroundColor: '#F7F7F7',
@@ -269,6 +294,10 @@ const createWindow = () => {
     width: 1024,
     icon: appImagePath
   });
+
+  const success = await askForMediaAccess('microphone');
+
+  console.log(`The result of system preferences is: ${success}`);
 
   mainWindow.loadURL(
     isDev
@@ -327,6 +356,46 @@ const createWindow = () => {
       app.quit();
     }
   });
+
+  /**
+   * Certificate verification
+   */
+  mainWindow.webContents.session.setCertificateVerifyProc(
+    (request, callback) => {
+      const { hostname, verificationResult, errorCode, certificate } = request;
+      let certificateValid = false;
+      // -202 Means it is self signed
+      if (errorCode === -202) {
+        console.log(
+          `Request with hostname: ${hostname} verificationResult: ${verificationResult} errorCode: ${errorCode}`
+        );
+        // The ca certificate bundled in the application
+        const certPath = isDev
+          ? path.join(__dirname, '/../static/certificates/CERN_ca.crt')
+          : path.join(process.resourcesPath, 'certificates', 'CERN_ca.crt');
+
+        // Generating the certificates for validation
+        const ca = pki.certificateFromPem(fs.readFileSync(certPath, 'ascii'));
+        const client = pki.certificateFromPem(certificate.data);
+        // We check if the certificate is valid
+        try {
+          if (!ca.verify(client)) {
+            console.log('Unable to validate the certificate');
+          } else {
+            certificateValid = true;
+          }
+        } catch (err) {
+          console.log(err);
+          certificateValid = false;
+        }
+      }
+      if (errorCode === 0 || certificateValid) {
+        callback(0);
+      } else {
+        callback(-2);
+      }
+    }
+  );
 };
 
 /**
@@ -350,20 +419,20 @@ function handleCallback(url) {
   }
 }
 
-const handleAppCertificateError = (
-  event,
-  webContents,
-  url,
-  error,
-  certificate,
-  callback
-) => {
-  if (isDev) {
-    process.stdout.write(`Preventing certificate error: ${url}\n`);
-    event.preventDefault();
-    callback(true);
-  }
-};
+// const handleAppCertificateError = (
+//   event,
+//   webContents,
+//   url,
+//   error,
+//   certificate,
+//   callback
+// ) => {
+//   if (isDev) {
+//     process.stdout.write(`Preventing certificate error: ${url}\n`);
+//     event.preventDefault();
+//     callback(true);
+//   }
+// };
 
 const hide = () => {
   if (mainWindow) {
@@ -420,7 +489,7 @@ const appHandleActivate = () => {
 /**
  * App events
  */
-app.on('certificate-error', handleAppCertificateError);
+// app.on('certificate-error', handleAppCertificateError);
 app.on('ready', handleAppReady);
 app.on('window-all-closed', appHandleAllWindowsClosed);
 app.on('activate', appHandleActivate);

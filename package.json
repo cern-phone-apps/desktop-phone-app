@@ -1,6 +1,6 @@
 {
   "name": "cern-phone-app",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "private": true,
   "homepage": "./",
   "author": "CERN",
@@ -18,34 +18,40 @@
     "start-ci": "REACT_APP_ENV=ci sh -ac '. .env.ci; npm run start'",
     "build-js": "cross-env  react-scripts build",
     "build": "cross-env npm-run-all build-css build-js",
-    "test": "cross-env react-scripts test --env=jsdom",
-    "test-coverage": "cross-env REACT_APP_TONE_API_PATH=external/DummyAPIClient  react-scripts test --env=jsdom --coverage",
+    "test": "cross-env react-scripts test",
+    "test-coverage": "cross-env CI=true react-scripts test --coverage",
     "eject": "react-scripts eject",
-    "test:staged": "cross-env CI=true  REACT_APP_TONE_API_PATH=external/DummyAPIClient react-scripts test --env=jsdom --findRelatedTests",
+    "test:staged": "cross-env CI=true react-scripts test --coverage --findRelatedTests",
     "electron-start": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
     "electron-pack": "yarn build && electron-builder build -mlw",
     "only-pack-mac": "electron-builder build -m",
+    "only-pack-windows": "electron-builder build -w",
     "electron-pack-mac": "yarn build && electron-builder build -m",
     "electron-pack-linux": "yarn build && electron-builder build -l",
     "publish-prod": "yarn build && electron-builder build -mlw --publish always",
     "electron-pack-next": "REACT_APP_NEXT=true yarn build && REACT_APP_NEXT=true electron-builder --config electron-builder-next.json build -mlw",
     "publish-next": "REACT_APP_NEXT=true yarn build && electron-builder build --config electron-builder-next.json -mlw --publish always"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "src/**/*.js": [
-      "npm run test:staged --",
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "yarn run test:staged",
       "git add"
     ]
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!**/third-party/**"
-    ],
-    "watchPathIgnorePatterns": ["old_tests"]
+      "**/src/**/*.{js,jsx,ts,tsx}",
+      "!**/node_modules/"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -85,7 +91,7 @@
     "keytar": "^4.11.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.0",
-    "node-notifier": "^5.4.0",
+    "node-forge": "^0.9.1",
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
     "raven-js": "^3.19.1",
@@ -110,14 +116,13 @@
     "wait-on": "^3.2.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^9.2.0",
     "concurrently": "^4.1.1",
     "cross-env": "^5.1.5",
     "devtron": "^1.4.0",
     "electron": "^5.0.6",
     "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-babel": "^4.1.2",
@@ -128,8 +133,8 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.13.0",
     "fetch-mock": "^6.4.2",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.1.0",
+    "husky": "^3.0.7",
+    "lint-staged": "^9.4.1",
     "node-sass-chokidar": "^1.3.4",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.14.3",
@@ -145,14 +150,18 @@
     ],
     "generateUpdatesFilesForAllChannels": true,
     "publish": {
-        "provider": "github",
-        "owner": "cern-phone-apps",
-        "repo": "desktop-phone-app",
-        "publishAutoUpdate": true
+      "provider": "github",
+      "owner": "cern-phone-apps",
+      "repo": "desktop-phone-app",
+      "publishAutoUpdate": true
     },
     "mac": {
       "category": "public.app-category.social-networking",
-      "target": "zip"
+      "target": "zip",
+      "entitlements": "build/entitlements.mac.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
+      }
     },
     "win": {
       "target": "nsis"

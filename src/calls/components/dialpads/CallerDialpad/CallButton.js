@@ -31,4 +31,3 @@ CallButton.propTypes = {
 };
 
 export default CallButton;
-
