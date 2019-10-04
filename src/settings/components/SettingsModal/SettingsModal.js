@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { Icon, Modal, Menu, Header } from 'semantic-ui-react';
+import { Icon, Modal, Menu, Header, Divider } from 'semantic-ui-react';
 
 import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings';
 import PersonalInfo from 'settings/components/PersonalInfo/PersonalInfo';
@@ -61,24 +61,24 @@ export class SettingsModal extends Component {
         <Modal.Content scrolling>
           <Modal.Description>
             <PersonalInfo />
-            <hr />
+            <Divider clearing />
             <CallsSettings />
-            <hr />
+            <Divider clearing />
             <RememberNumberSettingsContainer />
-            <hr />
+            <Divider clearing />
             <DoNotDisturbSettingsContainer />
-            <hr />
+            <Divider clearing />
             <SendStatsSettingsContainer />
-            <hr />
+            <Divider clearing />
             <DeviceSettings />
-            <hr />
+            <Divider clearing />
             <ClearRecentCallsContainer />
-            <hr />
+            <Divider clearing />
             <UpdateSettings />
-            <hr />
+            <Divider clearing />
             <Header as="h4">{t('dangerZoneHeader')}</Header>
             <LogoutButtonContainer color="red" />
-            <hr />
+            <Divider clearing />
             <AppInfo />
           </Modal.Description>
         </Modal.Content>

@@ -3,6 +3,8 @@ import { translate } from 'react-i18next';
 import { NavLink, Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
+import DetectRTC from 'detectrtc';
+import { getUserDevices, changeAudioDestination } from 'settings/utils/devices';
 
 import './MainPage.css';
 import * as routes from 'routes';
@@ -31,7 +33,7 @@ function MainSidebar(props) {
         className="SidebarSettingsButton"
       >
         <Icon name="settings" />
-        {'Settings'}
+        Settings
       </Menu.Item>
     </Sidebar>
   );
@@ -139,11 +141,27 @@ export class MainPage extends Component {
 
   handleSidebarHide = () => this.props.hideSidebar();
 
+  deviceExists(deviceList) {
+    const { speaker } = this.props;
+    if (!speaker) return false;
+    for (let a = 0; deviceList[a]; a++) {
+      if (deviceList[a].value === speaker) return true;
+    }
+    this.props.setSpeaker('default');
+    changeAudioDestination('default');
+    return false;
+  }
+
   render() {
     const { isVisible, isAuthenticated, notifications } = this.props;
     if (!isAuthenticated) {
       return <Redirect to={loginRoutes.loginRoute.path} />;
     }
+    DetectRTC.load(() => {
+      if (DetectRTC.isWebRTCSupported) {
+        getUserDevices().then(devices => this.deviceExists(devices));
+      }
+    });
     return (
       <Sidebar.Pushable as={Segment}>
         <MainSidebar
