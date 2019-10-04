@@ -8,14 +8,14 @@ import DetectRTC from 'detectrtc';
  * @constructor
  */
 
-export function CallButtonElement({ text, onClick }) {
+export function CallButtonElement({ content, clickHandler }) {
   function checkDevices() {
     DetectRTC.load(() => {
-      if (DetectRTC.hasSpeakers && DetectRTC.hasMicrophone) {
-        onClick();
+      if (DetectRTC.hasMicrophone && DetectRTC.hasSpeakers) {
+        clickHandler();
       } else {
         alert(
-          'There are no input/output devices.\nPlease connect at least one speaker and one microphone.'
+          'There are no input/output devices.\nPlease connect at least one speaker and one microphone to perform phone calls.'
         );
       }
     });
@@ -29,7 +29,7 @@ export function CallButtonElement({ text, onClick }) {
       tabIndex={0}
       onClick={checkDevices}
     >
-      <div className="DialButton__content">{text}</div>
+      <div className="DialButton__content">{content}</div>
     </div>
   );
 }

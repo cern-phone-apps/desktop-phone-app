@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
 import { logMessage } from 'common/utils/logs';
 
-import { CallButton } from './CallButton';
+import { CallButton } from '../../CallButton/CallButton';
 import Dialpad from '../Dialpad/Dialpad';
 
 export class CallerDialpad extends Component {
