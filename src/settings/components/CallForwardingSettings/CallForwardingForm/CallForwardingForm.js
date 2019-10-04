@@ -215,7 +215,7 @@ export class CallForwardingForm extends React.Component {
               <Grid.Column>
                 <Form.Group>
                   <Form.Field>
-                    <Button icon onClick={this.handleSave} color={'blue'}>
+                    <Button icon onClick={this.handleSave} primary>
                       <Icon name="save" /> Save
                     </Button>
                   </Form.Field>
