@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileExtraInfo renders the component 1`] = `
+<ul>
+  <li>
+    <i
+      aria-hidden="true"
+      class="mail icon"
+    />
+     
+    johndoe1@cern.ch
+  </li>
+  <li>
+    <i
+      aria-hidden="true"
+      class="pin icon"
+    />
+     
+    28/1-002
+  </li>
+</ul>
+`;
