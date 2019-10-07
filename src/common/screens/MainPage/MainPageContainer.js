@@ -6,15 +6,17 @@ import { bindActionCreators } from 'redux';
 import { hideSidebar, displaySidebar } from 'common/actions/sidebar';
 import { openSettingsModal } from 'settings/actions/modal';
 import dialBackendApi from 'services/api';
+import { setSpeaker } from 'settings/actions/devices';
 
-function mapStateToProps({ auth, common }) {
+function mapStateToProps({ auth, common, settings }) {
   return {
     errors: auth.errors,
     isAuthenticated: auth.loggedIn,
     loginInProgress: auth.loginInProgress,
     isVisible: common.sidebar.isVisible,
     contentDimmed: common.sidebar.contentDimmed,
-    notifications: common.notifications
+    notifications: common.notifications,
+    speaker: settings.devices ? settings.devices.speaker : undefined
   };
 }
 
@@ -24,7 +26,8 @@ function mapDispatchToProps(dispatch) {
       displaySidebar,
       hideSidebar,
       openSettingsModal,
-      logout: dialBackendApi().logout
+      logout: dialBackendApi().logout,
+      setSpeaker
     },
     dispatch
   );
