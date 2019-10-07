@@ -5,7 +5,7 @@
   "homepage": "./",
   "author": "CERN",
   "description": "CERN Phone Application to place and receive calls.",
-  "license": "GNU GENERAL PUBLIC (v3)",
+  "license": "GPL-3.0-or-later",
   "main": "public/electron.js",
   "repository": "https://github.com/cern-dialtone/dial-clients.git",
   "scripts": {
@@ -49,8 +49,9 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "**/src/**/*.{js,jsx,ts,tsx}",
-      "!**/node_modules/"
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!**/node_modules/",
+      "!**/modules/"
     ]
   },
   "eslintConfig": {
@@ -95,15 +96,15 @@
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
     "raven-js": "^3.19.1",
-    "react": "^16.8.6",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-dev-utils": "^9.0.1",
-    "react-dom": "^16.8.6",
     "react-i18next": "^7.5.1",
     "react-notification-system": "^0.2.17",
     "react-piwik": "^1.6.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "3.2.0",
     "redux": "^4.0.4",
     "redux-api-middleware": "^3.0.1",
     "redux-persist": "^5.9.1",
