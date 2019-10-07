@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 import { buildcaller, formatPhoneNumber } from 'calls/utils/utils';
-import { CallButton } from '../CallButton/CallButtonContainer';
+import { CallButton } from 'calls/components/CallButton/CallButtonContainer';
 
 export class UserPhoneNumberButton extends Component {
   static propTypes = {
@@ -27,12 +27,13 @@ export class UserPhoneNumberButton extends Component {
   };
 
   render() {
+    const { icon, phoneNumber } = this.props;
     return (
       <CallButton
         type="modal"
         content={
           <>
-            <Icon name={this.props.icon} /> {this.props.phoneNumber}
+            <Icon name={icon} /> {phoneNumber}
           </>
         }
         clickHandler={this.makeCall}
