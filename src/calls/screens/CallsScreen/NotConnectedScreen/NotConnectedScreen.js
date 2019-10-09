@@ -36,9 +36,23 @@ SelectPhoneNumberModal.propTypes = {
   modalOpen: PropTypes.bool.isRequired
 };
 
-function NotConnectedScreen({ isAuthenticated, connected }) {
+function NotConnectedScreen({
+  isAuthenticated,
+  connected,
+  firstNumberAvailable,
+  numberOfMobileNumbers,
+  setActiveNumber,
+  phoneService
+}) {
   if (!isAuthenticated) return <Redirect to="/login" />;
   if (connected) return <Redirect to="/home" />;
+
+  if (1 === numberOfMobileNumbers) {
+    setActiveNumber(firstNumberAvailable);
+    const result = phoneService.authenticateUser(firstNumberAvailable);
+    console.log(result);
+  }
+
   return (
     <ErrorBoundary>
       <SettingsModalContainer />
