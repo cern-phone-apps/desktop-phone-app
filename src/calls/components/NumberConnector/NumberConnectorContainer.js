@@ -16,8 +16,8 @@ function mapStateToProps({ auth, numbers, connection, settings }) {
     numbers: numbers.numbers,
     connecting: connection.connecting,
     error: connection.error.message,
-    firstNumberAvailable: getFirstNumberAvailable(numbers),
-    numberOfMobileNumbers: getNumberOfMobileNumbers(numbers),
+    firstNumberAvailable: getFirstNumberAvailable(numbers)(),
+    numberOfMobileNumbers: getNumberOfMobileNumbers(numbers)(),
     rememberNumber: settings.settings.rememberNumber
   };
 }

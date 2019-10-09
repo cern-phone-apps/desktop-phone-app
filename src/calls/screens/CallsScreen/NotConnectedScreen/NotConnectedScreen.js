@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { Header, Modal } from 'semantic-ui-react';
@@ -36,22 +36,7 @@ SelectPhoneNumberModal.propTypes = {
   modalOpen: PropTypes.bool.isRequired
 };
 
-function NotConnectedScreen({
-  isAuthenticated,
-  connected,
-  firstNumberAvailable,
-  numberOfMobileNumbers,
-  setActiveNumber,
-  phoneService
-}) {
-  useEffect(() => {
-    if (1 === numberOfMobileNumbers) {
-      setActiveNumber(firstNumberAvailable);
-      const result = phoneService.authenticateUser(firstNumberAvailable);
-      console.log(result);
-    }
-  }, [numberOfMobileNumbers]);
-
+function NotConnectedScreen({ isAuthenticated, connected }) {
   if (!isAuthenticated) return <Redirect to="/login" />;
   if (connected) return <Redirect to="/home" />;
 
