@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NotConnectedScreen from './NotConnectedScreen';
-import { bindActionCreators } from 'redux';
-import { numbersActions } from 'dial-core';
 
 function mapStateToProps({ auth, connection }) {
   return {
