@@ -39,7 +39,6 @@ SelectPhoneNumberModal.propTypes = {
 function NotConnectedScreen({ isAuthenticated, connected }) {
   if (!isAuthenticated) return <Redirect to="/login" />;
   if (connected) return <Redirect to="/home" />;
-
   return (
     <ErrorBoundary>
       <SettingsModalContainer />

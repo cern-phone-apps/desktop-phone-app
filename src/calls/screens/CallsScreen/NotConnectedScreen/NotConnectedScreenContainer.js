@@ -4,25 +4,15 @@ import NotConnectedScreen from './NotConnectedScreen';
 import { bindActionCreators } from 'redux';
 import { numbersActions } from 'dial-core';
 
-function mapStateToProps({ auth, connection, numbers }) {
+function mapStateToProps({ auth, connection }) {
   return {
     isAuthenticated: auth.loggedIn,
-    connected: connection.connected,
-    numbers: numbers.numbers
+    connected: connection.connected
   };
 }
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      setActiveNumber: numbersActions.setActiveNumber
-    },
-    dispatch
-  );
-}
 
-export const NotConnectedScreenContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NotConnectedScreen);
+export const NotConnectedScreenContainer = connect(mapStateToProps)(
+  NotConnectedScreen
+);
 
 export default withRouter(NotConnectedScreenContainer);
