@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import {
   numbersActions,
   getFirstNumberAvailable,
-  getNumberOfMobileNumbers
+  getNumberOfPhoneNumbers
 } from 'dial-core';
 import * as setttingsActions from 'settings/actions/settings';
 import dialBackendApi from 'services/api';
@@ -17,7 +17,7 @@ function mapStateToProps({ auth, numbers, connection, settings }) {
     connecting: connection.connecting,
     error: connection.error.message,
     firstNumberAvailable: getFirstNumberAvailable(numbers)(),
-    numberOfMobileNumbers: getNumberOfMobileNumbers(numbers)(),
+    numberOfMobileNumbers: getNumberOfPhoneNumbers(numbers)(),
     rememberNumber: settings.settings.rememberNumber
   };
 }
