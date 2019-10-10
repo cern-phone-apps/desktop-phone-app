@@ -128,7 +128,7 @@ export class NumberConnector extends Component {
       this.connect(activeNumber);
     }
 
-    getUserPhoneNumbers().then(function(value) {
+    getUserPhoneNumbers().then(() => {
       if (1 === numberOfMobileNumbers) {
         setActiveNumber(firstNumberAvailable);
         const result = phoneService.authenticateUser(firstNumberAvailable);
