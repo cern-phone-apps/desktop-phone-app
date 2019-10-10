@@ -10,12 +10,20 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.6 -2019-10-07
+### Added
+1. Entitlements file for Mac, to allow microphone access to the app (PR #157)
+### Improved
+1. Changed color of save button on call forwarding settings (PR #158)
+2. Display an error message when trying to perform a call and no input/output devices are available (PR #161)
+3. Fallback into default output device if the one set to use is not available (PR #162)
+4. Update the React version to  `16.10.2` and React Scripts to `3.2.0`.
+
 ## w0.5.5 -2019-10-03
 ### Added
 1. Clear recent calls button. Now recent calls list can be cleared from settings (PR #123)
 2. Display an error when trying to make a call and there are no devices available (PR #130)
 3. Display loading icon when answering a call until `accepted` event is received (PR #140)
-
 ### Improved
 1. Bundle CERN CA certificate with the application so it won't be required by the user to install them manually (PR #154)
 2. Added code signing for the application in Windows. When installing the application in a Windows PC, the application shouldn't require special permissions
