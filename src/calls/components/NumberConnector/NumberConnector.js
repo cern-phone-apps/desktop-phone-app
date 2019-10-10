@@ -128,13 +128,13 @@ export class NumberConnector extends Component {
       this.connect(activeNumber);
     }
 
-    if (1 === numberOfMobileNumbers) {
-      setActiveNumber(firstNumberAvailable);
-      const result = phoneService.authenticateUser(firstNumberAvailable);
-      console.log(result);
-    }
-
-    getUserPhoneNumbers();
+    getUserPhoneNumbers().then(function(value) {
+      if (1 === numberOfMobileNumbers) {
+        setActiveNumber(firstNumberAvailable);
+        const result = phoneService.authenticateUser(firstNumberAvailable);
+        console.log(result);
+      }
+    });
   }
 
   connect = activeNumber => {
