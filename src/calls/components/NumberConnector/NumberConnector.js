@@ -112,7 +112,15 @@ export class NumberConnector extends Component {
   };
 
   componentDidMount() {
-    const { getUserPhoneNumbers, rememberNumber, activeNumber } = this.props;
+    const {
+      getUserPhoneNumbers,
+      rememberNumber,
+      activeNumber,
+      numberOfMobileNumbers,
+      firstNumberAvailable,
+      setActiveNumber,
+      phoneService
+    } = this.props;
 
     const toneToken = ElectronService.getToneToken();
 
@@ -120,7 +128,13 @@ export class NumberConnector extends Component {
       this.connect(activeNumber);
     }
 
-    getUserPhoneNumbers();
+    getUserPhoneNumbers().then(() => {
+      if (1 === numberOfMobileNumbers) {
+        setActiveNumber(firstNumberAvailable);
+        const result = phoneService.authenticateUser(firstNumberAvailable);
+        console.log(result);
+      }
+    });
   }
 
   connect = activeNumber => {
