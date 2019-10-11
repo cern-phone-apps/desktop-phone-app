@@ -10,6 +10,7 @@ before_install:
 
 install:
   # use the new "ci" command for fastest installs on CI
+  - npm install -g codecov
   - cp src/config.sample.js src/config.js
   - yarn
   - yarn build
@@ -29,6 +30,7 @@ jobs:
       script:
         - yarn --version
         - yarn test-coverage
+        - codecov
       # Pipe the coverage data to Code Climate
       after_script:
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
