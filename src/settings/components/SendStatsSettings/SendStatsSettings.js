@@ -22,7 +22,7 @@ export class SendStatsSettings extends React.Component {
                 toggle
                 checked={sendStats}
                 onChange={this.rememberSendStatsStateOnChange}
-                label="Help us improve this application by allowing statistics sends."
+                label="Help us improve this application by allowing it to send us statistics."
               />
             </Form.Field>
           </Form>
