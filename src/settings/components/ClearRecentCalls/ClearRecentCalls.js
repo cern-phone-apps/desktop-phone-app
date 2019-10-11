@@ -8,8 +8,8 @@ function ClearRecentCallsSection(props) {
     <ErrorBoundary>
       <h4>Recent calls</h4>
       <p>
-        You can clear your recent calls list here. Be carefull, you won't be
-        able to get them back after this.
+        You can clear your recent calls list here. Be aware, you won't be
+        able to recover them afterwards.
       </p>
       <Button
         onClick={() => {
