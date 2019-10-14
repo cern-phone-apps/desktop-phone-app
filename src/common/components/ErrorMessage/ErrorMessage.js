@@ -1,41 +1,58 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
-import { Message, Segment } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 
-export class ErrorMessage extends Component {
-  static propTypes = {
-    errors: PropTypes.array,
-    t: PropTypes.func.isRequired
-  };
+/**
+ * Displays one or several error messages.
+ * @param {errors} Array of errors with message (string) and statusCode (string)
+ * @param {solutions} Array of string corresponding to the solutions to the error
+ */
+function ErrorMessage({ errors, solutions }) {
+  const [showError, setShowError] = useState(1);
+  const results = errors.filter(error => error && error.statusCode);
 
-  styles = {
-    margin: 0,
-    padding: '0 0 1em 0'
-  };
-
-  render() {
-    const { errors } = this.props;
-
-    const results = errors.filter(error => error && error.statusCode);
-
-    if (results.length < 1) {
-      return '';
-    }
-    return (
-      <Segment basic style={this.styles}>
-        <Message color="red">
-          <ul>
-            {results.map((element, index) => (
-              <li key={index.toString()}>
-                {element.message} ({element.statusCode})
-              </li>
-            ))}
-          </ul>
-        </Message>
-      </Segment>
-    );
+  // No errors or the user clicked on the close button
+  if (results.length < 1 || !showError) {
+    return null;
   }
+
+  // Format the errors to display the message and the status code
+  const messages = results.map(
+    element => `${element.message} (${element.statusCode})`
+  );
+
+  /*
+   If we have only one error, we display it as header, adding possible solutins as children.
+
+   If we have more than one errors, we only display them, without solutions.
+  */
+  return (
+    <Message
+      error
+      onDismiss={() => setShowError(!showError)}
+      header={
+        results.length === 1
+          ? `${results[0].message} (${results[0].statusCode})`
+          : `An error has occurred`
+      }
+      list={results.length === 1 ? [...solutions] : [...messages]}
+    />
+  );
 }
 
-export default translate('calls')(ErrorMessage);
+ErrorMessage.propTypes = {
+  solutions: PropTypes.arrayOf(PropTypes.string.isRequired),
+  errors: PropTypes.arrayOf(
+    PropTypes.shape({
+      message: PropTypes.string.isRequired,
+      statusCode: PropTypes.string.isRequired
+    })
+  )
+};
+
+ErrorMessage.defaultProps = {
+  solutions: [],
+  errors: []
+};
+
+export default ErrorMessage;

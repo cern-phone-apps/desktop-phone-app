@@ -13,11 +13,16 @@ import SettingsButtonContainer from 'common/components/SettingsButton/SettingsBu
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
 
 function SelectPhoneNumberModal() {
+  const loginErrorSolutions = [
+    'You can try again in few minutes.',
+    'Try to logout and login again.',
+    'If the problem persists contact support.'
+  ];
   return (
-    <Modal open={true} size="small" className="SelectPhoneModal">
+    <Modal open size="small" className="SelectPhoneModal">
       <Header icon="phone" content="Select a phone number" />
       <Modal.Content>
-        <ErrorMessageContainer />
+        <ErrorMessageContainer solutions={loginErrorSolutions} />
         <p>
           Select which one of your phone numbers you want to use with this
           client.

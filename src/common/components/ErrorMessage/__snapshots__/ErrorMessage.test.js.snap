@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage tests renders component and includes multiple errors 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        An error has occurred
+      </div>
+      <ul
+        class="list"
+      >
+        <li
+          class="content"
+        >
+          This is error 1 (1)
+        </li>
+        <li
+          class="content"
+        >
+          This is error 2 (2)
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessage tests renders component and includes one error 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        This is error 1 (1)
+      </div>
+      <ul
+        class="list"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessage tests renders component and includes one error and solutions 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        This is error 1 (1)
+      </div>
+      <ul
+        class="list"
+      >
+        <li
+          class="content"
+        >
+          This is solution 1
+        </li>
+        <li
+          class="content"
+        >
+          This is solution 2
+        </li>
+        <li
+          class="content"
+        >
+          This is solution 3
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessage tests renders multiple errors without solutions 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        An error has occurred
+      </div>
+      <ul
+        class="list"
+      >
+        <li
+          class="content"
+        >
+          This is error 1 (1)
+        </li>
+        <li
+          class="content"
+        >
+          This is error 2 (2)
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
