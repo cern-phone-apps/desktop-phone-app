@@ -1,0 +1,11 @@
+node_modules
+build
+dist
+coverage
+src
+static
+static-next
+assets
+assets-next
+modules
+private
