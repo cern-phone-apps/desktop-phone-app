@@ -194,6 +194,7 @@
           "**/*"
         ]
       }
-    ]
+    ],
+    "afterAllArtifactBuild": "docker/configure_appimage.js"
   }
 }

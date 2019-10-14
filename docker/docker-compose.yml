@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  script:
+    build:
+      context: .
+      #    volumes:
+      #- ./dist:/root/home

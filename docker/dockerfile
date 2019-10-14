@@ -1,0 +1,12 @@
+FROM ubuntu:18.04
+RUN apt-get update -y
+RUN apt-get install -y file libglib2.0-dev wget fuse
+
+ADD ./bash.sh /root/bash.sh
+RUN chmod +x  /root/bash.sh
+
+WORKDIR /root
+RUN wget "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
+RUN chmod +x appimagetool-x86_64.AppImage
+
+ENTRYPOINT /root/bash.sh
