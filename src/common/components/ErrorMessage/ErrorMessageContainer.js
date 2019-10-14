@@ -8,9 +8,9 @@ function mapStateToProps({ call, connection, numbers, auth }) {
   };
 }
 
-export const ErrorMessageContainer = connect(
+export const ConnectedErrorMessageContainer = connect(
   mapStateToProps,
   null
 )(ErrorMessage);
 
-export default withPhoneService(ErrorMessageContainer);
+export default withPhoneService(ConnectedErrorMessageContainer);

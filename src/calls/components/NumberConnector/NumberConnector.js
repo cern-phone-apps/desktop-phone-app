@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -7,8 +7,7 @@ import {
   Loader,
   Segment,
   Checkbox,
-  Form,
-  Message
+  Form
 } from 'semantic-ui-react';
 import { actionMessage, logMessage } from 'common/utils/logs';
 import ElectronService from 'services/electron-service';
@@ -18,7 +17,7 @@ function NoNumbersButton({ numbersLength }) {
   if (numbersLength === 0) {
     return (
       <Button fluid className="ConnectNumberButton" disabled>
-        {'There are no phone numbers in this section.'}
+        There are no phone numbers in this section.
       </Button>
     );
   }
@@ -67,25 +66,6 @@ ButtonNumbersList.propTypes = {
   connect: PropTypes.func.isRequired
 };
 
-const DisplayErrors = ({ errorMessage }) => {
-  const [showError, setShowError] = useState(1);
-  if (errorMessage && showError) {
-    return (
-      <Message
-        onDismiss={() => setShowError(!showError)}
-        error
-        header={errorMessage}
-        list={[
-          'You can try again in few minutes.',
-          'Try to logout and login again.',
-          'If the problem persists contact support.'
-        ]}
-      />
-    );
-  }
-  return null;
-};
-
 /**
  * Button to connect a user phone number
  */
@@ -103,12 +83,7 @@ export class NumberConnector extends Component {
     setActiveNumber: PropTypes.func.isRequired,
     rememberNumber: PropTypes.bool.isRequired,
     setRememberNumber: PropTypes.func.isRequired,
-    error: PropTypes.string,
     activeNumber: PropTypes.string.isRequired
-  };
-
-  static defaultProps = {
-    error: ''
   };
 
   componentDidMount() {
@@ -129,7 +104,7 @@ export class NumberConnector extends Component {
     }
 
     getUserPhoneNumbers().then(() => {
-      if (1 === numberOfMobileNumbers) {
+      if (numberOfMobileNumbers === 1) {
         setActiveNumber(firstNumberAvailable);
         const result = phoneService.authenticateUser(firstNumberAvailable);
         console.log(result);
@@ -155,11 +130,10 @@ export class NumberConnector extends Component {
   };
 
   render() {
-    const { connecting, numbers, rememberNumber, error } = this.props;
+    const { connecting, numbers, rememberNumber } = this.props;
     if (connecting) {
       return (
         <Segment padded basic textAlign="center">
-          <DisplayErrors errorMessage={error} />
           <Dimmer active inverted>
             <Loader active inline="centered" content="Connecting..." />
           </Dimmer>
@@ -170,7 +144,6 @@ export class NumberConnector extends Component {
     if (numbers === undefined || numbers.length === 0) {
       return (
         <Segment padded basic textAlign="center">
-          <DisplayErrors errorMessage={error} />
           <Dimmer active inverted>
             <Loader
               active
@@ -184,7 +157,6 @@ export class NumberConnector extends Component {
 
     return (
       <React.Fragment>
-        <DisplayErrors errorMessage={error} />
         <ButtonNumbersList
           numbers={numbers}
           connect={this.connect}

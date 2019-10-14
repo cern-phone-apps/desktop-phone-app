@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessageContainer test renders component and includes all errors in props 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        An error has occurred
+      </div>
+      <ul
+        class="list"
+      >
+        <li
+          class="content"
+        >
+          This is error 1 (1)
+        </li>
+        <li
+          class="content"
+        >
+          This is error 2 (2)
+        </li>
+        <li
+          class="content"
+        >
+          This is error 3 (3)
+        </li>
+        <li
+          class="content"
+        >
+          This is error 4 (4)
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessageContainer test renders component and includes auth error on store props 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        This is error 1 (1)
+      </div>
+      <ul
+        class="list"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessageContainer test renders component and includes call error on store props 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        This is error 1 (1)
+      </div>
+      <ul
+        class="list"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessageContainer test renders component and includes connection error on store props 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        This is error 1 (1)
+      </div>
+      <ul
+        class="list"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessageContainer test renders component and includes numbers error on store props 1`] = `
+<DocumentFragment>
+  <div
+    class="ui error message"
+  >
+    <i
+      aria-hidden="true"
+      class="close icon"
+    />
+    <div
+      class="content"
+    >
+      <div
+        class="header"
+      >
+        This is error 1 (1)
+      </div>
+      <ul
+        class="list"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessageContainer test renders component and includes undefined store props 1`] = `<DocumentFragment />`;
