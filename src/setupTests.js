@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom/extend-expect';
+
 // Make Enzyme functions available in all test files without importing
 window.require = require;
 
