@@ -1,20 +1,3 @@
-// import React from 'react';
-// import { render, waitForElement } from '@testing-library/react';
-// import { ErrorMessage } from './ErrorMessage';
-
-// global.remote = {
-//   require: jest.fn()
-// };
-
-// describe('ErrorMessageContainer tests', () => {
-//   it('renders component and includes one error', async () => {
-//     const errors = [{ message: 'This is error 1', statusCode: '1' }];
-//     const { getByText, asFragment } = render(<ErrorMessage errors={errors} />);
-
-//     await waitForElement(() => getByText('This is error 1 (1)'));
-//     // expect(asFragment()).toMatchSnapshot();
-//   });
-// });
 import React from 'react';
 import { render, waitForElement } from '@testing-library/react';
 

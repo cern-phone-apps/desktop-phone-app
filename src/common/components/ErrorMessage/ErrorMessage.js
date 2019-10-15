@@ -44,8 +44,8 @@ ErrorMessage.propTypes = {
   solutions: PropTypes.arrayOf(PropTypes.string.isRequired),
   errors: PropTypes.arrayOf(
     PropTypes.shape({
-      message: PropTypes.string.isRequired,
-      statusCode: PropTypes.string.isRequired
+      message: PropTypes.string,
+      statusCode: PropTypes.string
     })
   )
 };

@@ -7,13 +7,21 @@ import { CallButton } from 'calls/components/CallButton/CallButtonContainer';
 export class UserPhoneNumberButton extends Component {
   static propTypes = {
     phoneNumber: PropTypes.string.isRequired,
-    callerName: PropTypes.string.isRequired,
+    callerName: PropTypes.string,
     icon: PropTypes.string.isRequired,
-    phoneService: PropTypes.object.isRequired
+    phoneService: PropTypes.shape({
+      makeCall: PropTypes.func.isRequired
+    }).isRequired,
+    callBack: PropTypes.func
+  };
+
+  static defaultProps = {
+    callBack: () => {},
+    callerName: ''
   };
 
   makeCall = () => {
-    const { phoneNumber, callerName } = this.props;
+    const { phoneNumber, callerName, callBack, phoneService } = this.props;
 
     const formattedNumber = formatPhoneNumber(phoneNumber);
 
@@ -23,7 +31,9 @@ export class UserPhoneNumberButton extends Component {
       incoming: false,
       missed: false
     };
-    this.props.phoneService.makeCall(buildcaller(caller));
+    // To hide the modal if required
+    callBack();
+    phoneService.makeCall(buildcaller(caller));
   };
 
   render() {

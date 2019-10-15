@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecentCallModal tests renders the modal closed 1`] = `<DocumentFragment />`;
+
+exports[`RecentCallModal tests renders the modal open not missed not incoming 1`] = `<DocumentFragment />`;
