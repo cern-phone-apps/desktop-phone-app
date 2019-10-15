@@ -47,10 +47,16 @@
     ]
   },
   "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    },
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!**/node_modules/",
       "!**/modules/"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(dial-core|tone-api-web|tone-api-mobile)/)"
     ]
   },
   "eslintConfig": {
@@ -117,6 +123,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.1.2",
     "@testing-library/react": "^9.2.0",
+    "babel-jest": "^24.9.0",
+    "babel-preset-react-app": "^9.0.2",
     "concurrently": "^4.1.1",
     "cross-env": "^5.1.5",
     "devtron": "^1.4.0",
