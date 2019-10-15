@@ -1,84 +1,28 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
-import { Icon, Item } from "semantic-ui-react";
-import RecentCallModal from "calls/components/recent_calls/RecentCallModal/RecentCallModal.js"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Icon, Item } from 'semantic-ui-react';
+import RecentCallContent from './RecentCallContent';
 
-import styles from "../RecentCallList/RecentCall.module.css";
-
-function RecentCallContent(props) {
+function RecentCall({ recentCall, onClick, recentCallId }) {
   return (
-    <Item.Content>
-      <Item.Header className={styles.ItemHeader}>{props.name}</Item.Header>
-      <Item.Description className={styles.Content}>
-        {props.incoming ? (
-          <Icon name={"arrow down"} color={props.color} />
-        ) : (
-          <Icon name={"arrow up"} color={props.color} />
-        )}{" "}
-        {props.phoneNumber ? `(${props.phoneNumber})` : ""}
-      </Item.Description>
-      <Item.Extra className={styles.ExtraContent}>
-        <span className="date">
-          {props.printableDate}{" "}
-          {!props.missed ? `- ${props.duration.humanize()}` : ""}
-        </span>
-      </Item.Extra>
-    </Item.Content>
+    <Item
+      className="padded-item RecentCall"
+      onClick={onClick}
+      data-testid={recentCallId}
+    >
+      <Icon name="phone" size="large" color="grey" className="ui avatar" />
+      <RecentCallContent recentCall={recentCall} />
+    </Item>
   );
 }
 
-RecentCallContent.propTypes = {
-  name: PropTypes.any,
-  incoming: PropTypes.any,
-  color: PropTypes.string,
-  phoneNumber: PropTypes.any,
-  printableDate: PropTypes.string,
-  missed: PropTypes.any,
-  duration: PropTypes.any
+RecentCall.propTypes = {
+  recentCall: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    endTime: PropTypes.number
+  }).isRequired,
+  onClick: PropTypes.func.isRequired,
+  recentCallId: PropTypes.string.isRequired
 };
-
-class RecentCall extends Component {
-  static propTypes = {
-    recentCall: PropTypes.object.isRequired
-  };
-
-  render() {
-    const {
-      name,
-      phoneNumber,
-      startTime,
-      endTime,
-      missed,
-      incoming
-    } = this.props.recentCall;
-    const color = missed ? "red" : "green";
-    const printableDate = moment(endTime).calendar();
-    const duration = moment.duration(moment(endTime).diff(moment(startTime)));
-
-    return (
-      <RecentCallModal recentCall={this.props.recentCall} trigger={
-      <Item className={"padded-item RecentCall"} key={name+"-"+endTime+"-item"}>
-          <Icon
-            name="phone"
-            size={"large"}
-            color={"grey"}
-            className={"ui avatar"}
-          />
-
-          <RecentCallContent
-            name={name}
-            incoming={incoming}
-            color={color}
-            phoneNumber={phoneNumber}
-            printableDate={printableDate}
-            missed={missed}
-            duration={duration}
-          />
-      </Item>
-      }/>
-    );
-  }
-}
 
 export default RecentCall;

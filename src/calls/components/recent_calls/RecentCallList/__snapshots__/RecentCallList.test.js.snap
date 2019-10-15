@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecentCallList tests renders a List without any errors 1`] = `
+<DocumentFragment>
+  <div
+    class="ScrollableContent"
+  >
+    <div
+      class="ui link items"
+      data-testid="RecentCallList"
+    >
+      <div
+        class="item padded-item RecentCall"
+        data-testid="recent-0"
+      >
+        <i
+          aria-hidden="true"
+          class="grey phone large icon ui avatar"
+        />
+        <div
+          class="content"
+        >
+          <div
+            class="header ItemHeader"
+          >
+            12345
+          </div>
+          <div
+            class="description Content"
+          >
+            <i
+              aria-hidden="true"
+              class="red arrow down icon"
+            />
+             (222333)
+          </div>
+          <div
+            class="extra ExtraContent"
+          >
+            <span
+              class="date"
+            >
+              01/01/1970 
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="item padded-item RecentCall"
+        data-testid="recent-1"
+      >
+        <i
+          aria-hidden="true"
+          class="grey phone large icon ui avatar"
+        />
+        <div
+          class="content"
+        >
+          <div
+            class="header ItemHeader"
+          >
+            123456
+          </div>
+          <div
+            class="description Content"
+          >
+            <i
+              aria-hidden="true"
+              class="green arrow up icon"
+            />
+             (444555)
+          </div>
+          <div
+            class="extra ExtraContent"
+          >
+            <span
+              class="date"
+            >
+              01/01/1970 - 50 years
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RecentCallList tests renders a List without any errors 2`] = `
+<DocumentFragment>
+  <div
+    class="ScrollableContent"
+  >
+    <div
+      class="ui link items"
+      data-testid="RecentCallList"
+    >
+      <div
+        class="item padded-item RecentCall"
+        data-testid="recent-0"
+      >
+        <i
+          aria-hidden="true"
+          class="grey phone large icon ui avatar"
+        />
+        <div
+          class="content"
+        >
+          <div
+            class="header ItemHeader"
+          >
+            12345
+          </div>
+          <div
+            class="description Content"
+          >
+            <i
+              aria-hidden="true"
+              class="red arrow down icon"
+            />
+             (222333)
+          </div>
+          <div
+            class="extra ExtraContent"
+          >
+            <span
+              class="date"
+            >
+              01/01/1970 
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="item padded-item RecentCall"
+        data-testid="recent-1"
+      >
+        <i
+          aria-hidden="true"
+          class="grey phone large icon ui avatar"
+        />
+        <div
+          class="content"
+        >
+          <div
+            class="header ItemHeader"
+          >
+            123456
+          </div>
+          <div
+            class="description Content"
+          >
+            <i
+              aria-hidden="true"
+              class="green arrow up icon"
+            />
+             (444555)
+          </div>
+          <div
+            class="extra ExtraContent"
+          >
+            <span
+              class="date"
+            >
+              01/01/1970 - 50 years
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`RecentCallList tests renders empty List without any errors 1`] = `
+<DocumentFragment>
+  <div
+    class="ScrollableContent"
+  >
+    <div
+      class="ui link items"
+      data-testid="RecentCallList"
+    />
+  </div>
+</DocumentFragment>
+`;

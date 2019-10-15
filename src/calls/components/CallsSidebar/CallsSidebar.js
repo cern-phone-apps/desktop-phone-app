@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Icon, Menu, Responsive } from 'semantic-ui-react';
-import RecentCallListContainer from 'calls/components/recent_calls/RecentCallList';
+import RecentCallListContainer from 'calls/components/recent_calls/RecentCallList/RecentCallListContainer';
 import LeftColumn from 'common/components/LeftColumn/LeftColumn';
 import ErrorBoundary from 'common/components/ErrorBoundary/ErrorBoundary';
 import LeftColumnHeader from 'common/components/LeftColumnHeader/LeftColumnHeader';

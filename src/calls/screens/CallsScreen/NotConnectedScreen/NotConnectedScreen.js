@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { Header, Modal } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
@@ -37,10 +36,6 @@ function SelectPhoneNumberModal() {
   );
 }
 
-SelectPhoneNumberModal.propTypes = {
-  modalOpen: PropTypes.bool.isRequired
-};
-
 function NotConnectedScreen({ isAuthenticated, connected }) {
   if (!isAuthenticated) return <Redirect to="/login" />;
   if (connected) return <Redirect to="/home" />;
@@ -51,9 +46,5 @@ function NotConnectedScreen({ isAuthenticated, connected }) {
     </ErrorBoundary>
   );
 }
-
-NotConnectedScreen.propTypes = {
-  t: PropTypes.func.isRequired
-};
 
 export default translate('calls')(NotConnectedScreen);
