@@ -5,7 +5,11 @@ let remoteLog = {};
 if (remote) {
   remoteLog = remote.require('electron-log');
 } else {
-  remoteLog = () => {};
+  remoteLog = {
+    info: () => {},
+    error: () => {},
+    warn: () => {}
+  };
 }
 
 const logFormat = '{level} | {y}-{m}-{d} {h}:{i}:{s}:{ms} | {text}';
@@ -53,8 +57,10 @@ if (process.env.NODE_ENV !== 'production') {
     remoteLog.error(`ERROR | ${JSON.stringify(arguments)}`);
   }
 
-  console.log = customLog;
-  console.error = customError;
+  if (process.env.NODE_ENV !== 'test') {
+    console.log = customLog;
+    console.error = customError;
+  }
 })();
 
 const simpleStringify = object => {
