@@ -83,9 +83,9 @@ a path to the file.
 
 * `yarn electron-start`: Runs the application on development mode.
 
-## Run the application with debug mode in Visual Studio Code
+## Run the application in debug mode using Visual Studio Code
 
-The project configuration is defined in .vscode folder. In this folder we have configured the debug of the Visual Studio Code. For execute in debug mode you only need go to the "bug" icon in the Visual Studio Code and press in start server.
+The project configuration is defined in the .vscode folder. In this folder we have configured the Visual Studio Code debugger with a launch.json file. To run it in debug mode just go to the "bug" icon in the Visual Studio code and click on the start server.
 
 ## Testing the application
 
