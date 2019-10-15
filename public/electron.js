@@ -67,6 +67,10 @@ const handleAuthDidNavigateEvent = (event, url) => {
   handleCallback(url);
 };
 
+function isAnyWindowOpen() {
+  return (mainWindow && mainWindow.isVisible()) || (authWindow && authWindow.isVisible());
+}
+
 const handleAuthDidFinishLoad = () => {
   console.log('Did finish load');
   if (mainWindow) {
@@ -454,8 +458,17 @@ const hide = () => {
 };
 
 const toggleWindow = () => {
-  const result = mainWindow && mainWindow.isVisible() ? hide() : showWindow();
-  return result;
+  if (authWindow) {
+    return authWindow.isVisible() ? authWindow.hide() : authWindow.show();
+  } else {
+    if (mainWindow) {
+      return mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    } else {
+      showWindow();
+    }
+  }
+
+  return null;
 };
 
 const createTray = () => {
@@ -463,10 +476,24 @@ const createTray = () => {
     ? path.join(__dirname, '/../static/icons/icon_16.png')
     : path.join(process.resourcesPath, 'icons', 'icon_16.png');
 
-  tray = new Tray(imagePath);
-  tray.on('click', event => {
-    toggleWindow();
-  });
+  if(tray == null) {
+    tray = new Tray(imagePath);
+  }
+
+  const tryMenu = Menu.buildFromTemplate(
+    [
+      {
+        label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
+          toggleWindow();
+          createTray();
+        }
+      },
+      { type: "separator" },
+      { role: "quit" }, // "role": system prepared action menu
+    ]
+  )
+    ;
+  tray.setContextMenu(tryMenu);
 };
 
 const handleAppReady = () => {
@@ -478,7 +505,6 @@ const handleAppReady = () => {
     }
 
     Menu.setApplicationMenu(menu);
-    createTray();
 
     if (!isEmpty(data) && data.authenticated === true) {
       code = data;
@@ -486,6 +512,7 @@ const handleAppReady = () => {
     } else {
       createAuthWindow();
     }
+    createTray();
   });
 };
 
