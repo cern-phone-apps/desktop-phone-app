@@ -1,5 +1,6 @@
 const {
   app,
+  win,
   BrowserWindow,
   shell,
   ipcMain,
@@ -123,24 +124,6 @@ function unauthenticateUser() {
   });
 }
 
-const showQuitDialog = () => {
-  const options = {
-    type: 'question',
-    buttons: ['Minimize to tray', 'No', 'Yes'],
-    title: 'Confirm',
-    message: 'Are you sure you want to quit?'
-  };
-  const choice = dialog.showMessageBox(options);
-  console.log(choice);
-  if (choice === 2) {
-    forceQuit = true;
-    app.quit();
-  }
-  if (choice === 0) {
-    hide();
-  }
-};
-
 const openLogsFolder = () => {
   let logsPath;
   switch (process.platform) {
@@ -221,7 +204,7 @@ const menu = Menu.buildFromTemplate([
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
           forceQuit = true;
-          if (!goingToUpdate) showQuitDialog();
+          app.quit();
         }
       }
     ]
@@ -270,9 +253,11 @@ const showWindow = () => {
   if (mainWindow) {
     mainWindow.show();
   }
+
   if (authWindow && !mainWindow) {
     authWindow.hide();
   }
+  createTray();
 };
 
 const askForMediaAccess = async () => {
@@ -364,13 +349,8 @@ const createWindow = async () => {
       app.quit();
     }
 
-    if (!forceQuit && !goingToUpdate) {
-      e.preventDefault();
-      showQuitDialog();
-      // sendAppHideNotification();
-    } else {
-      app.quit();
-    }
+    e.preventDefault();
+    hide();
   });
 
   /**
@@ -454,7 +434,20 @@ const hide = () => {
   if (mainWindow) {
     mainWindow.hide();
   }
+  if (authWindow) {
+    authWindow.hide();
+  }
   sendAppHideNotification();
+  app.dock.hide()
+  createTray();
+};
+
+const toggleDockIcon = () => {
+  if(app.dock.isVisible()) {
+    app.dock.hide();
+  } else {
+    app.dock.show();
+  }
 };
 
 const toggleWindow = () => {
@@ -485,6 +478,7 @@ const createTray = () => {
       {
         label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
           toggleWindow();
+          toggleDockIcon();
           createTray();
         }
       },
