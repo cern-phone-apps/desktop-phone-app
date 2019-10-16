@@ -4,6 +4,7 @@ import { translate } from 'react-i18next';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import PhoneRingingIcon from 'calls/components/PhoneRingingIcon/PhoneRingingIcon';
 import { logMessage } from 'common/utils/logs';
+import DetectRTC from 'detectrtc';
 
 import styles from './IncomingCallModal.css';
 
@@ -64,7 +65,7 @@ function AnswerButton({ onClick, loading }) {
       labelPosition="right"
       content="Answer"
       className="AnswerCallButton"
-      loading={(!!loading)}
+      loading={!!loading}
     />
   );
 }
@@ -94,7 +95,14 @@ function CallingModalContent({
       </Modal.Content>
       <Modal.Actions>
         <RejectButton onClick={onClickReject} />
-        {!onCall && <AnswerButton onClick={() => { onClickAnswer(); setAnswerLoading(1); }} loading={answerLoading} />}
+        {!onCall && (
+          <AnswerButton
+            onClick={() => {
+              if (onClickAnswer()) setAnswerLoading(1);
+            }}
+            loading={answerLoading}
+          />
+        )}
         {onCall && <HangupAndPickupButton onClick={onClickHangupAndAnswer} />}
       </Modal.Actions>
     </React.Fragment>
@@ -176,8 +184,18 @@ export class IncomingCallModal extends Component {
    */
   answerCall = () => {
     const { phoneService } = this.props;
-    this.setState({ modalHidden: false });
-    phoneService.acceptIncomingCall();
+    DetectRTC.load(() => {
+      if (DetectRTC.hasMicrophone && DetectRTC.hasSpeakers) {
+        this.setState({ modalHidden: false });
+        phoneService.acceptIncomingCall();
+        return true;
+      } else {
+        alert(
+          'There are no input/output devices.\nPlease connect at least one speaker and one microphone to perform phone calls.'
+        );
+        return false;
+      }
+    });
   };
 
   render() {
