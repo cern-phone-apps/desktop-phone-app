@@ -108,6 +108,9 @@ describe('RecentCallList tests', () => {
       },
       settings: {
         devices: []
+      },
+      connection: {
+        connected: true
       }
     };
     const store = mockStore(initialState);
