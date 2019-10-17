@@ -31,7 +31,7 @@ We also want to maximize the chances that your contribution will already be done
 1. Any extra detail should be provided in the body of the PR.
 1. Don't submit unrelated changes in the same pull request.
 1. If you had a bit of churn in the process of getting the change right,
-   squash your commits. Refer to the guidelines on [squashing commits](/contributing/git-basics.md#squashing).
+   squash your commits. Refer to the guidelines on [squashing commits](git-basics.md#squashing).
 1. If you had to refactor in order to add your change, then we'd love to
    see two commits: First the refactoring, then the added behavior. It's
    fine to put this in the same pull request, unless the refactoring is
@@ -41,7 +41,7 @@ We also want to maximize the chances that your contribution will already be done
    rather than the subject line. This is simply because the subject line doesn't
    support markdown, and so these don't get turned into clickable links. It makes
    it harder to follow and to go look at the related issue or PR.
-1. Please also refer to the guidelines for [commit messages](/contributing/git-basics.md#commit-messages).
+1. Please also refer to the guidelines for [commit messages](git-basics.md#commit-messages).
 
 Once you've submitted a pull request, one or more of the maintainers will review it if all checks (tests and coverage pass).
 
