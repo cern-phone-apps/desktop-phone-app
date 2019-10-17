@@ -10,7 +10,7 @@ import * as setttingsActions from 'settings/actions/settings';
 import dialBackendApi from 'services/api';
 import NumberConnector from './NumberConnector';
 
-function mapStateToProps({ auth, numbers, connection, settings }) {
+function mapStateToProps({ numbers, connection, settings }) {
   return {
     activeNumber: numbers.activeNumber,
     numbers: numbers.numbers,
@@ -18,7 +18,8 @@ function mapStateToProps({ auth, numbers, connection, settings }) {
     error: connection.error.message,
     firstNumberAvailable: getFirstNumberAvailable(numbers)(),
     numberOfMobileNumbers: getNumberOfPhoneNumbers(numbers)(),
-    rememberNumber: settings.settings.rememberNumber
+    rememberNumber: settings.settings.rememberNumber,
+    onlineStatus: settings.settings.onlineStatus
   };
 }
 
