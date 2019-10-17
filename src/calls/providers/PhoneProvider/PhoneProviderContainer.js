@@ -15,12 +15,13 @@ import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
 
 import dialBackendApi from 'services/api';
 
-export function mapStateToProps({ auth, call, status }) {
+export function mapStateToProps({ auth, call, status, connection }) {
   return {
     doNotDisturb: status.doNotDisturb,
     call,
     tempRemote: call.tempRemote,
-    authToken: auth.authToken
+    authToken: auth.authToken,
+    connected: connection.connected
   };
 }
 
