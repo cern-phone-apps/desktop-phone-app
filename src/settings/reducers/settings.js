@@ -3,6 +3,7 @@ import * as settingsActions from 'settings/actions/settings';
 const initialState = {
   rememberNumber: false,
   sendStats: true,
+  onlineStatus: 'offline',
   error: {}
 };
 
@@ -18,6 +19,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         sendStats: action.payload,
+        error: {}
+      };
+
+    case settingsActions.SET_ONLINE_STATUS:
+      return {
+        ...state,
+        onlineStatus: action.payload,
         error: {}
       };
 
