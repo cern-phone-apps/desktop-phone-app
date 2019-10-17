@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store';
 
 import { createHashHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import { render, waitForElement, fireEvent } from '@testing-library/react';
+import { render, waitForElement } from '@testing-library/react';
 import RecentCallModal from './RecentCallModal';
 
 global.remote = {
@@ -35,6 +35,9 @@ describe('RecentCallModal tests', () => {
       },
       settings: {
         devices: []
+      },
+      connection: {
+        connected: true
       }
     };
     store = mockStore(initialState);
