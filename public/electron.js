@@ -438,16 +438,23 @@ const hide = () => {
     authWindow.hide();
   }
   sendAppHideNotification();
-  app.dock.hide()
+
   createTray();
+
+  if(null != app.dock){
+    app.dock.hide()
+  }
 };
 
 const toggleDockIcon = () => {
-  if(app.dock.isVisible()) {
-    app.dock.hide();
-  } else {
-    app.dock.show();
+  if(null != app.dock) {
+    if(app.dock.isVisible()) {
+      app.dock.hide();
+    } else {
+      app.dock.show();
+    }
   }
+
 };
 
 const toggleWindow = () => {
@@ -456,8 +463,6 @@ const toggleWindow = () => {
   } else {
     if (mainWindow) {
       return mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-    } else {
-      showWindow();
     }
   }
 
@@ -471,6 +476,11 @@ const createTray = () => {
 
   if(tray == null) {
     tray = new Tray(imagePath);
+    tray.on('click', () => {
+      toggleWindow();
+      toggleDockIcon();
+      createTray();
+    }) 
   }
 
   const tryMenu = Menu.buildFromTemplate(
@@ -488,6 +498,7 @@ const createTray = () => {
   )
     ;
   tray.setContextMenu(tryMenu);
+
 };
 
 const handleAppReady = () => {
