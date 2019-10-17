@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -24,7 +24,7 @@ function NoNumbersButton({ numbersLength }) {
   return null;
 }
 
-const ButtonNumbersList = ({ numbers, connect }) => (
+const ButtonNumbersList = ({ numbers, connect, onlineStatus }) => (
   <React.Fragment>
     <div>
       <h4>Personal</h4>
@@ -34,6 +34,7 @@ const ButtonNumbersList = ({ numbers, connect }) => (
           key={`number-${index.toString()}`}
           className="ConnectNumberButton"
           onClick={() => connect(item)}
+          disabled={!onlineStatus}
         >
           <Icon name="plug" />
           {item}
@@ -49,6 +50,7 @@ const ButtonNumbersList = ({ numbers, connect }) => (
           key={`number-${index.toString()}`}
           className="ConnectNumberButton"
           onClick={() => connect(item)}
+          disabled={!onlineStatus}
         >
           <Icon name="plug" />
           {item}
@@ -69,113 +71,114 @@ ButtonNumbersList.propTypes = {
 /**
  * Button to connect a user phone number
  */
-export class NumberConnector extends Component {
-  static propTypes = {
-    phoneService: PropTypes.shape({
-      authenticateUser: PropTypes.func.isRequired
-    }).isRequired, // Phone Service
-    connecting: PropTypes.bool.isRequired,
-    numbers: PropTypes.shape({
-      personal: PropTypes.arrayOf(PropTypes.string),
-      shared: PropTypes.arrayOf(PropTypes.string)
-    }).isRequired,
-    getUserPhoneNumbers: PropTypes.func.isRequired,
-    setActiveNumber: PropTypes.func.isRequired,
-    rememberNumber: PropTypes.bool.isRequired,
-    setRememberNumber: PropTypes.func.isRequired,
-    activeNumber: PropTypes.string.isRequired
-  };
+function NumberConnector({
+  getUserPhoneNumbers,
+  rememberNumber,
+  activeNumber,
+  numberOfMobileNumbers,
+  firstNumberAvailable,
+  setActiveNumber,
+  phoneService,
+  connecting,
+  numbers,
+  onlineStatus,
+  setRememberNumber
+}) {
+  const connect = useCallback(
+    numberToConnect => {
+      actionMessage(`Calls | User clicks connect button (${numberToConnect})`);
 
-  componentDidMount() {
-    const {
-      getUserPhoneNumbers,
-      rememberNumber,
-      activeNumber,
-      numberOfMobileNumbers,
-      firstNumberAvailable,
-      setActiveNumber,
-      phoneService
-    } = this.props;
+      setActiveNumber(numberToConnect);
+      phoneService.authenticateUser(numberToConnect);
+    },
+    [setActiveNumber, phoneService]
+  );
 
+  useEffect(() => {
     const toneToken = ElectronService.getToneToken();
 
     if (rememberNumber && toneToken && activeNumber) {
-      this.connect(activeNumber);
+      connect(activeNumber);
+      return;
     }
 
     getUserPhoneNumbers().then(() => {
       if (numberOfMobileNumbers === 1) {
-        setActiveNumber(firstNumberAvailable);
-        const result = phoneService.authenticateUser(firstNumberAvailable);
-        console.log(result);
+        connect(activeNumber);
       }
     });
-  }
+  }, [
+    activeNumber,
+    connect,
+    getUserPhoneNumbers,
+    numberOfMobileNumbers,
+    rememberNumber
+  ]);
 
-  connect = activeNumber => {
-    const { phoneService, setActiveNumber } = this.props;
-
-    actionMessage(`Calls | User clicks connect button (${activeNumber})`);
-
-    setActiveNumber(activeNumber);
-    const result = phoneService.authenticateUser(activeNumber);
-    logMessage(result);
-  };
-
-  rememberNumberOnChange = () => {
+  const rememberNumberOnChange = () => {
     logMessage('Remember number on change');
-    const { setRememberNumber, rememberNumber } = this.props;
-
     setRememberNumber(!rememberNumber);
   };
 
-  render() {
-    const { connecting, numbers, rememberNumber } = this.props;
-    if (connecting) {
-      return (
-        <Segment padded basic textAlign="center">
-          <Dimmer active inverted>
-            <Loader active inline="centered" content="Connecting..." />
-          </Dimmer>
-        </Segment>
-      );
-    }
+  // const { connecting, numbers, rememberNumber, onlineStatus } = props;
 
-    if (numbers === undefined || numbers.length === 0) {
-      return (
-        <Segment padded basic textAlign="center">
-          <Dimmer active inverted>
-            <Loader
-              active
-              inline="centered"
-              content="Loading phone numbers..."
-            />
-          </Dimmer>
-        </Segment>
-      );
-    }
-
+  if (connecting) {
     return (
-      <React.Fragment>
-        <ButtonNumbersList
-          numbers={numbers}
-          connect={this.connect}
-          connecting={connecting}
-        />
-        <Form className={styles.rememberNumberForm}>
-          <Form.Field>
-            <Checkbox
-              toggle
-              checked={rememberNumber}
-              onChange={this.rememberNumberOnChange}
-              label="Register automatically the selected phone
-            number when app starts."
-            />
-          </Form.Field>
-        </Form>
-      </React.Fragment>
+      <Segment padded basic textAlign="center">
+        <Dimmer active inverted>
+          <Loader active inline="centered" content="Connecting..." />
+        </Dimmer>
+      </Segment>
     );
   }
+
+  if (numbers === undefined || numbers.length === 0) {
+    return (
+      <Segment padded basic textAlign="center">
+        <Dimmer active inverted>
+          <Loader active inline="centered" content="Loading phone numbers..." />
+        </Dimmer>
+      </Segment>
+    );
+  }
+  logMessage(`Online status: ${onlineStatus}`);
+  return (
+    <React.Fragment>
+      <ButtonNumbersList
+        numbers={numbers}
+        connect={connect}
+        connecting={connecting}
+        onlineStatus={onlineStatus}
+      />
+      <Form className={styles.rememberNumberForm}>
+        <Form.Field>
+          <Checkbox
+            toggle
+            checked={rememberNumber}
+            onChange={rememberNumberOnChange}
+            label="Register automatically the selected phone
+            number when app starts."
+          />
+        </Form.Field>
+      </Form>
+    </React.Fragment>
+  );
 }
+
+NumberConnector.propTypes = {
+  phoneService: PropTypes.shape({
+    authenticateUser: PropTypes.func.isRequired
+  }).isRequired, // Phone Service
+  connecting: PropTypes.bool.isRequired,
+  numbers: PropTypes.shape({
+    personal: PropTypes.arrayOf(PropTypes.string),
+    shared: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired,
+  getUserPhoneNumbers: PropTypes.func.isRequired,
+  setActiveNumber: PropTypes.func.isRequired,
+  rememberNumber: PropTypes.bool.isRequired,
+  setRememberNumber: PropTypes.func.isRequired,
+  activeNumber: PropTypes.string.isRequired
+};
 
 export default NumberConnector;
