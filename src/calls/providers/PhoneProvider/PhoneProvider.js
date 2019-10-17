@@ -168,30 +168,53 @@ export default class PhoneProvider extends React.Component {
       tempToken = toneToken;
       tokenUsed = 'hashedToken';
     }
+
+    const errorToDisplay = {
+      code: {
+        status_code: 'UA-1'
+      },
+      description: `Unable to authenticate the user on TONE`
+    };
+
     try {
       logMessage(`Authenticating user ${username} and ${tokenUsed}`);
-      const eToken = toneAPI.authenticate(username, tempToken, !!authToken);
-      if (authToken) {
-        /**
-         * If the authToken was used, we clear the original auth token as we will use the encrypted token from now on.
-         */
-        logMessage(`Clear auth token...`);
-        clearAuthToken();
-        logMessage(`Save new token...`);
-        ElectronService.saveToneToken(eToken);
+      try {
+        const eToken = await toneAPI.authenticate(
+          username,
+          tempToken,
+          !!authToken
+        );
+
+        setTimeout(() => {
+          const { connected } = this.props;
+          if (!connected && !navigator.onLine) {
+            const failedError = {
+              code: {
+                status_code: 'NW-1'
+              },
+              description: 'Unable to register in tone (network problem)'
+            };
+            setRegistrationFailure(failedError);
+          }
+        }, 5000);
+
+        if (authToken) {
+          /**
+           * If the authToken was used, we clear the original auth token as we will use the encrypted token from now on.
+           */
+          logMessage(`Clear auth token...`);
+          clearAuthToken();
+          logMessage(`Save new token...`);
+          ElectronService.saveToneToken(eToken);
+        }
+      } catch (error) {
+        errorMessage(error);
       }
     } catch (error) {
       errorMessage(`Unable to authenticate the user`);
       errorMessage(error);
 
-      const errorToDisplay = {
-        code: {
-          status_code: 'UA-1'
-        },
-        description: `Unable to authenticate the user on TONE`
-      };
       setRegistrationFailure(errorToDisplay);
-      // logout();
     }
   };
 
@@ -493,9 +516,14 @@ export default class PhoneProvider extends React.Component {
 
   handleRegistrationFailedEvent = event => {
     const { setRegistrationFailure } = this.props;
-    if (event.error.description !== undefined) {
-      setRegistrationFailure(event.error);
-    }
+
+    const failedError = {
+      code: {
+        status_code: 'UA-2'
+      },
+      description: 'TONE returned a requestedFailed event'
+    };
+    setRegistrationFailure(failedError);
   };
 
   handleCallFailedEvent = () => {
