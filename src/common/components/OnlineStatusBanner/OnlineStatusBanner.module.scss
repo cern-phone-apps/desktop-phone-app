@@ -1,0 +1,13 @@
+.callForwardingMessage {
+  background: #db2828;
+  min-height: 30px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 9999;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+}
