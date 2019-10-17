@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnlineStatusBannerContainer test renders component with offline status 1`] = `
+<DocumentFragment>
+  <div
+    class="padded-item callForwardingMessage"
+  >
+    <i
+      aria-hidden="true"
+      class="warning sign icon"
+    />
+     You are currently offline. Please, check your network connection
+  </div>
+</DocumentFragment>
+`;
+
+exports[`OnlineStatusBannerContainer test renders component with online status 1`] = `<DocumentFragment />`;
