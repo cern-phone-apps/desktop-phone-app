@@ -9,6 +9,7 @@ import NotConnectedScreenContainer from 'calls/screens/CallsScreen/NotConnectedS
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
 import { registerRoute } from 'calls/routes';
+import OnlineConnectionBannerContainer from 'common/components/OnlineStatusBanner/OnlineStatusBannerContainer';
 
 const NoMatch = ({ location }) => (
   <div>
@@ -29,22 +30,25 @@ NoMatch.propTypes = {
  */
 function App() {
   return (
-    <Switch>
-      <Route
-        path={registerRoute.path}
-        component={NotConnectedScreenContainer}
-        exact={registerRoute.exact}
-      />
-      <Route
-        exact={routes.mainRoute.exact}
-        path={routes.mainRoute.path}
-        component={RoutedMainPageContainer}
-      />
-      <Route
-        path={loginRoutes.loginRoute.path}
-        component={RoutedLoginPageContainer}
-      />
-    </Switch>
+    <React.Fragment>
+      <OnlineConnectionBannerContainer />
+      <Switch>
+        <Route
+          path={registerRoute.path}
+          component={NotConnectedScreenContainer}
+          exact={registerRoute.exact}
+        />
+        <Route
+          exact={routes.mainRoute.exact}
+          path={routes.mainRoute.path}
+          component={RoutedMainPageContainer}
+        />
+        <Route
+          path={loginRoutes.loginRoute.path}
+          component={RoutedLoginPageContainer}
+        />
+      </Switch>
+    </React.Fragment>
   );
 }
 
