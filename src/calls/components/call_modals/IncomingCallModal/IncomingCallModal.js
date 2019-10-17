@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
@@ -14,7 +14,12 @@ import styles from './IncomingCallModal.css';
  * @param {*} param0
  */
 const ModalTrigger = ({ onClick, callerName, callerNumber }) => (
-  <div className="padded-item CallingMessage" onClick={onClick}>
+  <div
+    className="padded-item CallingMessage"
+    onClick={onClick}
+    aria-label="incoming call banner"
+    name="incomingcallbanner"
+  >
     <Icon name="phone" /> {'Receiving a call'} from {callerName} ({callerNumber}
     )
   </div>
@@ -121,59 +126,54 @@ CallingModalContent.propTypes = {
 /**
  * Modal displayed when there is an incoming call
  */
-export class IncomingCallModal extends Component {
-  static propTypes = {
-    t: PropTypes.func.isRequired,
-    phoneService: PropTypes.object.isRequired,
-    connected: PropTypes.bool.isRequired,
-    receivingCall: PropTypes.bool.isRequired,
-    onCall: PropTypes.bool.isRequired,
-    callerName: PropTypes.string,
-    callerNumber: PropTypes.string,
-    setIsReceivingCall: PropTypes.func.isRequired // TODO Rename this function
-  };
+export function IncomingCallModal({
+  connected,
+  receivingCall,
+  callerName,
+  callerNumber,
+  onCall,
+  phoneService
+}) {
+  const [modalHidden, setmodalHidden] = useState(0);
+  const [hasMic, sethasMic] = useState(false);
+  const [hasSpeaker, setHasSpeaker] = useState(false);
 
-  state = {
-    modalOpen: false,
-    modalHidden: false,
-    callerName: undefined
-  };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // TODO Make a call to the backend to retrieve the owner of the number
-  }
+  useEffect(() => {
+    DetectRTC.load(() => {
+      sethasMic(DetectRTC.hasMicrophone);
+      setHasSpeaker(DetectRTC.hasSpeakers);
+    });
+  }, []);
 
   /**
    * Action triggered when the modal is opened
    */
-  onOpen = () => {
+  const onOpen = () => {
     logMessage('Opening calling modal');
-    this.props.phoneService.playRingTone();
+    phoneService.playRingTone();
   };
 
   /**
    * Action triggered when the modal is closed
    */
-  onClose = () => {
+  const onClose = () => {
     logMessage('Closing calling modal');
-    this.props.phoneService.stopRingTone();
-    this.setState({ modalHidden: true });
+    phoneService.stopRingTone();
+    setmodalHidden(true);
   };
 
   /**
    * Action triggered when the reject call button is triggered
    */
-  rejectIncomingCall = () => {
-    const { phoneService } = this.props;
-    this.setState({ modalHidden: false });
+  const rejectIncomingCall = () => {
+    setmodalHidden(false);
     phoneService.rejectIncomingCall();
   };
 
   /**
    * Action triggered when the reject call button is triggered
    */
-  hangUpAndAnswerIncomingCall = () => {
-    const { phoneService } = this.props;
+  const hangUpAndAnswerIncomingCall = () => {
     const hangUpdDefaultCall = true;
     phoneService.hangUpCurrentCallAction(hangUpdDefaultCall);
     phoneService.acceptIncomingCall();
@@ -182,70 +182,67 @@ export class IncomingCallModal extends Component {
   /**
    * Action triggered when the answer button is clicked
    */
-  answerCall = () => {
-    const { phoneService } = this.props;
-    DetectRTC.load(() => {
-      if (DetectRTC.hasMicrophone && DetectRTC.hasSpeakers) {
-        this.setState({ modalHidden: false });
-        phoneService.acceptIncomingCall();
-        return true;
-      } else {
-        alert(
-          'There are no input/output devices.\nPlease connect at least one speaker and one microphone to perform phone calls.'
-        );
-        return false;
-      }
-    });
+  const answerCall = async () => {
+    if (hasMic && hasSpeaker) {
+      setmodalHidden(false);
+      phoneService.acceptIncomingCall();
+      return true;
+    }
+    // eslint-disable-next-line no-alert
+    alert(
+      'There are no input/output devices.\nPlease connect at least one speaker and one microphone to perform phone calls.'
+    );
+    return false;
   };
 
-  render() {
-    const {
-      connected,
-      receivingCall,
-      callerName,
-      callerNumber,
-      onCall
-    } = this.props;
-    const { modalHidden } = this.state;
-
-    let shouldDisplayBanner = false;
-    if (modalHidden && receivingCall) {
-      shouldDisplayBanner = true;
-    }
-    if (connected && receivingCall) {
-      return (
-        <Modal
-          size="tiny"
-          dimmer="blurring"
-          open={receivingCall && !modalHidden}
-          className={`${styles.CallingModal} CallingModal`}
-          closeIcon
-          onOpen={this.onOpen}
-          onClose={this.onClose}
-          trigger={
-            shouldDisplayBanner && (
-              <ModalTrigger
-                callerName={callerName}
-                callerNumber={callerNumber}
-                className={styles.CallingMessage}
-                onClick={() => this.setState({ modalHidden: false })}
-              />
-            )
-          }
-        >
-          <CallingModalContent
-            callerName={callerName}
-            callerNumber={callerNumber}
-            onCall={onCall}
-            onClickReject={this.rejectIncomingCall}
-            onClickAnswer={this.answerCall}
-            onClickHangupAndAnswer={this.hangUpAndAnswerIncomingCall}
-          />
-        </Modal>
-      );
-    }
-    return null;
+  let shouldDisplayBanner = false;
+  if (modalHidden && receivingCall) {
+    shouldDisplayBanner = true;
   }
+  if (connected && receivingCall) {
+    return (
+      <Modal
+        size="tiny"
+        dimmer="blurring"
+        open={receivingCall && !modalHidden}
+        className={`${styles.CallingModal} CallingModal`}
+        closeIcon={<Icon aria-label="Close incoming call modal" name="close" />}
+        onOpen={onOpen}
+        onClose={onClose}
+        trigger={
+          shouldDisplayBanner && (
+            <ModalTrigger
+              callerName={callerName}
+              callerNumber={callerNumber}
+              className={styles.CallingMessage}
+              onClick={() => setmodalHidden(false)}
+            />
+          )
+        }
+      >
+        <CallingModalContent
+          callerName={callerName}
+          callerNumber={callerNumber}
+          onCall={onCall}
+          onClickReject={rejectIncomingCall}
+          onClickAnswer={answerCall}
+          onClickHangupAndAnswer={hangUpAndAnswerIncomingCall}
+        />
+      </Modal>
+    );
+  }
+  return null;
 }
+
+IncomingCallModal.propTypes = {
+  t: PropTypes.func.isRequired,
+  phoneService: PropTypes.object.isRequired,
+  connected: PropTypes.bool.isRequired,
+  receivingCall: PropTypes.bool.isRequired,
+  onCall: PropTypes.bool.isRequired,
+  callerName: PropTypes.string,
+  callerNumber: PropTypes.string,
+  setIsReceivingCall: PropTypes.func.isRequired // TODO Rename this function
+};
 
 export default translate('settings')(IncomingCallModal);
