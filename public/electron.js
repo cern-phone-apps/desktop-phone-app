@@ -203,7 +203,7 @@ const menu = Menu.buildFromTemplate([
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
           forceQuit = true;
-          if (!goingToUpdate) app.quit();
+          app.quit();
         }
       }
     ]
@@ -346,6 +346,7 @@ const createWindow = async () => {
   mainWindow.on('close', e => {
     if (forceQuit || goingToUpdate) {
       app.quit();
+      return;
     }
 
     e.preventDefault();
@@ -486,6 +487,10 @@ const createTray = () => {
     [
       {
         label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
+          if(isAnyWindowOpen()) {
+            sendAppHideNotification();
+          }
+
           toggleWindow();
           toggleDockIcon();
           createTray();
