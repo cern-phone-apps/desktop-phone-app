@@ -182,7 +182,7 @@ export default class PhoneProvider extends React.Component {
         const eToken = await toneAPI.authenticate(
           username,
           tempToken,
-          !!authToken
+          !!authToken // Is the first time the user authenticates?
         );
 
         setTimeout(() => {
