@@ -440,13 +440,13 @@ const hide = () => {
 
   createTray();
 
-  if(null != app.dock){
+  if(app.dock != null){
     app.dock.hide()
   }
 };
 
 const toggleDockIcon = () => {
-  if(null != app.dock) {
+  if(app.dock != null) {
     if(app.dock.isVisible()) {
       app.dock.hide();
     } else {
