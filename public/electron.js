@@ -1,6 +1,5 @@
 const {
   app,
-  win,
   BrowserWindow,
   shell,
   ipcMain,
@@ -204,7 +203,7 @@ const menu = Menu.buildFromTemplate([
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
           forceQuit = true;
-          app.quit();
+          if (!goingToUpdate) app.quit();
         }
       }
     ]
@@ -345,7 +344,7 @@ const createWindow = async () => {
   });
 
   mainWindow.on('close', e => {
-    if (forceQuit) {
+    if (forceQuit || goingToUpdate) {
       app.quit();
     }
 
