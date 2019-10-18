@@ -492,7 +492,12 @@ const createTray = () => {
         }
       },
       { type: "separator" },
-      { role: "quit" }, // "role": system prepared action menu
+      {
+        label: 'Quit', click: (item, window, event) => {
+          forceQuit = true;
+          app.quit();
+        }
+      },
     ]
   )
     ;
