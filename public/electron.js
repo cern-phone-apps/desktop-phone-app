@@ -67,6 +67,10 @@ const handleAuthDidNavigateEvent = (event, url) => {
   handleCallback(url);
 };
 
+function isAnyWindowOpen() {
+  return (mainWindow && mainWindow.isVisible()) || (authWindow && authWindow.isVisible());
+}
+
 const handleAuthDidFinishLoad = () => {
   console.log('Did finish load');
   if (mainWindow) {
@@ -118,24 +122,6 @@ function unauthenticateUser() {
     }
   });
 }
-
-const showQuitDialog = () => {
-  const options = {
-    type: 'question',
-    buttons: ['Minimize to tray', 'No', 'Yes'],
-    title: 'Confirm',
-    message: 'Are you sure you want to quit?'
-  };
-  const choice = dialog.showMessageBox(options);
-  console.log(choice);
-  if (choice === 2) {
-    forceQuit = true;
-    app.quit();
-  }
-  if (choice === 0) {
-    hide();
-  }
-};
 
 const openLogsFolder = () => {
   let logsPath;
@@ -217,7 +203,7 @@ const menu = Menu.buildFromTemplate([
         accelerator: 'CmdOrCtrl+Q',
         click: () => {
           forceQuit = true;
-          if (!goingToUpdate) showQuitDialog();
+          app.quit();
         }
       }
     ]
@@ -266,9 +252,11 @@ const showWindow = () => {
   if (mainWindow) {
     mainWindow.show();
   }
+
   if (authWindow && !mainWindow) {
     authWindow.hide();
   }
+  createTray();
 };
 
 const askForMediaAccess = async () => {
@@ -356,17 +344,13 @@ const createWindow = async () => {
   });
 
   mainWindow.on('close', e => {
-    if (forceQuit) {
+    if (forceQuit || goingToUpdate) {
       app.quit();
+      return;
     }
 
-    if (!forceQuit && !goingToUpdate) {
-      e.preventDefault();
-      showQuitDialog();
-      // sendAppHideNotification();
-    } else {
-      app.quit();
-    }
+    e.preventDefault();
+    hide();
   });
 
   /**
@@ -450,12 +434,39 @@ const hide = () => {
   if (mainWindow) {
     mainWindow.hide();
   }
+  if (authWindow) {
+    authWindow.hide();
+  }
   sendAppHideNotification();
+
+  createTray();
+
+  if(app.dock != null){
+    app.dock.hide()
+  }
+};
+
+const toggleDockIcon = () => {
+  if(app.dock != null) {
+    if(app.dock.isVisible()) {
+      app.dock.hide();
+    } else {
+      app.dock.show();
+    }
+  }
+
 };
 
 const toggleWindow = () => {
-  const result = mainWindow && mainWindow.isVisible() ? hide() : showWindow();
-  return result;
+  if (authWindow) {
+    return authWindow.isVisible() ? authWindow.hide() : authWindow.show();
+  } else {
+    if (mainWindow) {
+      return mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    }
+  }
+
+  return null;
 };
 
 const createTray = () => {
@@ -463,10 +474,40 @@ const createTray = () => {
     ? path.join(__dirname, '/../static/icons/icon_16.png')
     : path.join(process.resourcesPath, 'icons', 'icon_16.png');
 
-  tray = new Tray(imagePath);
-  tray.on('click', event => {
-    toggleWindow();
-  });
+  if(tray == null) {
+    tray = new Tray(imagePath);
+    tray.on('click', () => {
+      toggleWindow();
+      toggleDockIcon();
+      createTray();
+    }) 
+  }
+
+  const tryMenu = Menu.buildFromTemplate(
+    [
+      {
+        label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
+          if(isAnyWindowOpen()) {
+            sendAppHideNotification();
+          }
+
+          toggleWindow();
+          toggleDockIcon();
+          createTray();
+        }
+      },
+      { type: "separator" },
+      {
+        label: 'Quit', click: (item, window, event) => {
+          forceQuit = true;
+          app.quit();
+        }
+      },
+    ]
+  )
+    ;
+  tray.setContextMenu(tryMenu);
+
 };
 
 const handleAppReady = () => {
@@ -478,7 +519,6 @@ const handleAppReady = () => {
     }
 
     Menu.setApplicationMenu(menu);
-    createTray();
 
     if (!isEmpty(data) && data.authenticated === true) {
       code = data;
@@ -486,6 +526,7 @@ const handleAppReady = () => {
     } else {
       createAuthWindow();
     }
+    createTray();
   });
 };
 
