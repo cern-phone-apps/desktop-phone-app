@@ -149,6 +149,7 @@
     "react-dev-utils": "^9.0.1",
     "react-test-renderer": "^16.3.2",
     "redux-mock-store": "^1.5.1",
+    "system-commands": "^1.1.7",
     "typescript": "^3.5.2"
   },
   "build": {
