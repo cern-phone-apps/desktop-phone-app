@@ -1,8 +1,9 @@
-import * as devices from 'settings/actions/devices'
+import * as devices from 'settings/actions/devices';
 
 const initialState = {
   microphone: null,
-  speaker: null
+  speaker: null,
+  speakerRingtone: null
 };
 
 /**
@@ -10,7 +11,7 @@ const initialState = {
  *
  * @param state Current state of the application
  * @param action Action to be triggered
- * @returns {{microphone: null, speaker: null}}
+ * @returns {{microphone: null, speaker: null, speakerRingtone: null}}
  */
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -24,7 +25,12 @@ export default (state = initialState, action) => {
         ...state,
         speaker: action.deviceId
       };
+    case devices.SET_RINGTONE_SPEAKER:
+      return {
+        ...state,
+        speakerRingtone: action.deviceId
+      };
     default:
-      return state
+      return state;
   }
-}
+};

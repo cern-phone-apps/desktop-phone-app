@@ -17,7 +17,8 @@
   "devices": {
     "header": "Devices",
     "audioInputLabel": "Input",
-    "audioOutputLabel": "Output"
+    "audioOutputLabel": "Output",
+    "ringtoneOutputLabel": "Ringtone Output"
   },
   "appInfo": {
     "header": "App Info",
