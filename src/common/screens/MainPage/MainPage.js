@@ -4,7 +4,11 @@ import { NavLink, Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import DetectRTC from 'detectrtc';
-import { getUserDevices, changeAudioDestination } from 'settings/utils/devices';
+import {
+  getUserDevices,
+  changeAudioInputDestination,
+  changeRingToneDestination
+} from 'settings/utils/devices';
 
 import './MainPage.css';
 import * as routes from 'routes';
@@ -148,7 +152,9 @@ export class MainPage extends Component {
       if (deviceList[a].value === speaker) return true;
     }
     this.props.setSpeaker('default');
-    changeAudioDestination('default');
+    changeAudioInputDestination('default');
+    changeRingToneDestination('default');
+
     return false;
   }
 
