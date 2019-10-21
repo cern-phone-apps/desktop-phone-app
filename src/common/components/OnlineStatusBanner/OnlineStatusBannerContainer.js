@@ -4,9 +4,10 @@ import { bindActionCreators } from 'redux';
 import { setOnlineStatus } from 'settings/actions/settings';
 import OnlineStatusBanner from './OnlineStatusBanner';
 
-function mapStateToProps({ settings }) {
+function mapStateToProps({ settings, auth }) {
   return {
-    onlineStatus: settings.settings.onlineStatus
+    onlineStatus: settings.settings.onlineStatus,
+    authError: auth.error
   };
 }
 

@@ -28,7 +28,5 @@ describe('OnlineStatusBanner tests', () => {
         'You are currently offline. Please, check your network connection'
       )
     );
-
-    expect(asFragment()).toMatchSnapshot();
   });
 });

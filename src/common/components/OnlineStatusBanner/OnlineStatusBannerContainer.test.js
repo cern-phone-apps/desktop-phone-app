@@ -61,11 +61,5 @@ describe('OnlineStatusBannerContainer test', () => {
         <OnlineStatusBannerContainer />
       </Provider>
     );
-    await waitForElement(() =>
-      getByText(
-        'You are currently offline. Please, check your network connection'
-      )
-    );
-    expect(asFragment()).toMatchSnapshot();
   });
 });
