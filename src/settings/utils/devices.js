@@ -68,7 +68,7 @@ function gotStream(stream) {
 }
 
 /**
- * This function will set the audio output of the application to the
+ * This function will set the audio of the ringtones to the
  * selected device.
  * @param sinkId The id of the device that will be set.
  */
@@ -79,53 +79,25 @@ export function changeRingToneDestination(sinkId) {
    * @type {string[]}
    */
   let audioIds = ['ringbackTone', 'ringTone'];
-  let elements = audioIds.map(value => document.getElementById(value));
-
-  elements.forEach(element => {
-    if (!element) {
-      warnMessage('Audio element does not exist.');
-      return;
-    }
-    logMessage('sinkId:', sinkId);
-
-    if (typeof element.sinkId !== 'undefined') {
-      element
-        .setSinkId(sinkId)
-        .then(function() {
-          logMessage('Success, audio output device attached: ' + sinkId);
-        })
-        .catch(function(error) {
-          let message = error;
-          if (error.name === 'SecurityError') {
-            message =
-              'You need to use HTTPS for selecting audio output ' +
-              'device: ' +
-              error;
-          }
-          errorMessage(message);
-          // Jump back to first output device in the list as it's the default.
-          // audioOutputSelect.selectedIndex = 0
-        });
-    } else {
-      warnMessage(
-        'Browser does not support output device selection. If using Chrome, it needs an audio or video element'
-      );
-    }
-  });
+  changeAudioDestination(sinkId, audioIds);
 }
 
 /**
- * This function will set the audio output of the application to the
+ * This function will set the audio of the input call to the
  * selected device.
  * @param sinkId The id of the device that will be set.
  */
-export function changeAudioDestination(sinkId) {
+export function changeAudioInputDestination(sinkId) {
   /**
    * We need to loop through all the different application's audio inputs
    * in order to configure their sound.
    * @type {string[]}
    */
   let audioIds = ['callsAudioInput'];
+  changeAudioDestination(sinkId, audioIds);
+}
+
+function changeAudioDestination(sinkId, audioIds) {
   let elements = audioIds.map(value => document.getElementById(value));
 
   elements.forEach(element => {

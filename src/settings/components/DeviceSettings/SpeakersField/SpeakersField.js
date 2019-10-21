@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
-import { changeAudioDestination } from "settings/utils/devices";
+import PropTypes from 'prop-types';
+import { changeAudioInputDestination } from 'settings/utils/devices';
 import {
   DeviceField,
   devicePropTypes
-} from "settings/components/DeviceSettings/DeviceField";
-import DetectRTC from "detectrtc";
+} from 'settings/components/DeviceSettings/DeviceField';
+import DetectRTC from 'detectrtc';
 
 /**
  * Displays a dropdown field with all the speakers available
@@ -24,7 +24,6 @@ export class SpeakersField extends DeviceField {
   };
 
   componentDidMount = () => {
-
     this.state.hasDevice = false;
     if (this.props && this.props.outputDevice) {
       this.state.device = this.props.outputDevice;
@@ -36,12 +35,12 @@ export class SpeakersField extends DeviceField {
         hasDevice: DetectRTC.hasSpeakers
       });
     });
-    changeAudioDestination(this.state.device);
+    changeAudioInputDestination(this.state.device);
   };
 
   selectDevice = value => {
     this.props.setSpeaker(value);
-    changeAudioDestination(value);
+    changeAudioInputDestination(value);
   };
 }
 
