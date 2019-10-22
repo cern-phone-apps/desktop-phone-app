@@ -5,9 +5,13 @@ import PropTypes from 'prop-types';
 import { logMessage } from 'common/utils/logs';
 import styles from './OnlineStatusBanner.module.css';
 
-function OnlineStatusBanner({ onlineStatus, setOnlineStatus }) {
+function OnlineStatusBanner({
+  onlineStatus,
+  setOnlineStatus,
+  authError,
+  style
+}) {
   logMessage('Loading OnlineStatusBanner');
-
   const setAppOnlineStatus = useCallback(() => {
     setOnlineStatus(navigator.onLine);
   }, [setOnlineStatus]);
@@ -25,14 +29,22 @@ function OnlineStatusBanner({ onlineStatus, setOnlineStatus }) {
       window.removeEventListener('offline', setAppOnlineStatus);
     };
   }, [setAppOnlineStatus]);
-
-  if (onlineStatus) {
+  console.log(authError);
+  if (onlineStatus && authError !== 'DB-42') {
     return null;
   }
   return (
-    <div className={`padded-item ${styles.callForwardingMessage}`}>
-      <Icon name="warning sign" /> You are currently offline. Please, check your
-      network connection
+    <div
+      className={`padded-item ${styles.callForwardingMessage}`}
+      style={style}
+    >
+      <Icon name="warning sign" />
+      {!onlineStatus
+        ? 'You are currently offline. Please, check your network connection'
+        : ''}
+      {authError === 'DB-42' && onlineStatus
+        ? "Your credentials have expired. Please sign in again."
+        : ''}
     </div>
   );
 }

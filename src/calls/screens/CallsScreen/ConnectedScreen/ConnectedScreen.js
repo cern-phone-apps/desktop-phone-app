@@ -8,6 +8,8 @@ import CallerTabsSelectorContainer from 'calls/components/CallerTabsSelector/Cal
 import CallForwardingBanner from 'settings/components/CallForwardingSettings/CallForwardingBanner/CallForwardingBanner';
 import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCallModal/IncomingCallModalContainer';
 import styles from './ConnectedScreen.module.css';
+import OnlineConnectionBannerContainer from 'common/components/OnlineStatusBanner/OnlineStatusBannerContainer';
+
 
 export const ConnectedScreen = ({ calling, lastCall }) => (
   <Grid.Column
@@ -19,6 +21,7 @@ export const ConnectedScreen = ({ calling, lastCall }) => (
     <RightColumn className={styles.container}>
       <div className={styles.innerContainer}>
         <MainHeaderContainer />
+        <OnlineConnectionBannerContainer />
         <IncomingCallModalContainer />
         <CallForwardingBanner />
         <div>

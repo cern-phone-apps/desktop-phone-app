@@ -10,6 +10,7 @@ import NumberConnectorContainer from 'calls/components/NumberConnector/NumberCon
 import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButton/DownloadDebugLogsButton';
 import SettingsButtonContainer from 'common/components/SettingsButton/SettingsButtonContainer';
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
+import OnlineConnectionBannerContainer from 'common/components/OnlineStatusBanner/OnlineStatusBannerContainer';
 
 function SelectPhoneNumberModal() {
   const loginErrorSolutions = [
@@ -41,6 +42,7 @@ function NotConnectedScreen({ isAuthenticated, connected }) {
   if (connected) return <Redirect to="/home" />;
   return (
     <ErrorBoundary>
+      <OnlineConnectionBannerContainer style={{ position: "fixed" }}/>
       <SettingsModalContainer />
       <SelectPhoneNumberModal />
     </ErrorBoundary>
