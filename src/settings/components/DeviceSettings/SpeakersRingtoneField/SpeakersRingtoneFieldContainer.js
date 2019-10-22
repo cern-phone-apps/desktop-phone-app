@@ -5,7 +5,9 @@ import { setSpeakerRingtone } from 'settings/actions/devices';
 
 function mapStateToProps({ settings }) {
   return {
-    outputDevice: settings.devices ? settings.devices.speaker : undefined
+    outputDevice: settings.devices
+      ? settings.devices.speakerRingtone
+      : undefined
   };
 }
 
