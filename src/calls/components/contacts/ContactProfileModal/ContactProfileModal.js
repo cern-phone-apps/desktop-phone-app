@@ -19,6 +19,7 @@ function ContactProfileModalContent({ profile }) {
       <UserProfileExtraInfo
         mail={profile.mail}
         physicalDeliveryOfficeName={profile.physicalDeliveryOfficeName}
+        username={profile.displayName}
       />
       {profile.phones &&
         profile.phones.map((phone, index) => {
