@@ -18,13 +18,5 @@ exports[`UserProfileExtraInfo renders the component 1`] = `
      
     28/1-002
   </li>
-  <li>
-    <i
-      aria-hidden="true"
-      class="chat icon"
-    />
-     
-    Chat with Name and Surname
-  </li>
 </ul>
 `;

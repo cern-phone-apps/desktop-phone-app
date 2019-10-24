@@ -23,12 +23,10 @@ describe('UserProfileExtraInfo', () => {
       <UserProfileExtraInfo
         mail="johndoe@cern.ch"
         physicalDeliveryOfficeName="28/1-002"
-        username="Name and Surname"
       />
     );
 
     await waitForElement(() => getByText(/johndoe@cern.ch/i));
     await waitForElement(() => getByText('28/1-002'));
-    await waitForElement(() => getByText('Chat with Name and Surname'));
   });
 });

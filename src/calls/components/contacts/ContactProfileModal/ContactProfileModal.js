@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import {
   Dimmer,
   Header,
+  Button,
   Icon,
   Loader,
   Modal,
-  Segment
+  Segment,
+  Container,
+  Grid
 } from 'semantic-ui-react';
 import { formatUserOrganization } from 'calls/utils/formatters';
 import UserPhoneNumberButtonContainer from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer';
@@ -21,20 +24,34 @@ function ContactProfileModalContent({ profile }) {
         physicalDeliveryOfficeName={profile.physicalDeliveryOfficeName}
         username={profile.displayName}
       />
-      {profile.phones &&
-        profile.phones.map((phone, index) => {
-          if (phone.number !== null) {
-            return (
-              <UserPhoneNumberButtonContainer
-                key={`button-${index}`}
-                phoneNumber={phone.number}
-                icon={phone.phoneType}
-                callerName={profile.displayName}
-              />
-            );
-          }
-          return null;
-        })}
+      <Grid columns={1} divided>
+        <Grid.Row>
+          <Grid.Column>
+            {profile.phones &&
+              profile.phones.map((phone, index) => {
+                if (phone.number !== null) {
+                  return (
+                    <UserPhoneNumberButtonContainer
+                      key={`button-${index}`}
+                      phoneNumber={phone.number}
+                      icon={phone.phoneType}
+                      callerName={profile.displayName}
+                    />
+                  );
+                }
+                return null;
+              })}
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <Button fluid className="CalleeProfileNumber" role="button">
+              <i aria-hidden="true" class="chat icon"></i>
+              Open Chat
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Modal.Content>
   );
 }

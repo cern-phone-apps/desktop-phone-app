@@ -41,7 +41,7 @@ class Contact extends Component {
         </Item.Content>
         <button
           type="button"
-          className="ui circular icon button OnCallDetails__HangupButton"
+          className="ui icon button OnCallDetails__HangupButton"
           style={{ margin: '1%' }}
         >
           <i className="chat icon" />
