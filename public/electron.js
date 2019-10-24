@@ -68,7 +68,10 @@ const handleAuthDidNavigateEvent = (event, url) => {
 };
 
 function isAnyWindowOpen() {
-  return (mainWindow && mainWindow.isVisible()) || (authWindow && authWindow.isVisible());
+  return (
+    (mainWindow && mainWindow.isVisible()) ||
+    (authWindow && authWindow.isVisible())
+  );
 }
 
 const handleAuthDidFinishLoad = () => {
@@ -209,15 +212,19 @@ const menu = Menu.buildFromTemplate([
     ]
   },
   {
-    label: "Edit",
+    label: 'Edit',
     submenu: [
-        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
-        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
-        { type: "separator" },
-        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
-        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
-        { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+      { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+      { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+      { type: 'separator' },
+      { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+      { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+      { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+      {
+        label: 'Select All',
+        accelerator: 'CmdOrCtrl+A',
+        selector: 'selectAll:'
+      }
     ]
   },
   {
@@ -441,31 +448,25 @@ const hide = () => {
 
   createTray();
 
-  if(app.dock != null){
-    app.dock.hide()
+  if (app.dock != null) {
+    app.dock.hide();
   }
 };
 
 const toggleDockIcon = () => {
-  if(app.dock != null) {
-    if(app.dock.isVisible()) {
+  if (app.dock != null) {
+    if (app.dock.isVisible()) {
       app.dock.hide();
     } else {
       app.dock.show();
     }
   }
-
 };
 
 const toggleWindow = () => {
-  if (authWindow) {
+  if (authWindow || mainWindow) {
     return authWindow.isVisible() ? authWindow.hide() : authWindow.show();
-  } else {
-    if (mainWindow) {
-      return mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
-    }
   }
-
   return null;
 };
 
@@ -474,40 +475,37 @@ const createTray = () => {
     ? path.join(__dirname, '/../static/icons/icon_16.png')
     : path.join(process.resourcesPath, 'icons', 'icon_16.png');
 
-  if(tray == null) {
+  if (tray == null) {
     tray = new Tray(imagePath);
     tray.on('click', () => {
       toggleWindow();
       toggleDockIcon();
       createTray();
-    }) 
+    });
   }
 
-  const tryMenu = Menu.buildFromTemplate(
-    [
-      {
-        label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
-          if(isAnyWindowOpen()) {
-            sendAppHideNotification();
-          }
-
-          toggleWindow();
-          toggleDockIcon();
-          createTray();
+  const tryMenu = Menu.buildFromTemplate([
+    {
+      label: isAnyWindowOpen() ? 'Hide' : 'Show',
+      click: (item, window, event) => {
+        if (isAnyWindowOpen()) {
+          sendAppHideNotification();
         }
-      },
-      { type: "separator" },
-      {
-        label: 'Quit', click: (item, window, event) => {
-          forceQuit = true;
-          app.quit();
-        }
-      },
-    ]
-  )
-    ;
+        toggleWindow();
+        toggleDockIcon();
+        createTray();
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Quit',
+      click: (item, window, event) => {
+        forceQuit = true;
+        app.quit();
+      }
+    }
+  ]);
   tray.setContextMenu(tryMenu);
-
 };
 
 const handleAppReady = () => {

@@ -9,7 +9,8 @@ import {
   recentCallsReducer,
   doNotDisturbReducer,
   profileReducer,
-  contactsReducer
+  contactsReducer,
+  alertsReducer
 } from 'dial-core';
 
 import settings from 'settings/reducers/index';
@@ -35,5 +36,6 @@ export default history =>
     numbers: callsReducer.numbersReducer,
     status: doNotDisturbReducer,
     profile: profileReducer,
-    contacts: contactsReducer
+    contacts: contactsReducer,
+    alerts: alertsReducer
   });
