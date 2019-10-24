@@ -42,7 +42,7 @@ class Contact extends Component {
         <button
           type="button"
           className="ui icon button OnCallDetails__HangupButton"
-          style={{ margin: '1%' }}
+          style={{ margin: '1%', background: '#000' }}
         >
           <i className="chat icon" />
         </button>
