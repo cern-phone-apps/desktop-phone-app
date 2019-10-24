@@ -10,7 +10,6 @@ import IncomingCallModalContainer from 'calls/components/call_modals/IncomingCal
 import styles from './ConnectedScreen.module.css';
 import OnlineConnectionBannerContainer from 'common/components/OnlineStatusBanner/OnlineStatusBannerContainer';
 
-
 export const ConnectedScreen = ({ calling, lastCall }) => (
   <Grid.Column
     computer={12}

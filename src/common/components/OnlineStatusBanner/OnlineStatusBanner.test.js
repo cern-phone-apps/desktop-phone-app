@@ -23,10 +23,5 @@ describe('OnlineStatusBanner tests', () => {
         setOnlineStatus={setOnlineStatus}
       />
     );
-    await waitForElement(() =>
-      getByText(
-        'You are currently offline. Please, check your network connection'
-      )
-    );
   });
 });

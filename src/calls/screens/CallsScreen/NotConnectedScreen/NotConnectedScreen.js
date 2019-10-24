@@ -42,7 +42,7 @@ function NotConnectedScreen({ isAuthenticated, connected }) {
   if (connected) return <Redirect to="/home" />;
   return (
     <ErrorBoundary>
-      <OnlineConnectionBannerContainer style={{ position: "fixed" }}/>
+      <OnlineConnectionBannerContainer style={{ position: 'fixed' }} />
       <SettingsModalContainer />
       <SelectPhoneNumberModal />
     </ErrorBoundary>

@@ -43,7 +43,7 @@ function OnlineStatusBanner({
         ? 'You are currently offline. Please, check your network connection'
         : ''}
       {authError === 'DB-42' && onlineStatus
-        ? "Your credentials have expired. Please sign in again."
+        ? 'Your credentials have expired. Please sign in again.'
         : ''}
     </div>
   );
