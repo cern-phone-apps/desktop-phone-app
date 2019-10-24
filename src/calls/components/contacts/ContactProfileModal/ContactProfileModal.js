@@ -47,7 +47,7 @@ function ContactProfileModalContent({ profile }) {
           <Grid.Column>
             <Button fluid className="CalleeProfileNumber" role="button">
               <i aria-hidden="true" class="chat icon"></i>
-              Open Chat
+              Send private message
             </Button>
           </Grid.Column>
         </Grid.Row>
