@@ -20,7 +20,7 @@ class Contact extends Component {
   };
 
   render() {
-    const { contact, findUserById } = this.props;
+    const { contact } = this.props;
     return (
       <Item className="" onClick={this.selectContactAction}>
         <div className={`ui tiny image ${styles.avatar}`}>
