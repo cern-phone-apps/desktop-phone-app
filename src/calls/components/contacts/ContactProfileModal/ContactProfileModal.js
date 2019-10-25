@@ -8,7 +8,6 @@ import {
   Loader,
   Modal,
   Segment,
-  Container,
   Grid
 } from 'semantic-ui-react';
 import { formatUserOrganization } from 'calls/utils/formatters';
