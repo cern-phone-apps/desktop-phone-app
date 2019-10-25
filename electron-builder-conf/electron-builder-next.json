@@ -2,9 +2,6 @@
   "appId": "ch.cern.phonewebapp",
   "productName": "CERN Phone App Next",
   "generateUpdatesFilesForAllChannels": true,
-  "asarUnpack": [
-    "./node_modules/node-notifier/vendor/**"
-  ],
   "publish": [
     {
       "provider": "github",
