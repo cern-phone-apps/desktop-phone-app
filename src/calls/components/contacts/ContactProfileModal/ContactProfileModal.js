@@ -45,10 +45,18 @@ function ContactProfileModalContent({ profile }) {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <Button fluid className="CalleeProfileNumber" role="button">
-              <i aria-hidden="true" class="chat icon"></i>
-              Send private message
-            </Button>
+            <a
+              href={
+                'https://mattermost.web.cern.ch/_redirect/messages/@' +
+                profile.username
+              }
+              target="_blank"
+            >
+              <Button fluid className="CalleeProfileNumber" role="button">
+                <i aria-hidden="true" class="chat icon"></i>
+                Send private message
+              </Button>
+            </a>
           </Grid.Column>
         </Grid.Row>
       </Grid>

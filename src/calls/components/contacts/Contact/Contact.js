@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Item, Icon } from 'semantic-ui-react';
+import { Item, Icon, Button } from 'semantic-ui-react';
 
 import { formatUserOrganization } from 'calls/utils/formatters';
 import styles from './Contact.module.css';
@@ -39,13 +39,21 @@ class Contact extends Component {
             {contact ? formatUserOrganization(contact) : ''}
           </Item.Extra>
         </Item.Content>
-        <button
-          type="button"
+        <Button
+          type="a"
+          onClick={e => {
+            e.stopPropagation();
+          }}
+          href={
+            'https://mattermost.web.cern.ch/_redirect/messages/@' +
+            contact.username
+          }
+          target="_blank"
           className="ui icon button OnCallDetails__HangupButton"
-          style={{ margin: '1%', background: '#000' }}
+          style={{ margin: '1%', background: 'white' }}
         >
           <i className="chat icon" />
-        </button>
+        </Button>
       </Item>
     );
   }
