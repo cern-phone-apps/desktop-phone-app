@@ -49,6 +49,7 @@ class Contact extends Component {
             contact.username
           }
           target="_blank"
+          rel="noopener noreferrer"
           className="ui icon button OnCallDetails__HangupButton"
           style={{ margin: '1%', background: 'white' }}
         >

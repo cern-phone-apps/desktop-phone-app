@@ -50,6 +50,7 @@ function ContactProfileModalContent({ profile }) {
                 profile.username
               }
               target="_blank"
+              rel="noopener noreferrer"
             >
               <Button fluid className="CalleeProfileNumber" role="button">
                 <i aria-hidden="true" class="chat icon"></i>
