@@ -25,13 +25,14 @@
     "electron-start": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "preelectron-pack": "yarn build",
-    "electron-pack": "yarn build && electron-builder build -mlw",
-    "electron-pack-windows": "yarn build && electron-builder build -m",
-    "electron-pack-mac": "electron-builder build -m",
-    "electron-pack-linux": "yarn build && electron-builder build -l",
-    "publish-prod": "yarn build && electron-builder build -mlw --publish always",
-    "electron-pack-next": "REACT_APP_NEXT=true yarn build && REACT_APP_NEXT=true electron-builder --config electron-builder-next.json build -mlw",
+    "build-react": "yarn build",
+    "pack-next": "REACT_APP_NEXT=true yarn build && REACT_APP_NEXT=true electron-builder --config electron-builder-conf/electron-builder-next.json build -mlw",
+    "pack-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -mlw",
+    "pack-windows-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
+    "pack-mac-prod": "NOTARIZE=false yarn build-react && electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
+    "pack-mac-prod-notarized": "yarn build-react && electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
+    "pack-linux-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -l",
+    "publish-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -mlw --publish always",
     "publish-next": "REACT_APP_NEXT=true yarn build && electron-builder build --config electron-builder-next.json -mlw --publish always"
   },
   "husky": {
@@ -153,64 +154,5 @@
     "redux-mock-store": "^1.5.1",
     "system-commands": "^1.1.7",
     "typescript": "^3.5.2"
-  },
-  "build": {
-    "appId": "ch.cern.phonewebapp",
-    "productName": "CERN Phone App",
-    "asarUnpack": [
-      "./node_modules/node-notifier/vendor/**"
-    ],
-    "generateUpdatesFilesForAllChannels": true,
-    "publish": {
-      "provider": "github",
-      "owner": "cern-phone-apps",
-      "repo": "desktop-phone-app",
-      "publishAutoUpdate": true
-    },
-    "afterSign": "scripts/notarize.js",
-    "mac": {
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "category": "public.app-category.social-networking",
-      "target": "dmg",
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist",
-      "extendInfo": {
-        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
-      }
-    },
-    "win": {
-      "target": "nsis"
-    },
-    "linux": {
-      "target": "AppImage",
-      "desktop": {
-        "Name": "CERN Phone App",
-        "Icon": "./assets/512x512.icns",
-        "Comment": "CERN Phone Application to place and receive calls."
-      }
-    },
-    "appImage": {
-      "synopsis": "CERN Phone Application to place and receive calls.",
-      "category": "Utility",
-      "artifactName": "cern-phone-app-${version}-${arch}-${os}.AppImage"
-    },
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    },
-    "extraFiles": [
-      {
-        "from": "static",
-        "to": "resources",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
-    "afterAllArtifactBuild": "docker/configure_appimage.js"
   }
 }
