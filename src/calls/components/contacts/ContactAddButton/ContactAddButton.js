@@ -20,7 +20,7 @@ function ContactAddButton({ contact }) {
     setHasContact(true);
   };
   const removeContact = async () => {
-    await dispatch(dialBackendApi().removeUserContact(contact.personId));
+    await dispatch(dialBackendApi().removeUserContact(contact.username));
     setHasContact(false);
   };
 
@@ -28,11 +28,9 @@ function ContactAddButton({ contact }) {
     const ids =
       contacts === undefined || contacts.contacts === undefined
         ? []
-        : contacts.contacts.map(a => a.personId.toString());
-    if (
-      ids.includes(contact.personId) ||
-      ids.includes(contact.personId.toString())
-    ) {
+        : contacts.contacts.map(a => a.username);
+
+    if (ids.includes(contact.username) || ids.includes(contact.username)) {
       setHasContact(true);
     } else {
       setHasContact(false);
