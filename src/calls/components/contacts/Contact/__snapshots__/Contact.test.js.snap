@@ -30,7 +30,7 @@ exports[`Contact tests renders empty List without any errors 1`] = `
       href="https://mattermost.web.cern.ch/_redirect/messages/@undefined"
       rel="noopener noreferrer"
       role="button"
-      style="margin: 1%; background: white;"
+      style="margin: 1%; background-color: transparent;"
       target="_blank"
       type="a"
     >

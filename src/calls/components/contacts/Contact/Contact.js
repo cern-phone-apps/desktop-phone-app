@@ -20,7 +20,7 @@ class Contact extends Component {
   };
 
   render() {
-    const { contact } = this.props;
+    const { contact, findUserById } = this.props;
     return (
       <Item className="" onClick={this.selectContactAction}>
         <div className={`ui tiny image ${styles.avatar}`}>
@@ -51,7 +51,7 @@ class Contact extends Component {
           target="_blank"
           rel="noopener noreferrer"
           className="ui icon button OnCallDetails__HangupButton"
-          style={{ margin: '1%', background: 'white' }}
+          style={{ margin: '1%', backgroundColor: 'transparent' }}
         >
           <i className="chat icon" />
         </Button>
