@@ -12,7 +12,6 @@ describe('UserProfileExtraInfo', () => {
       <UserProfileExtraInfo
         mail="johndoe1@cern.ch"
         physicalDeliveryOfficeName="28/1-002"
-        username="Name and Surname"
       />
     );
     expect(container.firstChild).toMatchSnapshot();
