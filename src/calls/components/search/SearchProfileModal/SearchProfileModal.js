@@ -40,7 +40,6 @@ function SearchProfileModalContent(props) {
         <UserProfileExtraInfo
           mail={props.user.mail}
           physicalDeliveryOfficeName={props.user.physicalDeliveryOfficeName}
-          username={props.user.displayName}
         />
       )}
       {!props.user ? (
