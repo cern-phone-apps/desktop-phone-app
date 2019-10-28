@@ -112,7 +112,8 @@ function NumberConnector({
     connect,
     getUserPhoneNumbers,
     numberOfMobileNumbers,
-    rememberNumber
+    rememberNumber,
+    firstNumberAvailable
   ]);
 
   const rememberNumberOnChange = () => {
