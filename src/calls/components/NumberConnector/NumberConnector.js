@@ -104,7 +104,7 @@ function NumberConnector({
 
     getUserPhoneNumbers().then(() => {
       if (numberOfMobileNumbers === 1) {
-        connect(activeNumber);
+        connect(firstNumberAvailable);
       }
     });
   }, [
