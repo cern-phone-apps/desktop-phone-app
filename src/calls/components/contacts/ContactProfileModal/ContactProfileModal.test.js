@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ContactProfileModal from './ContactProfileModal';
 
 global.remote = {
