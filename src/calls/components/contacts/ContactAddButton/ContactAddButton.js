@@ -45,6 +45,7 @@ function ContactAddButton({ contact }) {
   if (hasContact) {
     return (
       <Icon
+        data-testid="HasContactIcon"
         name="star"
         className={styles.ContactAddButton}
         size="big"
@@ -56,6 +57,7 @@ function ContactAddButton({ contact }) {
 
   return (
     <Icon
+      data-testid="HasNoContactIcon"
       name="star"
       className={styles.ContactAddButton}
       size="big"

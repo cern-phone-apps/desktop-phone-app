@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactAddButton tests renders the component with added contact 1`] = `
+<DocumentFragment>
+  <i
+    aria-hidden="true"
+    class="yellow star big icon ContactAddButton"
+    data-testid="HasContactIcon"
+  />
+</DocumentFragment>
+`;
+
+exports[`ContactAddButton tests renders the component with not added contact 1`] = `
+<DocumentFragment>
+  <i
+    aria-hidden="true"
+    class="grey star big icon ContactAddButton"
+    data-testid="HasNoContactIcon"
+  />
+</DocumentFragment>
+`;
