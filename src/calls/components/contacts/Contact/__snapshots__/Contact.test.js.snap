@@ -25,19 +25,6 @@ exports[`Contact tests renders empty List without any errors 1`] = `
         class="extra"
       />
     </div>
-    <a
-      class="ui button ui icon button OnCallDetails__HangupButton"
-      href="https://mattermost.web.cern.ch/_redirect/messages/@undefined"
-      rel="noopener noreferrer"
-      role="button"
-      style="margin: 1%; background-color: transparent;"
-      target="_blank"
-      type="a"
-    >
-      <i
-        class="chat icon"
-      />
-    </a>
   </div>
 </DocumentFragment>
 `;
