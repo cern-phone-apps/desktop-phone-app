@@ -1,6 +1,6 @@
-import React from "react";
-import Raven from "raven-js";
-import { logMessage } from "common/utils/logs";
+import React from 'react';
+import * as Sentry from '@sentry/browser';
+import { logMessage } from 'common/utils/logs';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,8 +17,8 @@ class ErrorBoundary extends React.Component {
       error: error,
       errorInfo: errorInfo
     });
-    if (process.env.NODE_ENV === "production") {
-      Raven.captureException(error, { extra: errorInfo });
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.captureException(error, { extra: errorInfo });
     }
   }
 
@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component {
       return (
         <div>
           <h2>Something went wrong.</h2>
-          <details style={{ whiteSpace: "pre-wrap" }}>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
             {this.state.error && this.state.error.toString()}
             <br />
             {this.state.errorInfo.componentStack}
