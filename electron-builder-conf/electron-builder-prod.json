@@ -13,7 +13,7 @@
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "category": "public.app-category.social-networking",
-      "target": "dmg",
+      "target": "zip",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
       "extendInfo": {
@@ -21,7 +21,9 @@
       }
     },
     "win": {
-      "target": "nsis"
+      "asar": true,
+      "publisherName": ["dialtone"],
+      "target": ["nsis"]
     },
     "linux": {
       "target": "AppImage",
