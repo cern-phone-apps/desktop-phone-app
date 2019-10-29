@@ -10,6 +10,29 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+
+## w0.5.7 -2019-10-29
+### Added
+- Autoregister a phone number when a user only has one. (PR #169)
+- Enable copy & paste in the application. (PR #171)
+- Test coverage checks to the PR CI. (PR #173 and #178)
+- Application displays a banner when there is no internet connection. In this case, the register buttons are also disabled. (PR #185)
+- Support for Tone js `0.8.9`, which should allow users again to use DTMF commands. (PR #188)
+- Contribution docs to homogenize PR and commit formats, as well as to let contributors know good practices. (PR #192)
+- Apple Notarization scripts to work in Mac OS Catalina (PR #200)
+
+### Fixed
+- Linux version is now patched after being packed, to work properly on CENTOS 7 (PR #177 and #190)
+- Recent call details modal is now closed when a call is established. (PR #182)
+### Improved
+- Error messages in the register screen. (PR #172)
+- Default close behavior is minimize to tray. (PR #181 and PR #187)
+  - Added right button menu to the tray icon to show/hide the application.
+  - App is closed if the user goes to the menu an selects "Quit" or "Cmd+q/Ctrl+q".
+- An error message is displayed when the user tries to make/receive a call and there are no input/output devices. (PR #183)
+- When the connection to the Dial Backend cannot be established, we display a banner but we don't log the user out.
+ We let him to continue using the application (in limited mode). (PR #192)
+
 ## w0.5.6 -2019-10-07
 ### Added
 1. Entitlements file for Mac, to allow microphone access to the app (PR #157)
