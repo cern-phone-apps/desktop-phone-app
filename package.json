@@ -29,10 +29,14 @@
     "pack-next": "REACT_APP_NEXT=true yarn build && REACT_APP_NEXT=true electron-builder --config electron-builder-conf/electron-builder-next.json build -mlw",
     "pack-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -mlw",
     "pack-windows-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
-    "pack-mac-prod": "NOTARIZE=false yarn build-react && electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
+    "pack-mac-prod": "yarn build-react && SET_NO_SANDBOX=false NOTARIZE=true electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
+    "pack-win-prod": "yarn build-react && SET_NO_SANDBOX=false NOTARIZE=false electron-builder --config electron-builder-conf/electron-builder-prod.json build -w",
+    "pack-linux-prod": "yarn build && SET_NO_SANDBOX=true NOTARIZE=false electron-builder --config electron-builder-conf/electron-builder-prod.json build -l",
     "pack-mac-prod-notarized": "yarn build-react && electron-builder --config electron-builder-conf/electron-builder-prod.json build -m",
-    "pack-linux-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -l",
     "publish-prod": "yarn build && electron-builder --config electron-builder-conf/electron-builder-prod.json build -mlw --publish always",
+    "publish-prod-mac": "yarn build && SET_NO_SANDBOX=false NOTARIZE=true electron-builder --config electron-builder-conf/electron-builder-prod.json build -m --publish always",
+    "publish-prod-linux": "yarn build && SET_NO_SANDBOX=true NOTARIZE=false electron-builder --config electron-builder-conf/electron-builder-prod.json build -l --publish always",
+    "publish-prod-win": "yarn build && SET_NO_SANDBOX=false NOTARIZE=false electron-builder --config electron-builder-conf/electron-builder-prod.json build -w --publish always",
     "publish-next": "REACT_APP_NEXT=true yarn build && electron-builder build --config electron-builder-next.json -mlw --publish always"
   },
   "husky": {

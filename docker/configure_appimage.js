@@ -1,8 +1,10 @@
 const system = require('system-commands');
 
 exports.default = async function(context) {
-  const { electronPlatformName } = context;
-  if (electronPlatformName !== 'linux') {
+
+  // TODO Run this only on the linux build
+  if (process.env.SET_NO_SANDBOX !== 'true') {
+    console.log('Not setting the sandbox mode to false');
     return;
   }
 

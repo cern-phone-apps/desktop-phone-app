@@ -5,10 +5,11 @@ const { notarize } = require('electron-notarize');
 
 module.exports = async function(params) {
   // Only notarize the app on Mac OS only.
-  if (process.platform !== 'darwin' || process.env.NOTARIZE === 'false') {
+  const {electronPlatformName} = params;
+  if (electronPlatformName !== 'darwin' || process.env.NOTARIZE === 'false') {
+    console.log('Not notarizing the app');
     return;
   }
-  console.log('afterSign hook triggered', params);
 
   // Same appId in electron-builder.
   const appId = 'ch.cern.phonewebapp';
