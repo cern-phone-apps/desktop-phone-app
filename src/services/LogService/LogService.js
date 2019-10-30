@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Raven from 'raven-js';
+import * as Sentry from '@sentry/browser';
 import ReactPiwik from 'react-piwik';
 import { logMessage } from 'common/utils/logs';
+import config from 'config';
 
 export const withLoggerService = WrappedComponent => {
   const WithLoggerService = ({ sendStats, children }) => {
@@ -11,7 +12,7 @@ export const withLoggerService = WrappedComponent => {
      */
     if (sendStats) {
       logMessage(`sendStats: ${sendStats}. We will send stats`);
-      Raven.config(process.env.REACT_APP_SENTRY_DSN).install();
+      Sentry.init({ dsn: config.sentry.DSN });
     } else {
       logMessage(`sendStats: ${sendStats}. We won't send stats`);
     }
