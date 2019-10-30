@@ -13,12 +13,15 @@
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "category": "public.app-category.social-networking",
-      "target": "zip",
+      "target": "dmg",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
       "extendInfo": {
         "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
       }
+    },
+    "dmg": {
+      "sign": false
     },
     "win": {
       "asar": true,
