@@ -53,7 +53,7 @@ function ContactProfileModalContent({ profile }) {
               rel="noopener noreferrer"
             >
               <Button fluid className="CalleeProfileNumber" role="button">
-                <i aria-hidden="true" class="chat icon"></i>
+                <i aria-hidden="true" className="chat icon"></i>
                 Send private message
               </Button>
             </a>
@@ -102,53 +102,41 @@ ContactProfileModalHeader.defaultProps = {
     displayName: ''
   }
 };
+const handleClose = unSelectContact => () => {
+  unSelectContact();
+};
 
-export class ContactProfileModal extends Component {
-  static propTypes = {
-    modalOpen: PropTypes.bool.isRequired,
-    unSelectContact: PropTypes.func.isRequired,
-    profile: PropTypes.shape({
-      number: PropTypes.string
-    }),
-    fetching: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    profile: null
-  };
-
-  handleClose = () => {
-    const { unSelectContact } = this.props;
-    unSelectContact();
-  };
-
-  render() {
-    const { modalOpen, profile, fetching } = this.props;
-    return (
-      <Modal
-        dimmer="blurring"
-        size="tiny"
-        open={modalOpen}
-        onClose={this.handleClose}
-        closeIcon
-      >
-        {fetching ? (
-          <Modal.Content>
-            <Segment basic>
-              <Dimmer active inverted>
-                <Loader inverted size="large" />
-              </Dimmer>
-            </Segment>
-          </Modal.Content>
-        ) : (
-          <React.Fragment>
-            <ContactProfileModalHeader profile={profile} />
-            <ContactProfileModalContent profile={profile} />
-          </React.Fragment>
-        )}
-      </Modal>
-    );
-  }
+function ContactProfileModal({
+  modalOpen,
+  profile,
+  fetching,
+  unSelectContact
+}) {
+  return (
+    <Modal
+      data-testid="ContactProfileModal"
+      dimmer="blurring"
+      size="tiny"
+      open={modalOpen}
+      onClose={handleClose(unSelectContact)}
+      closeIcon
+    >
+      {fetching ? (
+        <Modal.Content>
+          <Segment basic>
+            <Dimmer active inverted>
+              <Loader inverted size="large" />
+            </Dimmer>
+          </Segment>
+        </Modal.Content>
+      ) : (
+        <React.Fragment>
+          <ContactProfileModalHeader profile={profile} />
+          <ContactProfileModalContent profile={profile} />
+        </React.Fragment>
+      )}
+    </Modal>
+  );
 }
 
 export default ContactProfileModal;
