@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Dimmer,
   Header,
-  Button,
   Icon,
   Loader,
   Modal,
@@ -14,6 +13,7 @@ import { formatUserOrganization } from 'calls/utils/formatters';
 import UserPhoneNumberButtonContainer from 'calls/components/UserPhoneNumberButton/UserPhoneNumberButtonContainer';
 import ContactAddButton from 'calls/components/contacts/ContactAddButton/ContactAddButton';
 import UserProfileExtraInfo from 'calls/components/UserProfileExtraInfo/UserProfileExtraInfo';
+import PrivateMessageButton from '../PrivateMessageButton/PrivateMessageButton';
 
 function ContactProfileModalContent({ profile }) {
   return (
@@ -44,19 +44,7 @@ function ContactProfileModalContent({ profile }) {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <a
-              href={
-                'https://mattermost.web.cern.ch/_redirect/messages/@' +
-                profile.username
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button fluid className="CalleeProfileNumber" role="button">
-                <i aria-hidden="true" className="chat icon"></i>
-                Send private message
-              </Button>
-            </a>
+            <PrivateMessageButton profile={profile} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
