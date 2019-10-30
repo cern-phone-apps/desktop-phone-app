@@ -12,6 +12,9 @@ import SettingsButtonContainer from 'common/components/SettingsButton/SettingsBu
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
 import OnlineConnectionBannerContainer from 'common/components/OnlineStatusBanner/OnlineStatusBannerContainer';
 
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
+
 function SelectPhoneNumberModal() {
   const loginErrorSolutions = [
     'You can try again in few minutes.',
@@ -37,12 +40,16 @@ function SelectPhoneNumberModal() {
   );
 }
 
-function NotConnectedScreen({ isAuthenticated, connected }) {
+function NotConnectedScreen({ isAuthenticated, connected, logout }) {
+  ipcRenderer.on('logoutRequest', () => {
+    logout();
+  });
+
   if (!isAuthenticated) return <Redirect to="/login" />;
   if (connected) return <Redirect to="/home" />;
   return (
     <ErrorBoundary>
-      <OnlineConnectionBannerContainer style={{ position: "fixed" }}/>
+      <OnlineConnectionBannerContainer style={{ position: 'fixed' }} />
       <SettingsModalContainer />
       <SelectPhoneNumberModal />
     </ErrorBoundary>
