@@ -44,14 +44,14 @@ export class DeviceField extends React.Component {
     for (let a = 0; deviceList[a]; a++) {
       if (deviceList[a].value === device) return true;
     }
-    this.selectDevice('default');
     return false;
   }
 
   render() {
     const { fieldLabel, fieldId, fieldType } = this.props;
     const { hasDevice, devices, device } = this.state;
-    if (hasDevice) {
+
+    if (hasDevice && devices.length > 0) {
       return (
         <Form.Field>
           <label htmlFor={fieldId}>{fieldLabel}</label>
