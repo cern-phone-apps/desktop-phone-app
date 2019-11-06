@@ -7,7 +7,11 @@ import styles from './RecentCallContent.module.css';
 
 function RecentCallContent({ recentCall }) {
   const color = recentCall.missed ? 'red' : 'green';
-  const printableDate = moment(recentCall.endTime).calendar();
+  let printableDate;
+  if (recentCall.startTime || recentCall.endTime)
+    printableDate = recentCall.startTime
+      ? moment(recentCall.startTime).calendar()
+      : moment(recentCall.endTime).calendar();
   const duration = moment.duration(
     moment(recentCall.endTime).diff(moment(recentCall.startTime))
   );
@@ -25,7 +29,10 @@ function RecentCallContent({ recentCall }) {
       </Item.Description>
       <Item.Extra className={styles.ExtraContent}>
         <span className="date">
-          {printableDate} {!recentCall.missed ? `- ${duration.humanize()}` : ''}
+          {printableDate}{' '}
+          {!recentCall.missed && recentCall.endTime && recentCall.startTime
+            ? `- ${duration.humanize()}`
+            : ''}
         </span>
       </Item.Extra>
     </Item.Content>

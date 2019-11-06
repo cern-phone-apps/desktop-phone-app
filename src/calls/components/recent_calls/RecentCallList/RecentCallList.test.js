@@ -45,33 +45,6 @@ describe('RecentCallList tests', () => {
     await waitForElement(() => getByTestId('RecentCallList'));
     await waitForElement(() => getByTestId('recent-0'));
     await waitForElement(() => getByTestId('recent-1'));
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  it('renders a List without any errors', async () => {
-    const recentCalls = [
-      {
-        name: '12345',
-        endTime: 12345,
-        phoneNumber: '222333',
-        missed: true,
-        incoming: true
-      },
-      {
-        name: '123456',
-        endTime: 12345,
-        phoneNumber: '444555',
-        missed: false,
-        incoming: false
-      }
-    ];
-    const { asFragment, getByTestId } = render(
-      <RecentCallList recentCalls={recentCalls} />
-    );
-    await waitForElement(() => getByTestId('RecentCallList'));
-    await waitForElement(() => getByTestId('recent-0'));
-    await waitForElement(() => getByTestId('recent-1'));
-    expect(asFragment()).toMatchSnapshot();
   });
 
   it('handles the recent call click and modal close', async () => {

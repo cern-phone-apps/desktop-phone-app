@@ -76,7 +76,7 @@ exports[`RecentCallListContainer test renders a List without any errors 1`] = `
             <span
               class="date"
             >
-              01/01/1970 - 50 years
+              01/01/1970 
             </span>
           </div>
         </div>
