@@ -257,7 +257,8 @@ export default class PhoneProvider extends React.Component {
 
     setMakeCallRequest({
       name,
-      phoneNumber
+      phoneNumber,
+      startTime: Date.now()
     });
     this.playRingbacktone();
     setIsCalling();
@@ -471,7 +472,7 @@ export default class PhoneProvider extends React.Component {
       if (this.hangupDefault) {
         logMessage('Hanging up default call...');
         // We want to hangup the ongoing call
-        addRecentCall(remote);
+        addRecentCall({ ...remote, endTime: Date.now() });
         // We keep the additional call
         setOngoingCallFinished();
         // This must be after addCallToRecentCalls
@@ -479,8 +480,8 @@ export default class PhoneProvider extends React.Component {
       } else {
         logMessage('Hanging up temp call');
         // We want to hangup the additionalCall
-        logMessage(tempRemote);
-        addRecentCall(tempRemote);
+        logMessage({ ...tempRemote, endTime: Date.now() });
+        addRecentCall({ ...tempRemote, endTime: Date.now() });
         // We keep the remote
         setTempCallFinished();
       }
@@ -494,17 +495,16 @@ export default class PhoneProvider extends React.Component {
       setOngoingCallFinished,
       call: { additionalCalls, tempRemote, remote, onCall }
     } = this.props;
-
     if (additionalCalls > 0) {
       // We need to handle the additionalCalls
       this.handleTerminatedEventWithAdditionalCalls();
     } else if (onCall) {
       // We handle the ongoing call
-      addRecentCall(remote);
+      addRecentCall({ ...remote, endTime: Date.now() });
       setOngoingCallFinished();
     } else {
       // We handle the temp call
-      addRecentCall(tempRemote);
+      addRecentCall({ ...tempRemote, endTime: Date.now() });
       setTempCallFinished();
     }
   };
