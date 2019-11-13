@@ -27,6 +27,12 @@ export default class JwtTokenHandlerDesktop extends JwtTokenHandlerBase {
     return true;
   }
 
+  static changeTrayIcon(isLogged) {
+    return ipcRenderer.sendSync('synchronous-message', 'changeIcon', {
+      isLogged: isLogged
+    });
+  }
+
   static getRefreshToken(state) {
     return ipcRenderer.sendSync('synchronous-message', 'getSecret', {
       name: 'refresh_token'

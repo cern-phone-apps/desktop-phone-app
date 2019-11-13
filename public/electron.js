@@ -469,10 +469,19 @@ const toggleWindow = () => {
   return null;
 };
 
-const createTray = () => {
+changeIcon = isLogged => {
+  const icon = isLogged ? 'icon_16.png' : 'icon_logout_16.png';
   const imagePath = isDev
-    ? path.join(__dirname, '/../static/icons/icon_16.png')
-    : path.join(process.resourcesPath, 'icons', 'icon_16.png');
+    ? path.join(__dirname, '/../static/icons/' + icon)
+    : path.join(process.resourcesPath, 'icons', icon);
+
+  tray.setImage(imagePath);
+};
+
+createTray = () => {
+  const imagePath = isDev
+    ? path.join(__dirname, '/../static/icons/icon_logout_16.png')
+    : path.join(process.resourcesPath, 'icons', 'icon_logout_16.png');
 
   if(tray == null) {
     tray = new Tray(imagePath);
@@ -480,9 +489,8 @@ const createTray = () => {
       toggleWindow();
       toggleDockIcon();
       createTray();
-    }) 
+    });
   }
-
   const tryMenu = Menu.buildFromTemplate(
     [
       {
@@ -596,6 +604,11 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   if (arg === 'update-access-token') {
     await updateAccessToken(obj);
     event.returnValue = 'ok';
+    return;
+  }
+
+  if (arg === 'changeIcon') {
+    changeIcon(obj.isLogged);
     return;
   }
 
