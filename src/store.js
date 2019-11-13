@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { createBlacklistFilter } from 'redux-persist-transform-filter';
 import { createHashHistory } from 'history';
 
-import apiMiddleware from 'middleware';
+import apiMiddleware, { trayIconMiddleware } from 'middleware';
 import createRootReducer from './reducers';
 
 export const history = createHashHistory();
@@ -42,7 +42,11 @@ const createCustomStore = preloadedState => {
     persistedReducers,
     preloadedState,
     compose(
-      applyMiddleware(apiMiddleware, routerMiddleware(history)),
+      applyMiddleware(
+        apiMiddleware,
+        routerMiddleware(history),
+        trayIconMiddleware
+      ),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
