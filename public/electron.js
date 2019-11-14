@@ -382,6 +382,8 @@ const createWindow = async () => {
         const client = pki.certificateFromPem(certificate.data);
         // We check if the certificate is valid
         try {
+          console.log('Verifying certificate');
+
           if (!ca.verify(client)) {
             console.log('Unable to validate the certificate');
           } else {
@@ -390,6 +392,11 @@ const createWindow = async () => {
         } catch (err) {
           console.log(err);
           certificateValid = false;
+          // For localhost developement we need this to accept https connection with self-signed certificates
+          if (isDev) {
+            process.stdout.write(`Preventing certificate error: ${hostname}\n`);
+            certificateValid = true;
+          }
         }
       }
       if (errorCode === 0 || certificateValid) {
