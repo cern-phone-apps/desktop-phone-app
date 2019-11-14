@@ -14,16 +14,15 @@ import JwtTokenHandlerDesktop from 'auth/utils/token-desktop-handler';
 
 const apiEndpoint = config.api.ENDPOINT;
 const apiType = 'desktop';
-console.log(
-  '=========================================================================================',
-  alertsActionFactory
-);
 
 const dialBackendApi = () => ({
   /**
    * Alerts
    */
-  getAlerts: alertsActionFactory(apiEndpoint, apiType, JwtTokenHandlerDesktop),
+  getAlerts: alertsActionFactory(apiEndpoint, apiType, JwtTokenHandlerDesktop)
+    .getAlerts,
+  alertSeen: alertsActionFactory(apiEndpoint, apiType, JwtTokenHandlerDesktop)
+    .alertSeen,
   /**
    * Auth
    */

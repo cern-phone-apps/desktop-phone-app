@@ -13,7 +13,8 @@ function mapStateToProps({ alerts }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getAlerts: dialBackendApi().getAlerts
+      getAlerts: dialBackendApi().getAlerts,
+      alertSeen: dialBackendApi().alertSeen
     },
     dispatch
   );
