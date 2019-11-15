@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, waitForElement, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import Alerts from './Alerts';
-import expectExport from 'expect';
 
 describe('Alerts', () => {
   it('Alerts renders correctly', () => {
