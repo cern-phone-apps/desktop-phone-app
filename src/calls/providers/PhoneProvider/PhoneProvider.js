@@ -524,7 +524,6 @@ export default class PhoneProvider extends React.Component {
       description: 'TONE returned a requestedFailed event'
     };
     setRegistrationFailure(failedError);
-    ElectronService.changeTrayIcon(false);
   };
 
   handleCallFailedEvent = () => {
