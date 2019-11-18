@@ -597,6 +597,7 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
 
   if (arg === 'user-unauthenticated') {
     event.returnValue = 'ok';
+    changeIcon(false);
     unauthenticateUser();
     return;
   }
@@ -615,6 +616,7 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
 
   if (arg === 'user-authenticated') {
     await handleUserAsAuthenticated(obj);
+    changeIcon(true);
     event.returnValue = 'ok';
   }
 
