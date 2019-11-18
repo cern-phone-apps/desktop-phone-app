@@ -2,7 +2,6 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 
 import { Dial } from 'tone-api-web';
-import JwtTokenHandlerDesktop from 'auth/utils/token-desktop-handler';
 import {
   errorMessage,
   infoMessage,
@@ -394,7 +393,7 @@ export default class PhoneProvider extends React.Component {
   handleRegisteredEvent = () => {
     const { setRegistrationSuccess } = this.props;
     setRegistrationSuccess();
-    JwtTokenHandlerDesktop.changeTrayIcon(true);
+    ElectronService.changeTrayIcon(true);
   };
 
   handleAdditionalCall = () => {};
@@ -525,7 +524,7 @@ export default class PhoneProvider extends React.Component {
       description: 'TONE returned a requestedFailed event'
     };
     setRegistrationFailure(failedError);
-    JwtTokenHandlerDesktop.changeTrayIcon(false);
+    ElectronService.changeTrayIcon(false);
   };
 
   handleCallFailedEvent = () => {
