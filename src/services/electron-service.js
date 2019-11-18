@@ -73,7 +73,7 @@ class ElectronService {
   };
 
   static changeTrayIcon(isLogged) {
-    return ipcRenderer.sendSync('synchronous-message', 'changeIcon', {
+    return ipcRenderer.sendSync(SYNC_MESSAGE, 'changeIcon', {
       isLogged
     });
   }
