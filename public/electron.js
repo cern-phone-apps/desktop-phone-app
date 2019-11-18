@@ -609,6 +609,7 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
 
   if (arg === 'changeIcon') {
     changeIcon(obj.isLogged);
+    event.returnValue = 'ok';
     return;
   }
 
