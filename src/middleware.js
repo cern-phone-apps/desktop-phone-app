@@ -66,23 +66,4 @@ export function createApiMiddleware() {
   };
 }
 
-let previousLoggedInState = false;
-export const trayIconMiddleware = store => next => action => {
-  next(action);
-
-  if (store.auth == null) {
-    return;
-  }
-
-  if (store.auth.loggedIn === true && !previousLoggedInState) {
-    previousLoggedInState = true;
-    JwtTokenHandlerDesktop.changeTrayIcon(true);
-  }
-
-  if (store.auth.loggedIn === false && previousLoggedInState) {
-    previousLoggedInState = false;
-    JwtTokenHandlerDesktop.changeTrayIcon(false);
-  }
-};
-
 export default createApiMiddleware();
