@@ -4,7 +4,8 @@ import {
   usersActionFactory,
   contactsActionFactory,
   numbersActionFactory,
-  callForwardingActionFactory
+  callForwardingActionFactory,
+  alertsActionFactory
 } from 'dial-core';
 
 import config from 'config';
@@ -15,6 +16,14 @@ const apiEndpoint = config.api.ENDPOINT;
 const apiType = 'desktop';
 
 const dialBackendApi = () => ({
+  /**
+   * Alerts
+   */
+  getAlerts: alertsActionFactory.fetchAlerts(
+    apiEndpoint,
+    apiType,
+    JwtTokenHandlerDesktop
+  ).getAlerts,
   /**
    * Auth
    */
