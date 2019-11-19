@@ -499,28 +499,25 @@ createTray = () => {
       createTray();
     });
   }
-  const tryMenu = Menu.buildFromTemplate(
-    [
-      {
-        label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
-          if(isAnyWindowOpen()) {
-            sendAppHideNotification();
-          }
+  const tryMenu = Menu.buildFromTemplate([
+    {
+      label: isAnyWindowOpen() ? 'Hide' : 'Show',
+      click: (item, window, event) => {
+        if (isAnyWindowOpen()) {
+          sendAppHideNotification();
+        }
 
-          toggleWindow();
-          toggleDockIcon();
-          createTray();
-        }
-      },
-      { type: "separator" },
-      {
-        label: 'Quit', click: (item, window, event) => {
-          forceQuit = true;
-          app.quit();
-        }
         toggleWindow();
         toggleDockIcon();
         createTray();
+      }
+    },
+    { type: 'separator' },
+    {
+      label: 'Quit',
+      click: (item, window, event) => {
+        forceQuit = true;
+        app.quit();
       }
     },
     { type: 'separator' },
