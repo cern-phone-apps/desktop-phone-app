@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import dialBackendApi from 'services/api';
-import Alerts from './Alerts';
 import { alertsActionFactory } from 'dial-core';
+import Alerts from './Alerts';
 
 function mapStateToProps({ alerts }) {
   return {

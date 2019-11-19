@@ -19,8 +19,11 @@ const dialBackendApi = () => ({
   /**
    * Alerts
    */
-  getAlerts: alertsActionFactory(apiEndpoint, apiType, JwtTokenHandlerDesktop)
-    .getAlerts,
+  getAlerts: alertsActionFactory.fetchAlerts(
+    apiEndpoint,
+    apiType,
+    JwtTokenHandlerDesktop
+  ).getAlerts,
   /**
    * Auth
    */
