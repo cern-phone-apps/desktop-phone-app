@@ -72,6 +72,12 @@ class ElectronService {
     return result;
   };
 
+  static changeTrayIcon(isLogged) {
+    return ipcRenderer.sendSync(SYNC_MESSAGE, 'changeIcon', {
+      isLogged
+    });
+  }
+
   static setReceivingCall = doNotDisturbStatus => {
     const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'receiveCall', {
       doNotDisturb: doNotDisturbStatus

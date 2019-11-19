@@ -2,7 +2,6 @@ import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 
 import { Dial } from 'tone-api-web';
-
 import {
   errorMessage,
   infoMessage,
@@ -394,6 +393,7 @@ export default class PhoneProvider extends React.Component {
   handleRegisteredEvent = () => {
     const { setRegistrationSuccess } = this.props;
     setRegistrationSuccess();
+    ElectronService.changeTrayIcon(true);
   };
 
   handleAdditionalCall = () => {};

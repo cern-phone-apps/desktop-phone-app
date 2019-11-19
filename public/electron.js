@@ -477,10 +477,19 @@ const toggleWindow = () => {
   return null;
 };
 
-const createTray = () => {
+changeIcon = isLogged => {
+  const icon = isLogged ? 'icon_16.png' : 'icon_logout_16.png';
   const imagePath = isDev
-    ? path.join(__dirname, '/../static/icons/icon_16.png')
-    : path.join(process.resourcesPath, 'icons', 'icon_16.png');
+    ? path.join(__dirname, '/../static/icons/' + icon)
+    : path.join(process.resourcesPath, 'icons', icon);
+
+  tray.setImage(imagePath);
+};
+
+createTray = () => {
+  const imagePath = isDev
+    ? path.join(__dirname, '/../static/icons/icon_logout_16.png')
+    : path.join(process.resourcesPath, 'icons', 'icon_logout_16.png');
 
   if (tray == null) {
     tray = new Tray(imagePath);
@@ -490,13 +499,24 @@ const createTray = () => {
       createTray();
     });
   }
+  const tryMenu = Menu.buildFromTemplate(
+    [
+      {
+        label: isAnyWindowOpen() ? 'Hide' : 'Show', click: (item, window, event) => {
+          if(isAnyWindowOpen()) {
+            sendAppHideNotification();
+          }
 
-  const tryMenu = Menu.buildFromTemplate([
-    {
-      label: isAnyWindowOpen() ? 'Hide' : 'Show',
-      click: (item, window, event) => {
-        if (isAnyWindowOpen()) {
-          sendAppHideNotification();
+          toggleWindow();
+          toggleDockIcon();
+          createTray();
+        }
+      },
+      { type: "separator" },
+      {
+        label: 'Quit', click: (item, window, event) => {
+          forceQuit = true;
+          app.quit();
         }
         toggleWindow();
         toggleDockIcon();
@@ -594,6 +614,7 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
 
   if (arg === 'user-unauthenticated') {
     event.returnValue = 'ok';
+    changeIcon(false);
     unauthenticateUser();
     return;
   }
@@ -604,8 +625,15 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
     return;
   }
 
+  if (arg === 'changeIcon') {
+    changeIcon(obj.isLogged);
+    event.returnValue = 'ok';
+    return;
+  }
+
   if (arg === 'user-authenticated') {
     await handleUserAsAuthenticated(obj);
+    changeIcon(true);
     event.returnValue = 'ok';
   }
 
