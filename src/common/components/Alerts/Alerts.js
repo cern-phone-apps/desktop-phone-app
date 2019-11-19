@@ -10,7 +10,7 @@ export default function Alerts({ alerts, getAlerts, alertSeen }) {
     }
     let alerts_interval = setInterval(() => getAlerts(), 60 * 60 * 1000);
     return () => clearInterval(alerts_interval);
-  }, []);
+  }, [alertSeen, fetched, getAlerts]);
 
   let subject = null;
   let content = null;
