@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import dialBackendApi from 'services/api';
 import Alerts from './Alerts';
+import { alertsActionFactory } from 'dial-core';
 
 function mapStateToProps({ alerts }) {
   return {
@@ -14,7 +15,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getAlerts: dialBackendApi().getAlerts,
-      alertSeen: dialBackendApi().alertSeen
+      alertSeen: alertsActionFactory.alertSeen
     },
     dispatch
   );
