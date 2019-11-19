@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/es/integration/react';
 import { I18nextProvider } from 'react-i18next';
 import ReactPiwik from 'react-piwik';
 import config from 'config';
+import AutoLauncher from 'services/AutoLauncher';
 
 /**
  * Local imports
@@ -56,3 +57,6 @@ export default Main;
 
 ReactDOM.render(<Main />, document.getElementById('root'));
 registerServiceWorker();
+
+const appLauncher = new AutoLauncher();
+appLauncher.enable();
