@@ -5,12 +5,10 @@ const {
   ipcMain,
   Menu,
   Tray,
-  dialog,
-  Notification,
   systemPreferences
 } = require('electron');
 const fs = require('fs');
-const pki = require('node-forge').pki;
+const { pki } = require('node-forge');
 const os = require('os');
 
 const { autoUpdater } = require('electron-updater');
@@ -39,6 +37,7 @@ let code;
 let tray;
 let forceQuit = false;
 let goingToUpdate = false;
+let windowState = "auth";
 
 autoUpdater.on('update-downloaded', () => {
   goingToUpdate = true;
@@ -68,10 +67,20 @@ const handleAuthDidNavigateEvent = (event, url) => {
 };
 
 function isAnyWindowOpen() {
-  return (
-    (mainWindow != null && mainWindow.isVisible()) ||
-    (authWindow != null && authWindow.isVisible())
-  );
+  if (windowState === 'main' && mainWindow) {
+    return mainWindow.isVisible();
+  }
+
+  if (windowState === 'auth' && authWindow) {
+    return authWindow.isVisible();
+  }
+
+  //This is because we don't have logged event and we don't change the state of windowState provisional FIX
+  if (mainWindow) {
+    return mainWindow.isVisible();
+  }
+
+  return false;
 }
 
 const handleAuthDidFinishLoad = () => {
@@ -124,6 +133,7 @@ function unauthenticateUser() {
       mainWindow.destroy();
     }
   });
+  windowState = "auth";
 }
 
 const openLogsFolder = () => {
@@ -437,10 +447,10 @@ function handleCallback(url) {
 // };
 
 const hide = () => {
-  if (mainWindow) {
+  if (mainWindow !== null) {
     mainWindow.hide();
   }
-  if (authWindow) {
+  if (authWindow !== null) {
     authWindow.hide();
   }
   createTray();
@@ -612,7 +622,9 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   if (arg === 'user-authenticated') {
     await handleUserAsAuthenticated(obj);
     changeIcon(true);
+    windowState = 'main';
     event.returnValue = 'ok';
+    return;
   }
 
   if (arg === 'receiveCall') {
