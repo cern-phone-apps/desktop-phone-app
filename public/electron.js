@@ -247,14 +247,6 @@ const menu = Menu.buildFromTemplate([
   }
 ]);
 
-const sendAppHideNotification = () => {
-  const notif = new Notification({
-    title: 'CERN Phone App',
-    body: 'The app has been minimized to tray.'
-  });
-  notif.show();
-};
-
 const showWindow = () => {
   if (mainWindow) {
     mainWindow.show();
@@ -451,10 +443,7 @@ const hide = () => {
   if (authWindow) {
     authWindow.hide();
   }
-  sendAppHideNotification();
-
   createTray();
-
   if (app.dock != null) {
     app.dock.hide();
   }
@@ -503,10 +492,6 @@ createTray = () => {
     {
       label: isAnyWindowOpen() ? 'Hide' : 'Show',
       click: (item, window, event) => {
-        if (isAnyWindowOpen()) {
-          sendAppHideNotification();
-        }
-
         toggleWindow();
         toggleDockIcon();
         createTray();
