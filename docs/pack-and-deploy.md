@@ -6,6 +6,7 @@ The application can be packed in several ways. The important thing to note is th
   - [Packaging for Mac](#packaging-for-mac)
   - [Packaging for Windows](#packaging-for-windows)
   - [Packaging for Linux](#packaging-for-linux)
+  - [Packaging Next](#packaging-next)
 - [Deployment](#deployment)
 
 
@@ -25,8 +26,8 @@ These two values are used for notarizing the application:
 
 ##### Commands
 
-- `pack-mac-prod`: Packages the app without notarazing it. Useful for testing locally.
-- `pack-mac-prod-notarized`: Packages the app and notarizes it using the Apple Services (this is required on >= Mac OS Catalina). It will run the `electron-builder-scripts/notarize.js` after the packaging is complete.
+- `yarn pack-mac-prod`: Packages the app without notarazing it. Useful for testing locally.
+- `yarn pack-mac-prod-notarized`: Packages the app and notarizes it using the Apple Services (this is required on >= Mac OS Catalina). It will run the `electron-builder-scripts/notarize.js` after the packaging is complete.
 
 #### Packaging for Windows
 
@@ -40,16 +41,7 @@ Create a `electorn-builder.env` file with the following values:
 
 ##### Commands
 
-- `pack-windows-prod`: Packages the application for Windows.
-
-#### Packaging for Windows
-
-#### Next
-
-`electron-builder-next.json` file is used to pack the application in `NEXT` mode.
-
-- `electron-pack-next`: Generates packages for Mac, Windows and Linux on the `dist` dir. Sets `REACT_APP_NEXT` to true.
-- `publish-next`: Publish the current version of the app in Github releases, but enables the "beta" channel.
+- `yarn pack-windows-prod`: Packages the application for Windows.
 
 #### Packaging for Linux
 
@@ -57,7 +49,16 @@ On some Linux distros, `--no-sandbox` is needed in order to run the application.
 
 ##### Commands
 
-- `pack-linux-prod`: Packages the application for Linux.
+- `yarn pack-linux-prod`: Packages the application for Linux.
+
+#### Packaging Next
+
+Next version is an alternative version that allows us to test electron-builder builds and point to diffent backends.
+
+`electron-builder-next.json` file is used to pack the application in `NEXT` mode.
+
+- `yarn electron-pack-next`: Generates packages for Mac, Windows and Linux on the `dist` dir. Sets `REACT_APP_NEXT` to true.
+- `yarn publish-next`: Publish the current version of the app in Github releases, but enables the "beta" channel.
 
 ### Deployment
 
