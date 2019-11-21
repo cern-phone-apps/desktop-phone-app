@@ -13,6 +13,9 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 [![Test Coverage](https://api.codeclimate.com/v1/badges/da59b244235bb64bfe28/test_coverage)](https://codeclimate.com/github/cern-phone-apps/desktop-phone-app/test_coverage)
 [![codecov](https://codecov.io/gh/cern-phone-apps/desktop-phone-app/branch/master/graph/badge.svg)](https://codecov.io/gh/cern-phone-apps/desktop-phone-app)
 
+## Packaging and Deployment
+
+- [Packaging and Deployment Docs](docs/pack-and-deploy.md)
 
 ## Development
 
@@ -27,10 +30,6 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 - [Testing the application](#testing-the-application)
     - [Unit tests](#unit-tests)
     - [Integration tests](#integration-tests)
-
-## Packaging and Deployment
-
-- [Packaging and Deployment Docs](docs/pack-and-deploy.md)
 
 ### Requirements
 
