@@ -30,7 +30,7 @@ Dial is a webapp built using React whose purpose is making and receive calls amo
 
 ## Packaging and Deployment
 
-- [Packaging and Deployment Docs](docs/git-basics.md)
+- [Packaging and Deployment Docs](docs/pack-and-deploy.md)
 
 ### Requirements
 
