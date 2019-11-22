@@ -19,12 +19,27 @@ const storage = require('electron-json-storage');
 const openAboutWindow = require('about-window').default;
 const keytar = require('keytar');
 const log = require('electron-log');
+const { AutoLauncher } = require('./AutoLauncher');
 const { checkForUpdates } = require('./updater');
 
 const logFormat = '{level} | {y}-{m}-{d} {h}:{i}:{s}:{ms} | {text}';
 log.transports.rendererConsole.level = false;
 log.transports.console.level = false;
 log.transports.file.level = false;
+
+function handleConfigUpdate() {
+  const autoStartTask = AutoLauncher.enable();
+  autoStartTask
+    .then(() => {
+      console.log('config.autostart has been configured');
+    })
+    .catch(err => {
+      console.log('error:', err);
+    });
+}
+
+handleConfigUpdate();
+
 if (!isDev) {
   log.transports.file.level = 'debug';
   log.transports.file.format = logFormat;
@@ -37,7 +52,7 @@ let code;
 let tray;
 let forceQuit = false;
 let goingToUpdate = false;
-let windowState = "auth";
+let windowState = 'auth';
 
 autoUpdater.on('update-downloaded', () => {
   goingToUpdate = true;
@@ -133,7 +148,7 @@ function unauthenticateUser() {
       mainWindow.destroy();
     }
   });
-  windowState = "auth";
+  windowState = 'auth';
 }
 
 const openLogsFolder = () => {
