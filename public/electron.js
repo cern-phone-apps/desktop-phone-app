@@ -23,19 +23,23 @@ const { AutoLauncher } = require('./AutoLauncher');
 const { checkForUpdates } = require('./updater');
 
 const logFormat = '{level} | {y}-{m}-{d} {h}:{i}:{s}:{ms} | {text}';
+let autoStartTask = null;
 log.transports.rendererConsole.level = false;
 log.transports.console.level = false;
 log.transports.file.level = false;
 
 function handleConfigUpdate() {
-  const autoStartTask = AutoLauncher.enable();
-  autoStartTask
-    .then(() => {
-      console.log('config.autostart has been configured');
-    })
-    .catch(err => {
-      console.log('error:', err);
-    });
+  storage.get('autostart', (error, data) => {
+    if (error) return;
+    autoStartTask = data ? AutoLauncher.enable() : AutoLauncher.disable();
+    autoStartTask
+      .then((temp) => {
+        console.log(`Autostart is at: ${data}`);
+      })
+      .catch(err => {
+        console.log('error:', err);
+      });
+  });
 }
 
 handleConfigUpdate();
@@ -462,10 +466,10 @@ function handleCallback(url) {
 // };
 
 const hide = () => {
-  if (mainWindow !== null) {
+  if (mainWindow != null) {
     mainWindow.hide();
   }
-  if (authWindow !== null) {
+  if (authWindow != null) {
     authWindow.hide();
   }
   createTray();
@@ -682,6 +686,24 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
   if (arg === 'getUpdateChannelValue') {
     console.log('GetUpdateChannel');
     storage.get('update_channel', (error, data) => {
+      if (error) event.returnValue = 'error';
+      event.returnValue = data;
+    });
+  }
+
+  if (arg === 'setAutoStart') {
+    storage.set('autostart', obj.value, error => {
+      if (error) {
+        event.returnValue = 'error';
+      } else {
+        obj.value ? AutoLauncher.enable() : AutoLauncher.disable();
+        event.returnValue = 'ok';
+      }
+    });
+  }
+
+  if (arg === 'getAutoStart') {
+    storage.get('autostart', (error, data) => {
       if (error) event.returnValue = 'error';
       event.returnValue = data;
     });
