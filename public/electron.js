@@ -31,14 +31,25 @@ log.transports.file.level = false;
 function handleConfigUpdate() {
   storage.get('autostart', (error, data) => {
     if (error) return;
-    autoStartTask = data ? AutoLauncher.enable() : AutoLauncher.disable();
-    autoStartTask
-      .then((temp) => {
-        console.log(`Autostart is at: ${data}`);
-      })
-      .catch(err => {
-        console.log('error:', err);
-      });
+
+    AutoLauncher.isEnabled().then(isEnabled => {
+      if ((isEnabled && data) || (!isEnabled && !data)) {
+        return;
+      }
+
+      autoStartTask = isEnabled
+        ? AutoLauncher.enable()
+        : AutoLauncher.disable();
+      storage.set('autostart', isEnabled);
+
+      autoStartTask
+        .then(() => {
+          console.log(`Autostart is at: ${data}`);
+        })
+        .catch(err => {
+          console.log('error:', err);
+        });
+    });
   });
 }
 
