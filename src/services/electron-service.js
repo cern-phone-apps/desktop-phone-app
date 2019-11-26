@@ -101,6 +101,18 @@ class ElectronService {
     const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'getUpdateChannelValue');
     return result;
   };
+
+  static setAutoStart = value => {
+    const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'setAutoStart', {
+      value
+    });
+    return result;
+  };
+
+  static getAutoStart = () => {
+    const result = ipcRenderer.sendSync(SYNC_MESSAGE, 'getAutoStart');
+    return result;
+  };
 }
 
 export default ElectronService;
