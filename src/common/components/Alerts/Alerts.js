@@ -26,7 +26,13 @@ export default function Alerts({ alerts, getAlerts, alertSeen }) {
   return (
     <Message
       negative
-      style={{ position: 'absolute', bottom: '2%', right: '2%', width: '40%' }}
+      style={{
+        position: 'absolute',
+        bottom: '2%',
+        right: '2%',
+        width: '40%',
+        zIndex: 999999
+      }}
     >
       <Message.Header>
         {subject}

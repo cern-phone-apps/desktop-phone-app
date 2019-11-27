@@ -11,6 +11,7 @@ import { DownloadDebugLogsButton } from 'debug/components/DownloadDebugLogsButto
 import SettingsButtonContainer from 'common/components/SettingsButton/SettingsButtonContainer';
 import SettingsModalContainer from 'settings/components/SettingsModal/SettingsModalContainer';
 import OnlineConnectionBannerContainer from 'common/components/OnlineStatusBanner/OnlineStatusBannerContainer';
+import AlertsContainer from 'common/components/Alerts/AlertsContainer';
 
 const electron = window.require('electron');
 const { ipcRenderer } = electron;
@@ -52,6 +53,7 @@ function NotConnectedScreen({ isAuthenticated, connected, logout }) {
       <OnlineConnectionBannerContainer style={{ position: 'fixed' }} />
       <SettingsModalContainer />
       <SelectPhoneNumberModal />
+      <AlertsContainer />
     </ErrorBoundary>
   );
 }
