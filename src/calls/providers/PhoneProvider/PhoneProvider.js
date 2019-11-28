@@ -157,6 +157,7 @@ export default class PhoneProvider extends React.Component {
     // logEvent('calls', `authenticate`, `user: ${username}.`);
     toneOutMessage(`Authenticating user: **<phone number>**/**<password>**`);
     requestRegistration();
+
     /**
      * If there is an authToken, we use that token. Else, we use the already encrypted token provided by the api
      */
@@ -186,6 +187,7 @@ export default class PhoneProvider extends React.Component {
 
         setTimeout(() => {
           const { connected } = this.props;
+
           if (!connected && !navigator.onLine) {
             const failedError = {
               code: {
@@ -337,6 +339,7 @@ export default class PhoneProvider extends React.Component {
     requestDisconnection(true);
     try {
       toneAPI.stopAgent();
+      ElectronService.changeTrayIcon(false);
     } catch (error) {
       errorMessage(error);
     }
@@ -392,8 +395,8 @@ export default class PhoneProvider extends React.Component {
 
   handleRegisteredEvent = () => {
     const { setRegistrationSuccess } = this.props;
-    setRegistrationSuccess();
     ElectronService.changeTrayIcon(true);
+    setRegistrationSuccess();
   };
 
   handleAdditionalCall = () => {};
@@ -516,7 +519,7 @@ export default class PhoneProvider extends React.Component {
 
   handleRegistrationFailedEvent = event => {
     const { setRegistrationFailure } = this.props;
-
+    ElectronService.changeTrayIcon(false);
     const failedError = {
       code: {
         status_code: 'UA-2'
