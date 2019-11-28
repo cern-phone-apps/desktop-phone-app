@@ -651,7 +651,6 @@ const ipcHandleSyncMessages = async (event, arg, obj = null) => {
 
   if (arg === 'user-authenticated') {
     await handleUserAsAuthenticated(obj);
-    changeIcon(true);
     windowState = 'main';
     event.returnValue = 'ok';
     return;
