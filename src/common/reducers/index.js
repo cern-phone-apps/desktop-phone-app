@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import sidebar from './sidebar';
+import sound from './sound';
 import notifications from './notifications';
 
 /**
@@ -8,7 +9,8 @@ import notifications from './notifications';
  */
 const commonReducer = combineReducers({
   sidebar,
-  notifications
+  notifications,
+  sound
 });
 
 export default commonReducer;

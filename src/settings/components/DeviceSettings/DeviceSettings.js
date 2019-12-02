@@ -9,15 +9,19 @@ import SpeakersRingtoneFieldContainer from 'settings/components/DeviceSettings/S
 
 export class DeviceSettings extends Component {
   static propTypes = {
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    ringTone: PropTypes.func.isRequired,
+    ringBackTone: PropTypes.func.isRequired
   };
 
   playSound = () => {
-    document.getElementById('ringbackTone').play();
+    const { ringBackTone } = this.props;
+    ringBackTone(true);
   };
 
   stopSound = () => {
-    document.getElementById('ringbackTone').pause();
+    const { ringBackTone } = this.props;
+    ringBackTone(false);
   };
 
   render() {

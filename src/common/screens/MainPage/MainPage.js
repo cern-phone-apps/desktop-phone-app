@@ -6,8 +6,7 @@ import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import DetectRTC from 'detectrtc';
 import {
   getUserDevices,
-  changeAudioInputDestination,
-  changeRingToneDestination
+  changeAudioInputDestination
 } from 'settings/utils/devices';
 
 import './MainPage.css';
@@ -153,7 +152,6 @@ export class MainPage extends Component {
     }
     this.props.setSpeaker('default');
     changeAudioInputDestination('default');
-    changeRingToneDestination('default');
 
     return false;
   }

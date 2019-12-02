@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { changeRingToneDestination } from 'settings/utils/devices';
 import {
   DeviceField,
   devicePropTypes
@@ -35,12 +34,10 @@ export class SpeakersRingtoneField extends DeviceField {
         hasDevice: DetectRTC.hasSpeakers
       });
     });
-    changeRingToneDestination(this.state.device);
   };
 
   selectDevice = value => {
     this.props.setSpeakerRingtone(value);
-    changeRingToneDestination(value);
   };
 }
 

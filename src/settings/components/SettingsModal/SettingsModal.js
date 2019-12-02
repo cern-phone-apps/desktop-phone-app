@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { Icon, Modal, Menu, Header, Divider } from 'semantic-ui-react';
 
-import DeviceSettings from 'settings/components/DeviceSettings/DeviceSettings';
+import DeviceSettingsContainer from 'settings/components/DeviceSettings/DeviceSettingsContainer';
 import PersonalInfo from 'settings/components/PersonalInfo/PersonalInfo';
 import AppInfo from 'settings/components/AppInfo/AppInfo';
 import LogoutButtonContainer from 'auth/components/LogoutButton/LogoutButtonContainer';
@@ -73,7 +73,7 @@ export class SettingsModal extends Component {
             <Divider clearing />
             <SendStatsSettingsContainer />
             <Divider clearing />
-            <DeviceSettings />
+            <DeviceSettingsContainer />
             <Divider clearing />
             <ClearRecentCallsContainer />
             <Divider clearing />

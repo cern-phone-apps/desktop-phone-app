@@ -13,8 +13,6 @@ import {
 
 import ElectronService from 'services/electron-service';
 
-const ringToneId = 'ringTone';
-const ringBackToneId = 'ringbackTone';
 const callInputId = 'callsAudioInput';
 
 /**
@@ -32,6 +30,8 @@ export default class PhoneProvider extends React.Component {
       onCall: PropTypes.bool
     }),
     // Calls funcs
+    ringTone: PropTypes.func.isRequired,
+    ringBackTone: PropTypes.func.isRequired,
     requestRegistration: PropTypes.func.isRequired,
     setRegistrationSuccess: PropTypes.func.isRequired,
     requestDisconnection: PropTypes.func.isRequired,
@@ -269,23 +269,15 @@ export default class PhoneProvider extends React.Component {
   };
 
   playRingbacktone = () => {
-    document
-      .getElementById(ringBackToneId)
-      .play()
-      .catch(() => {
-        errorMessage('RingbackTone play() raised an error.');
-      });
+    const { ringBackTone } = this.props;
+    ringBackTone(true);
   };
 
   playRingTone = () => {
     const { doNotDisturb } = this.props;
     if (!doNotDisturb) {
-      document
-        .getElementById(ringToneId)
-        .play()
-        .catch(() => {
-          errorMessage('RingTone play() raised an error.');
-        });
+      const { ringTone } = this.props;
+      ringTone(true);
     }
   };
 
@@ -295,14 +287,13 @@ export default class PhoneProvider extends React.Component {
   };
 
   stopRingbacktone = () => {
-    document.getElementById(ringBackToneId).pause();
+    const { ringBackTone } = this.props;
+    ringBackTone(false);
   };
 
   stopRingTone = () => {
-    const { doNotDisturb } = this.props;
-    if (!doNotDisturb) {
-      document.getElementById(ringToneId).pause();
-    }
+    const { ringTone } = this.props;
+    ringTone(false);
   };
 
   receiveCall = ({ callerNumber, callerName }) => {
