@@ -13,7 +13,6 @@ import {
 
 import ElectronService from 'services/electron-service';
 
-const ringToneId = 'ringTone';
 const callInputId = 'callsAudioInput';
 
 /**
