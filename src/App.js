@@ -9,6 +9,7 @@ import NotConnectedScreenContainer from 'calls/screens/CallsScreen/NotConnectedS
 import * as routes from 'routes';
 import * as loginRoutes from 'auth/routes';
 import { registerRoute } from 'calls/routes';
+import SoundOutputProvider from 'external/SoundOutputProvider';
 
 const NoMatch = ({ location }) => (
   <div>
@@ -30,6 +31,7 @@ NoMatch.propTypes = {
 function App() {
   return (
     <React.Fragment>
+      <SoundOutputProvider />
       <Switch>
         <Route
           path={registerRoute.path}

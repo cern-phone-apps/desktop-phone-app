@@ -17,7 +17,8 @@ const blacklistLoginFilter = createBlacklistFilter('auth', [
 
 const blacklistCommonFilter = createBlacklistFilter('common', [
   'notifications',
-  'sidebar'
+  'sidebar',
+  'sound'
 ]);
 const blacklistSettingsFilter = createBlacklistFilter('settings', ['modal']);
 

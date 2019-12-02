@@ -35,12 +35,10 @@ export class SpeakersRingtoneField extends DeviceField {
         hasDevice: DetectRTC.hasSpeakers
       });
     });
-    changeRingToneDestination(this.state.device);
   };
 
   selectDevice = value => {
     this.props.setSpeakerRingtone(value);
-    changeRingToneDestination(value);
   };
 }
 

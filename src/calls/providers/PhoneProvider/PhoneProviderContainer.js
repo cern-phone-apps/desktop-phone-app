@@ -9,6 +9,7 @@ import {
   authActions
 } from 'dial-core';
 
+import { ringTone, ringBackTone } from 'common/actions/sound';
 import { info, success, warning } from 'common/actions/notifications';
 import PhoneProvider from 'calls/providers/PhoneProvider/PhoneProvider';
 import { withPhoneService } from 'calls/providers/PhoneProvider/PhoneService';
@@ -35,7 +36,9 @@ export function mapDispatchToProps(dispatch) {
       ...recentCallsActions,
       success,
       info,
-      warning
+      warning,
+      ringTone,
+      ringBackTone
     },
     dispatch
   );

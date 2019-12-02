@@ -68,21 +68,6 @@ function gotStream(stream) {
 }
 
 /**
- * This function will set the audio of the ringtones to the
- * selected device.
- * @param sinkId The id of the device that will be set.
- */
-export function changeRingToneDestination(sinkId) {
-  /**
-   * We need to loop through all the different application's audio inputs
-   * in order to configure their sound.
-   * @type {string[]}
-   */
-  let audioIds = ['ringbackTone', 'ringTone'];
-  changeAudioDestination(sinkId, audioIds);
-}
-
-/**
  * This function will set the audio of the input call to the
  * selected device.
  * @param sinkId The id of the device that will be set.
