@@ -63,7 +63,7 @@ export class OnCallDetails extends Component {
               {caller ? caller.phoneNumber : 'Unknow number'}
             </h2>
             <div className="ui center aligned basic segment">
-              <Timer startTime={call.startTime} />
+              <Timer startTime={call.remote.startTime} />
             </div>
             <div className="ui center aligned basic segment">
               <HangupButton onClick={() => this.hangup()} />
