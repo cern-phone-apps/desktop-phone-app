@@ -7,8 +7,8 @@ const repeat = function() {
   this.play();
 };
 
-const routeRingBackTone = '/sounds/ringbacktone.wav';
-const routeRingTone = '/sounds/ringtone.wav';
+const routeRingBackTone = `${process.env.PUBLIC_URL}/sounds/ringbacktone.wav`;
+const routeRingTone = `${process.env.PUBLIC_URL}/sounds/ringtone.wav`;
 const ringToneAudio = new Audio(routeRingTone);
 const ringBackToneAudio = new Audio(routeRingBackTone);
 ringToneAudio.addEventListener('ended', repeat, false);
