@@ -47,7 +47,7 @@ export class SettingsModal extends Component {
   };
 
   render() {
-    const { t, modalOpen } = this.props;
+    const { t, modalOpen, onCall } = this.props;
     // this fix is needed in order to center the modal on the screen. (Semantic UI bug)
     return (
       <Modal
@@ -73,7 +73,11 @@ export class SettingsModal extends Component {
             <Divider clearing />
             <SendStatsSettingsContainer />
             <Divider clearing />
-            <DeviceSettingsContainer />
+            {onCall ? (
+              <DeviceSettingsContainer />
+            ) : (
+              <Header as="h5">Device settings disabled during a call</Header>
+            )}
             <Divider clearing />
             <ClearRecentCallsContainer />
             <Divider clearing />
