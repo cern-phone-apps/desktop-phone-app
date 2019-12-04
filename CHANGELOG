@@ -10,6 +10,27 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.8 -2019-12-04
+### Added
+- Tray icon color now changes (blue/red) depending if the user is connected (PR #227, PR #245)
+- Support to select the ringing output device, independent from the call sound (PR #246)
+- Alerts from the backend are now displayed in the application (PR #229, PR #230, PR #234, PR #243)
+- Application autostart when the system boots (PR #235, PR #238, PR #239)
+  - Please check the [FAQS](https://github.com/cern-phone-apps/desktop-phone-app/blob/master/docs/faqs.md) to know more about this feature under Linux.
+
+### Removed
+- "Minimized to tray" notification is not displayed anymore (PR #236)
+
+### Fixed
+- Some cases where the output/input devices were not saved properly (PR #215)
+- Logout from the not connected screen should work again (PR #217)
+- Recent calls should display the correct date (PR #223)
+- DTMF commands should work again (PR #233)
+- Call duration timer should display the correct time (PR #248)
+
+### Improved
+- Replaced Raven.js by Sentry in order to make the app compatible with the Sentry Backend (PR #211)
+- More information provided to the packaging process (PR #210)
 
 ## w0.5.7 -2019-10-29
 ### Added
