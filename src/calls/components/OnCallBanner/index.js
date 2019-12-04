@@ -1,14 +1,11 @@
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import OnCallBanner from "./OnCallBanner";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import OnCallBanner from './OnCallBanner';
 
-function mapStateToProps ({calls}) {
+function mapStateToProps({ call }) {
   return {
-    caller: calls.call.remote,
-  }
+    caller: call.remote
+  };
 }
 
-export default withRouter(connect(
-  mapStateToProps,
-  null
-)(OnCallBanner))
+export default withRouter(connect(mapStateToProps, null)(OnCallBanner));
