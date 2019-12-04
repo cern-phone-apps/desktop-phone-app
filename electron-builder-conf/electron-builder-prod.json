@@ -13,7 +13,7 @@
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "category": "public.app-category.social-networking",
-      "target": "dmg",
+      "target": ["dmg", "zip"],
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
       "extendInfo": {
