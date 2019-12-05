@@ -73,7 +73,7 @@ export class SettingsModal extends Component {
             <Divider clearing />
             <SendStatsSettingsContainer />
             <Divider clearing />
-            {onCall ? (
+            {!onCall ? (
               <DeviceSettingsContainer />
             ) : (
               <Header as="h5">Device settings disabled during a call</Header>
