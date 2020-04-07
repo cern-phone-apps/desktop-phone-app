@@ -10,6 +10,11 @@ This project adheres to [Dial Webapp](https://github.com/cern-dialtone/dial-weba
 ### Improved
 - XXX
 
+## w0.5.9 -2020-04-07
+
+### Fixed
+- Fix error in dependency minimist (PR #255)
+
 ## w0.5.8 -2019-12-04
 ### Added
 - Tray icon color now changes (blue/red) depending if the user is connected (PR #227, PR #245)
