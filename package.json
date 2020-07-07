@@ -136,7 +136,7 @@
     "cross-env": "^5.1.5",
     "devtron": "^1.4.0",
     "dotenv": "^8.2.0",
-    "electron": "^5.0.6",
+    "electron": "^7.2.4",
     "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-notarize": "^0.1.1",
